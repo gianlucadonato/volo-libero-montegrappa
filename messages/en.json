@@ -1,645 +1,643 @@
 {
-  "LocaleSwitcher": {
-    "it": "Italian",
-    "en": "English",
-    "label": "Language",
-    "select_language": "Select language",
-    "settings": {
-      "title": "Language",
-      "description": "Select your preferred language."
-    }
-  },
-  "FormMessageI18N": {
-    "required": "Required"
-  },
-  "NotFoundPage": {
-    "title": "Page not found", 
-    "description": "The page you are looking for does not exist!",
-    "back_to": "Back to"
-  },
-  "Navbar": {
-    "member_area": "Member Area",
-    "login": "Login",
-    "signup": "Join the club",
-    "profile": "Profile"
-  },
-  "NavMobile": {
-    "member_area": "Member Area",
-    "admin": "Admin",
-    "login": "Login",
-    "signup": "Join the club",
-    "profile": "Profile",
-    "events": "Events",
-    "weather": "Weather"
-  },
-  "NavMain": {
-    "menu": "Menu",
-    "options": "Options",
-    "admin": "Admin Panel",
-    "club": "The Club",
-    "area_di_volo": "Flying Area",
-    "decolli": "Take-offs",
-    "atterraggi": "Landings",
-    "directions": "How to get here",
-    "contacts": "Contacts",
-    "homepage": "Homepage",
-    "dashboard": "Dashboard",
-    "profile": "Profile",
-    "orders": "Orders",
-    "weather": "Weather",
-    "events": "Events",
-    "membership": "Membership",
-    "cards": "Your cards",
-    "support": "Support",
-    "users": "Users",
-    "payments": "Payments",
-    "documentation": "Documentation",
-    "settings": "Settings"
-  },
-  "NavAuth": {
-    "access": "Access",
-    "login": "Login",
-    "signup": "Join the club!"
-  },
-  "Homepage": {
-    "header_subtitle": "years in the clouds",
-    "join_the_club": "Join the club",
-    "info_1": {
-      "title": "THE REFERENCE POINT",
-      "title_2": "FOR FREE FLIGHT IN VENETO",
-      "description": "The ASD Volo Libero Montegrappa was founded in 1979 by a group of friends and pilots, with the aim of promoting free flight around Borso Del Grappa, an area that over the years has established itself as the undisputed destination for thousands of Italian and foreign pilots. Since the 1970s, with the first hang gliders, and then from the late 1980s with paragliding, Borso del Grappa has seen many pilots born and helped them grow in this sport thanks to the special aerological characteristics of the area, its wide take-offs easily accessible, and the almost total absence of strong winds. Perfect characteristics both for beginners and for more experienced pilots who intend to undertake cross-country flights and competitions."
-    },
-    "info_2": {
-      "title": "Useful information",
-      "description": "",
-      "weather": {
-        "title": "Weather",
-        "description": "Check the weather data and plan your flight safely"
-      },
-      "fly_area": {
-        "title": "Flying area",
-        "description": "Take-offs, landings, and practical information for flying on Grappa"
-      },
-      "info": {
-        "title": "Practical information",
-        "description": "All the information for members: registrations, renewals, medical visits..."
-      }
-    }
-  },
-  "SidebarLinks": {
-    "menu": "Menu",
-    "options": "Options",
-    "admin": "Admin Panel",
-    "homepage": "Homepage",
-    "dashboard": "Dashboard",
-    "profile": "Profile",
-    "orders": "Orders",
-    "weather": "Weather",
-    "events": "Events",
-    "membership": "Membership",
-    "cards": "Your cards",
-    "settings": "Settings",
-    "documentation": "Documentation",
-    "support": "Support"
-  },
-  "LoginPage": {
-    "welcome": "Welcome! 👋",
-    "access_account": "Access your account",
-    "dont_have_account": "Don't have an account? Sign Up"
-  },
-  "ResetPasswordPage": {
-    "title": "Reset Password",
-    "description": "Insert your email and we will send you a link to reset your password",
-    "submit": "Send reset email",
-    "back_to_login": "Back to login",
-    "email_sent": {
-      "title": "Email sent successfully!",
-      "description": "We have sent you a link to reset your password. Check your email inbox!"
-    },
-    "errors": {
-      "message": "Error.",
-      "description": "An error occurred while sending the reset email",
-      "not_found": "The email does not exist!",
-      "validation": "An error occurred, please try again later"
-    },
-    "success": {
-      "message": "Email sent successfully!",
-      "description": "We have sent you a link to reset your password"
-    }
-  },
-  "NewPasswordPage": {
-    "title": "Reset Password",
-    "description": "Insert the new password",
-    "submit": "Send",
-    "back_to_login": "Back to login",
-    "new_password": "New Password",
-    "confirm_password": "Confirm Password",
-    "errors": {
-      "message": "Error.",
-      "missing_token": "Missing token!",
-      "password_mismatch": "The passwords do not match!",
-      "invalid_token": "Invalid token!",
-      "token_expired": "Token expired!",
-      "unknown": "An error occurred, please try again later"
-    },
-    "success": {
-      "message": "OK!",
-      "description": "The password has been reset successfully!"
-    }
-  },
-  "LoginForm": {
-    "forgot_password": "Forgot your password?",
-    "submit": "Sign in",
-    "continue_with": "Or continue with",
-    "errors": {
-      "message": "Something went wrong.",
-      "validation": "Validation error",
-      "not_found": "Email does not exist!",
-      "invalid_credentials": "Invalid credentials!",
-      "invalid_callback_url": "Credenziali non valide!",
-      "unknown": "An error occurred, please try again later",
-      "email": {
-        "invalid_string": "Invalid email"
-      },
-      "password": {
-        "too_small": "String must contain at least 3 character(s)"
-      }
-    }
-  },
-  "SignupPage": {
-    "join_the_club": "JOIN THE CLUB!",
-    "membership": "Membership",
-    "membership_description": "Membership to the Club Montegrappa {NEXT_YEAR}",
-    "signup": "Sign up"
-  },
-  "SignupForm": {
-    "account_details": "Account details",
-    "personal_details": "Personal details",
-    "submit": "Sign up",
-    "email": "Email",
-    "first_name": "First Name",
-    "last_name": "Last Name",
-    "place_of_birth": "Place of birth",
-    "date_of_birth": "Date of birth",
-    "street_address": "Street Address",
-    "fiscal_code": "Fiscal Code",
-    "city": "City",
-    "zip_code": "Zip Code",
-    "province": "Province",
-    "state": "State",
-    "phone": "Phone Number",
-    "size": "Clothing Size",
-    "gender": "Gender",
-    "sport": "Sport",
-    "select_size": "Select Size",
-    "select_gender": "Select Gender",
-    "male": "Male",
-    "female": "Female",
-    "select_sport": "Select Sport",
-    "paragliding": "Paragliding",
-    "hang_gliding": "Hang Gliding",
-    "paramotor": "Paramotor",
-    "nothing": "Nothing",
-    "vds_license": "VDS License / FIVL Number",
-    "vds_number": "VDS License n°",
-    "vds_release_date": "Released on",
-    "medical_exam_valid_date": "Medical exam valid until",
-    "fivl_number": "FIVL Card n°",
-    "privacy_policy_description_1": "I have read the",
-    "privacy_policy_description_2": "and I accept the",
-    "terms_and_conditions": "Terms and Conditions",
-    "email_consent": "Email consent",
-    "email_consent_description": "I agree to receive emails from the club",
-    "save": "Save",
-    "error": {
-      "title": "Something went wrong.",
-      "already_exists": "User already exists!",
-      "validation": "Invalid data"
-    }
-  },
-  "UpgradeCard": {
-    "become_member": "Become a member!",
-    "membership_description": "Join the Club Montegrappa and participate in our activities!",
-    "join_the_club": "Join the club"
-  },
-  "MembershipPage": {
-    "join_the_club": "JOIN THE CLUB!",
-    "join_the_club_subtext": "Become a member or renew your club membership!",
-    "signup": "Sign up"
-  },
-  "PurchaseMembershipCard": {
-    "membership": "Membership",
-    "membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR} (30€)",
-    "or": "or",
-    "pay_with_bank_transfer": "Pay with bank transfer",
-    "membership_club": "Club Membership {NEXT_YEAR}",
-    "membership_flycard": "Coupon FlyCard {NEXT_YEAR}",
-    "alert_title": "Attention!",
-    "alert_description": "You are already a member for the year {NEXT_YEAR}. It is not possible to purchase more than one membership per year!",
-    "PricingCard": {
-      "selected": "Membership {NEXT_YEAR}",
-      "membership_price": "Membership price",
-      "includes": "Includes"
-    },
-    "info": {
-      "membership": {
-        "title": "MEMBERSHIP",
-        "description": "From <strong>January 1st {NEXT_YEAR}</strong>, registrations for Club Volo Libero Montegrappa are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
-      },
-      "flycard": {
-        "title": "FLYCARD",
-        "description": "To fly in the Monte Grappa area using the facilities managed by the Tourism Consortium <i>Vivere il Grappa</i> (take-offs and landings), you must have the <strong>Flycard</strong>, which can be purchased according to the methods and costs indicated on the Consortium's official website: <link1>https://flycard.vivereilgrappa.it</link1>"
-      },
-      "news": {
-        "title": "WHAT'S NEW FOR {NEXT_YEAR}",
-        "description": "Thanks to an exclusive collaboration agreement reserved for members of Club Volo Libero Montegrappa, a promotion is available for purchasing the <strong>annual Flycard at a discounted price of 10€</strong>. The Flycard is <strong>not included</strong> in the membership fee.<br></br><br></br> <span>How it works:</span> <br></br> From <strong>January 1st to March 1st</strong>, upon completing your Club registration, you will receive a <strong>promotional code</strong> to use for purchasing the Flycard at the promotional price reserved for members. <br></br> The code is personal and unique, can be used only once, and is not transferable to third parties. The code will be sent via email upon payment completion and will always remain available in your reserved area on the website."
-      },
-      "important": {
-        "title": "ATTENTION!",
-        "description": "Membership to Club Volo Libero Montegrappa does not automatically grant immediate right to use the promotion. It is therefore recommended to purchase the Flycard several days in advance of the expected date of use.<br></br> For purchase conditions and regulations, please refer to the Vivere il Grappa Consortium website <link1>https://flycard.vivereilgrappa.it/rules</link1>.<br></br><br></br>⚠️ For foreign pilots without an Italian Tax Code: to request membership to Club Volo Libero Montegrappa and take advantage of the Flycard promotion, it is necessary to send a request via email to <strong>info@vololiberomontegrappa.it</strong>."
-      }
-    }
-  },
-  "PurchaseButton": {
-    "submit": "PAY NOW",
-    "redirecting_to_checkout": "Redirecting to checkout..."
-  },
-  "MembershipsTable": {
-    "valid": "Valid",
-    "expired": "Expired",
-    "your_memberships": "Your membership cards",
-    "name": "Name",
-    "status": "Status",
-    "registered_at": "Registered at",
-    "valid_until": "Validity",
-    "invoice": "Invoice",
-    "active": "Active",
-    "from": "from",
-    "to": "to"
-  },
-  "PurchaseSuccessCard": {
-    "title": "Payment successful!",
-    "description": "Thank you for joining the Club Montegrappa!",
-    "description_2": "You will receive a confirmation email shortly.",
-    "view_cards_action": "View your membership"
-  },
-  "ProfilePage": {
-    "member_from": "Member since",
-    "notifications": {
-      "ok": "OK",
-      "error": "Error",
-      "edit": {
-        "success": "Profile updated successfully!",
-        "error": "An error occurred while updating the profile"
-      }
-    }
-  },
-  "ProfileView": {
-    "profile_details": "Personal details",
-    "edit": "Edit",
-    "save": "Save",
-    "cancel": "Cancel",
-    "member_cards": "My membership cards",
-    "your_memberships": "My membership cards",
-    "your_memberships_description": "View all your active membership cards",
-    "payments": "Payments"
-  },
-  "ProfileDetails": {
-    "email": "Email",
-    "first_name": "First Name",
-    "last_name": "Last Name",
-    "fiscal_code": "Fiscal Code",
-    "place_of_birth": "Place of birth",
-    "date_of_birth": "Date of birth",
-    "street_address": "Street Address",
-    "city": "City",
-    "zip_code": "Zip Code",
-    "province": "Province",
-    "state": "State",
-    "phone": "Phone Number",
-    "size": "Clothing Size",
-    "sport": "Sport",
-    "paragliding": "Paragliding",
-    "hang_gliding": "Hang Gliding",
-    "paramotor": "Paramotor",
-    "nothing": "Nothing",
-    "vds_number": "VDS License n°",
-    "vds_release_date": "Released on",
-    "medical_exam_valid_date": "Medical exam valid until",
-    "fivl_number": "FIVL Card n°"
-  },
-  "TelegramCard": {
-    "title": "Join our Telegram group!",
-    "description": "Stay updated on the latest news and events",
-    "scan_code": "Scan the QR code to access the group",
-    "click_below": "Or click the link below",
-    "join_group_action": "Join the group"
-  },
-  "AdminPage": {
-    "header_title": "Admin Panel",
-    "header_description": "Welcome to the Club Montegrappa admin area!",
-    "users": "Users",
-    "members": "Members",
-    "not_members": "Not registered",
-    "male": "Male",
-    "female": "Female"
-  },
-  "UsersList": {
-    "name": "Name",
-    "view_all": "View all",
-    "created_at": "Registered at",
-    "users_description": "All registered users of Club Montegrappa",
-    "members": "Members",
-    "not_members": "Not registered",
-    "role": "Role",
-    "members_description": "All members of Club Montegrappa"
-  },
-  "UsersDataTable": {
-    "select_all": "Select all",
-    "select_row": "Select row",
-    "open_menu": "Open menu",
-    "actions": "Actions",
-    "details": "Details",
-    "header": {
-      "name": "Name",
-      "created_at": "Data Iscrizione",
-      "role" : "Ruolo"
-    },
-    "filter_by_email": "Filter by email",
-    "filter_by_name": "Filter by name",
-    "filter_by_role": "Filter by role",
-    "role": {
-      "member": "Member",
-      "user": "Not Member",
-      "MEMBER": "member",
-      "USER": "not member",
-      "all": "Reset"
-    },
-    "no_results": "Nessun risultato trovato.",
-    "previous": "Previous",
-    "next": "Next",
-    "insert_member": "Inserisci Socio",
-    "insert_payment": {
-      "title": "Inserisci i dati del pagamento",
-      "description": "Questa operazione renderà l'utente socio del club",
-      "submit": "Inserisci Pagamento"
-    },
-    "user": "Utente"
-  },
-  "AdminUsersPage": {
-    "header_title": "User/Member Management",
-    "header_description": "View and manage registered users",
-    "search_placeholder": "Cerca utenti...",
-    "search_button": "Cerca",
-    "search_results": "Risultati ricerca",
-    "no_results": "Nessun risultato trovato",
-    "view_profile": "Visualizza Profilo",
-    "edit_profile": "Modifica Profilo",
-    "delete_user": "Elimina Utente"
-  },
-  "AdminUserView": {
-    "MEMBER": "MEMBER",
-    "USER": "USER",
-    "back": "Back",
-    "edit": "Edit",
-    "cancel": "Cancel",
-    "member_cards": "Member Cards",
-    "payments": "Payments"
-  },
-  "PaymentsTable": {
-    "payment_date": "Payment Date",
-    "payment_method": "Payment Method",
-    "amount": "Amount",
-    "description": "Description",
-    "id_transaction": "ID Transaction",
-    "invoice": "Invoice",
-    "card": "Card",
-    "bank_transfer": "Bank Transfer",
-    "cash": "Cash",
-    "note": "Note",
-    "creator": "Creator"
-  },
-  "DataTable": {
-    "select_all": "Select all",
-    "select_row": "Select row",
-    "open_menu": "Open menu",
-    "actions": "Actions",
-    "details": "Details",
-    "header": {
-      "name": "Name",
-      "created_at": "Registered at"
-    },
-    "filter_by_email": "Filter by email",
-    "filter_by_name": "Filter by name",
-    "filter_by_payment_method": "Filter by type",
-    "all": "All",
-    "card": "Card",
-    "bank_transfer": "Bank Transfer",
-    "cash": "Cash",
-    "columns": {
-      "buttonText": "Columns",
-      "memberId": "Member ID",
-      "email": "Email",
-      "fullName": "Name",
-      "firstName": "First Name",
-      "createdAt": "Registered at"    
-    },
-    "no_results": "No Results.",
-    "previous": "Previous",
-    "next": "Next",
-    "insert_member": "Upgrade to Member",
-    "insert_payment": {
-      "title": "Insert payment details",
-      "description": "This operation will make the user a member of the club",
-      "submit": "Insert Payment"
-    }
-  },
-  "CardsPage": {
-    "your_memberships": "My membership cards",
-    "your_memberships_description": "View all your active membership cards"
-  },
-  "PaymentForm": {
-    "paymentMethod": "Payment Method",
-    "description": "Description",
-    "amount": "Amount",
-    "slug": "Membership Type",
-    "VLM": "Iscrizione VLM",
-    "VLM-VIG": "Iscrizione VLM + FlyCard VIG",
-    "note": "Note",
-    "bank_transfer": "Bank Transfer",
-    "cash": "Cash",
-    "submit": "Insert Payment",
-    "user": "User",
-    "payment_error": "An error occurred while inserting the payment",
-    "membership_already_exists": "A membership card already exists for this user!",
-    "payment_success": "Payment inserted successfully! The user is now a member of the club."
-  },
-  "PaymentsPage": {
-    "header_title": "Payments",
-    "header_description": "View an manage all payments made by users",
-    "select_all": "Select all",
-    "select_row": "Select row",
-    "title": "Payments",
-    "card": "Card",
-    "bank_transfer": "Bank Transfer",
-    "cash": "Cash",
-    "header": {
-      "name": "Name",
-      "paymentMethod": "Payment Method",
-      "amount": "Amount",
-      "description": "Description",
-      "note": "Note",
-      "createdAt": "Payment Date",
-      "createdBy": "Added by"
-    }
-  },
-  "SociPage": {
-    "header_title": "Members",
-    "header_description": "List of all club members",
-    "select_all": "Select all",
-    "select_row": "Select row",
-    "title": "Members",
-    "search_by_name": "Search by name",
-    "previous": "Previous",
-    "next": "Next",
-    "header": {
-      "name": "Name",
-      "paymentDate": "Membership Date"
-    }
-  },
-  "DocumentsPage": {
-    "title": "Documents",
-    "description": "Download the official documents of Club Montegrappa",
-    "statuto": "CLUB STATUTE",
-    "download": "Download",
-    "ClubNotesList": {
-      "verbali": "MEETING NOTES",
-      "title": "Title",
-      "data": "Date",
-      "actions": "Actions",
-      "download": "Download"
-    }
-  },
-  "SettingsPage": {
-    "header_title": "Settings",
-    "header_description": "Manage account and website settings.",
-    "theme": {
-      "title": "Theme",
-      "description": "Select your preferred theme.",
-      "select_theme": "Select theme",
-      "light": "Light Theme",
-      "dark": "Dark Theme",
-      "system": "System"
-    },
-    "changePasswordForm": {
-      "title": "Change Password",
-      "description": "Update your account password.",
-      "new_password": "New Password",
-      "confirm_password": "Confirm Password",
-      "submit": "Change Password",
-      "password_mismatch": "Passwords do not match!",
-      "success": "Password updated successfully!"
-    },
-    "delete_account": {
-      "title": "Delete Account",
-      "description": "This is a danger zone - Be careful!",
-      "are_you_sure": "Are you sure?",
-      "delete_account_warning": "Permanently delete your account. This action cannot be undone - please proceed with caution.",
-      "delete_account_btn": "Delete Account",
-      "modal_warning": "Warning",
-      "modal_warning_description": "This will permanently delete your account and your active membership!",
-      "verify_text_1": "To verify, type",
-      "verify_text_type": "DELETE",
-      "verify_text_2": "in the field below:",
-      "confirm_delete_account": "Confirm Delete Account",
-      "deleting_account": "Deleting account...",
-      "deleting_success": "Account deleted successfully!"
-    }
-  },
-  "ChangePasswordModal": {
-    "title": "Change Password",
-    "description": "Update your account password.",
-    "new_password": "New Password",
-    "confirm_password": "Confirm Password",
-    "submit": "Change Password",
-    "password_mismatch": "Passwords do not match!",
-    "success": "Password updated successfully!",
-    "confirm": "Confirm",
-    "cancel": "Cancel", 
-    "change_password": "Change Password",
-    "change_password_description": "Do you confirm you want to change your password?",
-    "loading": "Loading...",
-    "submit_success": "Password updated successfully!"
-  },
-  "EventsPage": {
-    "header_title": "Events",
-    "header_description": "Stay updated on the latest events organized by Club Montegrappa",
-    "upcoming_events": "Upcoming Events",
-    "past_events": "Past Events",
-    "create_event": "Create Event",
-    "no_events": "No events found"
-  },
-  "EventCard": {
-    "back_to_events": "Back to events",
-    "edit_event": "Edit Event",
-    "free": "FREE",
-    "ended": "Ended",
-    "participants": "participants",
-    "join_event": "Join the event!",
-    "registered": "Going",
-    "past_event": "Past event",
-    "event_ended": "Event ended",
-    "available_seats": "available seats",
-    "from_time": "From",
-    "to_time": "to",
-    "event_date": "Date",
-    "event_location": "Location",
-    "event_price": "Price",
-    "event_participants": "Participants",
-    "event_information": "Additional information",
-    "export_csv": "Export CSV"
-  },
-  "MemberOnlyModal": {
-    "title": "Attention!",
-    "description": "This event is exclusively available to our registered members. To participate in the event, you must be a member of Club Montegrappa!",
-    "join_the_club": "Join the club!",
-    "cancel": "Cancel"
-  },
-  "NewEventPage": {
-    "header_title": "New Event",
-    "header_description": "Create a new event",
-    "event": {
-      "title": "Title",
-      "description": "Description",
-      "information": "Additional Information",
-      "eventDate": "Event Date",
-      "optionalDate": "Optional Date",
-      "startTime": "Start Time",
-      "endTime": "End Time",
-      "price": "Price",
-      "location": "Location",
-      "locationUrl": "Location URL",
-      "maxAvailability": "Max available seats",
-      "isMemberOnly": "Members only",
-      "image": "Image"
-    },
-    "create_event": "Create Event",
-    "edit_event": "Edit Event",
-    "create_success": "Event created successfully!",
-    "edit_success": "Event updated successfully!",
-    "event_error": "An error occurred while creating the event!"
-  },
-  "MeteoPage": {
-    "back": "Back",
-    "header_title": "Weather",
-    "header_description": "View weather forecast",
-    "dashboard_title": "Weather Information",
-    "dashboard_description": "Thanks to the collaboration with ElMeteo.it",
-    "no_data": "No data",
-    "today": "Today",
-    "tomorrow": "Tomorrow",
-    "after_tomorrow": "After tomorrow"
-  }
+	"LocaleSwitcher": {
+		"it": "Italian",
+		"en": "English",
+		"label": "Language",
+		"select_language": "Select language",
+		"settings": {
+			"title": "Language",
+			"description": "Select your preferred language."
+		}
+	},
+	"FormMessageI18N": {
+		"required": "Required"
+	},
+	"NotFoundPage": {
+		"title": "Page not found",
+		"description": "The page you are looking for does not exist!",
+		"back_to": "Back to"
+	},
+	"Navbar": {
+		"member_area": "Member Area",
+		"login": "Login",
+		"signup": "Join the club",
+		"profile": "Profile"
+	},
+	"NavMobile": {
+		"member_area": "Member Area",
+		"admin": "Admin",
+		"login": "Login",
+		"signup": "Join the club",
+		"profile": "Profile",
+		"events": "Events",
+		"weather": "Weather"
+	},
+	"NavMain": {
+		"menu": "Menu",
+		"options": "Options",
+		"admin": "Admin Panel",
+		"club": "The Club",
+		"area_di_volo": "Flying Area",
+		"decolli": "Take-offs",
+		"atterraggi": "Landings",
+		"directions": "How to get here",
+		"contacts": "Contacts",
+		"homepage": "Homepage",
+		"dashboard": "Dashboard",
+		"profile": "Profile",
+		"orders": "Orders",
+		"weather": "Weather",
+		"events": "Events",
+		"membership": "Membership",
+		"cards": "Your cards",
+		"support": "Support",
+		"users": "Users",
+		"payments": "Payments",
+		"documentation": "Documentation",
+		"settings": "Settings"
+	},
+	"NavAuth": {
+		"access": "Access",
+		"login": "Login",
+		"signup": "Join the club!"
+	},
+	"Homepage": {
+		"header_subtitle": "years in the clouds",
+		"join_the_club": "Join the club",
+		"info_1": {
+			"title": "THE REFERENCE POINT",
+			"title_2": "FOR FREE FLIGHT IN VENETO",
+			"description": "The ASD Volo Libero Montegrappa was founded in 1979 by a group of friends and pilots, with the aim of promoting free flight around Borso Del Grappa, an area that over the years has established itself as the undisputed destination for thousands of Italian and foreign pilots. Since the 1970s, with the first hang gliders, and then from the late 1980s with paragliding, Borso del Grappa has seen many pilots born and helped them grow in this sport thanks to the special aerological characteristics of the area, its wide take-offs easily accessible, and the almost total absence of strong winds. Perfect characteristics both for beginners and for more experienced pilots who intend to undertake cross-country flights and competitions."
+		},
+		"info_2": {
+			"title": "Useful information",
+			"description": "",
+			"weather": {
+				"title": "Weather",
+				"description": "Check the weather data and plan your flight safely"
+			},
+			"fly_area": {
+				"title": "Flying area",
+				"description": "Take-offs, landings, and practical information for flying on Grappa"
+			},
+			"info": {
+				"title": "Practical information",
+				"description": "All the information for members: registrations, renewals, medical visits..."
+			}
+		}
+	},
+	"SidebarLinks": {
+		"menu": "Menu",
+		"options": "Options",
+		"admin": "Admin Panel",
+		"homepage": "Homepage",
+		"dashboard": "Dashboard",
+		"profile": "Profile",
+		"orders": "Orders",
+		"weather": "Weather",
+		"events": "Events",
+		"membership": "Membership",
+		"cards": "Your cards",
+		"settings": "Settings",
+		"documentation": "Documentation",
+		"support": "Support"
+	},
+	"LoginPage": {
+		"welcome": "Welcome! 👋",
+		"access_account": "Access your account",
+		"dont_have_account": "Don't have an account? Sign Up"
+	},
+	"ResetPasswordPage": {
+		"title": "Reset Password",
+		"description": "Insert your email and we will send you a link to reset your password",
+		"submit": "Send reset email",
+		"back_to_login": "Back to login",
+		"email_sent": {
+			"title": "Email sent successfully!",
+			"description": "We have sent you a link to reset your password. Check your email inbox!"
+		},
+		"errors": {
+			"message": "Error.",
+			"description": "An error occurred while sending the reset email",
+			"not_found": "The email does not exist!",
+			"validation": "An error occurred, please try again later"
+		},
+		"success": {
+			"message": "Email sent successfully!",
+			"description": "We have sent you a link to reset your password"
+		}
+	},
+	"NewPasswordPage": {
+		"title": "Reset Password",
+		"description": "Insert the new password",
+		"submit": "Send",
+		"back_to_login": "Back to login",
+		"new_password": "New Password",
+		"confirm_password": "Confirm Password",
+		"errors": {
+			"message": "Error.",
+			"missing_token": "Missing token!",
+			"password_mismatch": "The passwords do not match!",
+			"invalid_token": "Invalid token!",
+			"token_expired": "Token expired!",
+			"unknown": "An error occurred, please try again later"
+		},
+		"success": {
+			"message": "OK!",
+			"description": "The password has been reset successfully!"
+		}
+	},
+	"LoginForm": {
+		"forgot_password": "Forgot your password?",
+		"submit": "Sign in",
+		"continue_with": "Or continue with",
+		"errors": {
+			"message": "Something went wrong.",
+			"validation": "Validation error",
+			"not_found": "Email does not exist!",
+			"invalid_credentials": "Invalid credentials!",
+			"invalid_callback_url": "Credenziali non valide!",
+			"unknown": "An error occurred, please try again later",
+			"email": {
+				"invalid_string": "Invalid email"
+			},
+			"password": {
+				"too_small": "String must contain at least 3 character(s)"
+			}
+		}
+	},
+	"SignupPage": {
+		"join_the_club": "JOIN THE CLUB!",
+		"membership": "Membership",
+		"membership_description": "Membership to the Club Montegrappa {NEXT_YEAR}",
+		"signup": "Sign up"
+	},
+	"SignupForm": {
+		"account_details": "Account details",
+		"personal_details": "Personal details",
+		"submit": "Sign up",
+		"email": "Email",
+		"first_name": "First Name",
+		"last_name": "Last Name",
+		"place_of_birth": "Place of birth",
+		"date_of_birth": "Date of birth",
+		"street_address": "Street Address",
+		"fiscal_code": "Fiscal Code",
+		"city": "City",
+		"zip_code": "Zip Code",
+		"province": "Province",
+		"state": "State",
+		"phone": "Phone Number",
+		"size": "Clothing Size",
+		"gender": "Gender",
+		"sport": "Sport",
+		"select_size": "Select Size",
+		"select_gender": "Select Gender",
+		"male": "Male",
+		"female": "Female",
+		"select_sport": "Select Sport",
+		"paragliding": "Paragliding",
+		"hang_gliding": "Hang Gliding",
+		"paramotor": "Paramotor",
+		"nothing": "Nothing",
+		"vds_license": "VDS License / FIVL Number",
+		"vds_number": "VDS License n°",
+		"vds_release_date": "Released on",
+		"medical_exam_valid_date": "Medical exam valid until",
+		"fivl_number": "FIVL Card n°",
+		"privacy_policy_description_1": "I have read the",
+		"privacy_policy_description_2": "and I accept the",
+		"terms_and_conditions": "Terms and Conditions",
+		"email_consent": "Email consent",
+		"email_consent_description": "I agree to receive emails from the club",
+		"save": "Save",
+		"error": {
+			"title": "Something went wrong.",
+			"already_exists": "User already exists!",
+			"validation": "Invalid data"
+		}
+	},
+	"UpgradeCard": {
+		"become_member": "Become a member!",
+		"membership_description": "Join the Club Montegrappa and participate in our activities!",
+		"join_the_club": "Join the club"
+	},
+	"MembershipPage": {
+		"join_the_club": "JOIN THE CLUB!",
+		"join_the_club_subtext": "Become a member or renew your club membership!",
+		"signup": "Sign up"
+	},
+	"PurchaseMembershipCard": {
+		"membership": "Membership",
+		"membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR} (30€)",
+		"or": "or",
+		"pay_with_bank_transfer": "Pay with bank transfer",
+		"membership_club": "Club Membership {NEXT_YEAR}",
+		"membership_flycard": "Coupon FlyCard {NEXT_YEAR}",
+		"alert_title": "Attention!",
+		"alert_description": "You are already a member for the year {NEXT_YEAR}. It is not possible to purchase more than one membership per year!",
+		"PricingCard": {
+			"selected": "Membership {NEXT_YEAR}",
+			"membership_price": "Membership price",
+			"includes": "Includes"
+		},
+		"info": {
+			"membership": {
+				"title": "MEMBERSHIP",
+				"description": "From <strong>January 1st {NEXT_YEAR}</strong>, registrations for Club Volo Libero Montegrappa are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
+			},
+			"flycard": {
+				"title": "FLYCARD",
+				"description": "To fly in the Monte Grappa area using the facilities managed by the Tourism Consortium <i>Vivere il Grappa</i> (take-offs and landings), you must have the <strong>Flycard</strong>, which can be purchased according to the methods and costs indicated on the Consortium's official website: <link1>https://flycard.vivereilgrappa.it</link1>"
+			},
+			"news": {
+				"title": "WHAT'S NEW FOR {NEXT_YEAR}",
+				"description": "Thanks to an exclusive collaboration agreement reserved for members of Club Volo Libero Montegrappa, a promotion is available for purchasing the <strong>annual Flycard at a discounted price of 10€</strong>. The Flycard is <strong>not included</strong> in the membership fee.<br></br><br></br> <span>How it works:</span> <br></br> From <strong>January 1st to March 1st</strong>, upon completing your Club registration, you will receive a <strong>promotional code</strong> to use for purchasing the Flycard at the promotional price reserved for members. <br></br> The code is personal and unique, can be used only once, and is not transferable to third parties. The code will be sent via email upon payment completion and will always remain available in your reserved area on the website."
+			},
+			"important": {
+				"title": "ATTENTION!",
+				"description": "Membership to Club Volo Libero Montegrappa does not automatically grant immediate right to use the promotion. It is therefore recommended to purchase the Flycard several days in advance of the expected date of use.<br></br> For purchase conditions and regulations, please refer to the Vivere il Grappa Consortium website <link1>https://flycard.vivereilgrappa.it/rules</link1>.<br></br><br></br>⚠️ For foreign pilots without an Italian Tax Code: to request membership to Club Volo Libero Montegrappa and take advantage of the Flycard promotion, it is necessary to send a request via email to <strong>info@vololiberomontegrappa.it</strong>."
+			}
+		}
+	},
+	"PurchaseButton": {
+		"submit": "PAY NOW",
+		"redirecting_to_checkout": "Redirecting to checkout..."
+	},
+	"MembershipsTable": {
+		"valid": "Valid",
+		"expired": "Expired",
+		"your_memberships": "Your membership cards",
+		"name": "Name",
+		"status": "Status",
+		"registered_at": "Registered at",
+		"valid_until": "Validity",
+		"invoice": "Invoice",
+		"active": "Active",
+		"from": "from",
+		"to": "to"
+	},
+	"PurchaseSuccessCard": {
+		"title": "Payment successful!",
+		"description": "Thank you for joining the Club Montegrappa!",
+		"description_2": "You will receive a confirmation email shortly.",
+		"view_cards_action": "View your membership"
+	},
+	"ProfilePage": {
+		"member_from": "Member since",
+		"notifications": {
+			"ok": "OK",
+			"error": "Error",
+			"edit": {
+				"success": "Profile updated successfully!",
+				"error": "An error occurred while updating the profile"
+			}
+		}
+	},
+	"ProfileView": {
+		"profile_details": "Personal details",
+		"edit": "Edit",
+		"save": "Save",
+		"cancel": "Cancel",
+		"member_cards": "My membership cards",
+		"your_memberships": "My membership cards",
+		"your_memberships_description": "View all your active membership cards",
+		"payments": "Payments"
+	},
+	"ProfileDetails": {
+		"email": "Email",
+		"first_name": "First Name",
+		"last_name": "Last Name",
+		"fiscal_code": "Fiscal Code",
+		"place_of_birth": "Place of birth",
+		"date_of_birth": "Date of birth",
+		"street_address": "Street Address",
+		"city": "City",
+		"zip_code": "Zip Code",
+		"province": "Province",
+		"state": "State",
+		"phone": "Phone Number",
+		"size": "Clothing Size",
+		"sport": "Sport",
+		"paragliding": "Paragliding",
+		"hang_gliding": "Hang Gliding",
+		"paramotor": "Paramotor",
+		"nothing": "Nothing",
+		"vds_number": "VDS License n°",
+		"vds_release_date": "Released on",
+		"medical_exam_valid_date": "Medical exam valid until",
+		"fivl_number": "FIVL Card n°"
+	},
+	"TelegramCard": {
+		"title": "Join our Telegram group!",
+		"description": "Stay updated on the latest news and events",
+		"scan_code": "Scan the QR code to access the group",
+		"click_below": "Or click the link below",
+		"join_group_action": "Join the group"
+	},
+	"AdminPage": {
+		"header_title": "Admin Panel",
+		"header_description": "Welcome to the Club Montegrappa admin area!",
+		"users": "Users",
+		"members": "Members",
+		"not_members": "Not registered",
+		"male": "Male",
+		"female": "Female"
+	},
+	"UsersList": {
+		"name": "Name",
+		"view_all": "View all",
+		"created_at": "Registered at",
+		"users_description": "All registered users of Club Montegrappa",
+		"members": "Members",
+		"not_members": "Not registered",
+		"role": "Role",
+		"members_description": "All members of Club Montegrappa"
+	},
+	"UsersDataTable": {
+		"select_all": "Select all",
+		"select_row": "Select row",
+		"open_menu": "Open menu",
+		"actions": "Actions",
+		"details": "Details",
+		"header": {
+			"name": "Name",
+			"created_at": "Data Iscrizione",
+			"role": "Ruolo"
+		},
+		"filter_by_email": "Filter by email",
+		"filter_by_name": "Filter by name",
+		"filter_by_role": "Filter by role",
+		"role": {
+			"member": "Member",
+			"user": "Not Member",
+			"MEMBER": "member",
+			"USER": "not member",
+			"all": "Reset"
+		},
+		"no_results": "Nessun risultato trovato.",
+		"previous": "Previous",
+		"next": "Next",
+		"insert_member": "Inserisci Socio",
+		"insert_payment": {
+			"title": "Inserisci i dati del pagamento",
+			"description": "Questa operazione renderà l'utente socio del club",
+			"submit": "Inserisci Pagamento"
+		},
+		"user": "Utente"
+	},
+	"AdminUsersPage": {
+		"header_title": "User/Member Management",
+		"header_description": "View and manage registered users",
+		"search_placeholder": "Cerca utenti...",
+		"search_button": "Cerca",
+		"search_results": "Risultati ricerca",
+		"no_results": "Nessun risultato trovato",
+		"view_profile": "Visualizza Profilo",
+		"edit_profile": "Modifica Profilo",
+		"delete_user": "Elimina Utente"
+	},
+	"AdminUserView": {
+		"MEMBER": "MEMBER",
+		"USER": "USER",
+		"back": "Back",
+		"edit": "Edit",
+		"cancel": "Cancel",
+		"member_cards": "Member Cards",
+		"payments": "Payments"
+	},
+	"PaymentsTable": {
+		"payment_date": "Payment Date",
+		"payment_method": "Payment Method",
+		"amount": "Amount",
+		"description": "Description",
+		"id_transaction": "ID Transaction",
+		"invoice": "Invoice",
+		"card": "Card",
+		"bank_transfer": "Bank Transfer",
+		"cash": "Cash",
+		"note": "Note",
+		"creator": "Creator"
+	},
+	"DataTable": {
+		"select_all": "Select all",
+		"select_row": "Select row",
+		"open_menu": "Open menu",
+		"actions": "Actions",
+		"details": "Details",
+		"header": {
+			"name": "Name",
+			"created_at": "Registered at"
+		},
+		"filter_by_email": "Filter by email",
+		"filter_by_name": "Filter by name",
+		"filter_by_payment_method": "Filter by type",
+		"all": "All",
+		"card": "Card",
+		"bank_transfer": "Bank Transfer",
+		"cash": "Cash",
+		"columns": {
+			"buttonText": "Columns",
+			"memberId": "Member ID",
+			"email": "Email",
+			"fullName": "Name",
+			"firstName": "First Name",
+			"createdAt": "Registered at"
+		},
+		"no_results": "No Results.",
+		"previous": "Previous",
+		"next": "Next",
+		"insert_member": "Upgrade to Member",
+		"insert_payment": {
+			"title": "Insert payment details",
+			"description": "This operation will make the user a member of the club",
+			"submit": "Insert Payment"
+		}
+	},
+	"CardsPage": {
+		"your_memberships": "My membership cards",
+		"your_memberships_description": "View all your active membership cards"
+	},
+	"PaymentForm": {
+		"paymentMethod": "Payment Method",
+		"description": "Description",
+		"amount": "Amount",
+		"slug": "Membership Type",
+		"VLM": "Iscrizione VLM",
+		"VLM-VIG": "Iscrizione VLM + FlyCard VIG",
+		"note": "Note",
+		"bank_transfer": "Bank Transfer",
+		"cash": "Cash",
+		"submit": "Insert Payment",
+		"user": "User",
+		"payment_error": "An error occurred while inserting the payment",
+		"membership_already_exists": "A membership card already exists for this user!",
+		"payment_success": "Payment inserted successfully! The user is now a member of the club."
+	},
+	"PaymentsPage": {
+		"header_title": "Payments",
+		"header_description": "View an manage all payments made by users",
+		"select_all": "Select all",
+		"select_row": "Select row",
+		"title": "Payments",
+		"card": "Card",
+		"bank_transfer": "Bank Transfer",
+		"cash": "Cash",
+		"header": {
+			"name": "Name",
+			"paymentMethod": "Payment Method",
+			"amount": "Amount",
+			"description": "Description",
+			"note": "Note",
+			"createdAt": "Payment Date",
+			"createdBy": "Added by"
+		}
+	},
+	"SociPage": {
+		"header_title": "Members",
+		"header_description": "List of all club members",
+		"select_all": "Select all",
+		"select_row": "Select row",
+		"title": "Members",
+		"search_by_name": "Search by name",
+		"previous": "Previous",
+		"next": "Next",
+		"header": {
+			"name": "Name",
+			"paymentDate": "Membership Date"
+		}
+	},
+	"DocumentsPage": {
+		"title": "Documents",
+		"description": "Download the official documents of Club Montegrappa",
+		"statuto": "CLUB STATUTE",
+		"download": "Download",
+		"ClubNotesList": {
+			"verbali": "MEETING NOTES",
+			"title": "Title",
+			"data": "Date",
+			"actions": "Actions",
+			"download": "Download"
+		}
+	},
+	"SettingsPage": {
+		"header_title": "Settings",
+		"header_description": "Manage account and website settings.",
+		"theme": {
+			"title": "Theme",
+			"description": "Select your preferred theme.",
+			"select_theme": "Select theme",
+			"light": "Light Theme",
+			"dark": "Dark Theme",
+			"system": "System"
+		},
+		"changePasswordForm": {
+			"title": "Change Password",
+			"description": "Update your account password.",
+			"new_password": "New Password",
+			"confirm_password": "Confirm Password",
+			"submit": "Change Password",
+			"password_mismatch": "Passwords do not match!",
+			"success": "Password updated successfully!"
+		},
+		"delete_account": {
+			"title": "Delete Account",
+			"description": "This is a danger zone - Be careful!",
+			"are_you_sure": "Are you sure?",
+			"delete_account_warning": "Permanently delete your account. This action cannot be undone - please proceed with caution.",
+			"delete_account_btn": "Delete Account",
+			"modal_warning": "Warning",
+			"modal_warning_description": "This will permanently delete your account and your active membership!",
+			"verify_text_1": "To verify, type",
+			"verify_text_type": "DELETE",
+			"verify_text_2": "in the field below:",
+			"confirm_delete_account": "Confirm Delete Account",
+			"deleting_account": "Deleting account...",
+			"deleting_success": "Account deleted successfully!"
+		}
+	},
+	"ChangePasswordModal": {
+		"title": "Change Password",
+		"description": "Update your account password.",
+		"new_password": "New Password",
+		"confirm_password": "Confirm Password",
+		"submit": "Change Password",
+		"password_mismatch": "Passwords do not match!",
+		"success": "Password updated successfully!",
+		"confirm": "Confirm",
+		"cancel": "Cancel",
+		"change_password": "Change Password",
+		"change_password_description": "Do you confirm you want to change your password?",
+		"loading": "Loading...",
+		"submit_success": "Password updated successfully!"
+	},
+	"EventsPage": {
+		"header_title": "Events",
+		"header_description": "Stay updated on the latest events organized by Club Montegrappa",
+		"upcoming_events": "Upcoming Events",
+		"past_events": "Past Events",
+		"create_event": "Create Event",
+		"no_events": "No events found"
+	},
+	"EventCard": {
+		"back_to_events": "Back to events",
+		"edit_event": "Edit Event",
+		"free": "FREE",
+		"ended": "Ended",
+		"participants": "participants",
+		"join_event": "Join the event!",
+		"registered": "Going",
+		"past_event": "Past event",
+		"event_ended": "Event ended",
+		"available_seats": "available seats",
+		"from_time": "From",
+		"to_time": "to",
+		"event_date": "Date",
+		"event_location": "Location",
+		"event_price": "Price",
+		"event_participants": "Participants",
+		"event_information": "Additional information",
+		"export_csv": "Export CSV"
+	},
+	"MemberOnlyModal": {
+		"title": "Attention!",
+		"description": "This event is exclusively available to our registered members. To participate in the event, you must be a member of Club Montegrappa!",
+		"join_the_club": "Join the club!",
+		"cancel": "Cancel"
+	},
+	"NewEventPage": {
+		"header_title": "New Event",
+		"header_description": "Create a new event",
+		"event": {
+			"title": "Title",
+			"description": "Description",
+			"information": "Additional Information",
+			"eventDate": "Event Date",
+			"optionalDate": "Optional Date",
+			"startTime": "Start Time",
+			"endTime": "End Time",
+			"price": "Price",
+			"location": "Location",
+			"locationUrl": "Location URL",
+			"maxAvailability": "Max available seats",
+			"isMemberOnly": "Members only",
+			"image": "Image"
+		},
+		"create_event": "Create Event",
+		"edit_event": "Edit Event",
+		"create_success": "Event created successfully!",
+		"edit_success": "Event updated successfully!",
+		"event_error": "An error occurred while creating the event!"
+	},
+	"MeteoPage": {
+		"back": "Back",
+		"header_title": "Weather",
+		"header_description": "View weather forecast",
+		"dashboard_title": "Weather Information",
+		"dashboard_description": "Thanks to the collaboration with ElMeteo.it",
+		"no_data": "No data",
+		"today": "Today",
+		"tomorrow": "Tomorrow",
+		"after_tomorrow": "After tomorrow"
+	}
 }
-
-
