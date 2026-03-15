@@ -1,7 +1,7 @@
 {
 	"name": "volo-libero-montegrappa",
 	"version": "0.1.0",
-  "type": "module",
+	"type": "module",
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -11,9 +11,10 @@
 		"lint:fix": "biome check . --write",
 		"format": "biome format . --write",
 		"typecheck": "tsc --noEmit",
-    "db:generate": "prisma generate --sql",
-    "db:migrate": "prisma migrate dev --name",
-    "db:studio": "prisma studio"
+		"db:generate": "prisma generate --sql",
+		"db:migrate": "prisma migrate dev --name",
+		"db:studio": "prisma studio",
+		"tsx": "tsx --env-file=.env"
 	},
 	"dependencies": {
 		"@prisma/adapter-pg": "^7.5.0",
@@ -33,6 +34,7 @@
 		"@types/react-dom": "^19",
 		"prisma": "^7.5.0",
 		"tailwindcss": "^4",
+		"tsx": "^4.21.0",
 		"typescript": "^5"
 	}
 }
