@@ -6,7 +6,7 @@ import { TailwindIndicator } from "@/components/TailwindIndicator";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { constructMetadata } from "@/config/site";
-import { fontJetBrainsMono } from "@/fonts";
+import { fontJetBrainsMono, fontMontserrat } from "@/fonts";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 interface RootLayoutProps {
@@ -30,6 +30,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
+          fontMontserrat.variable,
           fontJetBrainsMono.variable,
         )}
       >

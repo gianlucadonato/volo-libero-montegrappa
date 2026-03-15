@@ -23,3 +23,10 @@ export type NavMainItem = {
   items?: NavMainItem[];
   hidden?: boolean;
 };
+
+export type InfoList = {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  link?: string;
+};
