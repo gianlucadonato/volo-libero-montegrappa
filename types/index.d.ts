@@ -1,0 +1,12 @@
+export type SiteConfig = {
+	name: string;
+	description: string;
+	url: string;
+	ogImage: string;
+	mailSupport: string;
+	links: {
+		instagram: string;
+		facebook: string;
+	};
+	keywords: string[];
+};
