@@ -200,15 +200,18 @@
 		}
 	},
 	"SignupPage": {
+    "welcome": "Nuovo Account",
+    "create_account": "Benvenuto! Crea un nuovo account",
+    "already_have_account": "Hai già un account? Accedi",
 		"join_the_club": "TESSERAMENTO",
 		"membership": "Tessera Socio",
 		"membership_description": "Iscrizione al Club Montegrappa {NEXT_YEAR}",
 		"signup": "Iscrizione"
 	},
 	"SignupForm": {
+		"submit": "Registrati",
 		"account_details": "Dati Account",
 		"personal_details": "Dati Personali",
-		"submit": "Iscriviti",
 		"email": "Email",
 		"first_name": "Nome",
 		"last_name": "Cognome",

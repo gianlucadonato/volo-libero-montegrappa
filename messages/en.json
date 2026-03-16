@@ -167,6 +167,9 @@
 		}
 	},
 	"SignupPage": {
+    "welcome": "Welcome to Club Montegrappa! 👋",
+    "create_account": "Create a new account",
+    "already_have_account": "Already have an account? Login",
 		"join_the_club": "JOIN THE CLUB!",
 		"membership": "Membership",
 		"membership_description": "Membership to the Club Montegrappa {NEXT_YEAR}",
