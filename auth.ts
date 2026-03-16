@@ -6,48 +6,64 @@ import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
 
 export const additionalFields = {
-	firstName: {
-		type: "string" as const,
-		required: true,
-	},
-	lastName: {
-		type: "string" as const,
-		required: true,
-	},
-	role: {
-		type: ["USER", "ADMIN"] as ["USER", "ADMIN"],
-		required: false,
-		defaultValue: "USER",
-		input: false, // don't allow user to set role
-	},
+  firstName: {
+    type: "string" as const,
+    required: true,
+  },
+  lastName: {
+    type: "string" as const,
+    required: true,
+  },
+  role: {
+    type: ["USER", "ADMIN"] as ["USER", "ADMIN"],
+    required: false,
+    defaultValue: "USER",
+    input: false, // don't allow user to set role
+  },
 };
+
+const baseURL =
+  env.BETTER_AUTH_URL ?? env.NEXTAUTH_URL ?? env.NEXT_PUBLIC_APP_URL;
+
+const devTrustedOrigins =
+  env.NODE_ENV === "production"
+    ? []
+    : [
+        "http://local.infinicloud.net:3000",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+      ];
+
+const trustedOrigins = Array.from(new Set([baseURL, ...devTrustedOrigins]));
+
 export const auth = betterAuth({
-	baseURL: env.BETTER_AUTH_URL ?? env.NEXTAUTH_URL ?? env.NEXT_PUBLIC_APP_URL,
-	database: prismaAdapter(prisma, {
-		provider: "postgresql",
-	}),
-	emailAndPassword: {
-		enabled: true,
-		autoSignIn: true,
-		password: {
-			hash: async (password) => {
-				return hashPassword(password);
-			},
-			verify: async ({ hash, password }) => {
-				// Support both bcrypt (old pwd) and better-auth hashes
-				if (hash.includes(":")) {
-					return verifyPassword({ hash, password });
-				}
+  baseURL,
+  trustedOrigins,
+  database: prismaAdapter(prisma, {
+    provider: "postgresql",
+  }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: true,
+    password: {
+      hash: async (password) => {
+        return hashPassword(password);
+      },
+      verify: async ({ hash, password }) => {
+        // Support both bcrypt (old pwd) and better-auth hashes
+        if (hash.includes(":")) {
+          return verifyPassword({ hash, password });
+        }
 
-				if (/^\$2[aby]\$\d{2}\$/.test(hash)) {
-					return compare(password, hash);
-				}
+        if (/^\$2[aby]\$\d{2}\$/.test(hash)) {
+          return compare(password, hash);
+        }
 
-				return false;
-			},
-		},
-	},
-	user: {
-		additionalFields,
-	},
+        return false;
+      },
+    },
+  },
+  user: {
+    additionalFields,
+  },
 });
