@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+import type { Event, EventRegistration, User } from "@/prisma/generated/client";
 import type { UserRole } from "@/prisma/generated/enums";
 
 export type SiteConfig = {
@@ -29,4 +31,24 @@ export type InfoList = {
 	title: string;
 	description: string;
 	link?: string;
+};
+
+export type SessionUser = {
+	id: string;
+	firstName: string;
+	lastName: string | null;
+	email: string | null;
+	image?: string | null;
+	role: UserRole;
+};
+
+export type EventRegistrationWithUser = EventRegistration & {
+	user?: { id: string; firstName: string; lastName: string; email: string };
+};
+export type EventWithRegistrations = Event & {
+	registrations: EventRegistrationWithUser[];
+};
+
+export type UserWithMemberships = User & {
+	memberships: UserMembership[];
 };

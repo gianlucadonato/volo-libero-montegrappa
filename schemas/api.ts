@@ -1,0 +1,26 @@
+import * as z from "zod";
+
+export const SocioSchema = z.object({
+	firstName: z.string(),
+	lastName: z.string(),
+	email: z.string(),
+	gender: z.string(),
+	dateOfBirth: z.string(),
+	placeOfBirth: z.string(),
+	streetAddress: z.string(),
+	city: z.string(),
+	zipCode: z.string(),
+	province: z.string(),
+	state: z.string(),
+	phone: z.string().nullish(),
+	fiscalCode: z.string().nullish(),
+	size: z.string().nullish(),
+	sport: z.string().nullish(),
+	vdsNumber: z.string().nullish(),
+	vdsReleaseDate: z.string().nullish(),
+	fivlNumber: z.string().nullish(),
+	medicalExamValidDate: z.string().nullish(),
+	paymentDate: z.string(),
+	paymentAmount: z.number(),
+	paymentMethod: z.string(),
+});
