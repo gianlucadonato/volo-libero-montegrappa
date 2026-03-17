@@ -209,13 +209,21 @@
 		"signup": "Iscrizione"
 	},
 	"SignupForm": {
+    "email": "Email",
+    "first_name": "Nome",
+    "last_name": "Cognome",
+    "password": "Password",
+    "confirm_password": "Conferma Password",
     "submit": "Registrati",
     "errors": {
       "message": "Errore!",
-      "password_dont_match": "Le password non corrispondono!"
-    },
-		"account_details": "Dati Account",
-		"personal_details": "Dati Personali",
+      "password_dont_match": "Le password non corrispondono!",
+      "already_exists": "L'utente esiste già!",
+      "validation": "Dati non validi"
+    }
+	},
+  "UserForm": {
+    "save": "Salva",
 		"email": "Email",
 		"first_name": "Nome",
 		"last_name": "Cognome",
@@ -250,13 +258,7 @@
 		"terms_and_conditions": "Termini e Condizioni",
 		"mog": "Modello Organizzativo Generale (MOG)",
 		"mog_description": "Dichiaro di aver preso visione del",
-		"mog_description_2": "e di accettarne i contenuti",
-		"save": "Salva",
-		"error": {
-			"title": "Errore",
-			"already_exists": "L'utente esiste già!",
-			"validation": "Dati non validi"
-		}
+		"mog_description_2": "e di accettarne i contenuti"
 	},
 	"UpgradeCard": {
 		"become_member": "Diventa Socio!",

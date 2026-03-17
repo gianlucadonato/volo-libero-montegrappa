@@ -176,13 +176,21 @@
 		"signup": "Sign up"
 	},
 	"SignupForm": {
+    "email": "Email",
+		"first_name": "First Name",
+		"last_name": "Last Name",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
     "submit": "Sign up",
     "errors": {
       "message": "Error!",
-      "password_dont_match": "Passwords do not match"
-    },
-		"account_details": "Account details",
-		"personal_details": "Personal details",
+      "password_dont_match": "Passwords do not match",
+      "already_exists": "User already exists!",
+      "validation": "Invalid data"
+    }
+	},
+  "UserForm": {
+    "save": "Save",
 		"email": "Email",
 		"first_name": "First Name",
 		"last_name": "Last Name",
@@ -212,17 +220,14 @@
 		"vds_release_date": "Released on",
 		"medical_exam_valid_date": "Medical exam valid until",
 		"fivl_number": "FIVL Card n°",
-		"privacy_policy_description_1": "I have read the",
+		"email_consent_description": "I agree to receive emails from the club",
+    "privacy_policy_description_1": "I have read the",
 		"privacy_policy_description_2": "and I accept the",
 		"terms_and_conditions": "Terms and Conditions",
 		"email_consent": "Email consent",
-		"email_consent_description": "I agree to receive emails from the club",
-		"save": "Save",
-		"error": {
-			"title": "Something went wrong.",
-			"already_exists": "User already exists!",
-			"validation": "Invalid data"
-		}
+		"mog": "Modello Organizzativo Generale (MOG)",
+		"mog_description": "Dichiaro di aver preso visione del",
+		"mog_description_2": "e di accettarne i contenuti"
 	},
 	"UpgradeCard": {
 		"become_member": "Become a member!",

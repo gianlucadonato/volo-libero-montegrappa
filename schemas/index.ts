@@ -63,45 +63,52 @@ export const ChangePasswordSchema = z.object({
   }),
 });
 
-export const UserSchema = z.object({
-  email: z
-    .string()
-    .email({
-      message: "Email is required",
-    })
-    .trim()
-    .toLowerCase(),
-  password: z.string().min(8, {
-    message: "Password is required",
-  }),
-  firstName: z.string().min(2, {
+export const UserFormSchema = z.object({
+  firstName: z.string().trim().min(2, {
     message: "First name is required",
   }),
-  lastName: z.string().min(2, {
+  lastName: z.string().trim().min(2, {
     message: "Last name is required",
   }),
-  dateOfBirth: z.string().min(10, {
+  dateOfBirth: z.string().trim().min(1, {
     message: "Date of birth is required",
   }),
-  placeOfBirth: z.string({
+  placeOfBirth: z.string().trim().min(1, {
     message: "Place of birth is required",
   }),
-  streetAddress: z.string({
+  streetAddress: z.string().trim().min(1, {
     message: "Street address is required",
   }),
-  city: z.string(),
-  zipCode: z.string(),
-  province: z.string(),
-  state: z.string(),
-  phone: z.string(),
-  fiscalCode: z.string().optional(),
+  city: z.string().trim().min(1, {
+    message: "City is required",
+  }),
+  zipCode: z.string().trim().min(1, {
+    message: "Zip code is required",
+  }),
+  province: z.string().trim().min(1, {
+    message: "Province is required",
+  }),
+  state: z.string().trim().min(1, {
+    message: "State is required",
+  }),
+  phone: z.string().trim().min(1, {
+    message: "Phone is required",
+  }),
+  fiscalCode: z.string().trim().length(16, {
+    message: "Fiscal code is required",
+  }),
   size: z.string().optional(),
-  gender: z.string().optional(),
+  gender: z.string().trim().min(1, {
+    message: "Gender is required",
+  }),
   sport: z.string().optional(),
   vdsNumber: z.string().optional(),
   vdsReleaseDate: z.string().optional(),
   fivlNumber: z.string().optional(),
   medicalExamValidDate: z.string().optional(),
+});
+
+export const RegisterMembershipSchema = z.object({
   privacyPolicy: z.boolean().refine((val) => val === true, {
     message:
       "Please read and accept the privacy policy and terms and conditions",
@@ -109,26 +116,6 @@ export const UserSchema = z.object({
   emailConsent: z.boolean().refine((val) => val === true, {
     message: "Please read and accept the MOG document",
   }),
-});
-
-export const UserDetailsSchema = z.object({
-  firstName: z.string().min(2),
-  lastName: z.string().min(2),
-  dateOfBirth: z.string(),
-  placeOfBirth: z.string(),
-  streetAddress: z.string(),
-  city: z.string(),
-  zipCode: z.string(),
-  province: z.string(),
-  state: z.string(),
-  phone: z.string(),
-  fiscalCode: z.string().optional(),
-  size: z.string().optional(),
-  sport: z.string().optional(),
-  vdsNumber: z.string().optional(),
-  vdsReleaseDate: z.string().optional(),
-  fivlNumber: z.string().optional(),
-  medicalExamValidDate: z.string().optional(),
 });
 
 export const EventSchema = z.object({

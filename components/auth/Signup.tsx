@@ -9,10 +9,10 @@ import { SignupForm } from "@/components/forms/signup-form";
 export default function SignupPage() {
   const t = useTranslations("SignupPage");
   return (
-    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">
       <div className="flex flex-col space-y-2 text-center">
         <div className="flex items-center justify-center mb-4">
-          <div className="overflow-hidden w-[80px] h-[80px] rounded-full">
+          <div className="h-20 w-20 overflow-hidden rounded-full">
             <Image
               width="80"
               height="80"

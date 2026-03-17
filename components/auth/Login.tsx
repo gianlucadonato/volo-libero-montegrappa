@@ -9,7 +9,7 @@ import { LoginForm } from "@/components/forms/login-form";
 export default function Login() {
   const t = useTranslations("LoginPage");
   return (
-    <div className="w-full mx-auto flex flex-col justify-center space-y-6 sm:w-[350px]">
+    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-87.5">
       <div className="flex flex-col space-y-2 text-center">
         <Image
           src="/logo/LOGO_CLUB.png"
