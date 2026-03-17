@@ -28,7 +28,7 @@ export default function SignupPage() {
       </div>
       <Suspense>
         <div className="container mx-auto px-2">
-          <SignupForm callbackUrl={`/profile`} />
+          <SignupForm callbackUrl="/profile/edit" />
         </div>
       </Suspense>
       <p className="px-8 text-center text-sm text-muted-foreground">

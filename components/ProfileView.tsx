@@ -12,10 +12,10 @@ import type {
 } from "@/prisma/generated/client";
 import CouponsTable from "./CouponsTable";
 import { DashboardHeader } from "./dashboard/header";
+import { UserForm } from "./forms/user-form";
 import MembershipsTable from "./MembershipsTable";
 import PaymentsTable from "./PaymentsTable";
 import ProfileDetails from "./ProfileDetails";
-import ProfileEdit from "./ProfileEdit";
 
 type Member = User & {
   payments: Payment[];
@@ -26,22 +26,7 @@ type Member = User & {
 export default function ProfileView({ user }: { user: Member }) {
   const t = useTranslations("ProfileView");
   const [editMode, setEditMode] = useState(false);
-
-  function getMemberDetails({ user }: { user: Member }) {
-    return (
-      <div className="mt-10">
-        <div>
-          <DashboardHeader
-            heading={t("your_memberships")}
-            text={t("your_memberships_description")}
-          />
-          <MembershipsTable title={null} memberships={user.memberships} />
-        </div>
-        <PaymentsTable title={t("payments")} payments={user.payments} />
-        <CouponsTable coupons={user.coupons} />
-      </div>
-    );
-  }
+  const [profile, setProfile] = useState(user);
 
   return (
     <>
@@ -69,16 +54,34 @@ export default function ProfileView({ user }: { user: Member }) {
           )}
         </div>
       </div>
-      <div className="mb-8">
+      <div className="mb-10 pb-10">
         {editMode ? (
-          <ProfileEdit user={user} onSave={() => setEditMode(false)} />
+          <UserForm
+            user={profile}
+            onSave={(data) => {
+              setProfile({ ...profile, ...data });
+              setEditMode(false);
+            }}
+          />
         ) : (
-          <ProfileDetails user={user} />
+          <ProfileDetails user={profile} />
         )}
       </div>
-      <div className="mt-8">
-        {user.role === "MEMBER" && getMemberDetails({ user })}
-      </div>
+      {Boolean(
+        user.memberships.length || user.payments.length || user.coupons.length,
+      ) && (
+        <div className="mt-10">
+          <div>
+            <DashboardHeader
+              heading={t("your_memberships")}
+              text={t("your_memberships_description")}
+            />
+            <MembershipsTable title={null} memberships={user.memberships} />
+          </div>
+          <PaymentsTable title={t("payments")} payments={user.payments} />
+          <CouponsTable coupons={user.coupons} />
+        </div>
+      )}
     </>
   );
 }

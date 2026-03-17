@@ -328,6 +328,7 @@
 	},
 	"ProfilePage": {
 		"member_from": "Membro dal",
+    "pilot_profile": "Profilo Pilota",
 		"notifications": {
 			"ok": "OK",
 			"error": "Errore",

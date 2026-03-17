@@ -297,6 +297,7 @@
 	},
 	"ProfilePage": {
 		"member_from": "Member since",
+    "pilot_profile": "Pilot Details",
 		"notifications": {
 			"ok": "OK",
 			"error": "Error",
