@@ -39,10 +39,11 @@ export type UserMinAggregateOutputType = {
   memberId: number | null
   email: string | null
   emailVerified: boolean | null
-  password: string | null
   name: string | null
   firstName: string | null
   lastName: string | null
+  password: string | null
+  image: string | null
   fiscalCode: string | null
   dateOfBirth: string | null
   placeOfBirth: string | null
@@ -60,7 +61,6 @@ export type UserMinAggregateOutputType = {
   fivlNumber: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean | null
-  image: string | null
   isAdmin: boolean | null
   role: $Enums.UserRole | null
   createdAt: Date | null
@@ -73,10 +73,11 @@ export type UserMaxAggregateOutputType = {
   memberId: number | null
   email: string | null
   emailVerified: boolean | null
-  password: string | null
   name: string | null
   firstName: string | null
   lastName: string | null
+  password: string | null
+  image: string | null
   fiscalCode: string | null
   dateOfBirth: string | null
   placeOfBirth: string | null
@@ -94,7 +95,6 @@ export type UserMaxAggregateOutputType = {
   fivlNumber: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean | null
-  image: string | null
   isAdmin: boolean | null
   role: $Enums.UserRole | null
   createdAt: Date | null
@@ -107,10 +107,11 @@ export type UserCountAggregateOutputType = {
   memberId: number
   email: number
   emailVerified: number
-  password: number
   name: number
   firstName: number
   lastName: number
+  password: number
+  image: number
   fiscalCode: number
   dateOfBirth: number
   placeOfBirth: number
@@ -128,7 +129,6 @@ export type UserCountAggregateOutputType = {
   fivlNumber: number
   medicalExamValidDate: number
   emailConsent: number
-  image: number
   isAdmin: number
   role: number
   createdAt: number
@@ -151,10 +151,11 @@ export type UserMinAggregateInputType = {
   memberId?: true
   email?: true
   emailVerified?: true
-  password?: true
   name?: true
   firstName?: true
   lastName?: true
+  password?: true
+  image?: true
   fiscalCode?: true
   dateOfBirth?: true
   placeOfBirth?: true
@@ -172,7 +173,6 @@ export type UserMinAggregateInputType = {
   fivlNumber?: true
   medicalExamValidDate?: true
   emailConsent?: true
-  image?: true
   isAdmin?: true
   role?: true
   createdAt?: true
@@ -185,10 +185,11 @@ export type UserMaxAggregateInputType = {
   memberId?: true
   email?: true
   emailVerified?: true
-  password?: true
   name?: true
   firstName?: true
   lastName?: true
+  password?: true
+  image?: true
   fiscalCode?: true
   dateOfBirth?: true
   placeOfBirth?: true
@@ -206,7 +207,6 @@ export type UserMaxAggregateInputType = {
   fivlNumber?: true
   medicalExamValidDate?: true
   emailConsent?: true
-  image?: true
   isAdmin?: true
   role?: true
   createdAt?: true
@@ -219,10 +219,11 @@ export type UserCountAggregateInputType = {
   memberId?: true
   email?: true
   emailVerified?: true
-  password?: true
   name?: true
   firstName?: true
   lastName?: true
+  password?: true
+  image?: true
   fiscalCode?: true
   dateOfBirth?: true
   placeOfBirth?: true
@@ -240,7 +241,6 @@ export type UserCountAggregateInputType = {
   fivlNumber?: true
   medicalExamValidDate?: true
   emailConsent?: true
-  image?: true
   isAdmin?: true
   role?: true
   createdAt?: true
@@ -340,19 +340,20 @@ export type UserGroupByOutputType = {
   memberId: number
   email: string
   emailVerified: boolean
-  password: string
   name: string
   firstName: string
   lastName: string
+  password: string | null
+  image: string | null
   fiscalCode: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth: string | null
+  placeOfBirth: string | null
+  streetAddress: string | null
+  city: string | null
+  zipCode: string | null
+  province: string | null
+  state: string | null
+  phone: string | null
   gender: string
   size: string | null
   sport: string | null
@@ -361,7 +362,6 @@ export type UserGroupByOutputType = {
   fivlNumber: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean
-  image: string | null
   isAdmin: boolean
   role: $Enums.UserRole
   createdAt: Date
@@ -397,19 +397,20 @@ export type UserWhereInput = {
   memberId?: Prisma.IntFilter<"User"> | number
   email?: Prisma.StringFilter<"User"> | string
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
-  password?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   fiscalCode?: Prisma.StringNullableFilter<"User"> | string | null
-  dateOfBirth?: Prisma.StringFilter<"User"> | string
-  placeOfBirth?: Prisma.StringFilter<"User"> | string
-  streetAddress?: Prisma.StringFilter<"User"> | string
-  city?: Prisma.StringFilter<"User"> | string
-  zipCode?: Prisma.StringFilter<"User"> | string
-  province?: Prisma.StringFilter<"User"> | string
-  state?: Prisma.StringFilter<"User"> | string
-  phone?: Prisma.StringFilter<"User"> | string
+  dateOfBirth?: Prisma.StringNullableFilter<"User"> | string | null
+  placeOfBirth?: Prisma.StringNullableFilter<"User"> | string | null
+  streetAddress?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableFilter<"User"> | string | null
+  province?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   gender?: Prisma.StringFilter<"User"> | string
   size?: Prisma.StringNullableFilter<"User"> | string | null
   sport?: Prisma.StringNullableFilter<"User"> | string | null
@@ -418,7 +419,6 @@ export type UserWhereInput = {
   fivlNumber?: Prisma.StringNullableFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableFilter<"User"> | string | null
   emailConsent?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringNullableFilter<"User"> | string | null
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -439,19 +439,20 @@ export type UserOrderByWithRelationInput = {
   memberId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  password?: Prisma.SortOrder
   name?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   fiscalCode?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateOfBirth?: Prisma.SortOrder
-  placeOfBirth?: Prisma.SortOrder
-  streetAddress?: Prisma.SortOrder
-  city?: Prisma.SortOrder
-  zipCode?: Prisma.SortOrder
-  province?: Prisma.SortOrder
-  state?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  streetAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  province?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
   sport?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -460,7 +461,6 @@ export type UserOrderByWithRelationInput = {
   fivlNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -484,19 +484,20 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   emailVerified?: Prisma.BoolFilter<"User"> | boolean
-  password?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   firstName?: Prisma.StringFilter<"User"> | string
   lastName?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
+  image?: Prisma.StringNullableFilter<"User"> | string | null
   fiscalCode?: Prisma.StringNullableFilter<"User"> | string | null
-  dateOfBirth?: Prisma.StringFilter<"User"> | string
-  placeOfBirth?: Prisma.StringFilter<"User"> | string
-  streetAddress?: Prisma.StringFilter<"User"> | string
-  city?: Prisma.StringFilter<"User"> | string
-  zipCode?: Prisma.StringFilter<"User"> | string
-  province?: Prisma.StringFilter<"User"> | string
-  state?: Prisma.StringFilter<"User"> | string
-  phone?: Prisma.StringFilter<"User"> | string
+  dateOfBirth?: Prisma.StringNullableFilter<"User"> | string | null
+  placeOfBirth?: Prisma.StringNullableFilter<"User"> | string | null
+  streetAddress?: Prisma.StringNullableFilter<"User"> | string | null
+  city?: Prisma.StringNullableFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableFilter<"User"> | string | null
+  province?: Prisma.StringNullableFilter<"User"> | string | null
+  state?: Prisma.StringNullableFilter<"User"> | string | null
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
   gender?: Prisma.StringFilter<"User"> | string
   size?: Prisma.StringNullableFilter<"User"> | string | null
   sport?: Prisma.StringNullableFilter<"User"> | string | null
@@ -505,7 +506,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   fivlNumber?: Prisma.StringNullableFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableFilter<"User"> | string | null
   emailConsent?: Prisma.BoolFilter<"User"> | boolean
-  image?: Prisma.StringNullableFilter<"User"> | string | null
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -526,19 +526,20 @@ export type UserOrderByWithAggregationInput = {
   memberId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  password?: Prisma.SortOrder
   name?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   fiscalCode?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateOfBirth?: Prisma.SortOrder
-  placeOfBirth?: Prisma.SortOrder
-  streetAddress?: Prisma.SortOrder
-  city?: Prisma.SortOrder
-  zipCode?: Prisma.SortOrder
-  province?: Prisma.SortOrder
-  state?: Prisma.SortOrder
-  phone?: Prisma.SortOrder
+  dateOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  placeOfBirth?: Prisma.SortOrderInput | Prisma.SortOrder
+  streetAddress?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  zipCode?: Prisma.SortOrderInput | Prisma.SortOrder
+  province?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
   gender?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
   sport?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -547,7 +548,6 @@ export type UserOrderByWithAggregationInput = {
   fivlNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
-  image?: Prisma.SortOrderInput | Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -568,19 +568,20 @@ export type UserScalarWhereWithAggregatesInput = {
   memberId?: Prisma.IntWithAggregatesFilter<"User"> | number
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   firstName?: Prisma.StringWithAggregatesFilter<"User"> | string
   lastName?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   fiscalCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  dateOfBirth?: Prisma.StringWithAggregatesFilter<"User"> | string
-  placeOfBirth?: Prisma.StringWithAggregatesFilter<"User"> | string
-  streetAddress?: Prisma.StringWithAggregatesFilter<"User"> | string
-  city?: Prisma.StringWithAggregatesFilter<"User"> | string
-  zipCode?: Prisma.StringWithAggregatesFilter<"User"> | string
-  province?: Prisma.StringWithAggregatesFilter<"User"> | string
-  state?: Prisma.StringWithAggregatesFilter<"User"> | string
-  phone?: Prisma.StringWithAggregatesFilter<"User"> | string
+  dateOfBirth?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  placeOfBirth?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  streetAddress?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  zipCode?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  province?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   gender?: Prisma.StringWithAggregatesFilter<"User"> | string
   size?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   sport?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -589,7 +590,6 @@ export type UserScalarWhereWithAggregatesInput = {
   fivlNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailConsent?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  image?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -602,19 +602,20 @@ export type UserCreateInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -623,7 +624,6 @@ export type UserCreateInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -644,19 +644,20 @@ export type UserUncheckedCreateInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -665,7 +666,6 @@ export type UserUncheckedCreateInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -685,19 +685,20 @@ export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -706,7 +707,6 @@ export type UserUpdateInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -727,19 +727,20 @@ export type UserUncheckedUpdateInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -748,7 +749,6 @@ export type UserUncheckedUpdateInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -769,19 +769,20 @@ export type UserCreateManyInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -790,7 +791,6 @@ export type UserCreateManyInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -802,19 +802,20 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -823,7 +824,6 @@ export type UserUpdateManyMutationInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -836,19 +836,20 @@ export type UserUncheckedUpdateManyInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -857,7 +858,6 @@ export type UserUncheckedUpdateManyInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -870,10 +870,11 @@ export type UserCountOrderByAggregateInput = {
   memberId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  password?: Prisma.SortOrder
   name?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   fiscalCode?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   placeOfBirth?: Prisma.SortOrder
@@ -891,7 +892,6 @@ export type UserCountOrderByAggregateInput = {
   fivlNumber?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -908,10 +908,11 @@ export type UserMaxOrderByAggregateInput = {
   memberId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  password?: Prisma.SortOrder
   name?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   fiscalCode?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   placeOfBirth?: Prisma.SortOrder
@@ -929,7 +930,6 @@ export type UserMaxOrderByAggregateInput = {
   fivlNumber?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -942,10 +942,11 @@ export type UserMinOrderByAggregateInput = {
   memberId?: Prisma.SortOrder
   email?: Prisma.SortOrder
   emailVerified?: Prisma.SortOrder
-  password?: Prisma.SortOrder
   name?: Prisma.SortOrder
   firstName?: Prisma.SortOrder
   lastName?: Prisma.SortOrder
+  password?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   fiscalCode?: Prisma.SortOrder
   dateOfBirth?: Prisma.SortOrder
   placeOfBirth?: Prisma.SortOrder
@@ -963,7 +964,6 @@ export type UserMinOrderByAggregateInput = {
   fivlNumber?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
-  image?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1140,19 +1140,20 @@ export type UserCreateWithoutSessionsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1161,7 +1162,6 @@ export type UserCreateWithoutSessionsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1181,19 +1181,20 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1202,7 +1203,6 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1237,19 +1237,20 @@ export type UserUpdateWithoutSessionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1258,7 +1259,6 @@ export type UserUpdateWithoutSessionsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1278,19 +1278,20 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1299,7 +1300,6 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1319,19 +1319,20 @@ export type UserCreateWithoutAccountsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1340,7 +1341,6 @@ export type UserCreateWithoutAccountsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1360,19 +1360,20 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1381,7 +1382,6 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1416,19 +1416,20 @@ export type UserUpdateWithoutAccountsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1437,7 +1438,6 @@ export type UserUpdateWithoutAccountsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1457,19 +1457,20 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1478,7 +1479,6 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1498,19 +1498,20 @@ export type UserCreateWithoutMembershipsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1519,7 +1520,6 @@ export type UserCreateWithoutMembershipsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1539,19 +1539,20 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1560,7 +1561,6 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1595,19 +1595,20 @@ export type UserUpdateWithoutMembershipsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1616,7 +1617,6 @@ export type UserUpdateWithoutMembershipsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1636,19 +1636,20 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1657,7 +1658,6 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1677,19 +1677,20 @@ export type UserCreateWithoutPaymentsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1698,7 +1699,6 @@ export type UserCreateWithoutPaymentsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1718,19 +1718,20 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1739,7 +1740,6 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1764,19 +1764,20 @@ export type UserCreateWithoutPaymentsAddedInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1785,7 +1786,6 @@ export type UserCreateWithoutPaymentsAddedInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1805,19 +1805,20 @@ export type UserUncheckedCreateWithoutPaymentsAddedInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -1826,7 +1827,6 @@ export type UserUncheckedCreateWithoutPaymentsAddedInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -1861,19 +1861,20 @@ export type UserUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1882,7 +1883,6 @@ export type UserUpdateWithoutPaymentsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1902,19 +1902,20 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1923,7 +1924,6 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1953,19 +1953,20 @@ export type UserUpdateWithoutPaymentsAddedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1974,7 +1975,6 @@ export type UserUpdateWithoutPaymentsAddedInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1994,19 +1994,20 @@ export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2015,7 +2016,6 @@ export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2035,19 +2035,20 @@ export type UserCreateWithoutEventsCreatedInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2056,7 +2057,6 @@ export type UserCreateWithoutEventsCreatedInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2076,19 +2076,20 @@ export type UserUncheckedCreateWithoutEventsCreatedInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2097,7 +2098,6 @@ export type UserUncheckedCreateWithoutEventsCreatedInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2132,19 +2132,20 @@ export type UserUpdateWithoutEventsCreatedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2153,7 +2154,6 @@ export type UserUpdateWithoutEventsCreatedInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2173,19 +2173,20 @@ export type UserUncheckedUpdateWithoutEventsCreatedInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2194,7 +2195,6 @@ export type UserUncheckedUpdateWithoutEventsCreatedInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2214,19 +2214,20 @@ export type UserCreateWithoutRegistrationsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2235,7 +2236,6 @@ export type UserCreateWithoutRegistrationsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2255,19 +2255,20 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2276,7 +2277,6 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2311,19 +2311,20 @@ export type UserUpdateWithoutRegistrationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2332,7 +2333,6 @@ export type UserUpdateWithoutRegistrationsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2352,19 +2352,20 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2373,7 +2374,6 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2393,19 +2393,20 @@ export type UserCreateWithoutCouponsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2414,7 +2415,6 @@ export type UserCreateWithoutCouponsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2434,19 +2434,20 @@ export type UserUncheckedCreateWithoutCouponsInput = {
   memberId?: number
   email: string
   emailVerified?: boolean
-  password: string
-  name: string
+  name?: string
   firstName: string
   lastName: string
+  password?: string | null
+  image?: string | null
   fiscalCode?: string | null
-  dateOfBirth: string
-  placeOfBirth: string
-  streetAddress: string
-  city: string
-  zipCode: string
-  province: string
-  state: string
-  phone: string
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
   gender?: string
   size?: string | null
   sport?: string | null
@@ -2455,7 +2456,6 @@ export type UserUncheckedCreateWithoutCouponsInput = {
   fivlNumber?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
-  image?: string | null
   isAdmin?: boolean
   role?: $Enums.UserRole
   createdAt?: Date | string
@@ -2490,19 +2490,20 @@ export type UserUpdateWithoutCouponsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2511,7 +2512,6 @@ export type UserUpdateWithoutCouponsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2531,19 +2531,20 @@ export type UserUncheckedUpdateWithoutCouponsInput = {
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  dateOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  placeOfBirth?: Prisma.StringFieldUpdateOperationsInput | string
-  streetAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  city?: Prisma.StringFieldUpdateOperationsInput | string
-  zipCode?: Prisma.StringFieldUpdateOperationsInput | string
-  province?: Prisma.StringFieldUpdateOperationsInput | string
-  state?: Prisma.StringFieldUpdateOperationsInput | string
-  phone?: Prisma.StringFieldUpdateOperationsInput | string
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   gender?: Prisma.StringFieldUpdateOperationsInput | string
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -2552,7 +2553,6 @@ export type UserUncheckedUpdateWithoutCouponsInput = {
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2666,10 +2666,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   memberId?: boolean
   email?: boolean
   emailVerified?: boolean
-  password?: boolean
   name?: boolean
   firstName?: boolean
   lastName?: boolean
+  password?: boolean
+  image?: boolean
   fiscalCode?: boolean
   dateOfBirth?: boolean
   placeOfBirth?: boolean
@@ -2687,7 +2688,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   fivlNumber?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
-  image?: boolean
   isAdmin?: boolean
   role?: boolean
   createdAt?: boolean
@@ -2709,10 +2709,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   memberId?: boolean
   email?: boolean
   emailVerified?: boolean
-  password?: boolean
   name?: boolean
   firstName?: boolean
   lastName?: boolean
+  password?: boolean
+  image?: boolean
   fiscalCode?: boolean
   dateOfBirth?: boolean
   placeOfBirth?: boolean
@@ -2730,7 +2731,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fivlNumber?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
-  image?: boolean
   isAdmin?: boolean
   role?: boolean
   createdAt?: boolean
@@ -2743,10 +2743,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   memberId?: boolean
   email?: boolean
   emailVerified?: boolean
-  password?: boolean
   name?: boolean
   firstName?: boolean
   lastName?: boolean
+  password?: boolean
+  image?: boolean
   fiscalCode?: boolean
   dateOfBirth?: boolean
   placeOfBirth?: boolean
@@ -2764,7 +2765,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   fivlNumber?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
-  image?: boolean
   isAdmin?: boolean
   role?: boolean
   createdAt?: boolean
@@ -2777,10 +2777,11 @@ export type UserSelectScalar = {
   memberId?: boolean
   email?: boolean
   emailVerified?: boolean
-  password?: boolean
   name?: boolean
   firstName?: boolean
   lastName?: boolean
+  password?: boolean
+  image?: boolean
   fiscalCode?: boolean
   dateOfBirth?: boolean
   placeOfBirth?: boolean
@@ -2798,7 +2799,6 @@ export type UserSelectScalar = {
   fivlNumber?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
-  image?: boolean
   isAdmin?: boolean
   role?: boolean
   createdAt?: boolean
@@ -2806,7 +2806,7 @@ export type UserSelectScalar = {
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "email" | "emailVerified" | "password" | "name" | "firstName" | "lastName" | "fiscalCode" | "dateOfBirth" | "placeOfBirth" | "streetAddress" | "city" | "zipCode" | "province" | "state" | "phone" | "gender" | "size" | "sport" | "vdsNumber" | "vdsReleaseDate" | "fivlNumber" | "medicalExamValidDate" | "emailConsent" | "image" | "isAdmin" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "email" | "emailVerified" | "name" | "firstName" | "lastName" | "password" | "image" | "fiscalCode" | "dateOfBirth" | "placeOfBirth" | "streetAddress" | "city" | "zipCode" | "province" | "state" | "phone" | "gender" | "size" | "sport" | "vdsNumber" | "vdsReleaseDate" | "fivlNumber" | "medicalExamValidDate" | "emailConsent" | "isAdmin" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -2838,19 +2838,20 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     memberId: number
     email: string
     emailVerified: boolean
-    password: string
     name: string
     firstName: string
     lastName: string
+    password: string | null
+    image: string | null
     fiscalCode: string | null
-    dateOfBirth: string
-    placeOfBirth: string
-    streetAddress: string
-    city: string
-    zipCode: string
-    province: string
-    state: string
-    phone: string
+    dateOfBirth: string | null
+    placeOfBirth: string | null
+    streetAddress: string | null
+    city: string | null
+    zipCode: string | null
+    province: string | null
+    state: string | null
+    phone: string | null
     gender: string
     size: string | null
     sport: string | null
@@ -2859,7 +2860,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     fivlNumber: string | null
     medicalExamValidDate: string | null
     emailConsent: boolean
-    image: string | null
     isAdmin: boolean
     role: $Enums.UserRole
     createdAt: Date
@@ -3300,10 +3300,11 @@ export interface UserFieldRefs {
   readonly memberId: Prisma.FieldRef<"User", 'Int'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
-  readonly password: Prisma.FieldRef<"User", 'String'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly firstName: Prisma.FieldRef<"User", 'String'>
   readonly lastName: Prisma.FieldRef<"User", 'String'>
+  readonly password: Prisma.FieldRef<"User", 'String'>
+  readonly image: Prisma.FieldRef<"User", 'String'>
   readonly fiscalCode: Prisma.FieldRef<"User", 'String'>
   readonly dateOfBirth: Prisma.FieldRef<"User", 'String'>
   readonly placeOfBirth: Prisma.FieldRef<"User", 'String'>
@@ -3321,7 +3322,6 @@ export interface UserFieldRefs {
   readonly fivlNumber: Prisma.FieldRef<"User", 'String'>
   readonly medicalExamValidDate: Prisma.FieldRef<"User", 'String'>
   readonly emailConsent: Prisma.FieldRef<"User", 'Boolean'>
-  readonly image: Prisma.FieldRef<"User", 'String'>
   readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>

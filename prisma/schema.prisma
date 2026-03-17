@@ -24,19 +24,20 @@ model User {
   memberId             Int      @unique @default(autoincrement())
   email                String
   emailVerified        Boolean  @default(false) @map(name: "email_verified")
-  password             String
   name                 String   @default("")
   firstName            String   @map(name: "first_name")
   lastName             String   @map(name: "last_name")
+  password             String?
+  image                String?
   fiscalCode           String?  @map(name: "fiscal_code")
-  dateOfBirth          String   @map(name: "date_of_birth")
-  placeOfBirth         String   @map(name: "place_of_birth")
-  streetAddress        String   @map(name: "street_address")
-  city                 String
-  zipCode              String   @map(name: "zip_code")
-  province             String
-  state                String
-  phone                String
+  dateOfBirth          String?  @map(name: "date_of_birth")
+  placeOfBirth         String?  @map(name: "place_of_birth")
+  streetAddress        String?  @map(name: "street_address")
+  city                 String?
+  zipCode              String?  @map(name: "zip_code")
+  province             String?
+  state                String?
+  phone                String?
   gender               String   @default("M")
   size                 String?
   sport                String?
@@ -45,7 +46,6 @@ model User {
   fivlNumber           String?  @map(name: "fivl_number")
   medicalExamValidDate String?  @map(name: "medical_exam_valid_date")
   emailConsent         Boolean  @default(true) @map(name: "email_consent")
-  image                String?
   isAdmin              Boolean  @default(false) @map(name: "is_admin")
   role                 UserRole @default(USER)
 

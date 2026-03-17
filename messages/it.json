@@ -20,17 +20,17 @@
 		"password": {
 			"required": "Inserisci la tua password",
 			"invalid_type": "Inserisci la tua password",
-			"too_small": "La password deve contenere almeno 5 caratteri"
+			"too_small": "La password deve contenere almeno 8 caratteri"
 		},
 		"newPassword": {
 			"required": "Inserisci la nuova password",
 			"invalid_type": "Inserisci la nuova password",
-			"too_small": "La password deve contenere almeno 5 caratteri"
+			"too_small": "La password deve contenere almeno 8 caratteri"
 		},
 		"confirmPassword": {
 			"required": "Conferma la nuova password",
 			"invalid_type": "Conferma la nuova password",
-			"too_small": "La password deve contenere almeno 5 caratteri"
+			"too_small": "La password deve contenere almeno 8 caratteri"
 		},
 		"privacyPolicy": {
 			"invalid_type": "Accettazione obbligatoria!",
@@ -209,7 +209,11 @@
 		"signup": "Iscrizione"
 	},
 	"SignupForm": {
-		"submit": "Registrati",
+    "submit": "Registrati",
+    "errors": {
+      "message": "Errore!",
+      "password_dont_match": "Le password non corrispondono!"
+    },
 		"account_details": "Dati Account",
 		"personal_details": "Dati Personali",
 		"email": "Email",

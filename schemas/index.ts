@@ -8,7 +8,7 @@ export const LoginSchema = z.object({
     })
     .trim()
     .toLowerCase(),
-  password: z.string().min(6, {
+  password: z.string().min(3, {
     message: "Password is required",
   }),
 });
@@ -27,10 +27,10 @@ export const SignupSchema = z.object({
     })
     .trim()
     .toLowerCase(),
-  password: z.string().min(3, {
+  password: z.string().min(8, {
     message: "Password is required",
   }),
-  confirmPassword: z.string().min(3, {
+  confirmPassword: z.string().min(8, {
     message: "Confirm Password is required",
   }),
 });
@@ -46,17 +46,21 @@ export const ResetPasswordSchema = z.object({
 });
 
 export const NewPasswordSchema = z.object({
-  password: z.string().min(6, {
+  password: z.string().min(8, {
     message: "Password is required",
   }),
-  confirmPassword: z.string().min(6, {
+  confirmPassword: z.string().min(8, {
     message: "Confirm Password is required",
   }),
 });
 
 export const ChangePasswordSchema = z.object({
-  newPassword: z.string().min(6),
-  confirmPassword: z.string().min(6),
+  newPassword: z.string().min(8, {
+    message: "New password is required",
+  }),
+  confirmPassword: z.string().min(8, {
+    message: "Confirm password is required",
+  }),
 });
 
 export const UserSchema = z.object({
@@ -67,7 +71,7 @@ export const UserSchema = z.object({
     })
     .trim()
     .toLowerCase(),
-  password: z.string().min(6, {
+  password: z.string().min(8, {
     message: "Password is required",
   }),
   firstName: z.string().min(2, {
