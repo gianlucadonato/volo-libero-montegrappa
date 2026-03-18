@@ -70,10 +70,22 @@
 		"options": "Opzioni",
 		"admin": "Amministrazione",
 		"club": "Il Club",
-		"area_di_volo": "Area di Volo",
-		"decolli": "Decolli",
-		"atterraggi": "Atterraggi",
-		"directions": "Come Arrivare",
+    "flying_area": {
+      "title": "Area di Volo",
+      "description": "Informazioni pratiche per volare sul Grappa"
+    },
+		"takeoffs": {
+      "title": "Decolli",
+      "description": "Visualizza i punti di decollo"
+    },
+		"landings": {
+      "title": "Atterraggi",
+      "description": "Visualizza i punti di atterraggio"
+    },
+		"directions": {
+      "title": "Come Arrivare",
+      "description": "Visualizza le indicazioni"
+    },
 		"contacts": "Contatti",
 		"homepage": "Homepage",
 		"dashboard": "Dashboard",
