@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { ResetPasswordForm } from "@/components/forms/reset-password-form";
 
 export default function ResetPassword() {
 	const t = useTranslations("ResetPasswordPage");
@@ -22,8 +23,7 @@ export default function ResetPassword() {
 				<p className="text-sm text-muted-foreground">{t("description")}</p>
 			</div>
 			<Suspense>
-				{/* <ResetPasswordForm /> */}
-				Reset password form ...
+				<ResetPasswordForm />
 			</Suspense>
 			<div className="px-8 text-center text-sm text-muted-foreground">
 				<Link

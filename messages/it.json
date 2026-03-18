@@ -200,30 +200,30 @@
 		}
 	},
 	"SignupPage": {
-    "welcome": "Nuovo Account",
-    "create_account": "Benvenuto! Crea un nuovo account",
-    "already_have_account": "Hai già un account? Accedi",
+		"welcome": "Nuovo Account",
+		"create_account": "Benvenuto! Crea un nuovo account",
+		"already_have_account": "Hai già un account? Accedi",
 		"join_the_club": "TESSERAMENTO",
 		"membership": "Tessera Socio",
 		"membership_description": "Iscrizione al Club Montegrappa {NEXT_YEAR}",
 		"signup": "Iscrizione"
 	},
 	"SignupForm": {
-    "email": "Email",
-    "first_name": "Nome",
-    "last_name": "Cognome",
-    "password": "Password",
-    "confirm_password": "Conferma Password",
-    "submit": "Registrati",
-    "errors": {
-      "message": "Errore!",
-      "password_dont_match": "Le password non corrispondono!",
-      "already_exists": "L'utente esiste già!",
-      "validation": "Dati non validi"
-    }
+		"email": "Email",
+		"first_name": "Nome",
+		"last_name": "Cognome",
+		"password": "Password",
+		"confirm_password": "Conferma Password",
+		"submit": "Registrati",
+		"errors": {
+			"message": "Errore!",
+			"password_dont_match": "Le password non corrispondono!",
+			"already_exists": "L'utente esiste già!",
+			"validation": "Dati non validi"
+		}
 	},
-  "UserForm": {
-    "save": "Salva",
+	"UserForm": {
+		"save": "Salva",
 		"email": "Email",
 		"first_name": "Nome",
 		"last_name": "Cognome",
@@ -328,7 +328,7 @@
 	},
 	"ProfilePage": {
 		"member_from": "Membro dal",
-    "pilot_profile": "Profilo Pilota",
+		"pilot_profile": "Profilo Pilota",
 		"notifications": {
 			"ok": "OK",
 			"error": "Errore",

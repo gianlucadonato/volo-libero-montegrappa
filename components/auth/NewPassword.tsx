@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { NewPasswordForm } from "@/components/forms/new-password-form";
 
 export default function NewPassword() {
 	const t = useTranslations("NewPasswordPage");
@@ -22,8 +23,7 @@ export default function NewPassword() {
 				<p className="text-sm text-muted-foreground">{t("description")}</p>
 			</div>
 			<Suspense>
-				{/* <NewPasswordForm /> */}
-				New password form ...
+				<NewPasswordForm />
 			</Suspense>
 			<div className="px-8 text-center text-sm text-muted-foreground">
 				<Link

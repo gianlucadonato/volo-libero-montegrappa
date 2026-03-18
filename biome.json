@@ -41,5 +41,28 @@
 				"organizeImports": "on"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["components/ui/**"],
+			"linter": {
+				"enabled": false
+			},
+			"assist": {
+				"enabled": false
+			}
+		},
+    {
+			"includes": ["prisma/generated/**"],
+			"formatter": {
+        "enabled": false
+      },
+      "linter": {
+				"enabled": false
+			},
+			"assist": {
+				"enabled": false
+			}
+		}
+	]
 }

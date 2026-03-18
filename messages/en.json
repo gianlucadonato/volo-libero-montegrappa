@@ -167,30 +167,30 @@
 		}
 	},
 	"SignupPage": {
-    "welcome": "Welcome to Club Montegrappa! 👋",
-    "create_account": "Create a new account",
-    "already_have_account": "Already have an account? Login",
+		"welcome": "Welcome to Club Montegrappa! 👋",
+		"create_account": "Create a new account",
+		"already_have_account": "Already have an account? Login",
 		"join_the_club": "JOIN THE CLUB!",
 		"membership": "Membership",
 		"membership_description": "Membership to the Club Montegrappa {NEXT_YEAR}",
 		"signup": "Sign up"
 	},
 	"SignupForm": {
-    "email": "Email",
+		"email": "Email",
 		"first_name": "First Name",
 		"last_name": "Last Name",
-    "password": "Password",
-    "confirm_password": "Confirm Password",
-    "submit": "Sign up",
-    "errors": {
-      "message": "Error!",
-      "password_dont_match": "Passwords do not match",
-      "already_exists": "User already exists!",
-      "validation": "Invalid data"
-    }
+		"password": "Password",
+		"confirm_password": "Confirm Password",
+		"submit": "Sign up",
+		"errors": {
+			"message": "Error!",
+			"password_dont_match": "Passwords do not match",
+			"already_exists": "User already exists!",
+			"validation": "Invalid data"
+		}
 	},
-  "UserForm": {
-    "save": "Save",
+	"UserForm": {
+		"save": "Save",
 		"email": "Email",
 		"first_name": "First Name",
 		"last_name": "Last Name",
@@ -221,7 +221,7 @@
 		"medical_exam_valid_date": "Medical exam valid until",
 		"fivl_number": "FIVL Card n°",
 		"email_consent_description": "I agree to receive emails from the club",
-    "privacy_policy_description_1": "I have read the",
+		"privacy_policy_description_1": "I have read the",
 		"privacy_policy_description_2": "and I accept the",
 		"terms_and_conditions": "Terms and Conditions",
 		"email_consent": "Email consent",
@@ -297,7 +297,7 @@
 	},
 	"ProfilePage": {
 		"member_from": "Member since",
-    "pilot_profile": "Pilot Details",
+		"pilot_profile": "Pilot Details",
 		"notifications": {
 			"ok": "OK",
 			"error": "Error",
