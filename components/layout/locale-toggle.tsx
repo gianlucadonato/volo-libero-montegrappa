@@ -38,7 +38,7 @@ export function LocaleToggle({ defaultValue, items }: Props) {
           <span className="sr-only">Language</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="z-200 min-w-[140px] p-1">
+      <DropdownMenuContent align="end" className="z-200 min-w-35 p-1">
         {items.map((item) => (
           <DropdownMenuItem
             key={item.value}
