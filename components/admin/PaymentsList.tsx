@@ -5,11 +5,11 @@ import type { Payment } from "@/prisma/generated/client";
 import PaymentsDataTable from "./PaymentsDataTable";
 
 export default function PaymentsList({ data }: { data: Payment[] }) {
-  return (
-    <Card className="xl:col-span-2">
-      <CardContent>
-        <PaymentsDataTable data={data} />
-      </CardContent>
-    </Card>
-  );
+	return (
+		<Card className="xl:col-span-2">
+			<CardContent>
+				<PaymentsDataTable data={data} />
+			</CardContent>
+		</Card>
+	);
 }

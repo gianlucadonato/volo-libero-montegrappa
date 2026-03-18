@@ -9,85 +9,85 @@ import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 
 const PaymentSchema = z.object({
-  userId: z.string(),
-  paymentMethod: z.string(),
-  description: z.string(),
-  amount: z.number(),
-  slug: z.string(),
-  note: z.string().optional(),
+	userId: z.string(),
+	paymentMethod: z.string(),
+	description: z.string(),
+	amount: z.number(),
+	slug: z.string(),
+	note: z.string().optional(),
 });
 type FormData = z.infer<typeof PaymentSchema>;
 
 export default async function addPayment(data: FormData) {
-  const sessionUser = await getSessionUser();
-  if (!sessionUser || sessionUser.role !== "ADMIN") {
-    return undefined;
-  }
-  try {
-    const user = await prisma.user.update({
-      where: { id: data.userId },
-      data: { role: "MEMBER" },
-    });
+	const sessionUser = await getSessionUser();
+	if (!sessionUser || sessionUser.role !== "ADMIN") {
+		return undefined;
+	}
+	try {
+		const user = await prisma.user.update({
+			where: { id: data.userId },
+			data: { role: "MEMBER" },
+		});
 
-    if (!user) {
-      return { error: true, message: "User not found" };
-    }
-    console.log("🐞 > user updated:", user.role);
+		if (!user) {
+			return { error: true, message: "User not found" };
+		}
+		console.log("🐞 > user updated:", user.role);
 
-    const payment = await prisma.payment.create({
-      data: {
-        ...data,
-        createdBy: sessionUser.id,
-      },
-    });
-    console.log("🐞 > payment created:", payment.id);
+		const payment = await prisma.payment.create({
+			data: {
+				...data,
+				createdBy: sessionUser.id,
+			},
+		});
+		console.log("🐞 > payment created:", payment.id);
 
-    const membership = await prisma.membership.findFirst({
-      where: { year: NEXT_YEAR },
-    });
+		const membership = await prisma.membership.findFirst({
+			where: { year: NEXT_YEAR },
+		});
 
-    if (!membership) {
-      return { error: true, message: "membership_not_found" };
-    }
+		if (!membership) {
+			return { error: true, message: "membership_not_found" };
+		}
 
-    try {
-      const userMembership = await prisma.userMembership.create({
-        data: {
-          userId: user.id,
-          membershipId: membership.id,
-          year: NEXT_YEAR,
-          description: membership.name,
-          status: "active",
-          validFrom: membership.validFrom,
-          validUntil: membership.validUntil,
-        },
-      });
-      console.log("🐞 > userMembership created:", userMembership);
-    } catch (err) {
-      return { error: true, message: "membership_already_exists" };
-    }
+		try {
+			const userMembership = await prisma.userMembership.create({
+				data: {
+					userId: user.id,
+					membershipId: membership.id,
+					year: NEXT_YEAR,
+					description: membership.name,
+					status: "active",
+					validFrom: membership.validFrom,
+					validUntil: membership.validUntil,
+				},
+			});
+			console.log("🐞 > userMembership created:", userMembership);
+		} catch (_err) {
+			return { error: true, message: "membership_already_exists" };
+		}
 
-    const coupon = await prisma.coupon.findFirst({
-      where: { userId: null, year: NEXT_YEAR, type: "socio" },
-    });
-    if (!coupon) {
-      throw new Error("Coupon not found!");
-    }
-    await prisma.coupon.update({
-      where: { id: coupon.id },
-      data: { userId: user.id },
-    });
+		const coupon = await prisma.coupon.findFirst({
+			where: { userId: null, year: NEXT_YEAR, type: "socio" },
+		});
+		if (!coupon) {
+			throw new Error("Coupon not found!");
+		}
+		await prisma.coupon.update({
+			where: { id: coupon.id },
+			data: { userId: user.id },
+		});
 
-    await sendPaymentConfirmationEmail({
-      user,
-      payment,
-      couponCode: coupon.code,
-    });
+		await sendPaymentConfirmationEmail({
+			user,
+			payment,
+			couponCode: coupon.code,
+		});
 
-    revalidatePath("/admin");
-    return { success: true, payment };
-  } catch (error) {
-    console.error(error);
-    return { error: true, message: (error as Error).message };
-  }
+		revalidatePath("/admin");
+		return { success: true, payment };
+	} catch (error) {
+		console.error(error);
+		return { error: true, message: (error as Error).message };
+	}
 }

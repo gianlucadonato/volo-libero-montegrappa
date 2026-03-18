@@ -52,12 +52,12 @@
 				"enabled": false
 			}
 		},
-    {
+		{
 			"includes": ["prisma/generated/**"],
 			"formatter": {
-        "enabled": false
-      },
-      "linter": {
+				"enabled": false
+			},
+			"linter": {
 				"enabled": false
 			},
 			"assist": {

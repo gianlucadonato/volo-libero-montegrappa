@@ -37,22 +37,22 @@
 		"options": "Options",
 		"admin": "Admin Panel",
 		"club": "The Club",
-    "flying_area": {
-      "title": "Flying Area",
-      "description": "Practical information for flying on Monte Grappa"
-    },
+		"flying_area": {
+			"title": "Flying Area",
+			"description": "Practical information for flying on Monte Grappa"
+		},
 		"takeoffs": {
-      "title": "Take-offs",
-      "description": "View the take-off points"
-    },
+			"title": "Take-offs",
+			"description": "View the take-off points"
+		},
 		"landings": {
-      "title": "Landings",
-      "description": "View the landing points"
-    },
+			"title": "Landings",
+			"description": "View the landing points"
+		},
 		"directions": {
-      "title": "Directions",
-      "description": "How to get here"
-    },
+			"title": "Directions",
+			"description": "How to get here"
+		},
 		"contacts": "Contacts",
 		"homepage": "Homepage",
 		"dashboard": "Dashboard",
