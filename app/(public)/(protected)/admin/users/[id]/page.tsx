@@ -1,6 +1,6 @@
+import AdminUserView from "@/components/admin/AdminUserView";
 import { constructMetadata, siteConfig } from "@/config/site";
 import { getUserById } from "@/lib/user";
-import AdminUserView from "./AdminUserView";
 
 export const metadata = constructMetadata({
 	title: `User - ${siteConfig.name}`,
@@ -10,9 +10,10 @@ export const metadata = constructMetadata({
 export default async function AdminUserPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
-	const user = await getUserById(params.id);
+	const { id } = await params;
+	const user = await getUserById(id);
 	if (!user) {
 		return <div>User not found</div>;
 	}

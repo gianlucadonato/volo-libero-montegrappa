@@ -6,9 +6,10 @@ import Spinner from "@/components/Spinner";
 export default async function EventPage({
 	params,
 }: {
-	params: { id: string };
+	params: Promise<{ id: string }>;
 }) {
-	const event = await getEventById(params.id);
+	const { id } = await params;
+	const event = await getEventById(id);
 	if (!event) {
 		return (
 			<div className="flex min-h-screen items-center justify-center">
