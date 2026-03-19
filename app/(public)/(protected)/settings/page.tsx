@@ -8,26 +8,26 @@ import { constructMetadata, siteConfig } from "@/config/site";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
-  title: `Settings - ${siteConfig.name}`,
-  description: "Configure your account and website settings.",
+	title: `Settings - ${siteConfig.name}`,
+	description: "Configure your account and website settings.",
 });
 
 export default async function SettingsPage() {
-  const t = await getTranslations("SettingsPage");
-  const user = await getSessionUser();
-  if (!user?.id) redirect("/login");
+	const t = await getTranslations("SettingsPage");
+	const user = await getSessionUser();
+	if (!user?.id) redirect("/login");
 
-  return (
-    <div className="container mx-auto mt-10">
-      <DashboardHeader
-        heading={t("header_title")}
-        text={t("header_description")}
-      />
-      <div className="divide-y divide-muted pb-10">
-        <LanguageSettings />
-        <ThemeSettings />
-        <DeleteAccountSection />
-      </div>
-    </div>
-  );
+	return (
+		<div className="container mx-auto mt-10">
+			<DashboardHeader
+				heading={t("header_title")}
+				text={t("header_description")}
+			/>
+			<div className="divide-y divide-muted pb-10">
+				<LanguageSettings />
+				<ThemeSettings />
+				<DeleteAccountSection />
+			</div>
+		</div>
+	);
 }

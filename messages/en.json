@@ -529,7 +529,7 @@
 		"next": "Next",
 		"header": {
 			"name": "Name",
-			"paymentDate": "Membership Date"
+			"registeredAt": "Membership Date"
 		}
 	},
 	"DocumentsPage": {

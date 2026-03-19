@@ -108,6 +108,30 @@ export const UserFormSchema = z.object({
 	medicalExamValidDate: z.string().optional(),
 });
 
+export const UserSchema = z.object({
+	id: z.string(),
+	email: z.string(),
+	firstName: z.string(),
+	lastName: z.string(),
+	dateOfBirth: z.string(),
+	placeOfBirth: z.string(),
+	streetAddress: z.string(),
+	city: z.string(),
+	zipCode: z.string(),
+	province: z.string(),
+	state: z.string(),
+	phone: z.string().nullish(),
+	fiscalCode: z.string().nullish(),
+	size: z.string().nullish(),
+	gender: z.string(),
+	sport: z.string().nullish(),
+	vdsNumber: z.string().nullish(),
+	vdsReleaseDate: z.string().nullish(),
+	fivlNumber: z.string().nullish(),
+	medicalExamValidDate: z.string().nullish(),
+	registeredAt: z.string(),
+});
+
 export const RegisterMembershipSchema = z.object({
 	privacyPolicy: z.boolean().refine((val) => val === true, {
 		message:

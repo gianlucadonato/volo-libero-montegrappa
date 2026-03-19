@@ -567,7 +567,7 @@
 		"next": "Avanti",
 		"header": {
 			"name": "Nome",
-			"paymentDate": "Data Iscrizione"
+			"registeredAt": "Data Iscrizione"
 		}
 	},
 	"DocumentsPage": {
