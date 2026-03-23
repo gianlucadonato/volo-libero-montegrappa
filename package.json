@@ -14,7 +14,7 @@
 		"typecheck": "tsc --noEmit",
 		"db:generate": "prisma generate --sql",
 		"db:migrate": "prisma migrate dev --name",
-    "db:deploy": "prisma migrate deploy",
+		"db:deploy": "prisma migrate deploy",
 		"db:studio": "prisma studio",
 		"tsx": "tsx --env-file=.env"
 	},
@@ -41,7 +41,6 @@
 		"@react-email/button": "^0.2.1",
 		"@react-email/components": "^1.0.10",
 		"@react-email/html": "^0.0.12",
-		"@sentry/nextjs": "^10.44.0",
 		"@stripe/stripe-js": "^8.9.0",
 		"@t3-oss/env-nextjs": "^0.13.10",
 		"@tanstack/react-table": "^8.21.3",
