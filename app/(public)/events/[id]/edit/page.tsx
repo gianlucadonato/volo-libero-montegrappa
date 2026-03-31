@@ -6,35 +6,35 @@ import Spinner from "@/components/Spinner";
 import { constructMetadata, siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
-  title: `Modifica Evento - ${siteConfig.name}`,
-  description: "Edit Event",
+	title: `Modifica Evento - ${siteConfig.name}`,
+	description: "Edit Event",
 });
 
 export default async function EditEventPage({
-  params,
+	params,
 }: {
-  params: Promise<{ id: string }>;
+	params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const t = await getTranslations("NewEventPage");
-  const event = await getEventById(id);
-  if (!event) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <Spinner />
-      </div>
-    );
-  }
+	const { id } = await params;
+	const t = await getTranslations("NewEventPage");
+	const event = await getEventById(id);
+	if (!event) {
+		return (
+			<div className="flex min-h-screen items-center justify-center">
+				<Spinner />
+			</div>
+		);
+	}
 
-  return (
-    <div className="container mt-10">
-      <DashboardHeader
-        heading={t("header_title_edit")}
-        text={t("header_description_edit")}
-      />
-      <div className="mt-4 flex flex-col gap-5">
-        <EventForm event={event} />
-      </div>
-    </div>
-  );
+	return (
+		<div className="container mt-10">
+			<DashboardHeader
+				heading={t("header_title_edit")}
+				text={t("header_description_edit")}
+			/>
+			<div className="mt-4 flex flex-col gap-5">
+				<EventForm event={event} />
+			</div>
+		</div>
+	);
 }
