@@ -4,7 +4,8 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { NEXT_YEAR } from "@/config/constants";
 import { sendPaymentConfirmationEmail } from "@/emails/sendPaymentConfirmationEmail";
-
+import { logger } from "@/lib/logger";
+import { metrics } from "@/lib/metrics";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 
@@ -19,6 +20,7 @@ const PaymentSchema = z.object({
 type FormData = z.infer<typeof PaymentSchema>;
 
 export default async function addPayment(data: FormData) {
+	const log = logger.child({ action: "addPayment" });
 	const sessionUser = await getSessionUser();
 	if (!sessionUser || sessionUser.role !== "ADMIN") {
 		return undefined;
@@ -32,7 +34,10 @@ export default async function addPayment(data: FormData) {
 		if (!user) {
 			return { error: true, message: "User not found" };
 		}
-		console.log("🐞 > user updated:", user.role);
+		log.info(
+			{ userId: user.id, role: user.role },
+			"user role updated to MEMBER",
+		);
 
 		const payment = await prisma.payment.create({
 			data: {
@@ -40,7 +45,8 @@ export default async function addPayment(data: FormData) {
 				createdBy: sessionUser.id,
 			},
 		});
-		console.log("🐞 > payment created:", payment.id);
+		log.info({ paymentId: payment.id, userId: user.id }, "payment created");
+		metrics.paymentsCreated.inc();
 
 		const membership = await prisma.membership.findFirst({
 			where: { year: NEXT_YEAR },
@@ -62,7 +68,10 @@ export default async function addPayment(data: FormData) {
 					validUntil: membership.validUntil,
 				},
 			});
-			console.log("🐞 > userMembership created:", userMembership);
+			log.info(
+				{ userMembershipId: userMembership.id, userId: user.id },
+				"user membership created",
+			);
 		} catch (_err) {
 			return { error: true, message: "membership_already_exists" };
 		}
@@ -87,7 +96,7 @@ export default async function addPayment(data: FormData) {
 		revalidatePath("/admin");
 		return { success: true, payment };
 	} catch (error) {
-		console.error(error);
+		log.error({ err: error }, "addPayment action failed");
 		return { error: true, message: (error as Error).message };
 	}
 }

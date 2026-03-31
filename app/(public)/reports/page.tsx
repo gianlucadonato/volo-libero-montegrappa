@@ -4,22 +4,22 @@ import Reports from "@/components/Reports";
 import { constructMetadata, siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
-  title: `ElMeteo Status - ${siteConfig.name}`,
-  description: "ElMeteo Reports",
+	title: `ElMeteo Status - ${siteConfig.name}`,
+	description: "ElMeteo Reports",
 });
 
 export default async function ReportsPage() {
-  const reports = await getReports();
-  return (
-    <div className="font-mono container mt-10">
-      <div className="flex justify-center">
-        <DashboardHeader heading="ElMeteo Status" text="Upload Reports" />
-      </div>
-      <div className="mb-12">
-        <div className="pt-8">
-          <Reports reports={reports} />
-        </div>
-      </div>
-    </div>
-  );
+	const reports = await getReports();
+	return (
+		<div className="font-mono container mt-10">
+			<div className="flex justify-center">
+				<DashboardHeader heading="ElMeteo Status" text="Upload Reports" />
+			</div>
+			<div className="mb-12">
+				<div className="pt-8">
+					<Reports reports={reports} />
+				</div>
+			</div>
+		</div>
+	);
 }
