@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"type": "module",
 	"private": true,
+  "homepage": "https://github.com/gianlucadonato/volo-libero-montegrappa",
 	"scripts": {
 		"dev": "next dev --webpack",
 		"dev:turbo": "next dev --turbopack",
