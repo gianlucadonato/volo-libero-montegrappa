@@ -4,10 +4,9 @@ global:
 
 scrape_configs:
   - job_name: "vlm-nextjs"
-    bearer_token: "49f85104-9fb1-4e7c-8025-42a634003ab4"
     static_configs:
       - targets:
-          - "vololiberomontegrappa.it"
+          - "www.vololiberomontegrappa.it:443"
     scheme: https
     metrics_path: /api/metrics
     authorization:
