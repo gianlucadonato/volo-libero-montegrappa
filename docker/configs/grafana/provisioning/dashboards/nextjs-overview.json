@@ -126,7 +126,7 @@
 			"options": { "tooltip": { "mode": "multi" } },
 			"targets": [
 				{
-					"expr": "sum by (route, status) (rate(vlm_http_requests_total[5m]))",
+					"expr": "sum by (route, status) (increase(vlm_http_requests_total[1h]))",
 					"legendFormat": "{{route}} {{status}}"
 				}
 			]
@@ -217,5 +217,5 @@
 	"timezone": "browser",
 	"title": "VLM — App Overview",
 	"uid": "vlm-overview",
-	"version": 1
+	"version": 2
 }
