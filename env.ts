@@ -17,6 +17,10 @@ export const env = createEnv({
 		STRIPE_API_KEY: z.string().min(1),
 		STRIPE_API_SECRET: z.string().min(1),
 		STRIPE_WEBHOOK_SECRET: z.string().min(1),
+		AWS_REGION: z.string().optional(),
+		AWS_ACCESS_KEY_ID: z.string().optional(),
+		AWS_SECRET_ACCESS_KEY: z.string().optional(),
+		AWS_S3_XC_BUCKET: z.string().optional(),
 	},
 	client: {
 		// 🌐 Client-side vars (browser safe)
@@ -37,6 +41,10 @@ export const env = createEnv({
 		STRIPE_API_KEY: process.env.STRIPE_API_KEY,
 		STRIPE_API_SECRET: process.env.STRIPE_API_SECRET,
 		STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+		AWS_REGION: process.env.AWS_REGION,
+		AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
+		AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
+		AWS_S3_XC_BUCKET: process.env.AWS_S3_XC_BUCKET,
 		NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
 	},
 });

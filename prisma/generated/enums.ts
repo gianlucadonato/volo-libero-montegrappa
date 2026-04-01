@@ -24,3 +24,37 @@ export const EventRegistrationStatus = {
 } as const
 
 export type EventRegistrationStatus = (typeof EventRegistrationStatus)[keyof typeof EventRegistrationStatus]
+
+
+export const XcCategoryLevel = {
+  BASIC: 'BASIC',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED'
+} as const
+
+export type XcCategoryLevel = (typeof XcCategoryLevel)[keyof typeof XcCategoryLevel]
+
+
+export const XcEnrollmentStatus = {
+  ACTIVE: 'ACTIVE',
+  WITHDRAWN: 'WITHDRAWN'
+} as const
+
+export type XcEnrollmentStatus = (typeof XcEnrollmentStatus)[keyof typeof XcEnrollmentStatus]
+
+
+export const XcTrackFileType = {
+  GPX: 'GPX',
+  IGC: 'IGC'
+} as const
+
+export type XcTrackFileType = (typeof XcTrackFileType)[keyof typeof XcTrackFileType]
+
+
+export const XcSubmissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type XcSubmissionStatus = (typeof XcSubmissionStatus)[keyof typeof XcSubmissionStatus]
