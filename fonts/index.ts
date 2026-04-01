@@ -1,8 +1,18 @@
-import { JetBrains_Mono, Montserrat, Noto_Sans_Mono } from "next/font/google";
+import {
+	Caveat,
+	JetBrains_Mono,
+	Montserrat,
+	Noto_Sans_Mono,
+} from "next/font/google";
 
 export const fontJetBrainsMono = JetBrains_Mono({
 	subsets: ["latin"],
 	variable: "--font-jetbrains-mono",
+});
+
+export const fontCaveat = Caveat({
+	subsets: ["latin"],
+	variable: "--font-caveat",
 });
 
 export const fontMontserrat = Montserrat({

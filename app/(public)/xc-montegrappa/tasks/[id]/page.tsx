@@ -1,0 +1,64 @@
+import { ArrowLeft, MapPinIcon } from "lucide-react";
+import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import getTask from "@/actions/getTask";
+import { DashboardHeader } from "@/components/dashboard/header";
+import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { siteConfig } from "@/config/site";
+import { constructMetadata } from "@/lib/utils";
+
+export const metadata = constructMetadata({
+	title: `Task - ${siteConfig.name}`,
+	description: "Task details page",
+});
+
+export default async function TaskPage({ params }: { params: { id: string } }) {
+	const task = await getTask(params.id);
+	const t = await getTranslations("TaskPage");
+	if (!task || !task.name) {
+		return <div>Task not found</div>;
+	}
+
+	return (
+		<section className="px-4 py-20">
+			<div className="container mx-auto">
+				<div>
+					<div className="mb-4 flex justify-start">
+						<Link href={`/xc-montegrappa/${task.type}`}>
+							<Button variant="outline" size="sm">
+								<ArrowLeft className="mr-2 size-4" />
+								{t("back")}
+							</Button>
+						</Link>
+					</div>
+					<div className="mb-6">
+						<DashboardHeader
+							heading={
+								<div className="flex items-center">
+									<MapPinIcon className="mr-2 size-5" />
+									<span>{task.name}</span>
+								</div>
+							}
+							text={task.description}
+						/>
+					</div>
+
+					<Card>
+						<CardHeader>
+							<CardTitle>{task.name}</CardTitle>
+							<CardDescription>{task.description}</CardDescription>
+						</CardHeader>
+						<CardContent className="space-y-2">{task.type}</CardContent>
+					</Card>
+				</div>
+			</div>
+		</section>
+	);
+}
