@@ -1,11 +1,10 @@
-import { ArrowRight, NotebookPen } from "lucide-react";
-import Link from "next/link";
-import { IoIosMedal } from "react-icons/io";
-import { fontCaveat } from "@/assets/fonts";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import TaskBrevettoCard from "@/components/TaskBrevettoCard";
+import TaskBrevetto from "../TaskBrevetto";
 
-export default function XcMontegrappaBasicPage() {
+export default function XcMontegrappaIntermediatePage() {
+	const intermediateTasks = TaskBrevetto.filter(
+		(task) => task.type === "intermediate",
+	);
 	return (
 		<div className="mb-12">
 			<div className="overflow-hidden">
@@ -32,7 +31,11 @@ export default function XcMontegrappaBasicPage() {
 						</h1>
 
 						<div className="py-10">
-							<div className="container mx-auto"></div>
+							<div className="container mx-auto">
+								{intermediateTasks.map((task) => (
+									<TaskBrevettoCard key={task.id} task={task} />
+								))}
+							</div>
 						</div>
 					</div>
 				</div>
