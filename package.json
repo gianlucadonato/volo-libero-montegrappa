@@ -18,6 +18,7 @@
 		"db:migrate": "prisma migrate dev --name",
 		"db:deploy": "prisma migrate deploy",
 		"db:studio": "prisma studio",
+		"db:seed": "pnpm tsx scripts/seedXcTasks.ts",
 		"tsx": "tsx --env-file=.env",
 		"prepare": "husky"
 	},

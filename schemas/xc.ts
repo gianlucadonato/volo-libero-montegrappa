@@ -2,9 +2,7 @@ import * as z from "zod";
 
 const supportedTrackExtensions = ["gpx", "igc"] as const;
 
-export const XcEnrollSchema = z.object({
-	editionId: z.string().min(1).optional(),
-});
+export const XcEnrollSchema = z.object({});
 
 export const XcCreateUploadUrlSchema = z.object({
 	taskId: z.string().min(1),

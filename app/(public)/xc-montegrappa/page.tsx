@@ -1,11 +1,51 @@
+"use client";
+
 import { ArrowRight, NotebookPen } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { IoIosMedal } from "react-icons/io";
+import { toast } from "sonner";
+import enrollInXcEdition from "@/actions/xc/enrollInXcEdition";
 import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import { NEXT_YEAR } from "@/config/constants";
 import FAQ from "./FAQ";
 
 export default function XcMontegrappaPage() {
+	const router = useRouter();
+	const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleEnrollClick = () => {
+		setIsEnrollDialogOpen(true);
+	};
+
+	const handleConfirmEnrollment = async () => {
+		setIsLoading(true);
+		try {
+			await enrollInXcEdition();
+			toast.success("Benvenuto nel Brevetto XC Montegrappa!");
+			setIsEnrollDialogOpen(false);
+			router.push("/xc-montegrappa/basic");
+		} catch (error) {
+			const message = error instanceof Error ? error.message : "";
+			if (message.includes("già iscritto")) {
+				toast.error("Sei già iscritto al brevetto XC per quest'anno.");
+			} else {
+				toast.error("Errore nell'iscrizione. Riprova.");
+			}
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<div className="mb-12">
 			<div className="overflow-hidden">
@@ -209,7 +249,8 @@ export default function XcMontegrappaPage() {
 								<Button
 									variant="default"
 									size="lg"
-									className="btn-lime uppercase "
+									className="btn-lime uppercase"
+									onClick={handleEnrollClick}
 								>
 									<NotebookPen className="mr-2 size-4" />
 									Iscriviti
@@ -219,6 +260,45 @@ export default function XcMontegrappaPage() {
 					</div>
 				</div>
 			</section>
+
+			{/* Enrollment Dialog */}
+			<Dialog open={isEnrollDialogOpen} onOpenChange={setIsEnrollDialogOpen}>
+				<DialogContent>
+					<DialogHeader>
+						<DialogTitle>
+							Iscriviti al Brevetto XC Montegrappa {NEXT_YEAR}
+						</DialogTitle>
+						<DialogDescription>
+							Ti iscrivi all&apos;edizione {NEXT_YEAR} del Brevetto XC
+							Montegrappa. Potrai partecipare a tutte le categorie (Basico,
+							Intermedio, Avanzato).
+						</DialogDescription>
+					</DialogHeader>
+					<div className="space-y-4">
+						<div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
+							<p className="text-sm text-blue-800">
+								Con un&apos;unica iscrizione potrai caricare le tracce per tutte
+								le categorie durante tutto l&apos;anno solare {NEXT_YEAR}.
+							</p>
+						</div>
+						<div className="flex gap-2 justify-end">
+							<Button
+								variant="outline"
+								onClick={() => setIsEnrollDialogOpen(false)}
+							>
+								Annulla
+							</Button>
+							<Button
+								onClick={handleConfirmEnrollment}
+								disabled={isLoading}
+								className="bg-lime-500 hover:bg-lime-600"
+							>
+								{isLoading ? "Iscrizione in corso..." : "Conferma Iscrizione"}
+							</Button>
+						</div>
+					</div>
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 }

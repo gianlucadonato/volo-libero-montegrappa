@@ -26,9 +26,7 @@ export default async function createXcSubmission(input: Input) {
 
 	const task = await prisma.xcTask.findUnique({
 		where: { id: input.taskId },
-		include: {
-			category: true,
-		},
+		include: { category: true },
 	});
 
 	if (!task) {
@@ -38,19 +36,19 @@ export default async function createXcSubmission(input: Input) {
 		throw new Error("Task does not belong to selected edition");
 	}
 
-	const enrollment = await prisma.xcEnrollment.upsert({
+	// Check enrollment at edition level
+	const enrollment = await prisma.xcEnrollment.findUnique({
 		where: {
 			userId_editionId: {
 				userId: user.id,
 				editionId: input.editionId,
 			},
 		},
-		update: {},
-		create: {
-			userId: user.id,
-			editionId: input.editionId,
-		},
 	});
+
+	if (!enrollment) {
+		throw new Error("Devi iscriverti al brevetto XC prima di caricare tracce");
+	}
 
 	const submission = await prisma.xcTrackSubmission.create({
 		data: {

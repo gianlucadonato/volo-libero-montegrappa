@@ -13,6 +13,9 @@ export default async function getMyXcProgress(year?: number) {
 		where: year ? { year } : { isActive: true },
 		orderBy: { year: "desc" },
 		include: {
+			enrollments: {
+				where: { userId: user.id },
+			},
 			categories: {
 				orderBy: { level: "asc" },
 				include: {
@@ -29,10 +32,6 @@ export default async function getMyXcProgress(year?: number) {
 					},
 				},
 			},
-			enrollments: {
-				where: { userId: user.id },
-				take: 1,
-			},
 			achievements: {
 				where: { userId: user.id },
 			},
@@ -42,6 +41,8 @@ export default async function getMyXcProgress(year?: number) {
 	if (!edition) {
 		return null;
 	}
+
+	const isEnrolled = edition.enrollments.length > 0;
 
 	const achievementsByCategory = new Map(
 		edition.achievements.map((achievement) => [
@@ -54,7 +55,7 @@ export default async function getMyXcProgress(year?: number) {
 		editionId: edition.id,
 		year: edition.year,
 		title: edition.title,
-		enrolled: Boolean(edition.enrollments[0]),
+		isEnrolled,
 		categories: edition.categories.map((category) => {
 			const achievement = achievementsByCategory.get(category.id);
 			const minPoints = resolveMinPointsByCategory(

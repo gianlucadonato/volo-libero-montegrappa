@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import enrollInXcEdition from "@/actions/xc/enrollInXcEdition";
-import { XcEnrollSchema } from "@/schemas/xc";
 
-export async function POST(request: Request) {
+export async function POST() {
 	try {
-		const body = XcEnrollSchema.parse(await request.json());
-		const enrollment = await enrollInXcEdition(body.editionId);
+		const enrollment = await enrollInXcEdition();
 		return NextResponse.json({ enrollment }, { status: 201 });
 	} catch (error) {
 		return NextResponse.json(
