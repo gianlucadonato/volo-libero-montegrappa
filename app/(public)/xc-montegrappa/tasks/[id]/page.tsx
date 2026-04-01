@@ -11,16 +11,20 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { siteConfig } from "@/config/site";
-import { constructMetadata } from "@/lib/utils";
+import { constructMetadata, siteConfig } from "@/config/site";
 
 export const metadata = constructMetadata({
 	title: `Task - ${siteConfig.name}`,
 	description: "Task details page",
 });
 
-export default async function TaskPage({ params }: { params: { id: string } }) {
-	const task = await getTask(params.id);
+export default async function TaskPage({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) {
+	const { id } = await params;
+	const task = await getTask(id);
 	const t = await getTranslations("TaskPage");
 	if (!task || !task.name) {
 		return <div>Task not found</div>;

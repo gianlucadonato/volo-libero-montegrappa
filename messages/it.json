@@ -709,5 +709,12 @@
 		"today": "Oggi",
 		"tomorrow": "Domani",
 		"after_tomorrow": "Dopo domani"
+	},
+	"TaskPage": {
+		"back": "Indietro",
+		"header_title": "Task",
+		"header_description": "Dettagli del task",
+		"dashboard_title": "Informazioni Task",
+		"no_data": "Nessun dato"
 	}
 }

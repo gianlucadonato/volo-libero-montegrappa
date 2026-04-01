@@ -667,5 +667,12 @@
 		"today": "Today",
 		"tomorrow": "Tomorrow",
 		"after_tomorrow": "After tomorrow"
+	},
+	"TaskPage": {
+		"back": "Back",
+		"header_title": "Task",
+		"header_description": "Task details",
+		"dashboard_title": "Task Information",
+		"no_data": "No data"
 	}
 }
