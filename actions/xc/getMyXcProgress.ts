@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 import { resolveMinPointsByCategory } from "@/lib/xc";

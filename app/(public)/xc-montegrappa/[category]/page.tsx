@@ -3,13 +3,15 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import getMyXcProgress from "@/actions/xc/getMyXcProgress";
 import { getXcTasksByCategory } from "@/actions/xc/getXcTasks";
+import { ModalContext } from "@/components/modals/providers";
 import Spinner from "@/components/Spinner";
 import TaskBrevettoCard from "@/components/TaskBrevettoCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { authClient } from "@/lib/auth-client";
 import type { XcCategoryLevel } from "@/prisma/generated/enums";
 
 type XcProgress = Awaited<ReturnType<typeof getMyXcProgress>>;
@@ -51,7 +53,9 @@ const categoryConfig: Record<
 
 export default function CategoryPage() {
 	const params = useParams();
-	const _router = useRouter();
+	const router = useRouter();
+	const { data: session } = authClient.useSession();
+	const { setShowSignInModal } = useContext(ModalContext);
 	const categoryParam = (params.category as string)?.toLowerCase();
 
 	const config = categoryConfig[categoryParam];
@@ -140,6 +144,14 @@ export default function CategoryPage() {
 		(c) => c.level === config.level,
 	);
 
+	const handleEnrollNowClick = () => {
+		if (!session) {
+			setShowSignInModal(true);
+			return;
+		}
+		router.push("/xc-montegrappa");
+	};
+
 	return (
 		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
 			<div className="max-w-5xl mx-auto px-4 py-8">
@@ -210,9 +222,7 @@ export default function CategoryPage() {
 							<p className="text-amber-800 mb-4">
 								Iscriviti al Brevetto XC per poter caricare le tracce.
 							</p>
-							<Link href="/xc-montegrappa">
-								<Button>Iscriviti ora</Button>
-							</Link>
+							<Button onClick={handleEnrollNowClick}>Iscriviti ora</Button>
 						</CardContent>
 					</Card>
 				)}

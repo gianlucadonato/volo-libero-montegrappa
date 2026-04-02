@@ -3,10 +3,11 @@
 import { ArrowRight, NotebookPen } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { IoIosMedal } from "react-icons/io";
 import { toast } from "sonner";
 import enrollInXcEdition from "@/actions/xc/enrollInXcEdition";
+import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -16,14 +17,21 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { NEXT_YEAR } from "@/config/constants";
+import { authClient } from "@/lib/auth-client";
 import FAQ from "./FAQ";
 
 export default function XcMontegrappaPage() {
 	const router = useRouter();
+	const { data: session } = authClient.useSession();
+	const { setShowSignInModal } = useContext(ModalContext);
 	const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleEnrollClick = () => {
+		if (!session) {
+			setShowSignInModal(true);
+			return;
+		}
 		setIsEnrollDialogOpen(true);
 	};
 

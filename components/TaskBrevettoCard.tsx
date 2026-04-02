@@ -4,8 +4,9 @@ import { Download, Upload } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { TaskBrevetto } from "@/app/(public)/xc-montegrappa/TaskBrevetto";
+import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -21,6 +22,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { authClient } from "@/lib/auth-client";
 
 interface TaskBrevettoCardProps {
 	task: TaskBrevetto;
@@ -32,11 +34,18 @@ export default function TaskBrevettoCard({
 	isEnrolled = false,
 }: TaskBrevettoCardProps) {
 	const router = useRouter();
+	const { data: session } = authClient.useSession();
+	const { setShowSignInModal } = useContext(ModalContext);
 	const [isEnrollmentModalOpen, setIsEnrollmentModalOpen] = useState(false);
 
 	const handleUploadClick = (e: React.MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
+
+		if (!session) {
+			setShowSignInModal(true);
+			return;
+		}
 
 		if (!isEnrolled) {
 			setIsEnrollmentModalOpen(true);
@@ -44,6 +53,19 @@ export default function TaskBrevettoCard({
 			// TODO: Implement upload modal
 			alert("Upload feature coming soon!");
 		}
+	};
+
+	const handleEnrollNowClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		e.stopPropagation();
+
+		if (!session) {
+			setShowSignInModal(true);
+			return;
+		}
+
+		setIsEnrollmentModalOpen(false);
+		router.push("/xc-montegrappa");
 	};
 
 	return (
@@ -129,11 +151,12 @@ export default function TaskBrevettoCard({
 							>
 								Annulla
 							</Button>
-							<Link href="/xc-montegrappa">
-								<Button className="bg-lime-500 hover:bg-lime-600">
-									Iscriviti ora
-								</Button>
-							</Link>
+							<Button
+								onClick={handleEnrollNowClick}
+								className="bg-lime-500 hover:bg-lime-600"
+							>
+								Iscriviti ora
+							</Button>
 						</div>
 					</div>
 				</DialogContent>
