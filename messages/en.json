@@ -60,6 +60,7 @@
 		"orders": "Orders",
 		"weather": "Weather",
 		"events": "Events",
+		"all_events": "All events",
 		"events_description": "View all events",
 		"trofeo_montegrappa": "Trofeo Montegrappa",
 		"xc_montegrappa": "XC Montegrappa",
@@ -673,6 +674,146 @@
 		"header_title": "Task",
 		"header_description": "Task details",
 		"dashboard_title": "Task Information",
-		"no_data": "No data"
+		"no_data": "No data",
+		"not_found": "Task not found"
+	},
+	"XcMontegrappaPage": {
+		"banner": {
+			"title": "XC Montegrappa",
+			"subtitle": "XC Montegrappa Cross-Country Certificate"
+		},
+		"hero": {
+			"title": "XC Montegrappa"
+		},
+		"intro": "This initiative is organized and promoted by the <strong>Club Volo Libero Montegrappa</strong>.<br></br>It is not a competition, but a personal challenge that recognizes each pilot's commitment and ability to reach cross-country flying goals.<br></br>The routes are based in the Monte Grappa flying area, with takeoff and landing within the designated zones.<br></br>Each pilot can freely choose when to fly throughout the year, starting from <strong>April 1, {year}</strong>.",
+		"objectives": {
+			"title": "OBJECTIVES",
+			"lead": "The XC Montegrappa certificate was created to:",
+			"items": [
+				"Promote and spread free flight practice in paragliding and hang gliding through predefined routes in the Veneto foothills, with takeoff points on Monte Grappa.",
+				"Encourage pilots to improve their experience, foster knowledge sharing, and explore nearby flying areas.",
+				"Help less experienced pilots approach cross-country flying through progressive route levels."
+			]
+		},
+		"howItWorks": {
+			"title": "HOW IT WORKS",
+			"description": "XC Montegrappa has three difficulty levels (Basic, Intermediate, Advanced), each made up of predefined tasks with waypoints to pass.<br></br>Each task has a score that reflects its difficulty. To earn the certificate, you must reach the minimum required score for that level by summing points earned from completed tasks.<br></br>This means that, for each level, it is not strictly necessary to complete every task: you only need to reach the minimum score.<br></br><br></br><strong>Attention!</strong> Each task can count only toward one specific certificate level. A single flight track that includes multiple tasks is valid for one of them only. Therefore, different tasks cannot all be completed in one single flight session."
+		},
+		"levels": {
+			"title": "CERTIFICATE LEVELS",
+			"lead": "Certificates are divided into three increasing difficulty levels:",
+			"viewTasks": "View tasks",
+			"basic": {
+				"title": "BASIC CERTIFICATE",
+				"description": "Shorter and less demanding routes.",
+				"details": "Ideal for pilots at their first cross-country experiences."
+			},
+			"intermediate": {
+				"title": "INTERMEDIATE CERTIFICATE",
+				"description": "Longer, more technical routes.",
+				"details": "Includes crossing the main valleys around Monte Grappa."
+			},
+			"advanced": {
+				"title": "ADVANCED CERTIFICATE",
+				"description": "Routes for expert pilots.",
+				"details": "Routes with higher difficulty due to distance, flight time, and crossings through multiple valleys and diverse environmental contexts."
+			}
+		},
+		"faqTitle": "FREQUENTLY ASKED QUESTIONS",
+		"cta": "Always fly with a goal,<br></br>join the XC Montegrappa certificate",
+		"enrollButton": "Enroll",
+		"toast": {
+			"success": "Welcome to XC Montegrappa!",
+			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
+			"genericError": "Enrollment failed. Please try again."
+		},
+		"dialog": {
+			"title": "Enroll in XC Montegrappa {year}",
+			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
+			"info": "With a single enrollment you can upload tracks for all categories during the entire {year} season.",
+			"cancel": "Cancel",
+			"confirm": "Confirm enrollment",
+			"loading": "Enrolling..."
+		}
+	},
+	"XcMontegrappaFAQ": {
+		"items": {
+			"whoCan": {
+				"question": "Who can participate?",
+				"answer": "All Italian and international pilots compliant with current national free-flight regulations and local rules can take part in the XC certificate from Grappa."
+			},
+			"howMany": {
+				"question": "How many certificates can I earn?",
+				"answer": "There is no distinction or limit by wing category. Each pilot can enroll and complete one or more levels, and can therefore earn all three certificates: basic, intermediate, and advanced."
+			},
+			"whenFly": {
+				"question": "When can flights be made?",
+				"answer": "Flights made from October 1st to September 30th of the following year are considered. You can fly on any day of the week, weather permitting."
+			},
+			"whenCollect": {
+				"question": "If I reach the required score, when can I collect my certificate?",
+				"answer": "In October, during the Volo Libero Montegrappa social dinner, certificates are awarded to pilots who achieved the XC certificate from Grappa."
+			},
+			"prizes": {
+				"question": "Are there prizes?",
+				"answer": "The XC certificate from Grappa is not a competitive event and has no ranking for specific prizes. However, during the social dinner, prizes are drawn among all pilots who achieved the certificate at any level. Special recognitions are granted to pilots who complete multiple certificates in the same season. Drawn prizes are awarded only to pilots present."
+			}
+		}
+	},
+	"XcCategoryPage": {
+		"categories": {
+			"basic": {
+				"title": "Basic Certificate"
+			},
+			"intermediate": {
+				"title": "Intermediate Certificate"
+			},
+			"advanced": {
+				"title": "Advanced Certificate"
+			}
+		},
+		"errors": {
+			"categoryNotFound": "Category not found",
+			"failedToLoad": "Failed to load tasks. Please try again."
+		},
+		"buttons": {
+			"back": "Back",
+			"backToXc": "Back to XC Montegrappa",
+			"enrollNow": "Enroll now"
+		},
+		"header": {
+			"description": "Complete tasks and collect points to earn the certificate"
+		},
+		"progress": {
+			"title": "Your progress",
+			"currentPoints": "Current points:",
+			"minPoints": "Minimum required points:",
+			"completed": "✅ You have completed this category!"
+		},
+		"enrollPrompt": "Enroll in the XC certificate to upload your tracks.",
+		"tasks": {
+			"title": "Available tasks",
+			"empty": "No tasks available for this category yet."
+		}
+	},
+	"XcTaskCard": {
+		"distance": "Distance",
+		"points": "Points",
+		"downloadTask": "Download Task (.tsk)",
+		"uploadTrack": "Upload Track",
+		"uploadComingSoon": "Upload feature coming soon!",
+		"modal": {
+			"title": "Enrollment required",
+			"description": "To upload your track you must first enroll in XC Montegrappa {year}.",
+			"info": "Once enrolled, you can upload GPX and IGC tracks for all categories (Basic, Intermediate, Advanced) throughout the year.",
+			"cancel": "Cancel",
+			"enrollNow": "Enroll now"
+		}
+	},
+	"XcBasicoPage": {
+		"bannerTitle": "BASIC CERTIFICATE",
+		"bannerSubtitle": "XC Montegrappa Cross-Country Certificate",
+		"title": "XC Montegrappa",
+		"subtitle": "BASIC CERTIFICATE"
 	}
 }

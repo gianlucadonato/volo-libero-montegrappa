@@ -1,7 +1,9 @@
+import { useTranslations } from "next-intl";
 import TaskBrevettoCard from "@/components/TaskBrevettoCard";
 import TaskBrevetto from "../TaskBrevetto";
 
 export default function XcMontegrappaBasicPage() {
+	const t = useTranslations("XcBasicoPage");
 	const basicTasks = TaskBrevetto.filter((task) => task.type === "basic");
 	return (
 		<div className="mb-12">
@@ -12,10 +14,10 @@ export default function XcMontegrappaBasicPage() {
 						className="flex h-full flex-col items-center justify-center px-2"
 					>
 						<h1 className="font-heading text-3xl uppercase text-white">
-							BREVETTO BASICO
+							{t("bannerTitle")}
 						</h1>
 						<h3 className="pt-2 text-center text-sm text-white">
-							Brevetto Cross Country Montegrappa
+							{t("bannerSubtitle")}
 						</h3>
 					</div>
 				</div>
@@ -24,8 +26,8 @@ export default function XcMontegrappaBasicPage() {
 				<div className="container mx-auto flex min-h-[310px] flex-col items-center gap-16">
 					<div>
 						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
-							<div className="block">XC Montegrappa</div>
-							<div className="highlight block">BREVETTO BASICO</div>
+							<div className="block">{t("title")}</div>
+							<div className="highlight block">{t("subtitle")}</div>
 						</h1>
 
 						<div className="py-10">

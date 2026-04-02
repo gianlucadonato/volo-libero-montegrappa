@@ -3,6 +3,7 @@
 import { ArrowRight, NotebookPen } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import { IoIosMedal } from "react-icons/io";
 import { toast } from "sonner";
@@ -22,6 +23,7 @@ import FAQ from "./FAQ";
 
 export default function XcMontegrappaPage() {
 	const router = useRouter();
+	const t = useTranslations("XcMontegrappaPage");
 	const { data: session } = authClient.useSession();
 	const { setShowSignInModal } = useContext(ModalContext);
 	const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
@@ -39,15 +41,15 @@ export default function XcMontegrappaPage() {
 		setIsLoading(true);
 		try {
 			await enrollInXcEdition();
-			toast.success("Benvenuto nel Brevetto XC Montegrappa!");
+			toast.success(t("toast.success"));
 			setIsEnrollDialogOpen(false);
 			router.push("/xc-montegrappa/basic");
 		} catch (error) {
 			const message = error instanceof Error ? error.message : "";
 			if (message.includes("già iscritto")) {
-				toast.error("Sei già iscritto al brevetto XC per quest'anno.");
+				toast.error(t("toast.alreadyEnrolled"));
 			} else {
-				toast.error("Errore nell'iscrizione. Riprova.");
+				toast.error(t("toast.genericError"));
 			}
 		} finally {
 			setIsLoading(false);
@@ -63,10 +65,10 @@ export default function XcMontegrappaPage() {
 						className="flex h-full flex-col items-center justify-center px-2"
 					>
 						<h1 className="font-heading text-3xl uppercase text-white">
-							XC Montegrappa
+							{t("banner.title")}
 						</h1>
 						<h3 className="pt-2 text-center text-sm text-white">
-							Brevetto Cross Country Montegrappa
+							{t("banner.subtitle")}
 						</h3>
 					</div>
 				</div>
@@ -75,88 +77,51 @@ export default function XcMontegrappaPage() {
 				<div className="container mx-auto flex min-h-[310px] flex-col items-center gap-16">
 					<div>
 						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
-							<span className="highlight block">XC Montegrappa</span>
+							<span className="highlight block">{t("hero.title")}</span>
 						</h1>
 
 						<div className="py-10">
 							<p className="mx-auto max-w-3xl text-left">
-								L&apos;iniziativa è organizzata e promossa dal{" "}
-								<strong>Club Volo Libero Montegrappa</strong>. <br />
-								Non è una competizione, ma una sfida personale che riconosce
-								l&apos;impegno e la capacità del pilota nel raggiungere
-								obiettivi di volo cross-country. <br />I percorsi hanno come
-								riferimento l&apos;area di volo del Monte Grappa, con decollo e
-								atterraggio all&apos;interno delle zone stabilite. <br />
-								Ogni pilota potrà decidere liberamente i giorni in cui volare
-								durante tutto l&apos;anno solare a partire dal{" "}
-								<strong>01 aprile {NEXT_YEAR}</strong>.
+								{t.rich("intro", {
+									strong: (chunks) => <strong>{chunks}</strong>,
+									br: () => <br />,
+									year: NEXT_YEAR,
+								})}
 							</p>
 						</div>
 
 						<div className="py-10">
 							<h2 className="highlight font-heading text-2xl uppercase">
-								OBIETTIVI
+								{t("objectives.title")}
 							</h2>
 							<div className="mx-auto mt-4 max-w-3xl text-left">
-								<span>
-									Il Brevetto di Cross Country Montegrappa nasce con
-									l&apos;intento di:
-								</span>
+								<span>{t("objectives.lead")}</span>
 								<ul className="list-disc pl-5 pt-2">
-									<li>
-										Promuovere e diffondere la pratica di volo in parapendio e
-										deltaplano, attraverso percorsi predefiniti nell&apos;area
-										della Pedemontana Veneta, con punti di involo sul Monte
-										Grappa.
-									</li>
-									<li>
-										Stimolare i piloti a migliorare la propria esperienza,
-										favorendo lo scambio di informazioni e incentivando
-										l&apos;esplorazione delle aree di volo limitrofe.
-									</li>
-									<li>
-										Avvicinare neo-piloti e piloti con meno esperienza al volo
-										di cross-country, attraverso un sistema di percorsi
-										progressivi.
-									</li>
+									<li>{t("objectives.items.0")}</li>
+									<li>{t("objectives.items.1")}</li>
+									<li>{t("objectives.items.2")}</li>
 								</ul>
 							</div>
 						</div>
 
 						<div className="py-10">
 							<h2 className="highlight font-heading text-2xl uppercase">
-								COME FUNZIONA
+								{t("howItWorks.title")}
 							</h2>
 							<p className="mx-auto mt-4 max-w-3xl text-left">
-								Il Brevetto XC Montegrappa ha tre livelli di difficoltà (Basico,
-								Intermedio, Avanzato) che si compongono di un gruppo di percorsi
-								prestabiliti (task) con delle boe da attraversare. <br />
-								Ogni task ha un punteggio di valore differente che rispecchia il
-								grado di difficoltà da affrontare. Per ottenere il Brevetto si
-								dovrà superare il punteggio minimo richiesto dal livello,
-								attraverso la somma dei punteggi ottenuti dal completamento
-								delle task. <br />
-								Ciò vuol dire che per ogni livello di Brevetto che si vuole
-								ottenere non è strettamente necessario completare tutti i
-								percorsi previsti di quel livello, ma solo raggiungere il
-								punteggio minimo richiesto. <br />
-								<br />
-								<strong>Attenzione!</strong> Ogni percorso è destinato a
-								concorrere esclusivamente per un determinato livello di
-								brevetto. La singola traccia di volo, che potrebbe includere
-								contemporaneamente più percorsi, avrà validità esclusivamente
-								per uno solo di questi. Quindi non è possibile completare
-								percorsi differenti in una sola sessione di volo.
+								{t.rich("howItWorks.description", {
+									strong: (chunks) => <strong>{chunks}</strong>,
+									br: () => <br />,
+								})}
 							</p>
 						</div>
 
 						<div className="py-10">
 							<h2 className="highlight font-heading text-2xl uppercase">
-								LIVELLI DI BREVETTO
+								{t("levels.title")}
 							</h2>
 							<div className="mx-auto mt-4 max-w-3xl text-left">
-								I brevetti si suddividono in tre livelli, con difficoltà
-								crescente:
+								{t("levels.lead")}
 								<ul className="pt-4">
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#CD7F32]">
 										<Link href="/xc-montegrappa/basic">
@@ -166,17 +131,16 @@ export default function XcMontegrappaPage() {
 												</div>
 												<div className="gap-1 pl-2">
 													<div className="text-lg">
-														<strong>BREVETTO BASICO</strong>
+														<strong>{t("levels.basic.title")}</strong>
 													</div>
 													<div className="text-md">
-														Percorsi brevi e meno impegnativi.
+														{t("levels.basic.description")}
 													</div>
 													<div className="text-md text-gray-600">
-														Ideale per piloti alle prime esperienze nel
-														cross-country.
+														{t("levels.basic.details")}
 													</div>
 													<Button variant="outline" className="mt-2">
-														Vedi percorsi
+														{t("levels.viewTasks")}
 														<ArrowRight className="ml-1 size-4" />
 													</Button>
 												</div>
@@ -191,17 +155,16 @@ export default function XcMontegrappaPage() {
 												</div>
 												<div className="gap-1 pl-2">
 													<div className="text-lg">
-														<strong>BREVETTO INTERMEDIO</strong>
+														<strong>{t("levels.intermediate.title")}</strong>
 													</div>
 													<div className="text-md">
-														Percorsi più lunghi e tecnici
+														{t("levels.intermediate.description")}
 													</div>
 													<div className="text-md text-gray-600">
-														Prevede il superamento delle principali valli del
-														Monte Grappa.
+														{t("levels.intermediate.details")}
 													</div>
 													<Button variant="outline" className="mt-2">
-														Vedi percorsi
+														{t("levels.viewTasks")}
 														<ArrowRight className="ml-1 size-4" />
 													</Button>
 												</div>
@@ -216,19 +179,16 @@ export default function XcMontegrappaPage() {
 												</div>
 												<div className="gap-1 pl-2">
 													<div className="text-lg">
-														<strong>BREVETTO AVANZATO</strong>
+														<strong>{t("levels.advanced.title")}</strong>
 													</div>
 													<div className="text-md">
-														Percorsi per i più esperti.
+														{t("levels.advanced.description")}
 													</div>
 													<div className="text-md text-gray-600">
-														Percorsi con coefficiente di difficoltà più elevato
-														sia per la distanza ed il tempo di volo richiesti,
-														sia per passaggi che prevedono il superamento di
-														diverse valli, e in contesti ambientali differenti.
+														{t("levels.advanced.details")}
 													</div>
 													<Button variant="outline" className="mt-2">
-														Vedi percorsi
+														{t("levels.viewTasks")}
 														<ArrowRight className="ml-1 size-4" />
 													</Button>
 												</div>
@@ -241,7 +201,7 @@ export default function XcMontegrappaPage() {
 
 						<div className="py-10">
 							<h2 className="highlight font-heading text-2xl uppercase">
-								DOMANDE FREQUENTI
+								{t("faqTitle")}
 							</h2>
 							<div className="mx-auto mt-4 max-w-3xl text-left">
 								<FAQ />
@@ -251,8 +211,7 @@ export default function XcMontegrappaPage() {
 						<div className="py-10">
 							<div className="flex flex-col items-center justify-center">
 								<div className="mb-4 text-center text-3xl font-caveat">
-									Vola sempre con un obiettivo, <br />
-									iscriviti al Brevetto XC Montegrappa
+									{t.rich("cta", { br: () => <br /> })}
 								</div>
 								<Button
 									variant="default"
@@ -261,7 +220,7 @@ export default function XcMontegrappaPage() {
 									onClick={handleEnrollClick}
 								>
 									<NotebookPen className="mr-2 size-4" />
-									Iscriviti
+									{t("enrollButton")}
 								</Button>
 							</div>
 						</div>
@@ -273,20 +232,15 @@ export default function XcMontegrappaPage() {
 			<Dialog open={isEnrollDialogOpen} onOpenChange={setIsEnrollDialogOpen}>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>
-							Iscriviti al Brevetto XC Montegrappa {NEXT_YEAR}
-						</DialogTitle>
+						<DialogTitle>{t("dialog.title", { year: NEXT_YEAR })}</DialogTitle>
 						<DialogDescription>
-							Ti iscrivi all&apos;edizione {NEXT_YEAR} del Brevetto XC
-							Montegrappa. Potrai partecipare a tutte le categorie (Basico,
-							Intermedio, Avanzato).
+							{t("dialog.description", { year: NEXT_YEAR })}
 						</DialogDescription>
 					</DialogHeader>
 					<div className="space-y-4">
 						<div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
 							<p className="text-sm text-blue-800">
-								Con un&apos;unica iscrizione potrai caricare le tracce per tutte
-								le categorie durante tutto l&apos;anno solare {NEXT_YEAR}.
+								{t("dialog.info", { year: NEXT_YEAR })}
 							</p>
 						</div>
 						<div className="flex gap-2 justify-end">
@@ -294,14 +248,14 @@ export default function XcMontegrappaPage() {
 								variant="outline"
 								onClick={() => setIsEnrollDialogOpen(false)}
 							>
-								Annulla
+								{t("dialog.cancel")}
 							</Button>
 							<Button
 								onClick={handleConfirmEnrollment}
 								disabled={isLoading}
 								className="bg-lime-500 hover:bg-lime-600"
 							>
-								{isLoading ? "Iscrizione in corso..." : "Conferma Iscrizione"}
+								{isLoading ? t("dialog.loading") : t("dialog.confirm")}
 							</Button>
 						</div>
 					</div>

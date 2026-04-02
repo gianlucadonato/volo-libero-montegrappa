@@ -27,7 +27,7 @@ export default async function TaskPage({
 	const task = await getTask(id);
 	const t = await getTranslations("TaskPage");
 	if (!task || !task.name) {
-		return <div>Task not found</div>;
+		return <div>{t("not_found")}</div>;
 	}
 
 	return (

@@ -3,6 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useContext, useEffect, useState } from "react";
 import getMyXcProgress from "@/actions/xc/getMyXcProgress";
 import { getXcTasksByCategory } from "@/actions/xc/getXcTasks";
@@ -54,6 +55,7 @@ const categoryConfig: Record<
 export default function CategoryPage() {
 	const params = useParams();
 	const router = useRouter();
+	const t = useTranslations("XcCategoryPage");
 	const { data: session } = authClient.useSession();
 	const { setShowSignInModal } = useContext(ModalContext);
 	const categoryParam = (params.category as string)?.toLowerCase();
@@ -70,7 +72,7 @@ export default function CategoryPage() {
 			try {
 				setIsLoading(true);
 				if (!config) {
-					setError("Category not found");
+					setError(t("errors.categoryNotFound"));
 					return;
 				}
 
@@ -83,14 +85,14 @@ export default function CategoryPage() {
 				setProgressData(progress);
 			} catch (err) {
 				console.error("Error loading data:", err);
-				setError("Failed to load tasks. Please try again.");
+				setError(t("errors.failedToLoad"));
 			} finally {
 				setIsLoading(false);
 			}
 		};
 
 		loadData();
-	}, [config]);
+	}, [config, t]);
 
 	if (!config) {
 		return (
@@ -98,12 +100,12 @@ export default function CategoryPage() {
 				<Card className="w-full max-w-md">
 					<CardContent className="text-center pt-6">
 						<p className="text-red-600 font-semibold mb-4">
-							Category not found
+							{t("errors.categoryNotFound")}
 						</p>
 						<Link href="/xc-montegrappa">
 							<Button variant="outline" className="w-full">
 								<ArrowLeft className="mr-2 size-4" />
-								Back to XC Montegrappa
+								{t("buttons.backToXc")}
 							</Button>
 						</Link>
 					</CardContent>
@@ -129,7 +131,7 @@ export default function CategoryPage() {
 						<Link href="/xc-montegrappa">
 							<Button variant="outline" className="w-full">
 								<ArrowLeft className="mr-2 size-4" />
-								Back to XC Montegrappa
+								{t("buttons.backToXc")}
 							</Button>
 						</Link>
 					</CardContent>
@@ -160,17 +162,15 @@ export default function CategoryPage() {
 					<Link href="/xc-montegrappa">
 						<Button variant="outline" className="mb-4">
 							<ArrowLeft className="mr-2 size-4" />
-							Back
+							{t("buttons.back")}
 						</Button>
 					</Link>
 
 					<div className={`rounded-lg border-2 p-6 ${config.color}`}>
 						<h1 className="text-4xl font-bold mb-2">
-							{config.icon} {config.name}
+							{config.icon} {t(`categories.${categoryParam}.title`)}
 						</h1>
-						<p className="text-gray-600 text-lg">
-							Complete the tasks and accumulate points to earn the certificate
-						</p>
+						<p className="text-gray-600 text-lg">{t("header.description")}</p>
 					</div>
 				</div>
 
@@ -178,18 +178,18 @@ export default function CategoryPage() {
 				{isEnrolled && categoryProgress && (
 					<Card className="mb-8 bg-blue-50 border-blue-200">
 						<CardHeader>
-							<CardTitle>Your Progress</CardTitle>
+							<CardTitle>{t("progress.title")}</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="space-y-2">
 								<p className="text-sm text-gray-600">
-									Current Points:{" "}
+									{t("progress.currentPoints")}
 									<span className="font-bold text-lg">
 										{categoryProgress.points}
 									</span>
 								</p>
 								<p className="text-sm text-gray-600">
-									Minimum Points Required:{" "}
+									{t("progress.minPoints")}
 									<span className="font-bold text-lg">
 										{categoryProgress.minPoints}
 									</span>
@@ -208,7 +208,7 @@ export default function CategoryPage() {
 								</div>
 								{categoryProgress.completed && (
 									<p className="text-green-600 font-semibold mt-2">
-										✅ You have completed this category!
+										{t("progress.completed")}
 									</p>
 								)}
 							</div>
@@ -219,21 +219,21 @@ export default function CategoryPage() {
 				{!isEnrolled && (
 					<Card className="mb-8 bg-amber-50 border-amber-200">
 						<CardContent className="text-center pt-6">
-							<p className="text-amber-800 mb-4">
-								Iscriviti al Brevetto XC per poter caricare le tracce.
-							</p>
-							<Button onClick={handleEnrollNowClick}>Iscriviti ora</Button>
+							<p className="text-amber-800 mb-4">{t("enrollPrompt")}</p>
+							<Button onClick={handleEnrollNowClick}>
+								{t("buttons.enrollNow")}
+							</Button>
 						</CardContent>
 					</Card>
 				)}
 
 				{/* Tasks List */}
 				<div className="mb-8">
-					<h2 className="text-2xl font-bold mb-6">Available Tasks</h2>
+					<h2 className="text-2xl font-bold mb-6">{t("tasks.title")}</h2>
 					{tasks.length === 0 ? (
 						<Card>
 							<CardContent className="text-center pt-6 text-gray-500">
-								No tasks available for this category yet.
+								{t("tasks.empty")}
 							</CardContent>
 						</Card>
 					) : (

@@ -715,6 +715,146 @@
 		"header_title": "Task",
 		"header_description": "Dettagli del task",
 		"dashboard_title": "Informazioni Task",
-		"no_data": "Nessun dato"
+		"no_data": "Nessun dato",
+		"not_found": "Task non trovato"
+	},
+	"XcMontegrappaPage": {
+		"banner": {
+			"title": "XC Montegrappa",
+			"subtitle": "Brevetto Cross Country Montegrappa"
+		},
+		"hero": {
+			"title": "XC Montegrappa"
+		},
+		"intro": "L'iniziativa è organizzata e promossa dal <strong>Club Volo Libero Montegrappa</strong>.<br></br>Non è una competizione, ma una sfida personale che riconosce l'impegno e la capacità del pilota nel raggiungere obiettivi di volo cross-country.<br></br>I percorsi hanno come riferimento l'area di volo del Monte Grappa, con decollo e atterraggio all'interno delle zone stabilite.<br></br>Ogni pilota potrà decidere liberamente i giorni in cui volare durante tutto l'anno solare a partire dal <strong>01 aprile {year}</strong>.",
+		"objectives": {
+			"title": "OBIETTIVI",
+			"lead": "Il Brevetto di Cross Country Montegrappa nasce con l'intento di:",
+			"items": [
+				"Promuovere e diffondere la pratica di volo in parapendio e deltaplano, attraverso percorsi predefiniti nell'area della Pedemontana Veneta, con punti di involo sul Monte Grappa.",
+				"Stimolare i piloti a migliorare la propria esperienza, favorendo lo scambio di informazioni e incentivando l'esplorazione delle aree di volo limitrofe.",
+				"Avvicinare neo-piloti e piloti con meno esperienza al volo di cross-country, attraverso un sistema di percorsi progressivi."
+			]
+		},
+		"howItWorks": {
+			"title": "COME FUNZIONA",
+			"description": "Il Brevetto XC Montegrappa ha tre livelli di difficoltà (Basico, Intermedio, Avanzato) che si compongono di un gruppo di percorsi prestabiliti (task) con delle boe da attraversare.<br></br>Ogni task ha un punteggio di valore differente che rispecchia il grado di difficoltà da affrontare. Per ottenere il Brevetto si dovrà superare il punteggio minimo richiesto dal livello, attraverso la somma dei punteggi ottenuti dal completamento delle task.<br></br>Ciò vuol dire che per ogni livello di Brevetto che si vuole ottenere non è strettamente necessario completare tutti i percorsi previsti di quel livello, ma solo raggiungere il punteggio minimo richiesto.<br></br><br></br><strong>Attenzione!</strong> Ogni percorso è destinato a concorrere esclusivamente per un determinato livello di brevetto. La singola traccia di volo, che potrebbe includere contemporaneamente più percorsi, avrà validità esclusivamente per uno solo di questi. Quindi non è possibile completare percorsi differenti in una sola sessione di volo."
+		},
+		"levels": {
+			"title": "LIVELLI DI BREVETTO",
+			"lead": "I brevetti si suddividono in tre livelli, con difficoltà crescente:",
+			"viewTasks": "Vedi percorsi",
+			"basic": {
+				"title": "BREVETTO BASICO",
+				"description": "Percorsi brevi e meno impegnativi.",
+				"details": "Ideale per piloti alle prime esperienze nel cross-country."
+			},
+			"intermediate": {
+				"title": "BREVETTO INTERMEDIO",
+				"description": "Percorsi più lunghi e tecnici",
+				"details": "Prevede il superamento delle principali valli del Monte Grappa."
+			},
+			"advanced": {
+				"title": "BREVETTO AVANZATO",
+				"description": "Percorsi per i più esperti.",
+				"details": "Percorsi con coefficiente di difficoltà più elevato sia per la distanza ed il tempo di volo richiesti, sia per passaggi che prevedono il superamento di diverse valli, e in contesti ambientali differenti."
+			}
+		},
+		"faqTitle": "DOMANDE FREQUENTI",
+		"cta": "Vola sempre con un obiettivo,<br></br>iscriviti al Brevetto XC Montegrappa",
+		"enrollButton": "Iscriviti",
+		"toast": {
+			"success": "Benvenuto nel Brevetto XC Montegrappa!",
+			"alreadyEnrolled": "Sei già iscritto al brevetto XC per quest'anno.",
+			"genericError": "Errore nell'iscrizione. Riprova."
+		},
+		"dialog": {
+			"title": "Iscriviti al Brevetto XC Montegrappa {year}",
+			"description": "Ti iscrivi all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
+			"info": "Con un'unica iscrizione potrai caricare le tracce per tutte le categorie durante tutto l'anno solare {year}.",
+			"cancel": "Annulla",
+			"confirm": "Conferma Iscrizione",
+			"loading": "Iscrizione in corso..."
+		}
+	},
+	"XcMontegrappaFAQ": {
+		"items": {
+			"whoCan": {
+				"question": "Chi può partecipare?",
+				"answer": "Al Brevetto Volo di Cross dal Grappa possono partecipare tutti i piloti Italiani e stranieri in regola con le attuali normative sul volo libero nazionale, e nel rispetto dei regolamenti locali."
+			},
+			"howMany": {
+				"question": "Quanti brevetti posso ottenere?",
+				"answer": "Non esiste distinzione o limite di categoria di vela. Ogni pilota può iscriversi e scegliere di completare uno o più livelli, e quindi volendo può ottenere anche tutti e tre i brevetti: basico, intermedio e avanzato."
+			},
+			"whenFly": {
+				"question": "Quando si possono fare i voli?",
+				"answer": "Verranno considerati i voli fatti dal 1° ottobre al 30 settembre dell'anno successivo. Si può volare in tutti i giorni disponibili, dal lunedì alla domenica, compatibilmente con le condizioni meteorologiche."
+			},
+			"whenCollect": {
+				"question": "Se raggiungo il punteggio richiesto, quando posso ritirare il mio brevetto?",
+				"answer": "Nel mese di ottobre, in occasione della cena sociale del Volo Libero Montegrappa, verranno consegnati gli attestati di conseguimento del Brevetto Volo di Cross dal Grappa."
+			},
+			"prizes": {
+				"question": "Sono previsti premi in palio?",
+				"answer": "Il Brevetto Volo di Cross dal Grappa non è un evento competitivo e non prevede alcun tipo di classifica finalizzata all'ottenimento di premi specifici; tuttavia, in concomitanza con la cena sociale, verranno estratti a sorteggio dei premi di valore tra tutti i piloti che hanno conseguito il Brevetto Volo di Cross dal Grappa in qualsiasi livello. Riconoscimenti speciali verranno riconosciuti per i piloti che riusciranno a completare più brevetti nel corso della stessa stagione. I premi a sorteggio verranno consegnati solo ai piloti presenti."
+			}
+		}
+	},
+	"XcCategoryPage": {
+		"categories": {
+			"basic": {
+				"title": "Brevetto Basico"
+			},
+			"intermediate": {
+				"title": "Brevetto Intermedio"
+			},
+			"advanced": {
+				"title": "Brevetto Avanzato"
+			}
+		},
+		"errors": {
+			"categoryNotFound": "Categoria non trovata",
+			"failedToLoad": "Errore nel caricamento dei percorsi. Riprova."
+		},
+		"buttons": {
+			"back": "Indietro",
+			"backToXc": "Torna a XC Montegrappa",
+			"enrollNow": "Iscriviti ora"
+		},
+		"header": {
+			"description": "Completa i percorsi e accumula punti per ottenere il brevetto"
+		},
+		"progress": {
+			"title": "I tuoi progressi",
+			"currentPoints": "Punti attuali:",
+			"minPoints": "Punti minimi richiesti:",
+			"completed": "✅ Hai completato questa categoria!"
+		},
+		"enrollPrompt": "Iscriviti al Brevetto XC per poter caricare le tracce.",
+		"tasks": {
+			"title": "Percorsi disponibili",
+			"empty": "Nessun percorso disponibile per questa categoria."
+		}
+	},
+	"XcTaskCard": {
+		"distance": "Distanza",
+		"points": "Punti",
+		"downloadTask": "Scarica Task (.tsk)",
+		"uploadTrack": "Carica Traccia",
+		"uploadComingSoon": "Funzione di upload in arrivo!",
+		"modal": {
+			"title": "Iscrizione richiesta",
+			"description": "Per caricare la tua traccia devi prima iscriverti al Brevetto XC Montegrappa {year}.",
+			"info": "Iscrivendoti potrai caricare tracce GPX e IGC per tutte le categorie (Basico, Intermedio, Avanzato) durante tutto l'anno.",
+			"cancel": "Annulla",
+			"enrollNow": "Iscriviti ora"
+		}
+	},
+	"XcBasicoPage": {
+		"bannerTitle": "BREVETTO BASICO",
+		"bannerSubtitle": "Brevetto Cross Country Montegrappa",
+		"title": "XC Montegrappa",
+		"subtitle": "BREVETTO BASICO"
 	}
 }

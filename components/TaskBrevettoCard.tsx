@@ -4,6 +4,7 @@ import { Download, Upload } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import type { TaskBrevetto } from "@/app/(public)/xc-montegrappa/TaskBrevetto";
 import { ModalContext } from "@/components/modals/providers";
@@ -34,6 +35,7 @@ export default function TaskBrevettoCard({
 	isEnrolled = false,
 }: TaskBrevettoCardProps) {
 	const router = useRouter();
+	const t = useTranslations("XcTaskCard");
 	const { data: session } = authClient.useSession();
 	const { setShowSignInModal } = useContext(ModalContext);
 	const [isEnrollmentModalOpen, setIsEnrollmentModalOpen] = useState(false);
@@ -51,7 +53,7 @@ export default function TaskBrevettoCard({
 			setIsEnrollmentModalOpen(true);
 		} else {
 			// TODO: Implement upload modal
-			alert("Upload feature coming soon!");
+			alert(t("uploadComingSoon"));
 		}
 	};
 
@@ -94,8 +96,12 @@ export default function TaskBrevettoCard({
 							</CardHeader>
 							<CardContent>
 								<div>
-									<p>Distanza: {task.distance} km</p>
-									<p>Punti: {task.points}</p>
+									<p>
+										{t("distance")}: {task.distance} km
+									</p>
+									<p>
+										{t("points")}: {task.points}
+									</p>
 								</div>
 								<div className="mt-2 flex flex-col gap-2 sm:flex-row">
 									<Link
@@ -106,12 +112,12 @@ export default function TaskBrevettoCard({
 										onClick={(e) => e.stopPropagation()}
 									>
 										<Button variant="outline" className="w-full">
-											<span>Scarica Task (.tsk)</span>
+											<span>{t("downloadTask")}</span>
 											<Download className="ml-2 size-4" />
 										</Button>
 									</Link>
 									<Button onClick={handleUploadClick}>
-										<span>Carica Traccia</span>
+										<span>{t("uploadTrack")}</span>
 										<Upload className="ml-2 size-4" />
 									</Button>
 								</div>
@@ -128,20 +134,15 @@ export default function TaskBrevettoCard({
 			>
 				<DialogContent>
 					<DialogHeader>
-						<DialogTitle>Iscrizione richiesta</DialogTitle>
+						<DialogTitle>{t("modal.title")}</DialogTitle>
 						<DialogDescription>
-							Per caricare la tua traccia devi prima iscriverti al Brevetto XC
-							Montegrappa {new Date().getFullYear()}.
+							{t("modal.description", { year: new Date().getFullYear() })}
 						</DialogDescription>
 					</DialogHeader>
 
 					<div className="space-y-4">
 						<div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-							<p className="text-sm text-blue-800">
-								Iscrivendoti potrai caricare tracce GPX e IGC per tutte le
-								categorie (Basico, Intermedio, Avanzato) durante tutto
-								l&apos;anno.
-							</p>
+							<p className="text-sm text-blue-800">{t("modal.info")}</p>
 						</div>
 
 						<div className="flex gap-2 justify-end">
@@ -149,13 +150,13 @@ export default function TaskBrevettoCard({
 								variant="outline"
 								onClick={() => setIsEnrollmentModalOpen(false)}
 							>
-								Annulla
+								{t("modal.cancel")}
 							</Button>
 							<Button
 								onClick={handleEnrollNowClick}
 								className="bg-lime-500 hover:bg-lime-600"
 							>
-								Iscriviti ora
+								{t("modal.enrollNow")}
 							</Button>
 						</div>
 					</div>
