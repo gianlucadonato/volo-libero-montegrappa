@@ -54,3 +54,14 @@ export type UserWithMemberships = User & {
 };
 
 export type PaymentWithUser = Payment & { user: User; creator?: User };
+
+export interface XcTaskData {
+	id: string;
+	name: string;
+	description?: string | null;
+	points: number;
+	distanceKm?: number | null;
+	taskFileUrl?: string | null;
+	imageUrl?: string | null;
+	isPublished: boolean;
+}

@@ -14,19 +14,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 import type { XcCategoryLevel } from "@/prisma/generated/enums";
+import type { XcTaskData } from "@/types";
 
 type XcProgress = Awaited<ReturnType<typeof getMyXcProgress>>;
-
-interface XcTaskData {
-	id: string;
-	name: string;
-	description?: string | null;
-	points: number;
-	distanceKm?: number | null;
-	taskFileUrl?: string | null;
-	imageUrl?: string | null;
-	isPublished: boolean;
-}
 
 const categoryConfig: Record<
 	string,
@@ -241,19 +231,7 @@ export default function CategoryPage() {
 							{tasks.map((task: XcTaskData) => (
 								<TaskBrevettoCard
 									key={task.id}
-									task={{
-										id: parseInt(task.id.split("-")[0], 10) || 0,
-										name: task.name,
-										description: task.description || "",
-										distance: task.distanceKm || 0,
-										image: task.imageUrl || "/xcmontegrappa/basic/01/b01.png",
-										gpx: task.taskFileUrl || "",
-										type: categoryParam as
-											| "basic"
-											| "intermediate"
-											| "advanced",
-										points: task.points,
-									}}
+									task={task}
 									isEnrolled={isEnrolled}
 								/>
 							))}

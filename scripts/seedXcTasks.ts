@@ -1,6 +1,6 @@
-import TaskBrevetto from "@/app/(public)/xc-montegrappa/TaskBrevetto";
 import { prisma } from "@/lib/prisma";
 import { XcCategoryLevel } from "@/prisma/generated/enums";
+import TaskBrevetto from "@/scripts/TaskBrevetto";
 
 // Creates both a historical 2025 edition and the active 2026 edition (NEXT_YEAR)
 const HISTORICAL_YEAR = 2025;

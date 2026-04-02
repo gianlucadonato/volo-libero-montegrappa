@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
-import type { TaskBrevetto } from "@/app/(public)/xc-montegrappa/TaskBrevetto";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,9 +23,10 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
+import type { XcTaskData } from "@/types";
 
 interface TaskBrevettoCardProps {
-	task: TaskBrevetto;
+	task: XcTaskData;
 	isEnrolled?: boolean;
 }
 
@@ -81,13 +81,15 @@ export default function TaskBrevettoCard({
 				>
 					<div className="flex flex-col sm:flex-row">
 						<div className="flex w-full justify-start sm:w-1/3">
-							<Image
-								src={task.image}
-								alt={task.name}
-								width={200}
-								height={200}
-								className="h-48 w-full object-cover"
-							/>
+							{task.imageUrl && (
+								<Image
+									src={task.imageUrl}
+									alt={task.name}
+									width={200}
+									height={200}
+									className="h-48 w-full object-cover"
+								/>
+							)}
 						</div>
 						<div className="flex-1 py-4">
 							<CardHeader>
@@ -97,7 +99,7 @@ export default function TaskBrevettoCard({
 							<CardContent>
 								<div>
 									<p>
-										{t("distance")}: {task.distance} km
+										{t("distance")}: {task.distanceKm} km
 									</p>
 									<p>
 										{t("points")}: {task.points}
@@ -105,7 +107,7 @@ export default function TaskBrevettoCard({
 								</div>
 								<div className="mt-2 flex flex-col gap-2 sm:flex-row">
 									<Link
-										href={task.gpx}
+										href={task.taskFileUrl || "#"}
 										target="_blank"
 										download
 										className="w-full sm:w-auto"

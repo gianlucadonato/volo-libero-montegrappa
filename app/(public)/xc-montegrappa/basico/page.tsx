@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import TaskBrevettoCard from "@/components/TaskBrevettoCard";
-import TaskBrevetto from "../TaskBrevetto";
+import TaskBrevetto from "../../../../scripts/TaskBrevetto";
 
 export default function XcMontegrappaBasicPage() {
 	const t = useTranslations("XcBasicoPage");
