@@ -1,5 +1,6 @@
 "use server";
 
+import { isSocio } from "@/helpers/isSocio";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 import { getActiveXcEdition } from "@/lib/xc";
@@ -17,6 +18,19 @@ export default async function enrollInXcEdition() {
 		throw new Error("Nessuna edizione XC attiva");
 	}
 
+	const socio = await prisma.user.findFirst({
+		where: { id: user.id },
+		include: { memberships: true },
+	});
+	console.log("🐞 > socio:", socio, socio && !isSocio(socio));
+	if (socio && !isSocio(socio)) {
+		return {
+			success: false,
+			message: "The event is for members only!",
+			code: 403,
+		};
+	}
+
 	// Check if user is already enrolled in this edition
 	const existingEnrollment = await prisma.xcEnrollment.findUnique({
 		where: {
@@ -28,7 +42,11 @@ export default async function enrollInXcEdition() {
 	});
 
 	if (existingEnrollment) {
-		throw new Error("Sei già iscritto al brevetto XC per quest'anno");
+		return {
+			success: false,
+			message: "You are already enrolled in this edition!",
+			code: 409,
+		};
 	}
 
 	const enrollment = await prisma.xcEnrollment.create({
@@ -39,5 +57,5 @@ export default async function enrollInXcEdition() {
 		},
 	});
 
-	return enrollment;
+	return { success: true, data: enrollment };
 }

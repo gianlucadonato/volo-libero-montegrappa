@@ -1,60 +1,16 @@
 "use client";
 
-import { ArrowRight, NotebookPen } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useContext, useState } from "react";
 import { IoIosMedal } from "react-icons/io";
-import { toast } from "sonner";
-import enrollInXcEdition from "@/actions/xc/enrollInXcEdition";
-import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from "@/components/ui/dialog";
+import EnrollButton from "@/components/xc/EnrollButton";
 import { NEXT_YEAR } from "@/config/constants";
-import { authClient } from "@/lib/auth-client";
 import FAQ from "./FAQ";
 
 export default function XcMontegrappaPage() {
-	const router = useRouter();
 	const t = useTranslations("XcMontegrappaPage");
-	const { data: session } = authClient.useSession();
-	const { setShowSignInModal } = useContext(ModalContext);
-	const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-
-	const handleEnrollClick = () => {
-		if (!session) {
-			setShowSignInModal(true);
-			return;
-		}
-		setIsEnrollDialogOpen(true);
-	};
-
-	const handleConfirmEnrollment = async () => {
-		setIsLoading(true);
-		try {
-			await enrollInXcEdition();
-			toast.success(t("toast.success"));
-			setIsEnrollDialogOpen(false);
-			router.push("/xc-montegrappa/basic");
-		} catch (error) {
-			const message = error instanceof Error ? error.message : "";
-			if (message.includes("già iscritto")) {
-				toast.error(t("toast.alreadyEnrolled"));
-			} else {
-				toast.error(t("toast.genericError"));
-			}
-		} finally {
-			setIsLoading(false);
-		}
-	};
 
 	return (
 		<div className="mb-12">
@@ -213,54 +169,12 @@ export default function XcMontegrappaPage() {
 								<div className="mb-4 text-center text-3xl font-caveat">
 									{t.rich("cta", { br: () => <br /> })}
 								</div>
-								<Button
-									variant="default"
-									size="lg"
-									className="btn-lime uppercase"
-									onClick={handleEnrollClick}
-								>
-									<NotebookPen className="mr-2 size-4" />
-									{t("enrollButton")}
-								</Button>
+								<EnrollButton />
 							</div>
 						</div>
 					</div>
 				</div>
 			</section>
-
-			{/* Enrollment Dialog */}
-			<Dialog open={isEnrollDialogOpen} onOpenChange={setIsEnrollDialogOpen}>
-				<DialogContent>
-					<DialogHeader>
-						<DialogTitle>{t("dialog.title", { year: NEXT_YEAR })}</DialogTitle>
-						<DialogDescription>
-							{t("dialog.description", { year: NEXT_YEAR })}
-						</DialogDescription>
-					</DialogHeader>
-					<div className="space-y-4">
-						<div className="rounded-lg bg-blue-50 border border-blue-200 p-4">
-							<p className="text-sm text-blue-800">
-								{t("dialog.info", { year: NEXT_YEAR })}
-							</p>
-						</div>
-						<div className="flex gap-2 justify-end">
-							<Button
-								variant="outline"
-								onClick={() => setIsEnrollDialogOpen(false)}
-							>
-								{t("dialog.cancel")}
-							</Button>
-							<Button
-								onClick={handleConfirmEnrollment}
-								disabled={isLoading}
-								className="bg-lime-500 hover:bg-lime-600"
-							>
-								{isLoading ? t("dialog.loading") : t("dialog.confirm")}
-							</Button>
-						</div>
-					</div>
-				</DialogContent>
-			</Dialog>
 		</div>
 	);
 }

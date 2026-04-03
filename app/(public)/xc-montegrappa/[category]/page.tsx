@@ -2,17 +2,16 @@
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import getMyXcProgress from "@/actions/xc/getMyXcProgress";
 import { getXcTasksByCategory } from "@/actions/xc/getXcTasks";
-import { ModalContext } from "@/components/modals/providers";
 import Spinner from "@/components/Spinner";
 import TaskBrevettoCard from "@/components/TaskBrevettoCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { authClient } from "@/lib/auth-client";
+import EnrollButton from "@/components/xc/EnrollButton";
 import type { XcCategoryLevel } from "@/prisma/generated/enums";
 import type { XcTaskData } from "@/types";
 
@@ -44,10 +43,7 @@ const categoryConfig: Record<
 
 export default function CategoryPage() {
 	const params = useParams();
-	const router = useRouter();
 	const t = useTranslations("XcCategoryPage");
-	const { data: session } = authClient.useSession();
-	const { setShowSignInModal } = useContext(ModalContext);
 	const categoryParam = (params.category as string)?.toLowerCase();
 
 	const config = categoryConfig[categoryParam];
@@ -136,14 +132,6 @@ export default function CategoryPage() {
 		(c) => c.level === config.level,
 	);
 
-	const handleEnrollNowClick = () => {
-		if (!session) {
-			setShowSignInModal(true);
-			return;
-		}
-		router.push("/xc-montegrappa");
-	};
-
 	return (
 		<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
 			<div className="overflow-hidden">
@@ -223,12 +211,10 @@ export default function CategoryPage() {
 				)}
 
 				{!isEnrolled && (
-					<Card className="mb-8 bg-amber-50 border-amber-200">
+					<Card className="mb-8 bg-blue-50 border border-blue-200">
 						<CardContent className="text-center pt-6">
-							<p className="text-amber-800 mb-4">{t("enrollPrompt")}</p>
-							<Button onClick={handleEnrollNowClick}>
-								{t("buttons.enrollNow")}
-							</Button>
+							<p className="text-blue-800 mb-4">{t("enrollPrompt")}</p>
+							<EnrollButton />
 						</CardContent>
 					</Card>
 				)}

@@ -1,5 +1,10 @@
 import type { LucideIcon } from "lucide-react";
-import type { Event, EventRegistration, User } from "@/prisma/generated/client";
+import type {
+	Event,
+	EventRegistration,
+	User,
+	UserMembership,
+} from "@/prisma/generated/client";
 import type { UserRole } from "@/prisma/generated/enums";
 
 export type SiteConfig = {

@@ -769,8 +769,8 @@
 			"genericError": "Errore nell'iscrizione. Riprova."
 		},
 		"dialog": {
-			"title": "Iscriviti al Brevetto XC Montegrappa {year}",
-			"description": "Ti iscrivi all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
+			"title": "Vuoi iscriverti al Brevetto XC Montegrappa {year}?",
+			"description": "Iscriviti all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
 			"info": "Con un'unica iscrizione potrai caricare le tracce per tutte le categorie durante tutto l'anno solare {year}.",
 			"cancel": "Annulla",
 			"confirm": "Conferma Iscrizione",
