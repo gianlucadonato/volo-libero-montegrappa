@@ -761,6 +761,8 @@
 		}
 	},
 	"XcCategoryPage": {
+		"bannerTitle": "XC Montegrappa",
+		"bannerSubtitle": "Cross Country Montegrappa Certificate",
 		"categories": {
 			"basic": {
 				"title": "Basic Certificate"

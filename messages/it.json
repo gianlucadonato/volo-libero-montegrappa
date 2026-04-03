@@ -802,6 +802,8 @@
 		}
 	},
 	"XcCategoryPage": {
+		"bannerTitle": "XC Montegrappa",
+		"bannerSubtitle": "Brevetto Cross Country Montegrappa",
 		"categories": {
 			"basic": {
 				"title": "Brevetto Basico"

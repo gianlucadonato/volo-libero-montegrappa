@@ -26,7 +26,7 @@ const categoryConfig: Record<
 		level: "BASIC",
 		name: "Brevetto Basico",
 		icon: "🥉",
-		color: "bg-amber-50 border-amber-200",
+		color: "bg-bronze-50 border-bronze-200",
 	},
 	intermediate: {
 		level: "INTERMEDIATE",
@@ -145,7 +145,23 @@ export default function CategoryPage() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+		<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
+			<div className="overflow-hidden">
+				<div className="flex h-[20vh] flex-col bg-slate-50 bg-[url('/banner-panetun.jpg')] bg-cover bg-left">
+					<div
+						style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
+						className="flex h-full flex-col items-center justify-center px-2"
+					>
+						<h1 className="font-heading text-3xl uppercase text-white">
+							{t("bannerTitle")}
+						</h1>
+						<h3 className="pt-2 text-center text-sm text-white">
+							{t("bannerSubtitle")}
+						</h3>
+					</div>
+				</div>
+			</div>
+
 			<div className="max-w-5xl mx-auto px-4 py-8">
 				{/* Header */}
 				<div className="mb-8">

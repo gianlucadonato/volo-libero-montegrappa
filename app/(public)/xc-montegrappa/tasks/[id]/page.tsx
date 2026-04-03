@@ -35,7 +35,7 @@ export default async function TaskPage({
 			<div className="container mx-auto">
 				<div>
 					<div className="mb-4 flex justify-start">
-						<Link href={`/xc-montegrappa/${task.type}`}>
+						<Link href={`/xc-montegrappa/${task.category?.level || "#"}`}>
 							<Button variant="outline" size="sm">
 								<ArrowLeft className="mr-2 size-4" />
 								{t("back")}
@@ -50,16 +50,18 @@ export default async function TaskPage({
 									<span>{task.name}</span>
 								</div>
 							}
-							text={task.description}
+							text={task.description || ""}
 						/>
 					</div>
 
 					<Card>
 						<CardHeader>
 							<CardTitle>{task.name}</CardTitle>
-							<CardDescription>{task.description}</CardDescription>
+							<CardDescription>{task.description || ""}</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-2">{task.type}</CardContent>
+						<CardContent className="space-y-2">
+							{task.category?.level || ""}
+						</CardContent>
 					</Card>
 				</div>
 			</div>
