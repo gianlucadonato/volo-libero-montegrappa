@@ -17,12 +17,11 @@ const ParamsSchema = z.object({
  * @openapi
  */
 
-export const GET = async ({
-	params,
-}: {
-	params: Promise<{ category: string }>;
-}) => {
-	const { category } = await params;
+export const GET = async (
+	_request: Request,
+	context: { params: Promise<{ category: string }> },
+) => {
+	const { category } = await context.params;
 	const { success, data: parsedParams } = ParamsSchema.safeParse({
 		category: category?.toUpperCase(),
 	});

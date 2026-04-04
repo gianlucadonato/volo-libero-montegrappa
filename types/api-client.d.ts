@@ -12,13 +12,13 @@ export interface paths {
 			cookie?: never;
 		};
 		/**
-		 * GET /xc/enroll
+		 * /xc/enroll
 		 * @description Check if the current user is enrolled in the current XC edition
 		 */
 		get: operations["get-xc-enroll"];
 		put?: never;
 		/**
-		 * POST /xc/enroll
+		 * /xc/enroll
 		 * @description Enroll the current user in the current XC edition
 		 */
 		post: operations["post-xc-enroll"];
@@ -36,7 +36,7 @@ export interface paths {
 			cookie?: never;
 		};
 		/**
-		 * Get XC progress by category
+		 * /xc/[category]/progress
 		 * @description Fetch XC progress for a specific category
 		 */
 		get: operations["get-xc-{category}-progress"];
@@ -56,7 +56,7 @@ export interface paths {
 			cookie?: never;
 		};
 		/**
-		 * Get XC tasks by category
+		 * /xc/[category]/tasks
 		 * @description Fetch XC tasks for a specific category
 		 */
 		get: operations["get-xc-{category}-tasks"];
@@ -108,19 +108,6 @@ export interface components {
 			updatedAt: string;
 		};
 		XcEnrollmentSchema: {
-			id: string;
-			edition: {
-				id: string;
-				title: string;
-				year: number;
-			};
-			userId: string;
-			/** Format: date-time */
-			createdAt: string;
-			/** Format: date-time */
-			updatedAt: string;
-		};
-		XcEnrollmentNullableSchema: {
 			id: string;
 			edition: {
 				id: string;
@@ -361,7 +348,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					"application/json": components["schemas"]["XcEnrollmentNullableSchema"];
+					"application/json": components["schemas"]["XcEnrollmentSchema"];
 				};
 			};
 			400: components["responses"]["400"];

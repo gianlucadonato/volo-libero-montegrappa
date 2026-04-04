@@ -20,11 +20,10 @@ const ParamsSchema = z.object({
  * @openapi
  */
 
-export const GET = async ({
-	params,
-}: {
-	params: Promise<{ category: string }>;
-}) => {
+export const GET = async (
+	_request: Request,
+	context: { params: Promise<{ category: string }> },
+) => {
 	const session = await auth.api.getSession({
 		headers: await headers(),
 	});
@@ -32,7 +31,7 @@ export const GET = async ({
 		return APIErrorResponse(Boom.unauthorized());
 	}
 
-	const { category } = await params;
+	const { category } = await context.params;
 	const { success, data: parsedParams } = ParamsSchema.safeParse({
 		category: category?.toUpperCase(),
 	});
