@@ -2,19 +2,12 @@
 
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
-import { recomputeXcAchievementsForUser } from "@/lib/xc";
 import { XcSubmissionStatus } from "@/prisma/generated/enums";
-import { inferTrackTypeFromFileName } from "@/schemas/xc";
 
 type Input = {
 	taskId: string;
 	editionId: string;
 	fileName: string;
-	mimeType: string;
-	sizeBytes: number;
-	storageObjectKey: string;
-	storageBucket?: string;
-	checksum?: string;
 	notes?: string;
 };
 
@@ -25,15 +18,14 @@ export default async function createXcSubmission(input: Input) {
 	}
 
 	const task = await prisma.xcTask.findUnique({
-		where: { id: input.taskId },
-		include: { category: true },
+		where: {
+			id: input.taskId,
+			editionTasks: { some: { editionId: input.editionId } },
+		},
 	});
 
 	if (!task) {
 		throw new Error("Task not found");
-	}
-	if (task.category.editionId !== input.editionId) {
-		throw new Error("Task does not belong to selected edition");
 	}
 
 	// Check enrollment at edition level
@@ -55,23 +47,13 @@ export default async function createXcSubmission(input: Input) {
 			userId: user.id,
 			editionId: input.editionId,
 			taskId: input.taskId,
-			enrollmentId: enrollment.id,
-			fileType: inferTrackTypeFromFileName(input.fileName),
 			status: XcSubmissionStatus.PENDING,
 			fileName: input.fileName,
-			mimeType: input.mimeType,
-			sizeBytes: input.sizeBytes,
-			storageBucket: input.storageBucket,
-			storageObjectKey: input.storageObjectKey,
-			checksum: input.checksum,
 			notes: input.notes,
 		},
 	});
 
-	await recomputeXcAchievementsForUser({
-		userId: user.id,
-		editionId: input.editionId,
-	});
+	// TODO: recomputeXcAchievementsForUser
 
 	return submission;
 }

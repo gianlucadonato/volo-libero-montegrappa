@@ -1,21 +1,13 @@
 "use server";
 
+import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
-import { getActiveXcEdition } from "@/lib/xc";
 import type { XcCategoryLevel } from "@/prisma/generated/enums";
 
 export async function getXcTasksByCategory(
 	category: XcCategoryLevel,
-	year?: number,
+	year = NEXT_YEAR,
 ) {
-	if (!year) {
-		const activeEdition = await getActiveXcEdition();
-		if (!activeEdition) {
-			throw new Error("No active XC edition found");
-		}
-		year = activeEdition.year;
-	}
-
 	const tasks = await prisma.xcTask.findMany({
 		where: {
 			category,

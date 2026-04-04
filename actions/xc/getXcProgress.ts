@@ -7,14 +7,14 @@ import type { XcCategoryLevel } from "@/prisma/generated/enums";
 export async function getXcProgressByCategory(
 	userId: string,
 	category: XcCategoryLevel,
-	year?: number,
+	year = NEXT_YEAR,
 ) {
 	const xcProgress = await prisma.xcProgress.findFirst({
 		where: {
 			category,
 			userId,
 			edition: {
-				year: year ?? NEXT_YEAR,
+				year,
 			},
 		},
 		include: {

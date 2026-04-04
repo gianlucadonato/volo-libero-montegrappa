@@ -9,3 +9,5 @@ export const getXcTasksByCategoryApi = async (category: string) =>
 			path: { category },
 		},
 	});
+
+export const createXcEnrollmentApi = async () => api.POST("/xc/enroll", {});

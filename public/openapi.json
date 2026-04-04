@@ -140,6 +140,41 @@
 					"updatedAt"
 				]
 			},
+			"XcEnrollmentSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"edition": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"title": {
+								"type": "string"
+							},
+							"year": {
+								"type": "number"
+							}
+						},
+						"required": ["id", "title", "year"]
+					},
+					"userId": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": ["id", "edition", "userId", "createdAt", "updatedAt"]
+			},
 			"LoginSchema": {
 				"type": "object",
 				"properties": {
@@ -701,6 +736,68 @@
 		}
 	},
 	"paths": {
+		"/xc/enroll": {
+			"post": {
+				"operationId": "post-xc-enroll",
+				"summary": "Enroll in XC edition",
+				"description": "Enroll the current user in the active XC edition",
+				"tags": ["Xc"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEnrollmentSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			},
+			"get": {
+				"operationId": "get-xc-enroll",
+				"summary": "Get enrollment in XC edition",
+				"description": "Check if the current user is enrolled in the active XC edition",
+				"tags": ["Xc"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEnrollmentSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/xc/{category}/progress": {
 			"get": {
 				"operationId": "get-xc-{category}-progress",

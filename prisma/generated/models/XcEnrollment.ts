@@ -25,7 +25,6 @@ export type AggregateXcEnrollment = {
 }
 
 export type XcEnrollmentMinAggregateOutputType = {
-  id: string | null
   userId: string | null
   editionId: string | null
   createdAt: Date | null
@@ -33,7 +32,6 @@ export type XcEnrollmentMinAggregateOutputType = {
 }
 
 export type XcEnrollmentMaxAggregateOutputType = {
-  id: string | null
   userId: string | null
   editionId: string | null
   createdAt: Date | null
@@ -41,7 +39,6 @@ export type XcEnrollmentMaxAggregateOutputType = {
 }
 
 export type XcEnrollmentCountAggregateOutputType = {
-  id: number
   userId: number
   editionId: number
   createdAt: number
@@ -51,7 +48,6 @@ export type XcEnrollmentCountAggregateOutputType = {
 
 
 export type XcEnrollmentMinAggregateInputType = {
-  id?: true
   userId?: true
   editionId?: true
   createdAt?: true
@@ -59,7 +55,6 @@ export type XcEnrollmentMinAggregateInputType = {
 }
 
 export type XcEnrollmentMaxAggregateInputType = {
-  id?: true
   userId?: true
   editionId?: true
   createdAt?: true
@@ -67,7 +62,6 @@ export type XcEnrollmentMaxAggregateInputType = {
 }
 
 export type XcEnrollmentCountAggregateInputType = {
-  id?: true
   userId?: true
   editionId?: true
   createdAt?: true
@@ -148,7 +142,6 @@ export type XcEnrollmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 export type XcEnrollmentGroupByOutputType = {
-  id: string
   userId: string
   editionId: string
   createdAt: Date
@@ -177,7 +170,6 @@ export type XcEnrollmentWhereInput = {
   AND?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
   OR?: Prisma.XcEnrollmentWhereInput[]
   NOT?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
-  id?: Prisma.StringFilter<"XcEnrollment"> | string
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringFilter<"XcEnrollment"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
@@ -187,7 +179,6 @@ export type XcEnrollmentWhereInput = {
 }
 
 export type XcEnrollmentOrderByWithRelationInput = {
-  id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -197,7 +188,6 @@ export type XcEnrollmentOrderByWithRelationInput = {
 }
 
 export type XcEnrollmentWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
   userId_editionId?: Prisma.XcEnrollmentUserIdEditionIdCompoundUniqueInput
   AND?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
   OR?: Prisma.XcEnrollmentWhereInput[]
@@ -208,10 +198,9 @@ export type XcEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-}, "id" | "userId_editionId">
+}, "userId_editionId">
 
 export type XcEnrollmentOrderByWithAggregationInput = {
-  id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -225,7 +214,6 @@ export type XcEnrollmentScalarWhereWithAggregatesInput = {
   AND?: Prisma.XcEnrollmentScalarWhereWithAggregatesInput | Prisma.XcEnrollmentScalarWhereWithAggregatesInput[]
   OR?: Prisma.XcEnrollmentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.XcEnrollmentScalarWhereWithAggregatesInput | Prisma.XcEnrollmentScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
   userId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcEnrollment"> | Date | string
@@ -233,7 +221,6 @@ export type XcEnrollmentScalarWhereWithAggregatesInput = {
 }
 
 export type XcEnrollmentCreateInput = {
-  id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcEnrollmentsInput
@@ -241,7 +228,6 @@ export type XcEnrollmentCreateInput = {
 }
 
 export type XcEnrollmentUncheckedCreateInput = {
-  id?: string
   userId: string
   editionId: string
   createdAt?: Date | string
@@ -249,7 +235,6 @@ export type XcEnrollmentUncheckedCreateInput = {
 }
 
 export type XcEnrollmentUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput
@@ -257,7 +242,6 @@ export type XcEnrollmentUpdateInput = {
 }
 
 export type XcEnrollmentUncheckedUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -265,7 +249,6 @@ export type XcEnrollmentUncheckedUpdateInput = {
 }
 
 export type XcEnrollmentCreateManyInput = {
-  id?: string
   userId: string
   editionId: string
   createdAt?: Date | string
@@ -273,13 +256,11 @@ export type XcEnrollmentCreateManyInput = {
 }
 
 export type XcEnrollmentUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentUncheckedUpdateManyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -302,7 +283,6 @@ export type XcEnrollmentUserIdEditionIdCompoundUniqueInput = {
 }
 
 export type XcEnrollmentCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -310,7 +290,6 @@ export type XcEnrollmentCountOrderByAggregateInput = {
 }
 
 export type XcEnrollmentMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -318,7 +297,6 @@ export type XcEnrollmentMaxOrderByAggregateInput = {
 }
 
 export type XcEnrollmentMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -410,14 +388,12 @@ export type XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput = {
 }
 
 export type XcEnrollmentCreateWithoutUserInput = {
-  id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   edition: Prisma.XcEditionCreateNestedOneWithoutEnrollmentsInput
 }
 
 export type XcEnrollmentUncheckedCreateWithoutUserInput = {
-  id?: string
   editionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -453,7 +429,6 @@ export type XcEnrollmentScalarWhereInput = {
   AND?: Prisma.XcEnrollmentScalarWhereInput | Prisma.XcEnrollmentScalarWhereInput[]
   OR?: Prisma.XcEnrollmentScalarWhereInput[]
   NOT?: Prisma.XcEnrollmentScalarWhereInput | Prisma.XcEnrollmentScalarWhereInput[]
-  id?: Prisma.StringFilter<"XcEnrollment"> | string
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringFilter<"XcEnrollment"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
@@ -461,14 +436,12 @@ export type XcEnrollmentScalarWhereInput = {
 }
 
 export type XcEnrollmentCreateWithoutEditionInput = {
-  id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcEnrollmentsInput
 }
 
 export type XcEnrollmentUncheckedCreateWithoutEditionInput = {
-  id?: string
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -501,56 +474,48 @@ export type XcEnrollmentUpdateManyWithWhereWithoutEditionInput = {
 }
 
 export type XcEnrollmentCreateManyUserInput = {
-  id?: string
   editionId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type XcEnrollmentUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutEnrollmentsNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentUncheckedUpdateManyWithoutUserInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentCreateManyEditionInput = {
-  id?: string
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type XcEnrollmentUpdateWithoutEditionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateWithoutEditionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentUncheckedUpdateManyWithoutEditionInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -559,7 +524,6 @@ export type XcEnrollmentUncheckedUpdateManyWithoutEditionInput = {
 
 
 export type XcEnrollmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   userId?: boolean
   editionId?: boolean
   createdAt?: boolean
@@ -569,7 +533,6 @@ export type XcEnrollmentSelect<ExtArgs extends runtime.Types.Extensions.Internal
 }, ExtArgs["result"]["xcEnrollment"]>
 
 export type XcEnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   userId?: boolean
   editionId?: boolean
   createdAt?: boolean
@@ -579,7 +542,6 @@ export type XcEnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
 }, ExtArgs["result"]["xcEnrollment"]>
 
 export type XcEnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
   userId?: boolean
   editionId?: boolean
   createdAt?: boolean
@@ -589,14 +551,13 @@ export type XcEnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
 }, ExtArgs["result"]["xcEnrollment"]>
 
 export type XcEnrollmentSelectScalar = {
-  id?: boolean
   userId?: boolean
   editionId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEnrollment"]>
+export type XcEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "editionId" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEnrollment"]>
 export type XcEnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
@@ -617,7 +578,6 @@ export type $XcEnrollmentPayload<ExtArgs extends runtime.Types.Extensions.Intern
     edition: Prisma.$XcEditionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
     userId: string
     editionId: string
     createdAt: Date
@@ -705,8 +665,8 @@ export interface XcEnrollmentDelegate<ExtArgs extends runtime.Types.Extensions.I
    * // Get first 10 XcEnrollments
    * const xcEnrollments = await prisma.xcEnrollment.findMany({ take: 10 })
    * 
-   * // Only select the `id`
-   * const xcEnrollmentWithIdOnly = await prisma.xcEnrollment.findMany({ select: { id: true } })
+   * // Only select the `userId`
+   * const xcEnrollmentWithUserIdOnly = await prisma.xcEnrollment.findMany({ select: { userId: true } })
    * 
    */
   findMany<T extends XcEnrollmentFindManyArgs>(args?: Prisma.SelectSubset<T, XcEnrollmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -750,9 +710,9 @@ export interface XcEnrollmentDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Create many XcEnrollments and only return the `id`
-   * const xcEnrollmentWithIdOnly = await prisma.xcEnrollment.createManyAndReturn({
-   *   select: { id: true },
+   * // Create many XcEnrollments and only return the `userId`
+   * const xcEnrollmentWithUserIdOnly = await prisma.xcEnrollment.createManyAndReturn({
+   *   select: { userId: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -841,9 +801,9 @@ export interface XcEnrollmentDelegate<ExtArgs extends runtime.Types.Extensions.I
    *   ]
    * })
    * 
-   * // Update zero or more XcEnrollments and only return the `id`
-   * const xcEnrollmentWithIdOnly = await prisma.xcEnrollment.updateManyAndReturn({
-   *   select: { id: true },
+   * // Update zero or more XcEnrollments and only return the `userId`
+   * const xcEnrollmentWithUserIdOnly = await prisma.xcEnrollment.updateManyAndReturn({
+   *   select: { userId: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1047,7 +1007,6 @@ export interface Prisma__XcEnrollmentClient<T, Null = never, ExtArgs extends run
  * Fields of the XcEnrollment model
  */
 export interface XcEnrollmentFieldRefs {
-  readonly id: Prisma.FieldRef<"XcEnrollment", 'String'>
   readonly userId: Prisma.FieldRef<"XcEnrollment", 'String'>
   readonly editionId: Prisma.FieldRef<"XcEnrollment", 'String'>
   readonly createdAt: Prisma.FieldRef<"XcEnrollment", 'DateTime'>

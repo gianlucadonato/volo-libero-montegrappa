@@ -331,7 +331,6 @@ model XcEditionTasks {
 }
 
 model XcEnrollment {
-  id        String   @id @default(cuid())
   userId    String   @map(name: "user_id")
   editionId String   @map(name: "edition_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -340,8 +339,7 @@ model XcEnrollment {
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, editionId])
-  @@index([editionId])
+  @@id([userId, editionId])
   @@map(name: "xc_enrollments")
 }
 

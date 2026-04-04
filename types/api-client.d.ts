@@ -4,6 +4,30 @@
  */
 
 export interface paths {
+	"/xc/enroll": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * Get enrollment in XC edition
+		 * @description Check if the current user is enrolled in the active XC edition
+		 */
+		get: operations["get-xc-enroll"];
+		put?: never;
+		/**
+		 * Enroll in XC edition
+		 * @description Enroll the current user in the active XC edition
+		 */
+		post: operations["post-xc-enroll"];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/{category}/progress": {
 		parameters: {
 			query?: never;
@@ -78,6 +102,19 @@ export interface components {
 			distanceKm: number;
 			taskFileUrl?: string | null;
 			imageUrl?: string | null;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
+		};
+		XcEnrollmentSchema: {
+			id: string;
+			edition: {
+				id: string;
+				title: string;
+				year: number;
+			};
+			userId: string;
 			/** Format: date-time */
 			createdAt: string;
 			/** Format: date-time */
@@ -296,6 +333,50 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+	"get-xc-enroll": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcEnrollmentSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"post-xc-enroll": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcEnrollmentSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-xc-{category}-progress": {
 		parameters: {
 			query?: never;

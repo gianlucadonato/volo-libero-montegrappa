@@ -31,3 +31,15 @@ export const XcProgressSchema = z.object({
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });
+
+export const XcEnrollmentSchema = z.object({
+	id: z.string(),
+	edition: z.object({
+		id: z.string(),
+		title: z.string(),
+		year: z.number(),
+	}),
+	userId: z.string(),
+	createdAt: z.coerce.date().transform((val) => val.toISOString()),
+	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
+});

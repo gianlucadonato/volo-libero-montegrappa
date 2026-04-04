@@ -343,7 +343,6 @@ export type XcEditionTasksScalarFieldEnum = (typeof XcEditionTasksScalarFieldEnu
 
 
 export const XcEnrollmentScalarFieldEnum = {
-  id: 'id',
   userId: 'userId',
   editionId: 'editionId',
   createdAt: 'createdAt',

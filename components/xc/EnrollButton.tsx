@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import { toast } from "sonner";
-import enrollInXcEdition from "@/actions/xc/enrollInXcEdition";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,6 +13,7 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { NEXT_YEAR } from "@/config/constants";
+import { createXcEnrollmentApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
 export default function EnrollButton({ callback }: { callback?: string }) {
@@ -35,15 +35,15 @@ export default function EnrollButton({ callback }: { callback?: string }) {
 
 	const handleConfirmEnrollment = async () => {
 		setIsLoading(true);
-		const { success, code } = await enrollInXcEdition();
-		if (success) {
+		const { response } = await createXcEnrollmentApi();
+		if (response.ok) {
 			toast.success(t("toast.success"));
 			setIsEnrollDialogOpen(false);
 			callback && router.push(callback);
 		} else {
-			if (code === 403) {
+			if (response.status === 403) {
 				setShowMemberOnlyModal(true);
-			} else if (code === 409) {
+			} else if (response.status === 409) {
 				toast.error(t("toast.alreadyEnrolled"));
 			} else {
 				toast.error(t("toast.genericError"));

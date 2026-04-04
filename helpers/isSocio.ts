@@ -1,7 +1,8 @@
 import { NEXT_YEAR } from "@/config/constants";
 import type { UserWithMemberships } from "@/types";
 
-export function isSocio(user: UserWithMemberships) {
+export function isSocio(user: UserWithMemberships | null) {
+	if (!user) return false;
 	return (
 		user.role === "ADMIN" ||
 		(user.memberships.length > 0 &&
