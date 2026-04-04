@@ -1,0 +1,792 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "API Documentation",
+		"version": "1.0.0",
+		"description": "This is the OpenAPI specification for Volo Libero Montegrappa."
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api",
+			"description": "Local development server"
+		},
+		{
+			"url": "https://www.vololiberomontegrappa.it/api",
+			"description": "Production server"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		},
+		"schemas": {
+			"ParamsSchema": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string"
+					}
+				},
+				"required": ["category"]
+			},
+			"XcProgressSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"edition": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"title": {
+								"type": "string"
+							},
+							"year": {
+								"type": "number"
+							}
+						},
+						"required": ["id", "title", "year"]
+					},
+					"category": {
+						"type": "string"
+					},
+					"points": {
+						"type": "number"
+					},
+					"minPoints": {
+						"type": "number"
+					},
+					"completedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"edition",
+					"category",
+					"points",
+					"minPoints",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"XcTaskSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"slug": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string",
+						"nullable": true
+					},
+					"category": {
+						"type": "string"
+					},
+					"points": {
+						"type": "number"
+					},
+					"distanceKm": {
+						"type": "number"
+					},
+					"taskFileUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"imageUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"slug",
+					"name",
+					"category",
+					"points",
+					"distanceKm",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"LoginSchema": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 3
+					}
+				},
+				"required": ["email", "password"]
+			},
+			"SignupSchema": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"email": {
+						"type": "string",
+						"format": "email"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"email",
+					"password",
+					"confirmPassword"
+				]
+			},
+			"ResetPasswordSchema": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email"
+					}
+				},
+				"required": ["email"]
+			},
+			"NewPasswordSchema": {
+				"type": "object",
+				"properties": {
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": ["password", "confirmPassword"]
+			},
+			"ChangePasswordSchema": {
+				"type": "object",
+				"properties": {
+					"newPassword": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": ["newPassword", "confirmPassword"]
+			},
+			"UserFormSchema": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"dateOfBirth": {
+						"type": "string",
+						"minLength": 1
+					},
+					"placeOfBirth": {
+						"type": "string",
+						"minLength": 1
+					},
+					"streetAddress": {
+						"type": "string",
+						"minLength": 1
+					},
+					"city": {
+						"type": "string",
+						"minLength": 1
+					},
+					"zipCode": {
+						"type": "string",
+						"minLength": 1
+					},
+					"province": {
+						"type": "string",
+						"minLength": 1
+					},
+					"state": {
+						"type": "string",
+						"minLength": 1
+					},
+					"phone": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fiscalCode": {
+						"type": "string",
+						"minLength": 16,
+						"maxLength": 16
+					},
+					"size": {
+						"type": "string"
+					},
+					"gender": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sport": {
+						"type": "string"
+					},
+					"vdsNumber": {
+						"type": "string"
+					},
+					"vdsReleaseDate": {
+						"type": "string"
+					},
+					"fivlNumber": {
+						"type": "string"
+					},
+					"medicalExamValidDate": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"placeOfBirth",
+					"streetAddress",
+					"city",
+					"zipCode",
+					"province",
+					"state",
+					"phone",
+					"fiscalCode",
+					"gender"
+				]
+			},
+			"UserSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string"
+					},
+					"placeOfBirth": {
+						"type": "string"
+					},
+					"streetAddress": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"province": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string",
+						"nullable": true
+					},
+					"fiscalCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"size": {
+						"type": "string",
+						"nullable": true
+					},
+					"gender": {
+						"type": "string"
+					},
+					"sport": {
+						"type": "string",
+						"nullable": true
+					},
+					"vdsNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"vdsReleaseDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"fivlNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"medicalExamValidDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"registeredAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"placeOfBirth",
+					"streetAddress",
+					"city",
+					"zipCode",
+					"province",
+					"state",
+					"gender",
+					"registeredAt"
+				]
+			},
+			"RegisterMembershipSchema": {
+				"type": "object",
+				"properties": {
+					"privacyPolicy": {
+						"type": "boolean"
+					},
+					"emailConsent": {
+						"type": "boolean"
+					}
+				},
+				"required": ["privacyPolicy", "emailConsent"]
+			},
+			"EventSchema": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"information": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"eventDate": {
+						"type": "string"
+					},
+					"optionalDate": {
+						"type": "string"
+					},
+					"startTime": {
+						"type": "string"
+					},
+					"endTime": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number"
+					},
+					"location": {
+						"type": "string"
+					},
+					"locationUrl": {
+						"type": "string"
+					},
+					"maxAvailability": {
+						"type": "number"
+					},
+					"isMemberOnly": {
+						"type": "boolean"
+					}
+				},
+				"required": ["title", "description", "eventDate", "isMemberOnly"]
+			},
+			"PaymentSchema": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number"
+					},
+					"slug": {
+						"type": "string"
+					},
+					"note": {
+						"type": "string"
+					}
+				},
+				"required": ["paymentMethod", "description", "amount", "slug"]
+			},
+			"XcEnrollSchema": {
+				"type": "object",
+				"properties": {}
+			},
+			"XcCreateUploadUrlSchema": {
+				"type": "object",
+				"properties": {
+					"taskId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fileName": {
+						"type": "string",
+						"minLength": 1
+					},
+					"contentType": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sizeBytes": {
+						"type": "integer",
+						"minimum": 0,
+						"exclusiveMinimum": true
+					}
+				},
+				"required": ["taskId", "fileName", "contentType", "sizeBytes"]
+			},
+			"XcCreateSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"taskId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"editionId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fileName": {
+						"type": "string",
+						"minLength": 1
+					},
+					"mimeType": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sizeBytes": {
+						"type": "integer",
+						"minimum": 0,
+						"exclusiveMinimum": true
+					},
+					"storageObjectKey": {
+						"type": "string",
+						"minLength": 1
+					},
+					"storageBucket": {
+						"type": "string",
+						"minLength": 1
+					},
+					"checksum": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string",
+						"maxLength": 1500
+					}
+				},
+				"required": [
+					"taskId",
+					"editionId",
+					"fileName",
+					"mimeType",
+					"sizeBytes",
+					"storageObjectKey"
+				]
+			},
+			"XcReviewSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": ["APPROVED", "REJECTED"]
+					},
+					"notes": {
+						"type": "string",
+						"maxLength": 1500
+					},
+					"pointsAwarded": {
+						"type": "integer",
+						"minimum": 0
+					}
+				},
+				"required": ["status"]
+			}
+		},
+		"responses": {
+			"400": {
+				"description": "Bad Request",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Invalid request parameters"
+								},
+								"code": {
+									"type": "string",
+									"example": "400"
+								}
+							}
+						}
+					}
+				}
+			},
+			"401": {
+				"description": "Unauthorized",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Authentication required"
+								},
+								"code": {
+									"type": "string",
+									"example": "401"
+								}
+							}
+						}
+					}
+				}
+			},
+			"403": {
+				"description": "Forbidden",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Access denied"
+								},
+								"code": {
+									"type": "string",
+									"example": "403"
+								}
+							}
+						}
+					}
+				}
+			},
+			"404": {
+				"description": "Not Found",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Resource not found"
+								},
+								"code": {
+									"type": "string",
+									"example": "404"
+								}
+							}
+						}
+					}
+				}
+			},
+			"409": {
+				"description": "Conflict",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Resource already exists"
+								},
+								"code": {
+									"type": "string",
+									"example": "409"
+								}
+							}
+						}
+					}
+				}
+			},
+			"500": {
+				"description": "Internal Server Error",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "An unexpected error occurred"
+								},
+								"code": {
+									"type": "string",
+									"example": "500"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"paths": {
+		"/xc/{category}/progress": {
+			"get": {
+				"operationId": "get-xc-{category}-progress",
+				"summary": "Get XC progress by category",
+				"description": "Fetch XC progress for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcProgressSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/tasks": {
+			"get": {
+				"operationId": "get-xc-{category}-tasks",
+				"summary": "Get XC tasks by category",
+				"description": "Fetch XC tasks for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcTaskSchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "Xc"
+		}
+	]
+}

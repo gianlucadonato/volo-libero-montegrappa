@@ -23,17 +23,15 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import { authClient } from "@/lib/auth-client";
-import type { XcTaskData } from "@/types";
+import type { XcTaskApi } from "@/types/api-schema";
 
-interface TaskBrevettoCardProps {
-	task: XcTaskData;
-	isEnrolled?: boolean;
-}
-
-export default function TaskBrevettoCard({
+export default function XcTaskCard({
 	task,
 	isEnrolled = false,
-}: TaskBrevettoCardProps) {
+}: {
+	task: XcTaskApi;
+	isEnrolled?: boolean;
+}) {
 	const router = useRouter();
 	const t = useTranslations("XcTaskCard");
 	const { data: session } = authClient.useSession();
@@ -67,7 +65,7 @@ export default function TaskBrevettoCard({
 		}
 
 		setIsEnrollmentModalOpen(false);
-		router.push("/xc-montegrappa");
+		router.push("/xc");
 	};
 
 	return (
@@ -76,7 +74,7 @@ export default function TaskBrevettoCard({
 				<Card
 					className="p-0 cursor-pointer"
 					onClick={() => {
-						router.push(`/xc-montegrappa/tasks/${task.id}`);
+						router.push(`/xc/tasks/${task.id}`);
 					}}
 				>
 					<div className="flex flex-col sm:flex-row">

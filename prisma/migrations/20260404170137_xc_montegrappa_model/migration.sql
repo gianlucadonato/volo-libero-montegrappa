@@ -46,7 +46,7 @@ CREATE TABLE "xc_edition_tasks" (
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "xc_edition_tasks_pkey" PRIMARY KEY ("task_id")
+    CONSTRAINT "xc_edition_tasks_pkey" PRIMARY KEY ("task_id","edition_id")
 );
 
 -- CreateTable
@@ -80,17 +80,18 @@ CREATE TABLE "xc_track_submissions" (
 );
 
 -- CreateTable
-CREATE TABLE "xc_achievements" (
+CREATE TABLE "xc_progress" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
     "edition_id" TEXT NOT NULL,
     "category" "XcCategoryLevel" NOT NULL,
     "points" INTEGER NOT NULL DEFAULT 0,
-    "achieved_at" TIMESTAMP(3),
+    "min_points" INTEGER NOT NULL,
+    "completed_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "xc_achievements_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "xc_progress_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -101,9 +102,6 @@ CREATE INDEX "xc_editions_is_active_idx" ON "xc_editions"("is_active");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "xc_tasks_category_slug_key" ON "xc_tasks"("category", "slug");
-
--- CreateIndex
-CREATE UNIQUE INDEX "xc_edition_tasks_task_id_edition_id_key" ON "xc_edition_tasks"("task_id", "edition_id");
 
 -- CreateIndex
 CREATE INDEX "xc_enrollments_edition_id_idx" ON "xc_enrollments"("edition_id");
@@ -121,10 +119,10 @@ CREATE INDEX "xc_track_submissions_task_id_status_idx" ON "xc_track_submissions"
 CREATE INDEX "xc_track_submissions_status_idx" ON "xc_track_submissions"("status");
 
 -- CreateIndex
-CREATE INDEX "xc_achievements_user_id_edition_id_idx" ON "xc_achievements"("user_id", "edition_id");
+CREATE INDEX "xc_progress_user_id_edition_id_category_idx" ON "xc_progress"("user_id", "edition_id", "category");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "xc_achievements_user_id_edition_id_key" ON "xc_achievements"("user_id", "edition_id");
+CREATE UNIQUE INDEX "xc_progress_user_id_edition_id_category_key" ON "xc_progress"("user_id", "edition_id", "category");
 
 -- AddForeignKey
 ALTER TABLE "xc_edition_tasks" ADD CONSTRAINT "xc_edition_tasks_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "xc_tasks"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -151,7 +149,7 @@ ALTER TABLE "xc_track_submissions" ADD CONSTRAINT "xc_track_submissions_edition_
 ALTER TABLE "xc_track_submissions" ADD CONSTRAINT "xc_track_submissions_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "xc_tasks"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "xc_achievements" ADD CONSTRAINT "xc_achievements_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "xc_progress" ADD CONSTRAINT "xc_progress_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "xc_achievements" ADD CONSTRAINT "xc_achievements_edition_id_fkey" FOREIGN KEY ("edition_id") REFERENCES "xc_editions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "xc_progress" ADD CONSTRAINT "xc_progress_edition_id_fkey" FOREIGN KEY ("edition_id") REFERENCES "xc_editions"("id") ON DELETE CASCADE ON UPDATE CASCADE;

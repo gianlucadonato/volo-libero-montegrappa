@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.6.0
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.5.0",
-  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+  client: "7.6.0",
+  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
 /**
@@ -400,7 +400,7 @@ export const ModelName = {
   XcEditionTasks: 'XcEditionTasks',
   XcEnrollment: 'XcEnrollment',
   XcTrackSubmission: 'XcTrackSubmission',
-  XcAchievement: 'XcAchievement'
+  XcProgress: 'XcProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon" | "xcEdition" | "xcTask" | "xcEditionTasks" | "xcEnrollment" | "xcTrackSubmission" | "xcAchievement"
+    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon" | "xcEdition" | "xcTask" | "xcEditionTasks" | "xcEnrollment" | "xcTrackSubmission" | "xcProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1604,77 +1604,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    XcAchievement: {
-      payload: Prisma.$XcAchievementPayload<ExtArgs>
-      fields: Prisma.XcAchievementFieldRefs
+    XcProgress: {
+      payload: Prisma.$XcProgressPayload<ExtArgs>
+      fields: Prisma.XcProgressFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.XcAchievementFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload> | null
+          args: Prisma.XcProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.XcAchievementFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         findFirst: {
-          args: Prisma.XcAchievementFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload> | null
+          args: Prisma.XcProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.XcAchievementFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         findMany: {
-          args: Prisma.XcAchievementFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>[]
+          args: Prisma.XcProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
         }
         create: {
-          args: Prisma.XcAchievementCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         createMany: {
-          args: Prisma.XcAchievementCreateManyArgs<ExtArgs>
+          args: Prisma.XcProgressCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.XcAchievementCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>[]
+          args: Prisma.XcProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
         }
         delete: {
-          args: Prisma.XcAchievementDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         update: {
-          args: Prisma.XcAchievementUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         deleteMany: {
-          args: Prisma.XcAchievementDeleteManyArgs<ExtArgs>
+          args: Prisma.XcProgressDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.XcAchievementUpdateManyArgs<ExtArgs>
+          args: Prisma.XcProgressUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.XcAchievementUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>[]
+          args: Prisma.XcProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
         }
         upsert: {
-          args: Prisma.XcAchievementUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcAchievementPayload>
+          args: Prisma.XcProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
         }
         aggregate: {
-          args: Prisma.XcAchievementAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateXcAchievement>
+          args: Prisma.XcProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcProgress>
         }
         groupBy: {
-          args: Prisma.XcAchievementGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.XcAchievementGroupByOutputType>[]
+          args: Prisma.XcProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcProgressGroupByOutputType>[]
         }
         count: {
-          args: Prisma.XcAchievementCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.XcAchievementCountAggregateOutputType> | number
+          args: Prisma.XcProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcProgressCountAggregateOutputType> | number
         }
       }
     }
@@ -2007,18 +2007,19 @@ export const XcTrackSubmissionScalarFieldEnum = {
 export type XcTrackSubmissionScalarFieldEnum = (typeof XcTrackSubmissionScalarFieldEnum)[keyof typeof XcTrackSubmissionScalarFieldEnum]
 
 
-export const XcAchievementScalarFieldEnum = {
+export const XcProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   editionId: 'editionId',
   category: 'category',
   points: 'points',
-  achievedAt: 'achievedAt',
+  minPoints: 'minPoints',
+  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type XcAchievementScalarFieldEnum = (typeof XcAchievementScalarFieldEnum)[keyof typeof XcAchievementScalarFieldEnum]
+export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2280,7 +2281,7 @@ export type GlobalOmitConfig = {
   xcEditionTasks?: Prisma.XcEditionTasksOmit
   xcEnrollment?: Prisma.XcEnrollmentOmit
   xcTrackSubmission?: Prisma.XcTrackSubmissionOmit
-  xcAchievement?: Prisma.XcAchievementOmit
+  xcProgress?: Prisma.XcProgressOmit
 }
 
 /* Types for Logging */

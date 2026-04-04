@@ -83,7 +83,7 @@ export const navbarLinks = [
 			{
 				title: "xc_montegrappa",
 				description: "Brevetto XC Montegrappa",
-				url: "/xc-montegrappa",
+				url: "/xc",
 				icon: FaRoute,
 			},
 			{

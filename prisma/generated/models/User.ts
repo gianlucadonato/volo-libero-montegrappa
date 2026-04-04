@@ -374,7 +374,7 @@ export type UserGroupByOutputType = {
   _max: UserMaxAggregateOutputType | null
 }
 
-type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserGroupByOutputType, T['by']> &
       {
@@ -435,7 +435,7 @@ export type UserWhereInput = {
   xcEnrollments?: Prisma.XcEnrollmentListRelationFilter
   xcSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
-  xcAchievements?: Prisma.XcAchievementListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -481,7 +481,7 @@ export type UserOrderByWithRelationInput = {
   xcEnrollments?: Prisma.XcEnrollmentOrderByRelationAggregateInput
   xcSubmissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
-  xcAchievements?: Prisma.XcAchievementOrderByRelationAggregateInput
+  xcProgresses?: Prisma.XcProgressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -530,7 +530,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   xcEnrollments?: Prisma.XcEnrollmentListRelationFilter
   xcSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
-  xcAchievements?: Prisma.XcAchievementListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }, "id" | "memberId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -652,7 +652,7 @@ export type UserCreateInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -698,7 +698,7 @@ export type UserUncheckedCreateInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -743,7 +743,7 @@ export type UserUpdateInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -789,7 +789,7 @@ export type UserUncheckedUpdateInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1207,18 +1207,18 @@ export type UserUpdateOneWithoutXcReviewedSubmissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcReviewedSubmissionsInput, Prisma.UserUpdateWithoutXcReviewedSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutXcReviewedSubmissionsInput>
 }
 
-export type UserCreateNestedOneWithoutXcAchievementsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutXcAchievementsInput, Prisma.UserUncheckedCreateWithoutXcAchievementsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcAchievementsInput
+export type UserCreateNestedOneWithoutXcProgressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcProgressesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutXcAchievementsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutXcAchievementsInput, Prisma.UserUncheckedCreateWithoutXcAchievementsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcAchievementsInput
-  upsert?: Prisma.UserUpsertWithoutXcAchievementsInput
+export type UserUpdateOneRequiredWithoutXcProgressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcProgressesInput
+  upsert?: Prisma.UserUpsertWithoutXcProgressesInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcAchievementsInput, Prisma.UserUpdateWithoutXcAchievementsInput>, Prisma.UserUncheckedUpdateWithoutXcAchievementsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcProgressesInput, Prisma.UserUpdateWithoutXcProgressesInput>, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -1263,7 +1263,7 @@ export type UserCreateWithoutSessionsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1308,7 +1308,7 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1368,7 +1368,7 @@ export type UserUpdateWithoutSessionsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1413,7 +1413,7 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1458,7 +1458,7 @@ export type UserCreateWithoutAccountsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1503,7 +1503,7 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1563,7 +1563,7 @@ export type UserUpdateWithoutAccountsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1608,7 +1608,7 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -1653,7 +1653,7 @@ export type UserCreateWithoutMembershipsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1698,7 +1698,7 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1758,7 +1758,7 @@ export type UserUpdateWithoutMembershipsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1803,7 +1803,7 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1848,7 +1848,7 @@ export type UserCreateWithoutPaymentsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1893,7 +1893,7 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1943,7 +1943,7 @@ export type UserCreateWithoutPaymentsAddedInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsAddedInput = {
@@ -1988,7 +1988,7 @@ export type UserUncheckedCreateWithoutPaymentsAddedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsAddedInput = {
@@ -2048,7 +2048,7 @@ export type UserUpdateWithoutPaymentsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -2093,7 +2093,7 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutPaymentsAddedInput = {
@@ -2148,7 +2148,7 @@ export type UserUpdateWithoutPaymentsAddedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
@@ -2193,7 +2193,7 @@ export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventsCreatedInput = {
@@ -2238,7 +2238,7 @@ export type UserCreateWithoutEventsCreatedInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsCreatedInput = {
@@ -2283,7 +2283,7 @@ export type UserUncheckedCreateWithoutEventsCreatedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsCreatedInput = {
@@ -2343,7 +2343,7 @@ export type UserUpdateWithoutEventsCreatedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsCreatedInput = {
@@ -2388,7 +2388,7 @@ export type UserUncheckedUpdateWithoutEventsCreatedInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRegistrationsInput = {
@@ -2433,7 +2433,7 @@ export type UserCreateWithoutRegistrationsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRegistrationsInput = {
@@ -2478,7 +2478,7 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRegistrationsInput = {
@@ -2538,7 +2538,7 @@ export type UserUpdateWithoutRegistrationsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRegistrationsInput = {
@@ -2583,7 +2583,7 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCouponsInput = {
@@ -2628,7 +2628,7 @@ export type UserCreateWithoutCouponsInput = {
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCouponsInput = {
@@ -2673,7 +2673,7 @@ export type UserUncheckedCreateWithoutCouponsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCouponsInput = {
@@ -2733,7 +2733,7 @@ export type UserUpdateWithoutCouponsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCouponsInput = {
@@ -2778,7 +2778,7 @@ export type UserUncheckedUpdateWithoutCouponsInput = {
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutXcEnrollmentsInput = {
@@ -2823,7 +2823,7 @@ export type UserCreateWithoutXcEnrollmentsInput = {
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutXcEnrollmentsInput = {
@@ -2868,7 +2868,7 @@ export type UserUncheckedCreateWithoutXcEnrollmentsInput = {
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutXcEnrollmentsInput = {
@@ -2928,7 +2928,7 @@ export type UserUpdateWithoutXcEnrollmentsInput = {
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutXcEnrollmentsInput = {
@@ -2973,7 +2973,7 @@ export type UserUncheckedUpdateWithoutXcEnrollmentsInput = {
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutXcSubmissionsInput = {
@@ -3018,7 +3018,7 @@ export type UserCreateWithoutXcSubmissionsInput = {
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutXcSubmissionsInput = {
@@ -3063,7 +3063,7 @@ export type UserUncheckedCreateWithoutXcSubmissionsInput = {
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutXcSubmissionsInput = {
@@ -3113,7 +3113,7 @@ export type UserCreateWithoutXcReviewedSubmissionsInput = {
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
   xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
-  xcAchievements?: Prisma.XcAchievementCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutXcReviewedSubmissionsInput = {
@@ -3158,7 +3158,7 @@ export type UserUncheckedCreateWithoutXcReviewedSubmissionsInput = {
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
   xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
-  xcAchievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutXcReviewedSubmissionsInput = {
@@ -3218,7 +3218,7 @@ export type UserUpdateWithoutXcSubmissionsInput = {
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutXcSubmissionsInput = {
@@ -3263,7 +3263,7 @@ export type UserUncheckedUpdateWithoutXcSubmissionsInput = {
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutXcReviewedSubmissionsInput = {
@@ -3318,7 +3318,7 @@ export type UserUpdateWithoutXcReviewedSubmissionsInput = {
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
   xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
-  xcAchievements?: Prisma.XcAchievementUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutXcReviewedSubmissionsInput = {
@@ -3363,10 +3363,10 @@ export type UserUncheckedUpdateWithoutXcReviewedSubmissionsInput = {
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
   xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
   xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
-  xcAchievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutXcAchievementsInput = {
+export type UserCreateWithoutXcProgressesInput = {
   id?: string
   memberId?: number
   email: string
@@ -3411,7 +3411,7 @@ export type UserCreateWithoutXcAchievementsInput = {
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
 }
 
-export type UserUncheckedCreateWithoutXcAchievementsInput = {
+export type UserUncheckedCreateWithoutXcProgressesInput = {
   id?: string
   memberId?: number
   email: string
@@ -3456,23 +3456,23 @@ export type UserUncheckedCreateWithoutXcAchievementsInput = {
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
 }
 
-export type UserCreateOrConnectWithoutXcAchievementsInput = {
+export type UserCreateOrConnectWithoutXcProgressesInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutXcAchievementsInput, Prisma.UserUncheckedCreateWithoutXcAchievementsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
 }
 
-export type UserUpsertWithoutXcAchievementsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutXcAchievementsInput, Prisma.UserUncheckedUpdateWithoutXcAchievementsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutXcAchievementsInput, Prisma.UserUncheckedCreateWithoutXcAchievementsInput>
+export type UserUpsertWithoutXcProgressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXcProgressesInput, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutXcAchievementsInput = {
+export type UserUpdateToOneWithWhereWithoutXcProgressesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutXcAchievementsInput, Prisma.UserUncheckedUpdateWithoutXcAchievementsInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXcProgressesInput, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
 }
 
-export type UserUpdateWithoutXcAchievementsInput = {
+export type UserUpdateWithoutXcProgressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3516,7 +3516,7 @@ export type UserUpdateWithoutXcAchievementsInput = {
   xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
 }
 
-export type UserUncheckedUpdateWithoutXcAchievementsInput = {
+export type UserUncheckedUpdateWithoutXcProgressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   memberId?: Prisma.IntFieldUpdateOperationsInput | number
   email?: Prisma.StringFieldUpdateOperationsInput | string
@@ -3578,7 +3578,7 @@ export type UserCountOutputType = {
   xcEnrollments: number
   xcSubmissions: number
   xcReviewedSubmissions: number
-  xcAchievements: number
+  xcProgresses: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3593,7 +3593,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   xcEnrollments?: boolean | UserCountOutputTypeCountXcEnrollmentsArgs
   xcSubmissions?: boolean | UserCountOutputTypeCountXcSubmissionsArgs
   xcReviewedSubmissions?: boolean | UserCountOutputTypeCountXcReviewedSubmissionsArgs
-  xcAchievements?: boolean | UserCountOutputTypeCountXcAchievementsArgs
+  xcProgresses?: boolean | UserCountOutputTypeCountXcProgressesArgs
 }
 
 /**
@@ -3686,8 +3686,8 @@ export type UserCountOutputTypeCountXcReviewedSubmissionsArgs<ExtArgs extends ru
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountXcAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcAchievementWhereInput
+export type UserCountOutputTypeCountXcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcProgressWhereInput
 }
 
 
@@ -3734,7 +3734,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   xcEnrollments?: boolean | Prisma.User$xcEnrollmentsArgs<ExtArgs>
   xcSubmissions?: boolean | Prisma.User$xcSubmissionsArgs<ExtArgs>
   xcReviewedSubmissions?: boolean | Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>
-  xcAchievements?: boolean | Prisma.User$xcAchievementsArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.User$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3853,7 +3853,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   xcEnrollments?: boolean | Prisma.User$xcEnrollmentsArgs<ExtArgs>
   xcSubmissions?: boolean | Prisma.User$xcSubmissionsArgs<ExtArgs>
   xcReviewedSubmissions?: boolean | Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>
-  xcAchievements?: boolean | Prisma.User$xcAchievementsArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.User$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3873,7 +3873,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     xcEnrollments: Prisma.$XcEnrollmentPayload<ExtArgs>[]
     xcSubmissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
     xcReviewedSubmissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
-    xcAchievements: Prisma.$XcAchievementPayload<ExtArgs>[]
+    xcProgresses: Prisma.$XcProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4312,7 +4312,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   xcEnrollments<T extends Prisma.User$xcEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   xcSubmissions<T extends Prisma.User$xcSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   xcReviewedSubmissions<T extends Prisma.User$xcReviewedSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  xcAchievements<T extends Prisma.User$xcAchievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcAchievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcProgresses<T extends Prisma.User$xcProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5030,27 +5030,27 @@ export type User$xcReviewedSubmissionsArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 /**
- * User.xcAchievements
+ * User.xcProgresses
  */
-export type User$xcAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$xcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the XcAchievement
+   * Select specific fields to fetch from the XcProgress
    */
-  select?: Prisma.XcAchievementSelect<ExtArgs> | null
+  select?: Prisma.XcProgressSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the XcAchievement
+   * Omit specific fields from the XcProgress
    */
-  omit?: Prisma.XcAchievementOmit<ExtArgs> | null
+  omit?: Prisma.XcProgressOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.XcAchievementInclude<ExtArgs> | null
-  where?: Prisma.XcAchievementWhereInput
-  orderBy?: Prisma.XcAchievementOrderByWithRelationInput | Prisma.XcAchievementOrderByWithRelationInput[]
-  cursor?: Prisma.XcAchievementWhereUniqueInput
+  include?: Prisma.XcProgressInclude<ExtArgs> | null
+  where?: Prisma.XcProgressWhereInput
+  orderBy?: Prisma.XcProgressOrderByWithRelationInput | Prisma.XcProgressOrderByWithRelationInput[]
+  cursor?: Prisma.XcProgressWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.XcAchievementScalarFieldEnum | Prisma.XcAchievementScalarFieldEnum[]
+  distinct?: Prisma.XcProgressScalarFieldEnum | Prisma.XcProgressScalarFieldEnum[]
 }
 
 /**

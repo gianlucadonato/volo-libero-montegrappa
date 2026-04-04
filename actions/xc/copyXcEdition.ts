@@ -28,13 +28,17 @@ export default async function copyXcEdition(year: number, newYear: number) {
 			isActive: true,
 			startsAt: new Date(`${newYear}-01-01T00:00:00Z`),
 			endsAt: new Date(`${newYear}-12-31T23:59:59Z`),
-			editionTasks: {
-				create: existingTasks.map((task) => ({
-					taskId: task.id,
-				})),
-			},
 		},
 	});
 	console.log("✅ New edition created!", newEdition.year);
+
+	const editionTasks = await prisma.xcEditionTasks.createMany({
+		data: existingTasks.map((task) => ({
+			editionId: newEdition.id,
+			taskId: task.id,
+		})),
+	});
+	console.log("✅ editionTasks created:", editionTasks.count);
+
 	return newEdition;
 }

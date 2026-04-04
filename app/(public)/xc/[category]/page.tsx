@@ -4,37 +4,34 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import getMyXcProgress from "@/actions/xc/getMyXcProgress";
-import { getXcTasksByCategory } from "@/actions/xc/getXcTasks";
 import Spinner from "@/components/Spinner";
-import TaskBrevettoCard from "@/components/TaskBrevettoCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import EnrollButton from "@/components/xc/EnrollButton";
-import type { XcCategoryLevel } from "@/prisma/generated/enums";
-import type { XcTaskData } from "@/types";
-
-type XcProgress = Awaited<ReturnType<typeof getMyXcProgress>>;
+import XcTaskCard from "@/components/xc/XcTaskCard";
+import {
+	useGetProgressByCategory,
+	useGetTasksByCategory,
+} from "@/hooks/use-query-api";
 
 const categoryConfig: Record<
 	string,
-	{ level: XcCategoryLevel; name: string; icon: string; color: string }
+	{ level: string; name: string; icon: string; color: string }
 > = {
 	basic: {
-		level: "BASIC",
+		level: "basic",
 		name: "Brevetto Basico",
 		icon: "🥉",
 		color: "bg-bronze-50 border-bronze-200",
 	},
 	intermediate: {
-		level: "INTERMEDIATE",
+		level: "intermediate",
 		name: "Brevetto Intermedio",
 		icon: "🥈",
 		color: "bg-slate-50 border-slate-200",
 	},
 	advanced: {
-		level: "ADVANCED",
+		level: "advanced",
 		name: "Brevetto Avanzato",
 		icon: "🥇",
 		color: "bg-yellow-50 border-yellow-200",
@@ -44,43 +41,21 @@ const categoryConfig: Record<
 export default function CategoryPage() {
 	const params = useParams();
 	const t = useTranslations("XcCategoryPage");
-	const categoryParam = (params.category as string)?.toLowerCase();
+	const category = categoryConfig[String(params.category).toLowerCase()];
+	const {
+		isLoading: isLoadingTasks,
+		data: tasks,
+		error: tasksError,
+	} = useGetTasksByCategory(category?.level);
+	const {
+		isLoading: isLoadingProgress,
+		data: xcProgress,
+		error: progressError,
+	} = useGetProgressByCategory(category?.level);
 
-	const config = categoryConfig[categoryParam];
+	const isEnrolled = xcProgress ?? false;
 
-	const [tasks, setTasks] = useState<XcTaskData[]>([]);
-	const [progressData, setProgressData] = useState<XcProgress>(null);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState<string | null>(null);
-
-	useEffect(() => {
-		const loadData = async () => {
-			try {
-				setIsLoading(true);
-				if (!config) {
-					setError(t("errors.categoryNotFound"));
-					return;
-				}
-
-				// Load tasks
-				const tasksData = await getXcTasksByCategory(config.level);
-				setTasks(tasksData);
-
-				// Load user progress
-				const progress = await getMyXcProgress();
-				setProgressData(progress);
-			} catch (err) {
-				console.error("Error loading data:", err);
-				setError(t("errors.failedToLoad"));
-			} finally {
-				setIsLoading(false);
-			}
-		};
-
-		loadData();
-	}, [config, t]);
-
-	if (!config) {
+	if (!category) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Card className="w-full max-w-md">
@@ -88,7 +63,7 @@ export default function CategoryPage() {
 						<p className="text-red-600 font-semibold mb-4">
 							{t("errors.categoryNotFound")}
 						</p>
-						<Link href="/xc-montegrappa">
+						<Link href="/xc">
 							<Button variant="outline" className="w-full">
 								<ArrowLeft className="mr-2 size-4" />
 								{t("buttons.backToXc")}
@@ -100,7 +75,7 @@ export default function CategoryPage() {
 		);
 	}
 
-	if (isLoading) {
+	if (isLoadingTasks) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Spinner />
@@ -108,13 +83,15 @@ export default function CategoryPage() {
 		);
 	}
 
-	if (error) {
+	if (tasksError) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Card className="w-full max-w-md">
 					<CardContent className="text-center pt-6">
-						<p className="text-red-600 font-semibold mb-4">{error}</p>
-						<Link href="/xc-montegrappa">
+						<p className="text-red-600 font-semibold mb-4">
+							{t("errors.failedToLoad")}
+						</p>
+						<Link href="/xc">
 							<Button variant="outline" className="w-full">
 								<ArrowLeft className="mr-2 size-4" />
 								{t("buttons.backToXc")}
@@ -125,12 +102,6 @@ export default function CategoryPage() {
 			</div>
 		);
 	}
-
-	// isEnrolled is at edition level (user enrolled once, accesses all categories)
-	const isEnrolled = progressData?.isEnrolled ?? false;
-	const categoryProgress = progressData?.categories?.find(
-		(c) => c.level === config.level,
-	);
 
 	return (
 		<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
@@ -153,23 +124,23 @@ export default function CategoryPage() {
 			<div className="max-w-5xl mx-auto px-4 py-8">
 				{/* Header */}
 				<div className="mb-8">
-					<Link href="/xc-montegrappa">
+					<Link href="/xc">
 						<Button variant="outline" className="mb-4">
 							<ArrowLeft className="mr-2 size-4" />
 							{t("buttons.back")}
 						</Button>
 					</Link>
 
-					<div className={`rounded-lg border-2 p-6 ${config.color}`}>
+					<div className={`rounded-lg border-2 p-6 ${category.color}`}>
 						<h1 className="text-4xl font-bold mb-2">
-							{config.icon} {t(`categories.${categoryParam}.title`)}
+							{category.icon} {t(`categories.${category.level}.title`)}
 						</h1>
 						<p className="text-gray-600 text-lg">{t("header.description")}</p>
 					</div>
 				</div>
 
 				{/* Progress Card */}
-				{isEnrolled && categoryProgress && (
+				{isEnrolled && xcProgress && (
 					<Card className="mb-8 bg-blue-50 border-blue-200">
 						<CardHeader>
 							<CardTitle>{t("progress.title")}</CardTitle>
@@ -178,14 +149,12 @@ export default function CategoryPage() {
 							<div className="space-y-2">
 								<p className="text-sm text-gray-600">
 									{t("progress.currentPoints")}
-									<span className="font-bold text-lg">
-										{categoryProgress.points}
-									</span>
+									<span className="font-bold text-lg">{xcProgress.points}</span>
 								</p>
 								<p className="text-sm text-gray-600">
 									{t("progress.minPoints")}
 									<span className="font-bold text-lg">
-										{categoryProgress.minPoints}
+										{xcProgress.minPoints}
 									</span>
 								</p>
 								<div className="w-full bg-gray-200 rounded-full h-3 mt-4">
@@ -193,14 +162,13 @@ export default function CategoryPage() {
 										className="bg-green-500 h-3 rounded-full transition-all"
 										style={{
 											width: `${Math.min(
-												(categoryProgress.points / categoryProgress.minPoints) *
-													100,
+												(xcProgress.points / xcProgress.minPoints) * 100,
 												100,
 											)}%`,
 										}}
 									></div>
 								</div>
-								{categoryProgress.completed && (
+								{Boolean(xcProgress.completedAt) && (
 									<p className="text-green-600 font-semibold mt-2">
 										{t("progress.completed")}
 									</p>
@@ -222,7 +190,7 @@ export default function CategoryPage() {
 				{/* Tasks List */}
 				<div className="mb-8">
 					<h2 className="text-2xl font-bold mb-6">{t("tasks.title")}</h2>
-					{tasks.length === 0 ? (
+					{tasks?.length === 0 ? (
 						<Card>
 							<CardContent className="text-center pt-6 text-gray-500">
 								{t("tasks.empty")}
@@ -230,12 +198,8 @@ export default function CategoryPage() {
 						</Card>
 					) : (
 						<div className="space-y-4">
-							{tasks.map((task: XcTaskData) => (
-								<TaskBrevettoCard
-									key={task.id}
-									task={task}
-									isEnrolled={isEnrolled}
-								/>
+							{tasks?.map((task) => (
+								<XcTaskCard key={task.id} task={task} />
 							))}
 						</div>
 					)}

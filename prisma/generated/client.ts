@@ -122,7 +122,7 @@ export type XcEnrollment = Prisma.XcEnrollmentModel
  */
 export type XcTrackSubmission = Prisma.XcTrackSubmissionModel
 /**
- * Model XcAchievement
+ * Model XcProgress
  * 
  */
-export type XcAchievement = Prisma.XcAchievementModel
+export type XcProgress = Prisma.XcProgressModel

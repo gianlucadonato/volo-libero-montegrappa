@@ -238,7 +238,7 @@ export type XcTaskGroupByOutputType = {
   _max: XcTaskMaxAggregateOutputType | null
 }
 
-type GetXcTaskGroupByPayload<T extends XcTaskGroupByArgs> = Prisma.PrismaPromise<
+export type GetXcTaskGroupByPayload<T extends XcTaskGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<XcTaskGroupByOutputType, T['by']> &
       {

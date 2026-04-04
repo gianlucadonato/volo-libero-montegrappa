@@ -80,7 +80,7 @@ export default function XcMontegrappaPage() {
 								{t("levels.lead")}
 								<ul className="pt-4">
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#CD7F32]">
-										<Link href="/xc-montegrappa/basic">
+										<Link href="/xc/basic">
 											<div className="flex items-center gap-2">
 												<div className="flex w-[40px] items-center justify-center">
 													<IoIosMedal className="size-10 text-[#CD7F32]" />
@@ -104,7 +104,7 @@ export default function XcMontegrappaPage() {
 										</Link>
 									</li>
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#C0C0C0]">
-										<Link href="/xc-montegrappa/intermediate">
+										<Link href="/xc/intermediate">
 											<div className="flex items-center gap-2">
 												<div className="flex w-[40px] items-center justify-center">
 													<IoIosMedal className="size-10 text-[#C0C0C0]" />
@@ -128,7 +128,7 @@ export default function XcMontegrappaPage() {
 										</Link>
 									</li>
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#FFD700]">
-										<Link href="/xc-montegrappa/advanced">
+										<Link href="/xc/advanced">
 											<div className="flex items-center gap-2">
 												<div className="flex w-[40px] items-center justify-center">
 													<IoIosMedal className="size-10 text-[#FFD700]" />

@@ -76,7 +76,7 @@ model User {
   xcEnrollments         XcEnrollment[]
   xcSubmissions         XcTrackSubmission[] @relation("user")
   xcReviewedSubmissions XcTrackSubmission[] @relation("reviewer")
-  xcAchievements        XcAchievement[]
+  xcProgresses          XcProgress[]
 
   @@unique([email])
   @@map(name: "users")
@@ -290,8 +290,8 @@ model XcEdition {
 
   enrollments  XcEnrollment[]
   submissions  XcTrackSubmission[]
-  achievements XcAchievement[]
   editionTasks XcEditionTasks[]
+  xcProgresses XcProgress[]
 
   @@index([isActive])
   @@map(name: "xc_editions")
@@ -319,14 +319,14 @@ model XcTask {
 
 model XcEditionTasks {
   editionId String   @map(name: "edition_id")
-  taskId    String   @id @map(name: "task_id")
+  taskId    String   @map(name: "task_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   task    XcTask    @relation(fields: [taskId], references: [id], onDelete: Cascade)
   edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
-  @@unique([taskId, editionId])
+  @@id([taskId, editionId])
   @@map(name: "xc_edition_tasks")
 }
 
@@ -371,20 +371,21 @@ model XcTrackSubmission {
   @@map(name: "xc_track_submissions")
 }
 
-model XcAchievement {
-  id         String          @id @default(cuid())
-  userId     String          @map(name: "user_id")
-  editionId  String          @map(name: "edition_id")
-  category   XcCategoryLevel
-  points     Int             @default(0)
-  achievedAt DateTime?       @map(name: "achieved_at")
-  createdAt  DateTime        @default(now()) @map(name: "created_at")
-  updatedAt  DateTime        @updatedAt @map(name: "updated_at")
+model XcProgress {
+  id          String          @id @default(cuid())
+  userId      String          @map(name: "user_id")
+  editionId   String          @map(name: "edition_id")
+  category    XcCategoryLevel
+  points      Int             @default(0)
+  minPoints   Int             @map(name: "min_points")
+  completedAt DateTime?       @map(name: "completed_at")
+  createdAt   DateTime        @default(now()) @map(name: "created_at")
+  updatedAt   DateTime        @updatedAt @map(name: "updated_at")
 
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, editionId])
-  @@index([userId, editionId])
-  @@map(name: "xc_achievements")
+  @@unique([userId, editionId, category])
+  @@index([userId, editionId, category])
+  @@map(name: "xc_progress")
 }

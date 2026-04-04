@@ -151,7 +151,7 @@ export type XcEditionTasksGroupByOutputType = {
   _max: XcEditionTasksMaxAggregateOutputType | null
 }
 
-type GetXcEditionTasksGroupByPayload<T extends XcEditionTasksGroupByArgs> = Prisma.PrismaPromise<
+export type GetXcEditionTasksGroupByPayload<T extends XcEditionTasksGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<XcEditionTasksGroupByOutputType, T['by']> &
       {
@@ -188,17 +188,17 @@ export type XcEditionTasksOrderByWithRelationInput = {
 }
 
 export type XcEditionTasksWhereUniqueInput = Prisma.AtLeast<{
-  taskId?: string
   taskId_editionId?: Prisma.XcEditionTasksTaskIdEditionIdCompoundUniqueInput
   AND?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
   OR?: Prisma.XcEditionTasksWhereInput[]
   NOT?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
   editionId?: Prisma.StringFilter<"XcEditionTasks"> | string
+  taskId?: Prisma.StringFilter<"XcEditionTasks"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
   task?: Prisma.XOR<Prisma.XcTaskScalarRelationFilter, Prisma.XcTaskWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-}, "taskId" | "taskId_editionId">
+}, "taskId_editionId">
 
 export type XcEditionTasksOrderByWithAggregationInput = {
   editionId?: Prisma.SortOrder

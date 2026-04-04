@@ -158,7 +158,7 @@ export type XcEnrollmentGroupByOutputType = {
   _max: XcEnrollmentMaxAggregateOutputType | null
 }
 
-type GetXcEnrollmentGroupByPayload<T extends XcEnrollmentGroupByArgs> = Prisma.PrismaPromise<
+export type GetXcEnrollmentGroupByPayload<T extends XcEnrollmentGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<XcEnrollmentGroupByOutputType, T['by']> &
       {

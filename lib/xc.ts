@@ -10,22 +10,6 @@ export async function getActiveXcEdition() {
 			startsAt: { lte: now },
 			endsAt: { gte: now },
 		},
-		include: {
-			categories: {
-				orderBy: { level: "asc" },
-				include: {
-					tasks: {
-						where: { isPublished: true },
-						orderBy: { points: "asc" },
-						include: {
-							waypoints: {
-								orderBy: { orderIndex: "asc" },
-							},
-						},
-					},
-				},
-			},
-		},
 	});
 }
 

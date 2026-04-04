@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { ThemeProvider } from "next-themes";
 import ModalProvider from "@/components/modals/providers";
+import QueryProvider from "@/components/providers/QueryProvider";
 import { TailwindIndicator } from "@/components/TailwindIndicator";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,25 +41,27 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 					fontCaveat.variable,
 				)}
 			>
-				<NextIntlClientProvider messages={messages}>
-					<ThemeProvider
-						attribute="class"
-						defaultTheme="light"
-						enableSystem
-						disableTransitionOnChange
-					>
-						<TooltipProvider delayDuration={0}>
-							<ModalProvider>{children}</ModalProvider>
-						</TooltipProvider>
-						<Toaster
-							toastOptions={{ style: { marginTop: "60px" } }}
-							position="top-right"
-							richColors
-							closeButton
-						/>
-						<TailwindIndicator />
-					</ThemeProvider>
-				</NextIntlClientProvider>
+				<QueryProvider>
+					<NextIntlClientProvider messages={messages}>
+						<ThemeProvider
+							attribute="class"
+							defaultTheme="light"
+							enableSystem
+							disableTransitionOnChange
+						>
+							<TooltipProvider delayDuration={0}>
+								<ModalProvider>{children}</ModalProvider>
+							</TooltipProvider>
+							<Toaster
+								toastOptions={{ style: { marginTop: "60px" } }}
+								position="top-right"
+								richColors
+								closeButton
+							/>
+							<TailwindIndicator />
+						</ThemeProvider>
+					</NextIntlClientProvider>
+				</QueryProvider>
 			</body>
 		</html>
 	);

@@ -1,0 +1,33 @@
+{
+	"configPath": "/Users/gian/Documents/Projects/volo-libero-montegrappa/openapi-gen.config.json",
+	"outputFile": "/Users/gian/Documents/Projects/volo-libero-montegrappa/public/openapi.json",
+	"diagnostics": [],
+	"performance": {
+		"prepareTemplateMs": 0.10824999999999818,
+		"loadCustomFragmentsMs": 0.00041699999997035775,
+		"prepareDocumentMs": 0.10866699999996854,
+		"scanRouteFilesMs": 1.0230420000000322,
+		"deriveRoutePathMs": 0.2678739999998925,
+		"filterRouteCandidatesMs": 0.07608500000037566,
+		"sourcePrecheckMs": 9.815916999999672,
+		"readRouteFilesMs": 9.478541000000291,
+		"parseRouteFilesMs": 10.588833000000022,
+		"analyzeRouteFilesMs": 6.588832999999909,
+		"typescriptResponseInferenceMs": 0,
+		"processRouteFilesMs": 17.299125000000004,
+		"registerRouteMs": 124.20466600000009,
+		"getSchemaContentMs": 120.87933299999997,
+		"createRequestParamsMs": 0.17887499999994816,
+		"createRequestBodyMs": 0,
+		"processResponsesMs": 2.7704579999999623,
+		"createResponseSchemaMs": 0,
+		"buildOperationsMs": 124.22300000000007,
+		"sortAndMergePathsMs": 1.028791999999953,
+		"buildPathsMs": 1.028791999999953,
+		"defaultComponentsAndErrorsMs": 0.322208000000046,
+		"mergeSchemasMs": 0.2211250000000291,
+		"finalizeDocumentMs": 2.84370899999999,
+		"totalMs": 157.65375000000006,
+		"scanRoutesMs": 142.5451670000001
+	}
+}

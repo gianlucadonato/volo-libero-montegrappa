@@ -1,7 +1,7 @@
 import { ArrowLeft, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import getTaskById from "@/actions/getTaskById";
+import getTaskById from "@/actions/xc/getTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import {
@@ -35,7 +35,7 @@ export default async function TaskPage({
 			<div className="container mx-auto">
 				<div>
 					<div className="mb-4 flex justify-start">
-						<Link href={`/xc-montegrappa/${task.category?.level || "#"}`}>
+						<Link href={`/xc/${task.category.toLowerCase()}`}>
 							<Button variant="outline" size="sm">
 								<ArrowLeft className="mr-2 size-4" />
 								{t("back")}
@@ -59,9 +59,7 @@ export default async function TaskPage({
 							<CardTitle>{task.name}</CardTitle>
 							<CardDescription>{task.description || ""}</CardDescription>
 						</CardHeader>
-						<CardContent className="space-y-2">
-							{task.category?.level || ""}
-						</CardContent>
+						<CardContent className="space-y-2">{task.category}</CardContent>
 					</Card>
 				</div>
 			</div>

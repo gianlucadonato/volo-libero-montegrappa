@@ -253,7 +253,7 @@ export type XcEditionGroupByOutputType = {
   _max: XcEditionMaxAggregateOutputType | null
 }
 
-type GetXcEditionGroupByPayload<T extends XcEditionGroupByArgs> = Prisma.PrismaPromise<
+export type GetXcEditionGroupByPayload<T extends XcEditionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<XcEditionGroupByOutputType, T['by']> &
       {
@@ -286,8 +286,8 @@ export type XcEditionWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   enrollments?: Prisma.XcEnrollmentListRelationFilter
   submissions?: Prisma.XcTrackSubmissionListRelationFilter
-  achievements?: Prisma.XcAchievementListRelationFilter
   editionTasks?: Prisma.XcEditionTasksListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }
 
 export type XcEditionOrderByWithRelationInput = {
@@ -305,8 +305,8 @@ export type XcEditionOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   enrollments?: Prisma.XcEnrollmentOrderByRelationAggregateInput
   submissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
-  achievements?: Prisma.XcAchievementOrderByRelationAggregateInput
   editionTasks?: Prisma.XcEditionTasksOrderByRelationAggregateInput
+  xcProgresses?: Prisma.XcProgressOrderByRelationAggregateInput
 }
 
 export type XcEditionWhereUniqueInput = Prisma.AtLeast<{
@@ -327,8 +327,8 @@ export type XcEditionWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   enrollments?: Prisma.XcEnrollmentListRelationFilter
   submissions?: Prisma.XcTrackSubmissionListRelationFilter
-  achievements?: Prisma.XcAchievementListRelationFilter
   editionTasks?: Prisma.XcEditionTasksListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }, "id" | "year">
 
 export type XcEditionOrderByWithAggregationInput = {
@@ -384,8 +384,8 @@ export type XcEditionCreateInput = {
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionUncheckedCreateInput = {
@@ -403,8 +403,8 @@ export type XcEditionUncheckedCreateInput = {
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionUpdateInput = {
@@ -422,8 +422,8 @@ export type XcEditionUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionUncheckedUpdateInput = {
@@ -441,8 +441,8 @@ export type XcEditionUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUncheckedUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionCreateManyInput = {
@@ -596,18 +596,18 @@ export type XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.XcEditionUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.XcEditionUpdateWithoutSubmissionsInput>, Prisma.XcEditionUncheckedUpdateWithoutSubmissionsInput>
 }
 
-export type XcEditionCreateNestedOneWithoutAchievementsInput = {
-  create?: Prisma.XOR<Prisma.XcEditionCreateWithoutAchievementsInput, Prisma.XcEditionUncheckedCreateWithoutAchievementsInput>
-  connectOrCreate?: Prisma.XcEditionCreateOrConnectWithoutAchievementsInput
+export type XcEditionCreateNestedOneWithoutXcProgressesInput = {
+  create?: Prisma.XOR<Prisma.XcEditionCreateWithoutXcProgressesInput, Prisma.XcEditionUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.XcEditionCreateOrConnectWithoutXcProgressesInput
   connect?: Prisma.XcEditionWhereUniqueInput
 }
 
-export type XcEditionUpdateOneRequiredWithoutAchievementsNestedInput = {
-  create?: Prisma.XOR<Prisma.XcEditionCreateWithoutAchievementsInput, Prisma.XcEditionUncheckedCreateWithoutAchievementsInput>
-  connectOrCreate?: Prisma.XcEditionCreateOrConnectWithoutAchievementsInput
-  upsert?: Prisma.XcEditionUpsertWithoutAchievementsInput
+export type XcEditionUpdateOneRequiredWithoutXcProgressesNestedInput = {
+  create?: Prisma.XOR<Prisma.XcEditionCreateWithoutXcProgressesInput, Prisma.XcEditionUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.XcEditionCreateOrConnectWithoutXcProgressesInput
+  upsert?: Prisma.XcEditionUpsertWithoutXcProgressesInput
   connect?: Prisma.XcEditionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.XcEditionUpdateToOneWithWhereWithoutAchievementsInput, Prisma.XcEditionUpdateWithoutAchievementsInput>, Prisma.XcEditionUncheckedUpdateWithoutAchievementsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.XcEditionUpdateToOneWithWhereWithoutXcProgressesInput, Prisma.XcEditionUpdateWithoutXcProgressesInput>, Prisma.XcEditionUncheckedUpdateWithoutXcProgressesInput>
 }
 
 export type XcEditionCreateWithoutEditionTasksInput = {
@@ -625,7 +625,7 @@ export type XcEditionCreateWithoutEditionTasksInput = {
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionUncheckedCreateWithoutEditionTasksInput = {
@@ -643,7 +643,7 @@ export type XcEditionUncheckedCreateWithoutEditionTasksInput = {
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionCreateOrConnectWithoutEditionTasksInput = {
@@ -677,7 +677,7 @@ export type XcEditionUpdateWithoutEditionTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionUncheckedUpdateWithoutEditionTasksInput = {
@@ -695,7 +695,7 @@ export type XcEditionUncheckedUpdateWithoutEditionTasksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionCreateWithoutEnrollmentsInput = {
@@ -712,8 +712,8 @@ export type XcEditionCreateWithoutEnrollmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionUncheckedCreateWithoutEnrollmentsInput = {
@@ -730,8 +730,8 @@ export type XcEditionUncheckedCreateWithoutEnrollmentsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionCreateOrConnectWithoutEnrollmentsInput = {
@@ -764,8 +764,8 @@ export type XcEditionUpdateWithoutEnrollmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionUncheckedUpdateWithoutEnrollmentsInput = {
@@ -782,8 +782,8 @@ export type XcEditionUncheckedUpdateWithoutEnrollmentsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUncheckedUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionCreateWithoutSubmissionsInput = {
@@ -800,8 +800,8 @@ export type XcEditionCreateWithoutSubmissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionUncheckedCreateWithoutSubmissionsInput = {
@@ -818,8 +818,8 @@ export type XcEditionUncheckedCreateWithoutSubmissionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
-  achievements?: Prisma.XcAchievementUncheckedCreateNestedManyWithoutEditionInput
   editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutEditionInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutEditionInput
 }
 
 export type XcEditionCreateOrConnectWithoutSubmissionsInput = {
@@ -852,8 +852,8 @@ export type XcEditionUpdateWithoutSubmissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutEditionNestedInput
 }
 
 export type XcEditionUncheckedUpdateWithoutSubmissionsInput = {
@@ -870,11 +870,11 @@ export type XcEditionUncheckedUpdateWithoutSubmissionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
-  achievements?: Prisma.XcAchievementUncheckedUpdateManyWithoutEditionNestedInput
   editionTasks?: Prisma.XcEditionTasksUncheckedUpdateManyWithoutEditionNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutEditionNestedInput
 }
 
-export type XcEditionCreateWithoutAchievementsInput = {
+export type XcEditionCreateWithoutXcProgressesInput = {
   id?: string
   year: number
   title: string
@@ -892,7 +892,7 @@ export type XcEditionCreateWithoutAchievementsInput = {
   editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutEditionInput
 }
 
-export type XcEditionUncheckedCreateWithoutAchievementsInput = {
+export type XcEditionUncheckedCreateWithoutXcProgressesInput = {
   id?: string
   year: number
   title: string
@@ -910,23 +910,23 @@ export type XcEditionUncheckedCreateWithoutAchievementsInput = {
   editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutEditionInput
 }
 
-export type XcEditionCreateOrConnectWithoutAchievementsInput = {
+export type XcEditionCreateOrConnectWithoutXcProgressesInput = {
   where: Prisma.XcEditionWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcEditionCreateWithoutAchievementsInput, Prisma.XcEditionUncheckedCreateWithoutAchievementsInput>
+  create: Prisma.XOR<Prisma.XcEditionCreateWithoutXcProgressesInput, Prisma.XcEditionUncheckedCreateWithoutXcProgressesInput>
 }
 
-export type XcEditionUpsertWithoutAchievementsInput = {
-  update: Prisma.XOR<Prisma.XcEditionUpdateWithoutAchievementsInput, Prisma.XcEditionUncheckedUpdateWithoutAchievementsInput>
-  create: Prisma.XOR<Prisma.XcEditionCreateWithoutAchievementsInput, Prisma.XcEditionUncheckedCreateWithoutAchievementsInput>
+export type XcEditionUpsertWithoutXcProgressesInput = {
+  update: Prisma.XOR<Prisma.XcEditionUpdateWithoutXcProgressesInput, Prisma.XcEditionUncheckedUpdateWithoutXcProgressesInput>
+  create: Prisma.XOR<Prisma.XcEditionCreateWithoutXcProgressesInput, Prisma.XcEditionUncheckedCreateWithoutXcProgressesInput>
   where?: Prisma.XcEditionWhereInput
 }
 
-export type XcEditionUpdateToOneWithWhereWithoutAchievementsInput = {
+export type XcEditionUpdateToOneWithWhereWithoutXcProgressesInput = {
   where?: Prisma.XcEditionWhereInput
-  data: Prisma.XOR<Prisma.XcEditionUpdateWithoutAchievementsInput, Prisma.XcEditionUncheckedUpdateWithoutAchievementsInput>
+  data: Prisma.XOR<Prisma.XcEditionUpdateWithoutXcProgressesInput, Prisma.XcEditionUncheckedUpdateWithoutXcProgressesInput>
 }
 
-export type XcEditionUpdateWithoutAchievementsInput = {
+export type XcEditionUpdateWithoutXcProgressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -944,7 +944,7 @@ export type XcEditionUpdateWithoutAchievementsInput = {
   editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutEditionNestedInput
 }
 
-export type XcEditionUncheckedUpdateWithoutAchievementsInput = {
+export type XcEditionUncheckedUpdateWithoutXcProgressesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   year?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
@@ -970,15 +970,15 @@ export type XcEditionUncheckedUpdateWithoutAchievementsInput = {
 export type XcEditionCountOutputType = {
   enrollments: number
   submissions: number
-  achievements: number
   editionTasks: number
+  xcProgresses: number
 }
 
 export type XcEditionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | XcEditionCountOutputTypeCountEnrollmentsArgs
   submissions?: boolean | XcEditionCountOutputTypeCountSubmissionsArgs
-  achievements?: boolean | XcEditionCountOutputTypeCountAchievementsArgs
   editionTasks?: boolean | XcEditionCountOutputTypeCountEditionTasksArgs
+  xcProgresses?: boolean | XcEditionCountOutputTypeCountXcProgressesArgs
 }
 
 /**
@@ -1008,15 +1008,15 @@ export type XcEditionCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime
 /**
  * XcEditionCountOutputType without action
  */
-export type XcEditionCountOutputTypeCountAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcAchievementWhereInput
+export type XcEditionCountOutputTypeCountEditionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcEditionTasksWhereInput
 }
 
 /**
  * XcEditionCountOutputType without action
  */
-export type XcEditionCountOutputTypeCountEditionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcEditionTasksWhereInput
+export type XcEditionCountOutputTypeCountXcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcProgressWhereInput
 }
 
 
@@ -1035,8 +1035,8 @@ export type XcEditionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   updatedAt?: boolean
   enrollments?: boolean | Prisma.XcEdition$enrollmentsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcEdition$submissionsArgs<ExtArgs>
-  achievements?: boolean | Prisma.XcEdition$achievementsArgs<ExtArgs>
   editionTasks?: boolean | Prisma.XcEdition$editionTasksArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.XcEdition$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.XcEditionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcEdition"]>
 
@@ -1089,8 +1089,8 @@ export type XcEditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type XcEditionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.XcEdition$enrollmentsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcEdition$submissionsArgs<ExtArgs>
-  achievements?: boolean | Prisma.XcEdition$achievementsArgs<ExtArgs>
   editionTasks?: boolean | Prisma.XcEdition$editionTasksArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.XcEdition$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.XcEditionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type XcEditionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1101,8 +1101,8 @@ export type $XcEditionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     enrollments: Prisma.$XcEnrollmentPayload<ExtArgs>[]
     submissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
-    achievements: Prisma.$XcAchievementPayload<ExtArgs>[]
     editionTasks: Prisma.$XcEditionTasksPayload<ExtArgs>[]
+    xcProgresses: Prisma.$XcProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1513,8 +1513,8 @@ export interface Prisma__XcEditionClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   enrollments<T extends Prisma.XcEdition$enrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEdition$enrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   submissions<T extends Prisma.XcEdition$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEdition$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  achievements<T extends Prisma.XcEdition$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEdition$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcAchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   editionTasks<T extends Prisma.XcEdition$editionTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEdition$editionTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEditionTasksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcProgresses<T extends Prisma.XcEdition$xcProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEdition$xcProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1997,30 +1997,6 @@ export type XcEdition$submissionsArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * XcEdition.achievements
- */
-export type XcEdition$achievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the XcAchievement
-   */
-  select?: Prisma.XcAchievementSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the XcAchievement
-   */
-  omit?: Prisma.XcAchievementOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcAchievementInclude<ExtArgs> | null
-  where?: Prisma.XcAchievementWhereInput
-  orderBy?: Prisma.XcAchievementOrderByWithRelationInput | Prisma.XcAchievementOrderByWithRelationInput[]
-  cursor?: Prisma.XcAchievementWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.XcAchievementScalarFieldEnum | Prisma.XcAchievementScalarFieldEnum[]
-}
-
-/**
  * XcEdition.editionTasks
  */
 export type XcEdition$editionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2042,6 +2018,30 @@ export type XcEdition$editionTasksArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.XcEditionTasksScalarFieldEnum | Prisma.XcEditionTasksScalarFieldEnum[]
+}
+
+/**
+ * XcEdition.xcProgresses
+ */
+export type XcEdition$xcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcProgress
+   */
+  select?: Prisma.XcProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcProgress
+   */
+  omit?: Prisma.XcProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcProgressInclude<ExtArgs> | null
+  where?: Prisma.XcProgressWhereInput
+  orderBy?: Prisma.XcProgressOrderByWithRelationInput | Prisma.XcProgressOrderByWithRelationInput[]
+  cursor?: Prisma.XcProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcProgressScalarFieldEnum | Prisma.XcProgressScalarFieldEnum[]
 }
 
 /**

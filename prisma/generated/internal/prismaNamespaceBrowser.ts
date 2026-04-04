@@ -67,7 +67,7 @@ export const ModelName = {
   XcEditionTasks: 'XcEditionTasks',
   XcEnrollment: 'XcEnrollment',
   XcTrackSubmission: 'XcTrackSubmission',
-  XcAchievement: 'XcAchievement'
+  XcProgress: 'XcProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -372,18 +372,19 @@ export const XcTrackSubmissionScalarFieldEnum = {
 export type XcTrackSubmissionScalarFieldEnum = (typeof XcTrackSubmissionScalarFieldEnum)[keyof typeof XcTrackSubmissionScalarFieldEnum]
 
 
-export const XcAchievementScalarFieldEnum = {
+export const XcProgressScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   editionId: 'editionId',
   category: 'category',
   points: 'points',
-  achievedAt: 'achievedAt',
+  minPoints: 'minPoints',
+  completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type XcAchievementScalarFieldEnum = (typeof XcAchievementScalarFieldEnum)[keyof typeof XcAchievementScalarFieldEnum]
+export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
 
 
 export const SortOrder = {

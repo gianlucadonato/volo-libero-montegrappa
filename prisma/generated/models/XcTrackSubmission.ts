@@ -248,7 +248,7 @@ export type XcTrackSubmissionGroupByOutputType = {
   _max: XcTrackSubmissionMaxAggregateOutputType | null
 }
 
-type GetXcTrackSubmissionGroupByPayload<T extends XcTrackSubmissionGroupByArgs> = Prisma.PrismaPromise<
+export type GetXcTrackSubmissionGroupByPayload<T extends XcTrackSubmissionGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<XcTrackSubmissionGroupByOutputType, T['by']> &
       {
