@@ -7,35 +7,8 @@ import { getSocio } from "@/store/user";
 import { getXcEnrollment } from "@/store/xc";
 
 /**
- * Enroll in XC edition
- * @description Enroll the current user in the active XC edition
- * @response XcEnrollmentSchema
- * @auth
- * @openapi
- */
-
-export async function POST() {
-	const session = await auth.api.getSession({
-		headers: await headers(),
-	});
-	if (!session) {
-		return ApiErrorResponse(Boom.unauthorized());
-	}
-	const socio = await getSocio(session.user.id);
-	if (!socio) {
-		return ApiErrorResponse(Boom.forbidden());
-	}
-	try {
-		const enrollment = await createXcEnrollment({ userId: socio.id });
-		return Response.json(enrollment, { status: 201 });
-	} catch (error) {
-		return ApiErrorResponse(error);
-	}
-}
-
-/**
- * Get enrollment in XC edition
- * @description Check if the current user is enrolled in the active XC edition
+ * /xc/enroll
+ * @description Check if the current user is enrolled in the current XC edition
  * @response XcEnrollmentSchema
  * @auth
  * @openapi
@@ -56,6 +29,33 @@ export async function GET() {
 		const enrollment = await getXcEnrollment({ userId: socio.id });
 		return Response.json(enrollment);
 	} catch (error) {
-		return ApiErrorResponse(error);
+		return ApiErrorResponse(error, { endpoint: "GET /xc/enroll" });
+	}
+}
+
+/**
+ * /xc/enroll
+ * @description Enroll the current user in the current XC edition
+ * @response XcEnrollmentSchema
+ * @auth
+ * @openapi
+ */
+
+export async function POST() {
+	const session = await auth.api.getSession({
+		headers: await headers(),
+	});
+	if (!session) {
+		return ApiErrorResponse(Boom.unauthorized());
+	}
+	const socio = await getSocio(session.user.id);
+	if (!socio) {
+		return ApiErrorResponse(Boom.forbidden());
+	}
+	try {
+		const enrollment = await createXcEnrollment({ userId: socio.id });
+		return Response.json(enrollment, { status: 201 });
+	} catch (error) {
+		return ApiErrorResponse(error, { endpoint: "POST /xc/enroll" });
 	}
 }

@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import Boom from "@hapi/boom";
 import { logger } from "@/lib/logger";
 
@@ -15,7 +16,16 @@ export default function APIErrorResponse(
 		);
 	}
 	const serverError = Boom.boomify(error as Error, { statusCode: 500 });
-	logger.error({ error, ...meta }, serverError.message);
+	logger.error(
+		{
+			error,
+			meta: {
+				requestId: randomUUID(),
+				...(meta || {}),
+			},
+		},
+		serverError.message,
+	);
 	return Response.json(
 		{ error: serverError.message },
 		{

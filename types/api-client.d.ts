@@ -12,14 +12,14 @@ export interface paths {
 			cookie?: never;
 		};
 		/**
-		 * Get enrollment in XC edition
-		 * @description Check if the current user is enrolled in the active XC edition
+		 * GET /xc/enroll
+		 * @description Check if the current user is enrolled in the current XC edition
 		 */
 		get: operations["get-xc-enroll"];
 		put?: never;
 		/**
-		 * Enroll in XC edition
-		 * @description Enroll the current user in the active XC edition
+		 * POST /xc/enroll
+		 * @description Enroll the current user in the current XC edition
 		 */
 		post: operations["post-xc-enroll"];
 		delete?: never;
@@ -108,6 +108,19 @@ export interface components {
 			updatedAt: string;
 		};
 		XcEnrollmentSchema: {
+			id: string;
+			edition: {
+				id: string;
+				title: string;
+				year: number;
+			};
+			userId: string;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
+		};
+		XcEnrollmentNullableSchema: {
 			id: string;
 			edition: {
 				id: string;
@@ -348,7 +361,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					"application/json": components["schemas"]["XcEnrollmentSchema"];
+					"application/json": components["schemas"]["XcEnrollmentNullableSchema"];
 				};
 			};
 			400: components["responses"]["400"];

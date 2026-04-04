@@ -737,10 +737,10 @@
 	},
 	"paths": {
 		"/xc/enroll": {
-			"post": {
-				"operationId": "post-xc-enroll",
-				"summary": "Enroll in XC edition",
-				"description": "Enroll the current user in the active XC edition",
+			"get": {
+				"operationId": "get-xc-enroll",
+				"summary": "/xc/enroll",
+				"description": "Check if the current user is enrolled in the current XC edition",
 				"tags": ["Xc"],
 				"parameters": [],
 				"security": [
@@ -767,10 +767,10 @@
 					}
 				}
 			},
-			"get": {
-				"operationId": "get-xc-enroll",
-				"summary": "Get enrollment in XC edition",
-				"description": "Check if the current user is enrolled in the active XC edition",
+			"post": {
+				"operationId": "post-xc-enroll",
+				"summary": "/xc/enroll",
+				"description": "Enroll the current user in the current XC edition",
 				"tags": ["Xc"],
 				"parameters": [],
 				"security": [
@@ -801,7 +801,7 @@
 		"/xc/{category}/progress": {
 			"get": {
 				"operationId": "get-xc-{category}-progress",
-				"summary": "Get XC progress by category",
+				"summary": "/xc/[category]/progress",
 				"description": "Fetch XC progress for a specific category",
 				"tags": ["Xc"],
 				"parameters": [
@@ -843,7 +843,7 @@
 		"/xc/{category}/tasks": {
 			"get": {
 				"operationId": "get-xc-{category}-tasks",
-				"summary": "Get XC tasks by category",
+				"summary": "/xc/[category]/tasks",
 				"description": "Fetch XC tasks for a specific category",
 				"tags": ["Xc"],
 				"parameters": [

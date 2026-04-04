@@ -1,8 +1,7 @@
-import { randomUUID } from "crypto";
-import type { NextRequest } from "next/server";
+import Boom from "@hapi/boom";
 import z from "zod";
 import { getXcTasksByCategory } from "@/actions/xc/getXcTasks";
-import { logger } from "@/lib/logger";
+import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { XcCategoryLevel } from "@/prisma/generated/enums";
 import { XcTaskSchema } from "@/schemas";
 
@@ -11,42 +10,33 @@ const ParamsSchema = z.object({
 });
 
 /**
- * Get XC tasks by category
+ * /xc/[category]/tasks
  * @description Fetch XC tasks for a specific category
  * @pathParams ParamsSchema
  * @response XcTaskSchema[]
  * @openapi
  */
 
-export const GET = async (
-	request: NextRequest,
-	{ params }: { params: Promise<{ category: string }> },
-) => {
-	const log = logger.child({
-		requestId: request.headers.get("x-request-id") || randomUUID(),
-		method: "GET",
-		path: "/xc/[category]/tasks",
-	});
+export const GET = async ({
+	params,
+}: {
+	params: Promise<{ category: string }>;
+}) => {
 	const { category } = await params;
 	const { success, data: parsedParams } = ParamsSchema.safeParse({
 		category: category?.toUpperCase(),
 	});
 	if (!success) {
-		log.warn({ category }, "Invalid category parameter");
-		return Response.json({ message: "Category not valid" }, { status: 400 });
+		return APIErrorResponse(Boom.badRequest("Category not valid"));
 	}
 	try {
 		const tasks = await getXcTasksByCategory(parsedParams.category);
 		const parsedTasks = XcTaskSchema.array().parse(tasks);
 		return Response.json(parsedTasks);
 	} catch (error) {
-		log.error(
-			{ category: parsedParams.category, error },
-			(error as Error).message || "Error fetching tasks for category",
-		);
-		return Response.json(
-			{ message: (error as Error).message },
-			{ status: 500 },
-		);
+		return APIErrorResponse(error, {
+			endpoint: "GET /xc/[category]/tasks",
+			category,
+		});
 	}
 };
