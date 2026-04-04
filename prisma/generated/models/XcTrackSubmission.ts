@@ -27,12 +27,10 @@ export type AggregateXcTrackSubmission = {
 }
 
 export type XcTrackSubmissionAvgAggregateOutputType = {
-  sizeBytes: number | null
   pointsAwarded: number | null
 }
 
 export type XcTrackSubmissionSumAggregateOutputType = {
-  sizeBytes: number | null
   pointsAwarded: number | null
 }
 
@@ -41,15 +39,8 @@ export type XcTrackSubmissionMinAggregateOutputType = {
   userId: string | null
   editionId: string | null
   taskId: string | null
-  enrollmentId: string | null
-  fileType: $Enums.XcTrackFileType | null
   status: $Enums.XcSubmissionStatus | null
   fileName: string | null
-  mimeType: string | null
-  sizeBytes: number | null
-  storageProvider: string | null
-  storageBucket: string | null
-  storageObjectKey: string | null
   checksum: string | null
   notes: string | null
   pointsAwarded: number | null
@@ -64,15 +55,8 @@ export type XcTrackSubmissionMaxAggregateOutputType = {
   userId: string | null
   editionId: string | null
   taskId: string | null
-  enrollmentId: string | null
-  fileType: $Enums.XcTrackFileType | null
   status: $Enums.XcSubmissionStatus | null
   fileName: string | null
-  mimeType: string | null
-  sizeBytes: number | null
-  storageProvider: string | null
-  storageBucket: string | null
-  storageObjectKey: string | null
   checksum: string | null
   notes: string | null
   pointsAwarded: number | null
@@ -87,15 +71,8 @@ export type XcTrackSubmissionCountAggregateOutputType = {
   userId: number
   editionId: number
   taskId: number
-  enrollmentId: number
-  fileType: number
   status: number
   fileName: number
-  mimeType: number
-  sizeBytes: number
-  storageProvider: number
-  storageBucket: number
-  storageObjectKey: number
   checksum: number
   notes: number
   pointsAwarded: number
@@ -108,12 +85,10 @@ export type XcTrackSubmissionCountAggregateOutputType = {
 
 
 export type XcTrackSubmissionAvgAggregateInputType = {
-  sizeBytes?: true
   pointsAwarded?: true
 }
 
 export type XcTrackSubmissionSumAggregateInputType = {
-  sizeBytes?: true
   pointsAwarded?: true
 }
 
@@ -122,15 +97,8 @@ export type XcTrackSubmissionMinAggregateInputType = {
   userId?: true
   editionId?: true
   taskId?: true
-  enrollmentId?: true
-  fileType?: true
   status?: true
   fileName?: true
-  mimeType?: true
-  sizeBytes?: true
-  storageProvider?: true
-  storageBucket?: true
-  storageObjectKey?: true
   checksum?: true
   notes?: true
   pointsAwarded?: true
@@ -145,15 +113,8 @@ export type XcTrackSubmissionMaxAggregateInputType = {
   userId?: true
   editionId?: true
   taskId?: true
-  enrollmentId?: true
-  fileType?: true
   status?: true
   fileName?: true
-  mimeType?: true
-  sizeBytes?: true
-  storageProvider?: true
-  storageBucket?: true
-  storageObjectKey?: true
   checksum?: true
   notes?: true
   pointsAwarded?: true
@@ -168,15 +129,8 @@ export type XcTrackSubmissionCountAggregateInputType = {
   userId?: true
   editionId?: true
   taskId?: true
-  enrollmentId?: true
-  fileType?: true
   status?: true
   fileName?: true
-  mimeType?: true
-  sizeBytes?: true
-  storageProvider?: true
-  storageBucket?: true
-  storageObjectKey?: true
   checksum?: true
   notes?: true
   pointsAwarded?: true
@@ -278,18 +232,11 @@ export type XcTrackSubmissionGroupByOutputType = {
   userId: string
   editionId: string
   taskId: string
-  enrollmentId: string | null
-  fileType: $Enums.XcTrackFileType
   status: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider: string
-  storageBucket: string | null
-  storageObjectKey: string
   checksum: string | null
   notes: string | null
-  pointsAwarded: number | null
+  pointsAwarded: number
   reviewedAt: Date | null
   reviewedBy: string | null
   createdAt: Date
@@ -324,18 +271,11 @@ export type XcTrackSubmissionWhereInput = {
   userId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   editionId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   taskId?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  enrollmentId?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFilter<"XcTrackSubmission"> | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFilter<"XcTrackSubmission"> | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  mimeType?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  sizeBytes?: Prisma.IntFilter<"XcTrackSubmission"> | number
-  storageProvider?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  storageBucket?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  storageObjectKey?: Prisma.StringFilter<"XcTrackSubmission"> | string
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  pointsAwarded?: Prisma.IntNullableFilter<"XcTrackSubmission"> | number | null
+  pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -344,7 +284,6 @@ export type XcTrackSubmissionWhereInput = {
   reviewer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
   task?: Prisma.XOR<Prisma.XcTaskScalarRelationFilter, Prisma.XcTaskWhereInput>
-  enrollment?: Prisma.XOR<Prisma.XcEnrollmentNullableScalarRelationFilter, Prisma.XcEnrollmentWhereInput> | null
 }
 
 export type XcTrackSubmissionOrderByWithRelationInput = {
@@ -352,18 +291,11 @@ export type XcTrackSubmissionOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
-  enrollmentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  fileType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  storageProvider?: Prisma.SortOrder
-  storageBucket?: Prisma.SortOrderInput | Prisma.SortOrder
-  storageObjectKey?: Prisma.SortOrder
   checksum?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  pointsAwarded?: Prisma.SortOrderInput | Prisma.SortOrder
+  pointsAwarded?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -372,7 +304,6 @@ export type XcTrackSubmissionOrderByWithRelationInput = {
   reviewer?: Prisma.UserOrderByWithRelationInput
   edition?: Prisma.XcEditionOrderByWithRelationInput
   task?: Prisma.XcTaskOrderByWithRelationInput
-  enrollment?: Prisma.XcEnrollmentOrderByWithRelationInput
 }
 
 export type XcTrackSubmissionWhereUniqueInput = Prisma.AtLeast<{
@@ -383,18 +314,11 @@ export type XcTrackSubmissionWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   editionId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   taskId?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  enrollmentId?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFilter<"XcTrackSubmission"> | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFilter<"XcTrackSubmission"> | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  mimeType?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  sizeBytes?: Prisma.IntFilter<"XcTrackSubmission"> | number
-  storageProvider?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  storageBucket?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  storageObjectKey?: Prisma.StringFilter<"XcTrackSubmission"> | string
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  pointsAwarded?: Prisma.IntNullableFilter<"XcTrackSubmission"> | number | null
+  pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -403,7 +327,6 @@ export type XcTrackSubmissionWhereUniqueInput = Prisma.AtLeast<{
   reviewer?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
   task?: Prisma.XOR<Prisma.XcTaskScalarRelationFilter, Prisma.XcTaskWhereInput>
-  enrollment?: Prisma.XOR<Prisma.XcEnrollmentNullableScalarRelationFilter, Prisma.XcEnrollmentWhereInput> | null
 }, "id">
 
 export type XcTrackSubmissionOrderByWithAggregationInput = {
@@ -411,18 +334,11 @@ export type XcTrackSubmissionOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
-  enrollmentId?: Prisma.SortOrderInput | Prisma.SortOrder
-  fileType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  storageProvider?: Prisma.SortOrder
-  storageBucket?: Prisma.SortOrderInput | Prisma.SortOrder
-  storageObjectKey?: Prisma.SortOrder
   checksum?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
-  pointsAwarded?: Prisma.SortOrderInput | Prisma.SortOrder
+  pointsAwarded?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -442,18 +358,11 @@ export type XcTrackSubmissionScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
   editionId?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
   taskId?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
-  enrollmentId?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeWithAggregatesFilter<"XcTrackSubmission"> | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusWithAggregatesFilter<"XcTrackSubmission"> | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
-  mimeType?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
-  sizeBytes?: Prisma.IntWithAggregatesFilter<"XcTrackSubmission"> | number
-  storageProvider?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
-  storageBucket?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
-  storageObjectKey?: Prisma.StringWithAggregatesFilter<"XcTrackSubmission"> | string
   checksum?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
-  pointsAwarded?: Prisma.IntNullableWithAggregatesFilter<"XcTrackSubmission"> | number | null
+  pointsAwarded?: Prisma.IntWithAggregatesFilter<"XcTrackSubmission"> | number
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcTrackSubmission"> | Date | string
@@ -462,17 +371,11 @@ export type XcTrackSubmissionScalarWhereWithAggregatesInput = {
 
 export type XcTrackSubmissionCreateInput = {
   id?: string
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -480,7 +383,6 @@ export type XcTrackSubmissionCreateInput = {
   reviewer?: Prisma.UserCreateNestedOneWithoutXcReviewedSubmissionsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutSubmissionsInput
   task: Prisma.XcTaskCreateNestedOneWithoutSubmissionsInput
-  enrollment?: Prisma.XcEnrollmentCreateNestedOneWithoutSubmissionsInput
 }
 
 export type XcTrackSubmissionUncheckedCreateInput = {
@@ -488,18 +390,11 @@ export type XcTrackSubmissionUncheckedCreateInput = {
   userId: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -508,17 +403,11 @@ export type XcTrackSubmissionUncheckedCreateInput = {
 
 export type XcTrackSubmissionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -526,7 +415,6 @@ export type XcTrackSubmissionUpdateInput = {
   reviewer?: Prisma.UserUpdateOneWithoutXcReviewedSubmissionsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput
   task?: Prisma.XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput
-  enrollment?: Prisma.XcEnrollmentUpdateOneWithoutSubmissionsNestedInput
 }
 
 export type XcTrackSubmissionUncheckedUpdateInput = {
@@ -534,18 +422,11 @@ export type XcTrackSubmissionUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -557,18 +438,11 @@ export type XcTrackSubmissionCreateManyInput = {
   userId: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -577,17 +451,11 @@ export type XcTrackSubmissionCreateManyInput = {
 
 export type XcTrackSubmissionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -598,18 +466,11 @@ export type XcTrackSubmissionUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -631,15 +492,8 @@ export type XcTrackSubmissionCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
-  enrollmentId?: Prisma.SortOrder
-  fileType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  storageProvider?: Prisma.SortOrder
-  storageBucket?: Prisma.SortOrder
-  storageObjectKey?: Prisma.SortOrder
   checksum?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
@@ -650,7 +504,6 @@ export type XcTrackSubmissionCountOrderByAggregateInput = {
 }
 
 export type XcTrackSubmissionAvgOrderByAggregateInput = {
-  sizeBytes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
 }
 
@@ -659,15 +512,8 @@ export type XcTrackSubmissionMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
-  enrollmentId?: Prisma.SortOrder
-  fileType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  storageProvider?: Prisma.SortOrder
-  storageBucket?: Prisma.SortOrder
-  storageObjectKey?: Prisma.SortOrder
   checksum?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
@@ -682,15 +528,8 @@ export type XcTrackSubmissionMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
   taskId?: Prisma.SortOrder
-  enrollmentId?: Prisma.SortOrder
-  fileType?: Prisma.SortOrder
   status?: Prisma.SortOrder
   fileName?: Prisma.SortOrder
-  mimeType?: Prisma.SortOrder
-  sizeBytes?: Prisma.SortOrder
-  storageProvider?: Prisma.SortOrder
-  storageBucket?: Prisma.SortOrder
-  storageObjectKey?: Prisma.SortOrder
   checksum?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
@@ -701,7 +540,6 @@ export type XcTrackSubmissionMinOrderByAggregateInput = {
 }
 
 export type XcTrackSubmissionSumOrderByAggregateInput = {
-  sizeBytes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
 }
 
@@ -873,94 +711,34 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutTaskNestedInput = {
   deleteMany?: Prisma.XcTrackSubmissionScalarWhereInput | Prisma.XcTrackSubmissionScalarWhereInput[]
 }
 
-export type XcTrackSubmissionCreateNestedManyWithoutEnrollmentInput = {
-  create?: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput> | Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput[] | Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput[]
-  connectOrCreate?: Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput | Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput[]
-  createMany?: Prisma.XcTrackSubmissionCreateManyEnrollmentInputEnvelope
-  connect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-}
-
-export type XcTrackSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput = {
-  create?: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput> | Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput[] | Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput[]
-  connectOrCreate?: Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput | Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput[]
-  createMany?: Prisma.XcTrackSubmissionCreateManyEnrollmentInputEnvelope
-  connect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-}
-
-export type XcTrackSubmissionUpdateManyWithoutEnrollmentNestedInput = {
-  create?: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput> | Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput[] | Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput[]
-  connectOrCreate?: Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput | Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput[]
-  upsert?: Prisma.XcTrackSubmissionUpsertWithWhereUniqueWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpsertWithWhereUniqueWithoutEnrollmentInput[]
-  createMany?: Prisma.XcTrackSubmissionCreateManyEnrollmentInputEnvelope
-  set?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  disconnect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  delete?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  connect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  update?: Prisma.XcTrackSubmissionUpdateWithWhereUniqueWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpdateWithWhereUniqueWithoutEnrollmentInput[]
-  updateMany?: Prisma.XcTrackSubmissionUpdateManyWithWhereWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpdateManyWithWhereWithoutEnrollmentInput[]
-  deleteMany?: Prisma.XcTrackSubmissionScalarWhereInput | Prisma.XcTrackSubmissionScalarWhereInput[]
-}
-
-export type XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput = {
-  create?: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput> | Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput[] | Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput[]
-  connectOrCreate?: Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput | Prisma.XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput[]
-  upsert?: Prisma.XcTrackSubmissionUpsertWithWhereUniqueWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpsertWithWhereUniqueWithoutEnrollmentInput[]
-  createMany?: Prisma.XcTrackSubmissionCreateManyEnrollmentInputEnvelope
-  set?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  disconnect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  delete?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  connect?: Prisma.XcTrackSubmissionWhereUniqueInput | Prisma.XcTrackSubmissionWhereUniqueInput[]
-  update?: Prisma.XcTrackSubmissionUpdateWithWhereUniqueWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpdateWithWhereUniqueWithoutEnrollmentInput[]
-  updateMany?: Prisma.XcTrackSubmissionUpdateManyWithWhereWithoutEnrollmentInput | Prisma.XcTrackSubmissionUpdateManyWithWhereWithoutEnrollmentInput[]
-  deleteMany?: Prisma.XcTrackSubmissionScalarWhereInput | Prisma.XcTrackSubmissionScalarWhereInput[]
-}
-
-export type EnumXcTrackFileTypeFieldUpdateOperationsInput = {
-  set?: $Enums.XcTrackFileType
-}
-
 export type EnumXcSubmissionStatusFieldUpdateOperationsInput = {
   set?: $Enums.XcSubmissionStatus
 }
 
 export type XcTrackSubmissionCreateWithoutUserInput = {
   id?: string
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviewer?: Prisma.UserCreateNestedOneWithoutXcReviewedSubmissionsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutSubmissionsInput
   task: Prisma.XcTaskCreateNestedOneWithoutSubmissionsInput
-  enrollment?: Prisma.XcEnrollmentCreateNestedOneWithoutSubmissionsInput
 }
 
 export type XcTrackSubmissionUncheckedCreateWithoutUserInput = {
   id?: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -979,24 +757,17 @@ export type XcTrackSubmissionCreateManyUserInputEnvelope = {
 
 export type XcTrackSubmissionCreateWithoutReviewerInput = {
   id?: string
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcSubmissionsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutSubmissionsInput
   task: Prisma.XcTaskCreateNestedOneWithoutSubmissionsInput
-  enrollment?: Prisma.XcEnrollmentCreateNestedOneWithoutSubmissionsInput
 }
 
 export type XcTrackSubmissionUncheckedCreateWithoutReviewerInput = {
@@ -1004,18 +775,11 @@ export type XcTrackSubmissionUncheckedCreateWithoutReviewerInput = {
   userId: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1055,18 +819,11 @@ export type XcTrackSubmissionScalarWhereInput = {
   userId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   editionId?: Prisma.StringFilter<"XcTrackSubmission"> | string
   taskId?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  enrollmentId?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFilter<"XcTrackSubmission"> | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFilter<"XcTrackSubmission"> | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  mimeType?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  sizeBytes?: Prisma.IntFilter<"XcTrackSubmission"> | number
-  storageProvider?: Prisma.StringFilter<"XcTrackSubmission"> | string
-  storageBucket?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  storageObjectKey?: Prisma.StringFilter<"XcTrackSubmission"> | string
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
-  pointsAwarded?: Prisma.IntNullableFilter<"XcTrackSubmission"> | number | null
+  pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -1091,42 +848,28 @@ export type XcTrackSubmissionUpdateManyWithWhereWithoutReviewerInput = {
 
 export type XcTrackSubmissionCreateWithoutEditionInput = {
   id?: string
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcSubmissionsInput
   reviewer?: Prisma.UserCreateNestedOneWithoutXcReviewedSubmissionsInput
   task: Prisma.XcTaskCreateNestedOneWithoutSubmissionsInput
-  enrollment?: Prisma.XcEnrollmentCreateNestedOneWithoutSubmissionsInput
 }
 
 export type XcTrackSubmissionUncheckedCreateWithoutEditionInput = {
   id?: string
   userId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1161,42 +904,28 @@ export type XcTrackSubmissionUpdateManyWithWhereWithoutEditionInput = {
 
 export type XcTrackSubmissionCreateWithoutTaskInput = {
   id?: string
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcSubmissionsInput
   reviewer?: Prisma.UserCreateNestedOneWithoutXcReviewedSubmissionsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutSubmissionsInput
-  enrollment?: Prisma.XcEnrollmentCreateNestedOneWithoutSubmissionsInput
 }
 
 export type XcTrackSubmissionUncheckedCreateWithoutTaskInput = {
   id?: string
   userId: string
   editionId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1229,92 +958,15 @@ export type XcTrackSubmissionUpdateManyWithWhereWithoutTaskInput = {
   data: Prisma.XOR<Prisma.XcTrackSubmissionUpdateManyMutationInput, Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutTaskInput>
 }
 
-export type XcTrackSubmissionCreateWithoutEnrollmentInput = {
-  id?: string
-  fileType: $Enums.XcTrackFileType
-  status?: $Enums.XcSubmissionStatus
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
-  checksum?: string | null
-  notes?: string | null
-  pointsAwarded?: number | null
-  reviewedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutXcSubmissionsInput
-  reviewer?: Prisma.UserCreateNestedOneWithoutXcReviewedSubmissionsInput
-  edition: Prisma.XcEditionCreateNestedOneWithoutSubmissionsInput
-  task: Prisma.XcTaskCreateNestedOneWithoutSubmissionsInput
-}
-
-export type XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput = {
-  id?: string
-  userId: string
-  editionId: string
-  taskId: string
-  fileType: $Enums.XcTrackFileType
-  status?: $Enums.XcSubmissionStatus
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
-  checksum?: string | null
-  notes?: string | null
-  pointsAwarded?: number | null
-  reviewedAt?: Date | string | null
-  reviewedBy?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcTrackSubmissionCreateOrConnectWithoutEnrollmentInput = {
-  where: Prisma.XcTrackSubmissionWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput>
-}
-
-export type XcTrackSubmissionCreateManyEnrollmentInputEnvelope = {
-  data: Prisma.XcTrackSubmissionCreateManyEnrollmentInput | Prisma.XcTrackSubmissionCreateManyEnrollmentInput[]
-  skipDuplicates?: boolean
-}
-
-export type XcTrackSubmissionUpsertWithWhereUniqueWithoutEnrollmentInput = {
-  where: Prisma.XcTrackSubmissionWhereUniqueInput
-  update: Prisma.XOR<Prisma.XcTrackSubmissionUpdateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedUpdateWithoutEnrollmentInput>
-  create: Prisma.XOR<Prisma.XcTrackSubmissionCreateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedCreateWithoutEnrollmentInput>
-}
-
-export type XcTrackSubmissionUpdateWithWhereUniqueWithoutEnrollmentInput = {
-  where: Prisma.XcTrackSubmissionWhereUniqueInput
-  data: Prisma.XOR<Prisma.XcTrackSubmissionUpdateWithoutEnrollmentInput, Prisma.XcTrackSubmissionUncheckedUpdateWithoutEnrollmentInput>
-}
-
-export type XcTrackSubmissionUpdateManyWithWhereWithoutEnrollmentInput = {
-  where: Prisma.XcTrackSubmissionScalarWhereInput
-  data: Prisma.XOR<Prisma.XcTrackSubmissionUpdateManyMutationInput, Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentInput>
-}
-
 export type XcTrackSubmissionCreateManyUserInput = {
   id?: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1326,18 +978,11 @@ export type XcTrackSubmissionCreateManyReviewerInput = {
   userId: string
   editionId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1345,42 +990,28 @@ export type XcTrackSubmissionCreateManyReviewerInput = {
 
 export type XcTrackSubmissionUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewer?: Prisma.UserUpdateOneWithoutXcReviewedSubmissionsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput
   task?: Prisma.XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput
-  enrollment?: Prisma.XcEnrollmentUpdateOneWithoutSubmissionsNestedInput
 }
 
 export type XcTrackSubmissionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1391,18 +1022,11 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1411,24 +1035,17 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutUserInput = {
 
 export type XcTrackSubmissionUpdateWithoutReviewerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcSubmissionsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput
   task?: Prisma.XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput
-  enrollment?: Prisma.XcEnrollmentUpdateOneWithoutSubmissionsNestedInput
 }
 
 export type XcTrackSubmissionUncheckedUpdateWithoutReviewerInput = {
@@ -1436,18 +1053,11 @@ export type XcTrackSubmissionUncheckedUpdateWithoutReviewerInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1458,18 +1068,11 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutReviewerInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1479,18 +1082,11 @@ export type XcTrackSubmissionCreateManyEditionInput = {
   id?: string
   userId: string
   taskId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1499,42 +1095,28 @@ export type XcTrackSubmissionCreateManyEditionInput = {
 
 export type XcTrackSubmissionUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcSubmissionsNestedInput
   reviewer?: Prisma.UserUpdateOneWithoutXcReviewedSubmissionsNestedInput
   task?: Prisma.XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput
-  enrollment?: Prisma.XcEnrollmentUpdateOneWithoutSubmissionsNestedInput
 }
 
 export type XcTrackSubmissionUncheckedUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1545,18 +1127,11 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1567,18 +1142,11 @@ export type XcTrackSubmissionCreateManyTaskInput = {
   id?: string
   userId: string
   editionId: string
-  enrollmentId?: string | null
-  fileType: $Enums.XcTrackFileType
   status?: $Enums.XcSubmissionStatus
   fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
   checksum?: string | null
   notes?: string | null
-  pointsAwarded?: number | null
+  pointsAwarded?: number
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1587,42 +1155,28 @@ export type XcTrackSubmissionCreateManyTaskInput = {
 
 export type XcTrackSubmissionUpdateWithoutTaskInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcSubmissionsNestedInput
   reviewer?: Prisma.UserUpdateOneWithoutXcReviewedSubmissionsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput
-  enrollment?: Prisma.XcEnrollmentUpdateOneWithoutSubmissionsNestedInput
 }
 
 export type XcTrackSubmissionUncheckedUpdateWithoutTaskInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1633,106 +1187,11 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutTaskInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  enrollmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
   status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
   fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type XcTrackSubmissionCreateManyEnrollmentInput = {
-  id?: string
-  userId: string
-  editionId: string
-  taskId: string
-  fileType: $Enums.XcTrackFileType
-  status?: $Enums.XcSubmissionStatus
-  fileName: string
-  mimeType: string
-  sizeBytes: number
-  storageProvider?: string
-  storageBucket?: string | null
-  storageObjectKey: string
-  checksum?: string | null
-  notes?: string | null
-  pointsAwarded?: number | null
-  reviewedAt?: Date | string | null
-  reviewedBy?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcTrackSubmissionUpdateWithoutEnrollmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
-  status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutXcSubmissionsNestedInput
-  reviewer?: Prisma.UserUpdateOneWithoutXcReviewedSubmissionsNestedInput
-  edition?: Prisma.XcEditionUpdateOneRequiredWithoutSubmissionsNestedInput
-  task?: Prisma.XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput
-}
-
-export type XcTrackSubmissionUncheckedUpdateWithoutEnrollmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
-  status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  taskId?: Prisma.StringFieldUpdateOperationsInput | string
-  fileType?: Prisma.EnumXcTrackFileTypeFieldUpdateOperationsInput | $Enums.XcTrackFileType
-  status?: Prisma.EnumXcSubmissionStatusFieldUpdateOperationsInput | $Enums.XcSubmissionStatus
-  fileName?: Prisma.StringFieldUpdateOperationsInput | string
-  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
-  sizeBytes?: Prisma.IntFieldUpdateOperationsInput | number
-  storageProvider?: Prisma.StringFieldUpdateOperationsInput | string
-  storageBucket?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  storageObjectKey?: Prisma.StringFieldUpdateOperationsInput | string
-  checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  pointsAwarded?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1746,15 +1205,8 @@ export type XcTrackSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Int
   userId?: boolean
   editionId?: boolean
   taskId?: boolean
-  enrollmentId?: boolean
-  fileType?: boolean
   status?: boolean
   fileName?: boolean
-  mimeType?: boolean
-  sizeBytes?: boolean
-  storageProvider?: boolean
-  storageBucket?: boolean
-  storageObjectKey?: boolean
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
@@ -1766,7 +1218,6 @@ export type XcTrackSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Int
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }, ExtArgs["result"]["xcTrackSubmission"]>
 
 export type XcTrackSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1774,15 +1225,8 @@ export type XcTrackSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   editionId?: boolean
   taskId?: boolean
-  enrollmentId?: boolean
-  fileType?: boolean
   status?: boolean
   fileName?: boolean
-  mimeType?: boolean
-  sizeBytes?: boolean
-  storageProvider?: boolean
-  storageBucket?: boolean
-  storageObjectKey?: boolean
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
@@ -1794,7 +1238,6 @@ export type XcTrackSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }, ExtArgs["result"]["xcTrackSubmission"]>
 
 export type XcTrackSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1802,15 +1245,8 @@ export type XcTrackSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   userId?: boolean
   editionId?: boolean
   taskId?: boolean
-  enrollmentId?: boolean
-  fileType?: boolean
   status?: boolean
   fileName?: boolean
-  mimeType?: boolean
-  sizeBytes?: boolean
-  storageProvider?: boolean
-  storageBucket?: boolean
-  storageObjectKey?: boolean
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
@@ -1822,7 +1258,6 @@ export type XcTrackSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }, ExtArgs["result"]["xcTrackSubmission"]>
 
 export type XcTrackSubmissionSelectScalar = {
@@ -1830,15 +1265,8 @@ export type XcTrackSubmissionSelectScalar = {
   userId?: boolean
   editionId?: boolean
   taskId?: boolean
-  enrollmentId?: boolean
-  fileType?: boolean
   status?: boolean
   fileName?: boolean
-  mimeType?: boolean
-  sizeBytes?: boolean
-  storageProvider?: boolean
-  storageBucket?: boolean
-  storageObjectKey?: boolean
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
@@ -1848,27 +1276,24 @@ export type XcTrackSubmissionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "enrollmentId" | "fileType" | "status" | "fileName" | "mimeType" | "sizeBytes" | "storageProvider" | "storageBucket" | "storageObjectKey" | "checksum" | "notes" | "pointsAwarded" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
+export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "status" | "fileName" | "checksum" | "notes" | "pointsAwarded" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
 export type XcTrackSubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }
 export type XcTrackSubmissionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }
 export type XcTrackSubmissionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
   task?: boolean | Prisma.XcTaskDefaultArgs<ExtArgs>
-  enrollment?: boolean | Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>
 }
 
 export type $XcTrackSubmissionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1878,25 +1303,17 @@ export type $XcTrackSubmissionPayload<ExtArgs extends runtime.Types.Extensions.I
     reviewer: Prisma.$UserPayload<ExtArgs> | null
     edition: Prisma.$XcEditionPayload<ExtArgs>
     task: Prisma.$XcTaskPayload<ExtArgs>
-    enrollment: Prisma.$XcEnrollmentPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     editionId: string
     taskId: string
-    enrollmentId: string | null
-    fileType: $Enums.XcTrackFileType
     status: $Enums.XcSubmissionStatus
     fileName: string
-    mimeType: string
-    sizeBytes: number
-    storageProvider: string
-    storageBucket: string | null
-    storageObjectKey: string
     checksum: string | null
     notes: string | null
-    pointsAwarded: number | null
+    pointsAwarded: number
     reviewedAt: Date | null
     reviewedBy: string | null
     createdAt: Date
@@ -2299,7 +1716,6 @@ export interface Prisma__XcTrackSubmissionClient<T, Null = never, ExtArgs extend
   reviewer<T extends Prisma.XcTrackSubmission$reviewerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   edition<T extends Prisma.XcEditionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEditionDefaultArgs<ExtArgs>>): Prisma.Prisma__XcEditionClient<runtime.Types.Result.GetResult<Prisma.$XcEditionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   task<T extends Prisma.XcTaskDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTaskDefaultArgs<ExtArgs>>): Prisma.Prisma__XcTaskClient<runtime.Types.Result.GetResult<Prisma.$XcTaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  enrollment<T extends Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTrackSubmission$enrollmentArgs<ExtArgs>>): Prisma.Prisma__XcEnrollmentClient<runtime.Types.Result.GetResult<Prisma.$XcEnrollmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2333,15 +1749,8 @@ export interface XcTrackSubmissionFieldRefs {
   readonly userId: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly editionId: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly taskId: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly enrollmentId: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly fileType: Prisma.FieldRef<"XcTrackSubmission", 'XcTrackFileType'>
   readonly status: Prisma.FieldRef<"XcTrackSubmission", 'XcSubmissionStatus'>
   readonly fileName: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly mimeType: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly sizeBytes: Prisma.FieldRef<"XcTrackSubmission", 'Int'>
-  readonly storageProvider: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly storageBucket: Prisma.FieldRef<"XcTrackSubmission", 'String'>
-  readonly storageObjectKey: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly checksum: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly notes: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly pointsAwarded: Prisma.FieldRef<"XcTrackSubmission", 'Int'>
@@ -2766,25 +2175,6 @@ export type XcTrackSubmission$reviewerArgs<ExtArgs extends runtime.Types.Extensi
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
-}
-
-/**
- * XcTrackSubmission.enrollment
- */
-export type XcTrackSubmission$enrollmentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the XcEnrollment
-   */
-  select?: Prisma.XcEnrollmentSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the XcEnrollment
-   */
-  omit?: Prisma.XcEnrollmentOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcEnrollmentInclude<ExtArgs> | null
-  where?: Prisma.XcEnrollmentWhereInput
 }
 
 /**

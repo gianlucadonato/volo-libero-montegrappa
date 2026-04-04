@@ -78,20 +78,15 @@ export type Coupon = Prisma.CouponModel
  */
 export type XcEdition = Prisma.XcEditionModel
 /**
- * Model XcCategory
- * 
- */
-export type XcCategory = Prisma.XcCategoryModel
-/**
  * Model XcTask
  * 
  */
 export type XcTask = Prisma.XcTaskModel
 /**
- * Model XcTaskWaypoint
+ * Model XcEditionTasks
  * 
  */
-export type XcTaskWaypoint = Prisma.XcTaskWaypointModel
+export type XcEditionTasks = Prisma.XcEditionTasksModel
 /**
  * Model XcEnrollment
  * 

@@ -28,7 +28,6 @@ export type XcEnrollmentMinAggregateOutputType = {
   id: string | null
   userId: string | null
   editionId: string | null
-  status: $Enums.XcEnrollmentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -37,7 +36,6 @@ export type XcEnrollmentMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   editionId: string | null
-  status: $Enums.XcEnrollmentStatus | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,7 +44,6 @@ export type XcEnrollmentCountAggregateOutputType = {
   id: number
   userId: number
   editionId: number
-  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -57,7 +54,6 @@ export type XcEnrollmentMinAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -66,7 +62,6 @@ export type XcEnrollmentMaxAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,7 +70,6 @@ export type XcEnrollmentCountAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -157,7 +151,6 @@ export type XcEnrollmentGroupByOutputType = {
   id: string
   userId: string
   editionId: string
-  status: $Enums.XcEnrollmentStatus
   createdAt: Date
   updatedAt: Date
   _count: XcEnrollmentCountAggregateOutputType | null
@@ -187,24 +180,20 @@ export type XcEnrollmentWhereInput = {
   id?: Prisma.StringFilter<"XcEnrollment"> | string
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringFilter<"XcEnrollment"> | string
-  status?: Prisma.EnumXcEnrollmentStatusFilter<"XcEnrollment"> | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-  submissions?: Prisma.XcTrackSubmissionListRelationFilter
 }
 
 export type XcEnrollmentOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   edition?: Prisma.XcEditionOrderByWithRelationInput
-  submissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
 }
 
 export type XcEnrollmentWhereUniqueInput = Prisma.AtLeast<{
@@ -215,19 +204,16 @@ export type XcEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringFilter<"XcEnrollment"> | string
-  status?: Prisma.EnumXcEnrollmentStatusFilter<"XcEnrollment"> | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-  submissions?: Prisma.XcTrackSubmissionListRelationFilter
 }, "id" | "userId_editionId">
 
 export type XcEnrollmentOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.XcEnrollmentCountOrderByAggregateInput
@@ -242,63 +228,52 @@ export type XcEnrollmentScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
   userId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
-  status?: Prisma.EnumXcEnrollmentStatusWithAggregatesFilter<"XcEnrollment"> | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcEnrollment"> | Date | string
 }
 
 export type XcEnrollmentCreateInput = {
   id?: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcEnrollmentsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutEnrollmentsInput
-  submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentUncheckedCreateInput = {
   id?: string
   userId: string
   editionId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutEnrollmentsNestedInput
-  submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentCreateManyInput = {
   id?: string
   userId: string
   editionId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type XcEnrollmentUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -307,7 +282,6 @@ export type XcEnrollmentUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -331,7 +305,6 @@ export type XcEnrollmentCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -340,7 +313,6 @@ export type XcEnrollmentMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -349,14 +321,8 @@ export type XcEnrollmentMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type XcEnrollmentNullableScalarRelationFilter = {
-  is?: Prisma.XcEnrollmentWhereInput | null
-  isNot?: Prisma.XcEnrollmentWhereInput | null
 }
 
 export type XcEnrollmentCreateNestedManyWithoutUserInput = {
@@ -443,42 +409,18 @@ export type XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput = {
   deleteMany?: Prisma.XcEnrollmentScalarWhereInput | Prisma.XcEnrollmentScalarWhereInput[]
 }
 
-export type EnumXcEnrollmentStatusFieldUpdateOperationsInput = {
-  set?: $Enums.XcEnrollmentStatus
-}
-
-export type XcEnrollmentCreateNestedOneWithoutSubmissionsInput = {
-  create?: Prisma.XOR<Prisma.XcEnrollmentCreateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedCreateWithoutSubmissionsInput>
-  connectOrCreate?: Prisma.XcEnrollmentCreateOrConnectWithoutSubmissionsInput
-  connect?: Prisma.XcEnrollmentWhereUniqueInput
-}
-
-export type XcEnrollmentUpdateOneWithoutSubmissionsNestedInput = {
-  create?: Prisma.XOR<Prisma.XcEnrollmentCreateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedCreateWithoutSubmissionsInput>
-  connectOrCreate?: Prisma.XcEnrollmentCreateOrConnectWithoutSubmissionsInput
-  upsert?: Prisma.XcEnrollmentUpsertWithoutSubmissionsInput
-  disconnect?: Prisma.XcEnrollmentWhereInput | boolean
-  delete?: Prisma.XcEnrollmentWhereInput | boolean
-  connect?: Prisma.XcEnrollmentWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.XcEnrollmentUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.XcEnrollmentUpdateWithoutSubmissionsInput>, Prisma.XcEnrollmentUncheckedUpdateWithoutSubmissionsInput>
-}
-
 export type XcEnrollmentCreateWithoutUserInput = {
   id?: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   edition: Prisma.XcEditionCreateNestedOneWithoutEnrollmentsInput
-  submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentUncheckedCreateWithoutUserInput = {
   id?: string
   editionId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentCreateOrConnectWithoutUserInput = {
@@ -514,27 +456,22 @@ export type XcEnrollmentScalarWhereInput = {
   id?: Prisma.StringFilter<"XcEnrollment"> | string
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
   editionId?: Prisma.StringFilter<"XcEnrollment"> | string
-  status?: Prisma.EnumXcEnrollmentStatusFilter<"XcEnrollment"> | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
 }
 
 export type XcEnrollmentCreateWithoutEditionInput = {
   id?: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcEnrollmentsInput
-  submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentUncheckedCreateWithoutEditionInput = {
   id?: string
   userId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEnrollmentInput
 }
 
 export type XcEnrollmentCreateOrConnectWithoutEditionInput = {
@@ -563,88 +500,30 @@ export type XcEnrollmentUpdateManyWithWhereWithoutEditionInput = {
   data: Prisma.XOR<Prisma.XcEnrollmentUpdateManyMutationInput, Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionInput>
 }
 
-export type XcEnrollmentCreateWithoutSubmissionsInput = {
-  id?: string
-  status?: $Enums.XcEnrollmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutXcEnrollmentsInput
-  edition: Prisma.XcEditionCreateNestedOneWithoutEnrollmentsInput
-}
-
-export type XcEnrollmentUncheckedCreateWithoutSubmissionsInput = {
-  id?: string
-  userId: string
-  editionId: string
-  status?: $Enums.XcEnrollmentStatus
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcEnrollmentCreateOrConnectWithoutSubmissionsInput = {
-  where: Prisma.XcEnrollmentWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcEnrollmentCreateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedCreateWithoutSubmissionsInput>
-}
-
-export type XcEnrollmentUpsertWithoutSubmissionsInput = {
-  update: Prisma.XOR<Prisma.XcEnrollmentUpdateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedUpdateWithoutSubmissionsInput>
-  create: Prisma.XOR<Prisma.XcEnrollmentCreateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedCreateWithoutSubmissionsInput>
-  where?: Prisma.XcEnrollmentWhereInput
-}
-
-export type XcEnrollmentUpdateToOneWithWhereWithoutSubmissionsInput = {
-  where?: Prisma.XcEnrollmentWhereInput
-  data: Prisma.XOR<Prisma.XcEnrollmentUpdateWithoutSubmissionsInput, Prisma.XcEnrollmentUncheckedUpdateWithoutSubmissionsInput>
-}
-
-export type XcEnrollmentUpdateWithoutSubmissionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput
-  edition?: Prisma.XcEditionUpdateOneRequiredWithoutEnrollmentsNestedInput
-}
-
-export type XcEnrollmentUncheckedUpdateWithoutSubmissionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type XcEnrollmentCreateManyUserInput = {
   id?: string
   editionId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type XcEnrollmentUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutEnrollmentsNestedInput
-  submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -652,86 +531,47 @@ export type XcEnrollmentUncheckedUpdateManyWithoutUserInput = {
 export type XcEnrollmentCreateManyEditionInput = {
   id?: string
   userId: string
-  status?: $Enums.XcEnrollmentStatus
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type XcEnrollmentUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput
-  submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEnrollmentNestedInput
 }
 
 export type XcEnrollmentUncheckedUpdateManyWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumXcEnrollmentStatusFieldUpdateOperationsInput | $Enums.XcEnrollmentStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-
-/**
- * Count Type XcEnrollmentCountOutputType
- */
-
-export type XcEnrollmentCountOutputType = {
-  submissions: number
-}
-
-export type XcEnrollmentCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  submissions?: boolean | XcEnrollmentCountOutputTypeCountSubmissionsArgs
-}
-
-/**
- * XcEnrollmentCountOutputType without action
- */
-export type XcEnrollmentCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the XcEnrollmentCountOutputType
-   */
-  select?: Prisma.XcEnrollmentCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * XcEnrollmentCountOutputType without action
- */
-export type XcEnrollmentCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcTrackSubmissionWhereInput
-}
 
 
 export type XcEnrollmentSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  submissions?: boolean | Prisma.XcEnrollment$submissionsArgs<ExtArgs>
-  _count?: boolean | Prisma.XcEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcEnrollment"]>
 
 export type XcEnrollmentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -742,7 +582,6 @@ export type XcEnrollmentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -753,17 +592,14 @@ export type XcEnrollmentSelectScalar = {
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEnrollment"]>
+export type XcEnrollmentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEnrollment"]>
 export type XcEnrollmentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  submissions?: boolean | Prisma.XcEnrollment$submissionsArgs<ExtArgs>
-  _count?: boolean | Prisma.XcEnrollmentCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type XcEnrollmentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -779,13 +615,11 @@ export type $XcEnrollmentPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     edition: Prisma.$XcEditionPayload<ExtArgs>
-    submissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     editionId: string
-    status: $Enums.XcEnrollmentStatus
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["xcEnrollment"]>
@@ -1184,7 +1018,6 @@ export interface Prisma__XcEnrollmentClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   edition<T extends Prisma.XcEditionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEditionDefaultArgs<ExtArgs>>): Prisma.Prisma__XcEditionClient<runtime.Types.Result.GetResult<Prisma.$XcEditionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  submissions<T extends Prisma.XcEnrollment$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEnrollment$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1217,7 +1050,6 @@ export interface XcEnrollmentFieldRefs {
   readonly id: Prisma.FieldRef<"XcEnrollment", 'String'>
   readonly userId: Prisma.FieldRef<"XcEnrollment", 'String'>
   readonly editionId: Prisma.FieldRef<"XcEnrollment", 'String'>
-  readonly status: Prisma.FieldRef<"XcEnrollment", 'XcEnrollmentStatus'>
   readonly createdAt: Prisma.FieldRef<"XcEnrollment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcEnrollment", 'DateTime'>
 }
@@ -1618,30 +1450,6 @@ export type XcEnrollmentDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many XcEnrollments to delete.
    */
   limit?: number
-}
-
-/**
- * XcEnrollment.submissions
- */
-export type XcEnrollment$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the XcTrackSubmission
-   */
-  select?: Prisma.XcTrackSubmissionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the XcTrackSubmission
-   */
-  omit?: Prisma.XcTrackSubmissionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcTrackSubmissionInclude<ExtArgs> | null
-  where?: Prisma.XcTrackSubmissionWhereInput
-  orderBy?: Prisma.XcTrackSubmissionOrderByWithRelationInput | Prisma.XcTrackSubmissionOrderByWithRelationInput[]
-  cursor?: Prisma.XcTrackSubmissionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.XcTrackSubmissionScalarFieldEnum | Prisma.XcTrackSubmissionScalarFieldEnum[]
 }
 
 /**

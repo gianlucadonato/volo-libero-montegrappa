@@ -25,16 +25,6 @@ enum XcCategoryLevel {
   ADVANCED
 }
 
-enum XcEnrollmentStatus {
-  ACTIVE
-  WITHDRAWN
-}
-
-enum XcTrackFileType {
-  GPX
-  IGC
-}
-
 enum XcSubmissionStatus {
   PENDING
   APPROVED
@@ -84,8 +74,8 @@ model User {
   registrations         EventRegistration[]
   coupons               Coupon[]
   xcEnrollments         XcEnrollment[]
-  xcSubmissions         XcTrackSubmission[] @relation("XcSubmissionUser")
-  xcReviewedSubmissions XcTrackSubmission[] @relation("XcSubmissionReviewer")
+  xcSubmissions         XcTrackSubmission[] @relation("user")
+  xcReviewedSubmissions XcTrackSubmission[] @relation("reviewer")
   xcAchievements        XcAchievement[]
 
   @@unique([email])
@@ -298,84 +288,57 @@ model XcEdition {
   createdAt      DateTime @default(now()) @map(name: "created_at")
   updatedAt      DateTime @updatedAt @map(name: "updated_at")
 
-  categories   XcCategory[]
   enrollments  XcEnrollment[]
   submissions  XcTrackSubmission[]
   achievements XcAchievement[]
+  editionTasks XcEditionTasks[]
 
   @@index([isActive])
   @@map(name: "xc_editions")
 }
 
-model XcCategory {
-  id          String          @id @default(cuid())
-  editionId   String          @map(name: "edition_id")
-  level       XcCategoryLevel
-  minPoints   Int             @default(0) @map(name: "min_points")
-  title       String
-  description String?
-  createdAt   DateTime        @default(now()) @map(name: "created_at")
-  updatedAt   DateTime        @updatedAt @map(name: "updated_at")
-
-  edition      XcEdition       @relation(fields: [editionId], references: [id], onDelete: Cascade)
-  tasks        XcTask[]
-  achievements XcAchievement[]
-
-  @@unique([editionId, level])
-  @@map(name: "xc_categories")
-}
-
 model XcTask {
-  id          String   @id @default(cuid())
-  categoryId  String   @map(name: "category_id")
+  id          String          @id @default(cuid())
   slug        String
   name        String
   description String?
   points      Int
-  distanceKm  Float?   @map(name: "distance_km")
-  taskFileUrl String?  @map(name: "task_file_url")
-  imageUrl    String?  @map(name: "image_url")
-  isPublished Boolean  @default(true) @map(name: "is_published")
-  createdAt   DateTime @default(now()) @map(name: "created_at")
-  updatedAt   DateTime @updatedAt @map(name: "updated_at")
+  category    XcCategoryLevel
+  distanceKm  Float?          @map(name: "distance_km")
+  taskFileUrl String?         @map(name: "task_file_url")
+  imageUrl    String?         @map(name: "image_url")
+  createdAt   DateTime        @default(now()) @map(name: "created_at")
+  updatedAt   DateTime        @updatedAt @map(name: "updated_at")
 
-  category    XcCategory          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  waypoints   XcTaskWaypoint[]
-  submissions XcTrackSubmission[]
+  submissions  XcTrackSubmission[]
+  editionTasks XcEditionTasks[]
 
-  @@unique([categoryId, slug])
-  @@index([categoryId])
+  @@unique([category, slug])
   @@map(name: "xc_tasks")
 }
 
-model XcTaskWaypoint {
-  id           String   @id @default(cuid())
-  taskId       String   @map(name: "task_id")
-  orderIndex   Int      @map(name: "order_index")
-  name         String
-  latitude     Float
-  longitude    Float
-  radiusMeters Int      @map(name: "radius_meters")
-  createdAt    DateTime @default(now()) @map(name: "created_at")
-  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+model XcEditionTasks {
+  editionId String   @map(name: "edition_id")
+  taskId    String   @id @map(name: "task_id")
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  task XcTask @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  task    XcTask    @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
-  @@unique([taskId, orderIndex])
-  @@map(name: "xc_task_waypoints")
+  @@unique([taskId, editionId])
+  @@map(name: "xc_edition_tasks")
 }
 
 model XcEnrollment {
-  id        String             @id @default(cuid())
-  userId    String             @map(name: "user_id")
-  editionId String             @map(name: "edition_id")
-  status    XcEnrollmentStatus @default(ACTIVE)
-  createdAt DateTime           @default(now()) @map(name: "created_at")
-  updatedAt DateTime           @updatedAt @map(name: "updated_at")
+  id        String   @id @default(cuid())
+  userId    String   @map(name: "user_id")
+  editionId String   @map(name: "edition_id")
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  edition     XcEdition           @relation(fields: [editionId], references: [id], onDelete: Cascade)
-  submissions XcTrackSubmission[]
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
   @@unique([userId, editionId])
   @@index([editionId])
@@ -383,32 +346,24 @@ model XcEnrollment {
 }
 
 model XcTrackSubmission {
-  id               String             @id @default(cuid())
-  userId           String             @map(name: "user_id")
-  editionId        String             @map(name: "edition_id")
-  taskId           String             @map(name: "task_id")
-  enrollmentId     String?            @map(name: "enrollment_id")
-  fileType         XcTrackFileType    @map(name: "file_type")
-  status           XcSubmissionStatus @default(PENDING)
-  fileName         String             @map(name: "file_name")
-  mimeType         String             @map(name: "mime_type")
-  sizeBytes        Int                @map(name: "size_bytes")
-  storageProvider  String             @default("s3") @map(name: "storage_provider")
-  storageBucket    String?            @map(name: "storage_bucket")
-  storageObjectKey String             @map(name: "storage_object_key")
-  checksum         String?
-  notes            String?
-  pointsAwarded    Int?               @map(name: "points_awarded")
-  reviewedAt       DateTime?          @map(name: "reviewed_at")
-  reviewedBy       String?            @map(name: "reviewed_by")
-  createdAt        DateTime           @default(now()) @map(name: "created_at")
-  updatedAt        DateTime           @updatedAt @map(name: "updated_at")
+  id            String             @id @default(cuid())
+  userId        String             @map(name: "user_id")
+  editionId     String             @map(name: "edition_id")
+  taskId        String             @map(name: "task_id")
+  status        XcSubmissionStatus @default(PENDING)
+  fileName      String             @map(name: "file_name")
+  checksum      String?
+  notes         String?
+  pointsAwarded Int                @default(0) @map(name: "points_awarded")
+  reviewedAt    DateTime?          @map(name: "reviewed_at")
+  reviewedBy    String?            @map(name: "reviewed_by")
+  createdAt     DateTime           @default(now()) @map(name: "created_at")
+  updatedAt     DateTime           @updatedAt @map(name: "updated_at")
 
-  user       User          @relation("XcSubmissionUser", fields: [userId], references: [id], onDelete: Cascade)
-  reviewer   User?         @relation("XcSubmissionReviewer", fields: [reviewedBy], references: [id])
-  edition    XcEdition     @relation(fields: [editionId], references: [id], onDelete: Cascade)
-  task       XcTask        @relation(fields: [taskId], references: [id], onDelete: Cascade)
-  enrollment XcEnrollment? @relation(fields: [enrollmentId], references: [id], onDelete: SetNull)
+  user     User      @relation("user", fields: [userId], references: [id], onDelete: Cascade)
+  reviewer User?     @relation("reviewer", fields: [reviewedBy], references: [id])
+  edition  XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
+  task     XcTask    @relation(fields: [taskId], references: [id], onDelete: Cascade)
 
   @@index([userId, editionId])
   @@index([taskId, status])
@@ -417,20 +372,19 @@ model XcTrackSubmission {
 }
 
 model XcAchievement {
-  id         String    @id @default(cuid())
-  userId     String    @map(name: "user_id")
-  editionId  String    @map(name: "edition_id")
-  categoryId String    @map(name: "category_id")
-  points     Int       @default(0)
-  achievedAt DateTime? @map(name: "achieved_at")
-  createdAt  DateTime  @default(now()) @map(name: "created_at")
-  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  id         String          @id @default(cuid())
+  userId     String          @map(name: "user_id")
+  editionId  String          @map(name: "edition_id")
+  category   XcCategoryLevel
+  points     Int             @default(0)
+  achievedAt DateTime?       @map(name: "achieved_at")
+  createdAt  DateTime        @default(now()) @map(name: "created_at")
+  updatedAt  DateTime        @updatedAt @map(name: "updated_at")
 
-  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  edition  XcEdition  @relation(fields: [editionId], references: [id], onDelete: Cascade)
-  category XcCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, editionId, categoryId])
+  @@unique([userId, editionId])
   @@index([userId, editionId])
   @@map(name: "xc_achievements")
 }

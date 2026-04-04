@@ -38,45 +38,42 @@ export type XcTaskSumAggregateOutputType = {
 
 export type XcTaskMinAggregateOutputType = {
   id: string | null
-  categoryId: string | null
   slug: string | null
   name: string | null
   description: string | null
   points: number | null
+  category: $Enums.XcCategoryLevel | null
   distanceKm: number | null
   taskFileUrl: string | null
   imageUrl: string | null
-  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type XcTaskMaxAggregateOutputType = {
   id: string | null
-  categoryId: string | null
   slug: string | null
   name: string | null
   description: string | null
   points: number | null
+  category: $Enums.XcCategoryLevel | null
   distanceKm: number | null
   taskFileUrl: string | null
   imageUrl: string | null
-  isPublished: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type XcTaskCountAggregateOutputType = {
   id: number
-  categoryId: number
   slug: number
   name: number
   description: number
   points: number
+  category: number
   distanceKm: number
   taskFileUrl: number
   imageUrl: number
-  isPublished: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -95,45 +92,42 @@ export type XcTaskSumAggregateInputType = {
 
 export type XcTaskMinAggregateInputType = {
   id?: true
-  categoryId?: true
   slug?: true
   name?: true
   description?: true
   points?: true
+  category?: true
   distanceKm?: true
   taskFileUrl?: true
   imageUrl?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type XcTaskMaxAggregateInputType = {
   id?: true
-  categoryId?: true
   slug?: true
   name?: true
   description?: true
   points?: true
+  category?: true
   distanceKm?: true
   taskFileUrl?: true
   imageUrl?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type XcTaskCountAggregateInputType = {
   id?: true
-  categoryId?: true
   slug?: true
   name?: true
   description?: true
   points?: true
+  category?: true
   distanceKm?: true
   taskFileUrl?: true
   imageUrl?: true
-  isPublished?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -227,15 +221,14 @@ export type XcTaskGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type XcTaskGroupByOutputType = {
   id: string
-  categoryId: string
   slug: string
   name: string
   description: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm: number | null
   taskFileUrl: string | null
   imageUrl: string | null
-  isPublished: boolean
   createdAt: Date
   updatedAt: Date
   _count: XcTaskCountAggregateOutputType | null
@@ -265,73 +258,66 @@ export type XcTaskWhereInput = {
   OR?: Prisma.XcTaskWhereInput[]
   NOT?: Prisma.XcTaskWhereInput | Prisma.XcTaskWhereInput[]
   id?: Prisma.StringFilter<"XcTask"> | string
-  categoryId?: Prisma.StringFilter<"XcTask"> | string
   slug?: Prisma.StringFilter<"XcTask"> | string
   name?: Prisma.StringFilter<"XcTask"> | string
   description?: Prisma.StringNullableFilter<"XcTask"> | string | null
   points?: Prisma.IntFilter<"XcTask"> | number
+  category?: Prisma.EnumXcCategoryLevelFilter<"XcTask"> | $Enums.XcCategoryLevel
   distanceKm?: Prisma.FloatNullableFilter<"XcTask"> | number | null
   taskFileUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
-  isPublished?: Prisma.BoolFilter<"XcTask"> | boolean
   createdAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
-  category?: Prisma.XOR<Prisma.XcCategoryScalarRelationFilter, Prisma.XcCategoryWhereInput>
-  waypoints?: Prisma.XcTaskWaypointListRelationFilter
   submissions?: Prisma.XcTrackSubmissionListRelationFilter
+  editionTasks?: Prisma.XcEditionTasksListRelationFilter
 }
 
 export type XcTaskOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   points?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   distanceKm?: Prisma.SortOrderInput | Prisma.SortOrder
   taskFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  category?: Prisma.XcCategoryOrderByWithRelationInput
-  waypoints?: Prisma.XcTaskWaypointOrderByRelationAggregateInput
   submissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
+  editionTasks?: Prisma.XcEditionTasksOrderByRelationAggregateInput
 }
 
 export type XcTaskWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  categoryId_slug?: Prisma.XcTaskCategoryIdSlugCompoundUniqueInput
+  category_slug?: Prisma.XcTaskCategorySlugCompoundUniqueInput
   AND?: Prisma.XcTaskWhereInput | Prisma.XcTaskWhereInput[]
   OR?: Prisma.XcTaskWhereInput[]
   NOT?: Prisma.XcTaskWhereInput | Prisma.XcTaskWhereInput[]
-  categoryId?: Prisma.StringFilter<"XcTask"> | string
   slug?: Prisma.StringFilter<"XcTask"> | string
   name?: Prisma.StringFilter<"XcTask"> | string
   description?: Prisma.StringNullableFilter<"XcTask"> | string | null
   points?: Prisma.IntFilter<"XcTask"> | number
+  category?: Prisma.EnumXcCategoryLevelFilter<"XcTask"> | $Enums.XcCategoryLevel
   distanceKm?: Prisma.FloatNullableFilter<"XcTask"> | number | null
   taskFileUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
-  isPublished?: Prisma.BoolFilter<"XcTask"> | boolean
   createdAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
-  category?: Prisma.XOR<Prisma.XcCategoryScalarRelationFilter, Prisma.XcCategoryWhereInput>
-  waypoints?: Prisma.XcTaskWaypointListRelationFilter
   submissions?: Prisma.XcTrackSubmissionListRelationFilter
-}, "id" | "categoryId_slug">
+  editionTasks?: Prisma.XcEditionTasksListRelationFilter
+}, "id" | "category_slug">
 
 export type XcTaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   points?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   distanceKm?: Prisma.SortOrderInput | Prisma.SortOrder
   taskFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.XcTaskCountOrderByAggregateInput
@@ -346,15 +332,14 @@ export type XcTaskScalarWhereWithAggregatesInput = {
   OR?: Prisma.XcTaskScalarWhereWithAggregatesInput[]
   NOT?: Prisma.XcTaskScalarWhereWithAggregatesInput | Prisma.XcTaskScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"XcTask"> | string
-  categoryId?: Prisma.StringWithAggregatesFilter<"XcTask"> | string
   slug?: Prisma.StringWithAggregatesFilter<"XcTask"> | string
   name?: Prisma.StringWithAggregatesFilter<"XcTask"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"XcTask"> | string | null
   points?: Prisma.IntWithAggregatesFilter<"XcTask"> | number
+  category?: Prisma.EnumXcCategoryLevelWithAggregatesFilter<"XcTask"> | $Enums.XcCategoryLevel
   distanceKm?: Prisma.FloatNullableWithAggregatesFilter<"XcTask"> | number | null
   taskFileUrl?: Prisma.StringNullableWithAggregatesFilter<"XcTask"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"XcTask"> | string | null
-  isPublished?: Prisma.BoolWithAggregatesFilter<"XcTask"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcTask"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcTask"> | Date | string
 }
@@ -365,32 +350,30 @@ export type XcTaskCreateInput = {
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  category: Prisma.XcCategoryCreateNestedOneWithoutTasksInput
-  waypoints?: Prisma.XcTaskWaypointCreateNestedManyWithoutTaskInput
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutTaskInput
+  editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutTaskInput
 }
 
 export type XcTaskUncheckedCreateInput = {
   id?: string
-  categoryId: string
   slug: string
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedCreateNestedManyWithoutTaskInput
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutTaskInput
+  editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type XcTaskUpdateInput = {
@@ -399,45 +382,42 @@ export type XcTaskUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutTasksNestedInput
-  waypoints?: Prisma.XcTaskWaypointUpdateManyWithoutTaskNestedInput
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutTaskNestedInput
+  editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutTaskNestedInput
 }
 
 export type XcTaskUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedUpdateManyWithoutTaskNestedInput
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutTaskNestedInput
+  editionTasks?: Prisma.XcEditionTasksUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 export type XcTaskCreateManyInput = {
   id?: string
-  categoryId: string
   slug: string
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -448,55 +428,43 @@ export type XcTaskUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcTaskUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type XcTaskListRelationFilter = {
-  every?: Prisma.XcTaskWhereInput
-  some?: Prisma.XcTaskWhereInput
-  none?: Prisma.XcTaskWhereInput
-}
-
-export type XcTaskOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
-export type XcTaskCategoryIdSlugCompoundUniqueInput = {
-  categoryId: string
+export type XcTaskCategorySlugCompoundUniqueInput = {
+  category: $Enums.XcCategoryLevel
   slug: string
 }
 
 export type XcTaskCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   distanceKm?: Prisma.SortOrder
   taskFileUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,30 +476,28 @@ export type XcTaskAvgOrderByAggregateInput = {
 
 export type XcTaskMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   distanceKm?: Prisma.SortOrder
   taskFileUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type XcTaskMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
   slug?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   points?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   distanceKm?: Prisma.SortOrder
   taskFileUrl?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
-  isPublished?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -546,46 +512,8 @@ export type XcTaskScalarRelationFilter = {
   isNot?: Prisma.XcTaskWhereInput
 }
 
-export type XcTaskCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput> | Prisma.XcTaskCreateWithoutCategoryInput[] | Prisma.XcTaskUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutCategoryInput | Prisma.XcTaskCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.XcTaskCreateManyCategoryInputEnvelope
-  connect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-}
-
-export type XcTaskUncheckedCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput> | Prisma.XcTaskCreateWithoutCategoryInput[] | Prisma.XcTaskUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutCategoryInput | Prisma.XcTaskCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.XcTaskCreateManyCategoryInputEnvelope
-  connect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-}
-
-export type XcTaskUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput> | Prisma.XcTaskCreateWithoutCategoryInput[] | Prisma.XcTaskUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutCategoryInput | Prisma.XcTaskCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.XcTaskUpsertWithWhereUniqueWithoutCategoryInput | Prisma.XcTaskUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.XcTaskCreateManyCategoryInputEnvelope
-  set?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  disconnect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  delete?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  connect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  update?: Prisma.XcTaskUpdateWithWhereUniqueWithoutCategoryInput | Prisma.XcTaskUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.XcTaskUpdateManyWithWhereWithoutCategoryInput | Prisma.XcTaskUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.XcTaskScalarWhereInput | Prisma.XcTaskScalarWhereInput[]
-}
-
-export type XcTaskUncheckedUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput> | Prisma.XcTaskCreateWithoutCategoryInput[] | Prisma.XcTaskUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutCategoryInput | Prisma.XcTaskCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.XcTaskUpsertWithWhereUniqueWithoutCategoryInput | Prisma.XcTaskUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.XcTaskCreateManyCategoryInputEnvelope
-  set?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  disconnect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  delete?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  connect?: Prisma.XcTaskWhereUniqueInput | Prisma.XcTaskWhereUniqueInput[]
-  update?: Prisma.XcTaskUpdateWithWhereUniqueWithoutCategoryInput | Prisma.XcTaskUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.XcTaskUpdateManyWithWhereWithoutCategoryInput | Prisma.XcTaskUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.XcTaskScalarWhereInput | Prisma.XcTaskScalarWhereInput[]
+export type EnumXcCategoryLevelFieldUpdateOperationsInput = {
+  set?: $Enums.XcCategoryLevel
 }
 
 export type NullableFloatFieldUpdateOperationsInput = {
@@ -596,18 +524,18 @@ export type NullableFloatFieldUpdateOperationsInput = {
   divide?: number
 }
 
-export type XcTaskCreateNestedOneWithoutWaypointsInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutWaypointsInput, Prisma.XcTaskUncheckedCreateWithoutWaypointsInput>
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutWaypointsInput
+export type XcTaskCreateNestedOneWithoutEditionTasksInput = {
+  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutEditionTasksInput, Prisma.XcTaskUncheckedCreateWithoutEditionTasksInput>
+  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutEditionTasksInput
   connect?: Prisma.XcTaskWhereUniqueInput
 }
 
-export type XcTaskUpdateOneRequiredWithoutWaypointsNestedInput = {
-  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutWaypointsInput, Prisma.XcTaskUncheckedCreateWithoutWaypointsInput>
-  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutWaypointsInput
-  upsert?: Prisma.XcTaskUpsertWithoutWaypointsInput
+export type XcTaskUpdateOneRequiredWithoutEditionTasksNestedInput = {
+  create?: Prisma.XOR<Prisma.XcTaskCreateWithoutEditionTasksInput, Prisma.XcTaskUncheckedCreateWithoutEditionTasksInput>
+  connectOrCreate?: Prisma.XcTaskCreateOrConnectWithoutEditionTasksInput
+  upsert?: Prisma.XcTaskUpsertWithoutEditionTasksInput
   connect?: Prisma.XcTaskWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.XcTaskUpdateToOneWithWhereWithoutWaypointsInput, Prisma.XcTaskUpdateWithoutWaypointsInput>, Prisma.XcTaskUncheckedUpdateWithoutWaypointsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.XcTaskUpdateToOneWithWhereWithoutEditionTasksInput, Prisma.XcTaskUpdateWithoutEditionTasksInput>, Prisma.XcTaskUncheckedUpdateWithoutEditionTasksInput>
 }
 
 export type XcTaskCreateNestedOneWithoutSubmissionsInput = {
@@ -624,157 +552,77 @@ export type XcTaskUpdateOneRequiredWithoutSubmissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.XcTaskUpdateToOneWithWhereWithoutSubmissionsInput, Prisma.XcTaskUpdateWithoutSubmissionsInput>, Prisma.XcTaskUncheckedUpdateWithoutSubmissionsInput>
 }
 
-export type XcTaskCreateWithoutCategoryInput = {
+export type XcTaskCreateWithoutEditionTasksInput = {
   id?: string
   slug: string
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  waypoints?: Prisma.XcTaskWaypointCreateNestedManyWithoutTaskInput
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutTaskInput
 }
 
-export type XcTaskUncheckedCreateWithoutCategoryInput = {
+export type XcTaskUncheckedCreateWithoutEditionTasksInput = {
   id?: string
   slug: string
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedCreateNestedManyWithoutTaskInput
-  submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutTaskInput
-}
-
-export type XcTaskCreateOrConnectWithoutCategoryInput = {
-  where: Prisma.XcTaskWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput>
-}
-
-export type XcTaskCreateManyCategoryInputEnvelope = {
-  data: Prisma.XcTaskCreateManyCategoryInput | Prisma.XcTaskCreateManyCategoryInput[]
-  skipDuplicates?: boolean
-}
-
-export type XcTaskUpsertWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.XcTaskWhereUniqueInput
-  update: Prisma.XOR<Prisma.XcTaskUpdateWithoutCategoryInput, Prisma.XcTaskUncheckedUpdateWithoutCategoryInput>
-  create: Prisma.XOR<Prisma.XcTaskCreateWithoutCategoryInput, Prisma.XcTaskUncheckedCreateWithoutCategoryInput>
-}
-
-export type XcTaskUpdateWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.XcTaskWhereUniqueInput
-  data: Prisma.XOR<Prisma.XcTaskUpdateWithoutCategoryInput, Prisma.XcTaskUncheckedUpdateWithoutCategoryInput>
-}
-
-export type XcTaskUpdateManyWithWhereWithoutCategoryInput = {
-  where: Prisma.XcTaskScalarWhereInput
-  data: Prisma.XOR<Prisma.XcTaskUpdateManyMutationInput, Prisma.XcTaskUncheckedUpdateManyWithoutCategoryInput>
-}
-
-export type XcTaskScalarWhereInput = {
-  AND?: Prisma.XcTaskScalarWhereInput | Prisma.XcTaskScalarWhereInput[]
-  OR?: Prisma.XcTaskScalarWhereInput[]
-  NOT?: Prisma.XcTaskScalarWhereInput | Prisma.XcTaskScalarWhereInput[]
-  id?: Prisma.StringFilter<"XcTask"> | string
-  categoryId?: Prisma.StringFilter<"XcTask"> | string
-  slug?: Prisma.StringFilter<"XcTask"> | string
-  name?: Prisma.StringFilter<"XcTask"> | string
-  description?: Prisma.StringNullableFilter<"XcTask"> | string | null
-  points?: Prisma.IntFilter<"XcTask"> | number
-  distanceKm?: Prisma.FloatNullableFilter<"XcTask"> | number | null
-  taskFileUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
-  imageUrl?: Prisma.StringNullableFilter<"XcTask"> | string | null
-  isPublished?: Prisma.BoolFilter<"XcTask"> | boolean
-  createdAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"XcTask"> | Date | string
-}
-
-export type XcTaskCreateWithoutWaypointsInput = {
-  id?: string
-  slug: string
-  name: string
-  description?: string | null
-  points: number
-  distanceKm?: number | null
-  taskFileUrl?: string | null
-  imageUrl?: string | null
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  category: Prisma.XcCategoryCreateNestedOneWithoutTasksInput
-  submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutTaskInput
-}
-
-export type XcTaskUncheckedCreateWithoutWaypointsInput = {
-  id?: string
-  categoryId: string
-  slug: string
-  name: string
-  description?: string | null
-  points: number
-  distanceKm?: number | null
-  taskFileUrl?: string | null
-  imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutTaskInput
 }
 
-export type XcTaskCreateOrConnectWithoutWaypointsInput = {
+export type XcTaskCreateOrConnectWithoutEditionTasksInput = {
   where: Prisma.XcTaskWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcTaskCreateWithoutWaypointsInput, Prisma.XcTaskUncheckedCreateWithoutWaypointsInput>
+  create: Prisma.XOR<Prisma.XcTaskCreateWithoutEditionTasksInput, Prisma.XcTaskUncheckedCreateWithoutEditionTasksInput>
 }
 
-export type XcTaskUpsertWithoutWaypointsInput = {
-  update: Prisma.XOR<Prisma.XcTaskUpdateWithoutWaypointsInput, Prisma.XcTaskUncheckedUpdateWithoutWaypointsInput>
-  create: Prisma.XOR<Prisma.XcTaskCreateWithoutWaypointsInput, Prisma.XcTaskUncheckedCreateWithoutWaypointsInput>
+export type XcTaskUpsertWithoutEditionTasksInput = {
+  update: Prisma.XOR<Prisma.XcTaskUpdateWithoutEditionTasksInput, Prisma.XcTaskUncheckedUpdateWithoutEditionTasksInput>
+  create: Prisma.XOR<Prisma.XcTaskCreateWithoutEditionTasksInput, Prisma.XcTaskUncheckedCreateWithoutEditionTasksInput>
   where?: Prisma.XcTaskWhereInput
 }
 
-export type XcTaskUpdateToOneWithWhereWithoutWaypointsInput = {
+export type XcTaskUpdateToOneWithWhereWithoutEditionTasksInput = {
   where?: Prisma.XcTaskWhereInput
-  data: Prisma.XOR<Prisma.XcTaskUpdateWithoutWaypointsInput, Prisma.XcTaskUncheckedUpdateWithoutWaypointsInput>
+  data: Prisma.XOR<Prisma.XcTaskUpdateWithoutEditionTasksInput, Prisma.XcTaskUncheckedUpdateWithoutEditionTasksInput>
 }
 
-export type XcTaskUpdateWithoutWaypointsInput = {
+export type XcTaskUpdateWithoutEditionTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutTasksNestedInput
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutTaskNestedInput
 }
 
-export type XcTaskUncheckedUpdateWithoutWaypointsInput = {
+export type XcTaskUncheckedUpdateWithoutEditionTasksInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutTaskNestedInput
@@ -786,30 +634,28 @@ export type XcTaskCreateWithoutSubmissionsInput = {
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  category: Prisma.XcCategoryCreateNestedOneWithoutTasksInput
-  waypoints?: Prisma.XcTaskWaypointCreateNestedManyWithoutTaskInput
+  editionTasks?: Prisma.XcEditionTasksCreateNestedManyWithoutTaskInput
 }
 
 export type XcTaskUncheckedCreateWithoutSubmissionsInput = {
   id?: string
-  categoryId: string
   slug: string
   name: string
   description?: string | null
   points: number
+  category: $Enums.XcCategoryLevel
   distanceKm?: number | null
   taskFileUrl?: string | null
   imageUrl?: string | null
-  isPublished?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedCreateNestedManyWithoutTaskInput
+  editionTasks?: Prisma.XcEditionTasksUncheckedCreateNestedManyWithoutTaskInput
 }
 
 export type XcTaskCreateOrConnectWithoutSubmissionsInput = {
@@ -834,90 +680,28 @@ export type XcTaskUpdateWithoutSubmissionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutTasksNestedInput
-  waypoints?: Prisma.XcTaskWaypointUpdateManyWithoutTaskNestedInput
+  editionTasks?: Prisma.XcEditionTasksUpdateManyWithoutTaskNestedInput
 }
 
 export type XcTaskUncheckedUpdateWithoutSubmissionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   points?: Prisma.IntFieldUpdateOperationsInput | number
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedUpdateManyWithoutTaskNestedInput
-}
-
-export type XcTaskCreateManyCategoryInput = {
-  id?: string
-  slug: string
-  name: string
-  description?: string | null
-  points: number
-  distanceKm?: number | null
-  taskFileUrl?: string | null
-  imageUrl?: string | null
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcTaskUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  waypoints?: Prisma.XcTaskWaypointUpdateManyWithoutTaskNestedInput
-  submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutTaskNestedInput
-}
-
-export type XcTaskUncheckedUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  waypoints?: Prisma.XcTaskWaypointUncheckedUpdateManyWithoutTaskNestedInput
-  submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutTaskNestedInput
-}
-
-export type XcTaskUncheckedUpdateManyWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  distanceKm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  taskFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  editionTasks?: Prisma.XcEditionTasksUncheckedUpdateManyWithoutTaskNestedInput
 }
 
 
@@ -926,13 +710,13 @@ export type XcTaskUncheckedUpdateManyWithoutCategoryInput = {
  */
 
 export type XcTaskCountOutputType = {
-  waypoints: number
   submissions: number
+  editionTasks: number
 }
 
 export type XcTaskCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  waypoints?: boolean | XcTaskCountOutputTypeCountWaypointsArgs
   submissions?: boolean | XcTaskCountOutputTypeCountSubmissionsArgs
+  editionTasks?: boolean | XcTaskCountOutputTypeCountEditionTasksArgs
 }
 
 /**
@@ -948,116 +732,102 @@ export type XcTaskCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * XcTaskCountOutputType without action
  */
-export type XcTaskCountOutputTypeCountWaypointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcTaskWaypointWhereInput
+export type XcTaskCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcTrackSubmissionWhereInput
 }
 
 /**
  * XcTaskCountOutputType without action
  */
-export type XcTaskCountOutputTypeCountSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.XcTrackSubmissionWhereInput
+export type XcTaskCountOutputTypeCountEditionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcEditionTasksWhereInput
 }
 
 
 export type XcTaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  categoryId?: boolean
   slug?: boolean
   name?: boolean
   description?: boolean
   points?: boolean
+  category?: boolean
   distanceKm?: boolean
   taskFileUrl?: boolean
   imageUrl?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
-  waypoints?: boolean | Prisma.XcTask$waypointsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcTask$submissionsArgs<ExtArgs>
+  editionTasks?: boolean | Prisma.XcTask$editionTasksArgs<ExtArgs>
   _count?: boolean | Prisma.XcTaskCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcTask"]>
 
 export type XcTaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  categoryId?: boolean
   slug?: boolean
   name?: boolean
   description?: boolean
   points?: boolean
+  category?: boolean
   distanceKm?: boolean
   taskFileUrl?: boolean
   imageUrl?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcTask"]>
 
 export type XcTaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  categoryId?: boolean
   slug?: boolean
   name?: boolean
   description?: boolean
   points?: boolean
+  category?: boolean
   distanceKm?: boolean
   taskFileUrl?: boolean
   imageUrl?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcTask"]>
 
 export type XcTaskSelectScalar = {
   id?: boolean
-  categoryId?: boolean
   slug?: boolean
   name?: boolean
   description?: boolean
   points?: boolean
+  category?: boolean
   distanceKm?: boolean
   taskFileUrl?: boolean
   imageUrl?: boolean
-  isPublished?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryId" | "slug" | "name" | "description" | "points" | "distanceKm" | "taskFileUrl" | "imageUrl" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTask"]>
+export type XcTaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "name" | "description" | "points" | "category" | "distanceKm" | "taskFileUrl" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTask"]>
 export type XcTaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
-  waypoints?: boolean | Prisma.XcTask$waypointsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcTask$submissionsArgs<ExtArgs>
+  editionTasks?: boolean | Prisma.XcTask$editionTasksArgs<ExtArgs>
   _count?: boolean | Prisma.XcTaskCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type XcTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
-}
-export type XcTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
-}
+export type XcTaskIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type XcTaskIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $XcTaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "XcTask"
   objects: {
-    category: Prisma.$XcCategoryPayload<ExtArgs>
-    waypoints: Prisma.$XcTaskWaypointPayload<ExtArgs>[]
     submissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
+    editionTasks: Prisma.$XcEditionTasksPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    categoryId: string
     slug: string
     name: string
     description: string | null
     points: number
+    category: $Enums.XcCategoryLevel
     distanceKm: number | null
     taskFileUrl: string | null
     imageUrl: string | null
-    isPublished: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["xcTask"]>
@@ -1454,9 +1224,8 @@ readonly fields: XcTaskFieldRefs;
  */
 export interface Prisma__XcTaskClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  category<T extends Prisma.XcCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__XcCategoryClient<runtime.Types.Result.GetResult<Prisma.$XcCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  waypoints<T extends Prisma.XcTask$waypointsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTask$waypointsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTaskWaypointPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   submissions<T extends Prisma.XcTask$submissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTask$submissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  editionTasks<T extends Prisma.XcTask$editionTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcTask$editionTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEditionTasksPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1487,15 +1256,14 @@ export interface Prisma__XcTaskClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface XcTaskFieldRefs {
   readonly id: Prisma.FieldRef<"XcTask", 'String'>
-  readonly categoryId: Prisma.FieldRef<"XcTask", 'String'>
   readonly slug: Prisma.FieldRef<"XcTask", 'String'>
   readonly name: Prisma.FieldRef<"XcTask", 'String'>
   readonly description: Prisma.FieldRef<"XcTask", 'String'>
   readonly points: Prisma.FieldRef<"XcTask", 'Int'>
+  readonly category: Prisma.FieldRef<"XcTask", 'XcCategoryLevel'>
   readonly distanceKm: Prisma.FieldRef<"XcTask", 'Float'>
   readonly taskFileUrl: Prisma.FieldRef<"XcTask", 'String'>
   readonly imageUrl: Prisma.FieldRef<"XcTask", 'String'>
-  readonly isPublished: Prisma.FieldRef<"XcTask", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"XcTask", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcTask", 'DateTime'>
 }
@@ -1752,10 +1520,6 @@ export type XcTaskCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.XcTaskCreateManyInput | Prisma.XcTaskCreateManyInput[]
   skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcTaskIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1826,10 +1590,6 @@ export type XcTaskUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many XcTasks to update.
    */
   limit?: number
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcTaskIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1899,30 +1659,6 @@ export type XcTaskDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * XcTask.waypoints
- */
-export type XcTask$waypointsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the XcTaskWaypoint
-   */
-  select?: Prisma.XcTaskWaypointSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the XcTaskWaypoint
-   */
-  omit?: Prisma.XcTaskWaypointOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.XcTaskWaypointInclude<ExtArgs> | null
-  where?: Prisma.XcTaskWaypointWhereInput
-  orderBy?: Prisma.XcTaskWaypointOrderByWithRelationInput | Prisma.XcTaskWaypointOrderByWithRelationInput[]
-  cursor?: Prisma.XcTaskWaypointWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.XcTaskWaypointScalarFieldEnum | Prisma.XcTaskWaypointScalarFieldEnum[]
-}
-
-/**
  * XcTask.submissions
  */
 export type XcTask$submissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1944,6 +1680,30 @@ export type XcTask$submissionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.XcTrackSubmissionScalarFieldEnum | Prisma.XcTrackSubmissionScalarFieldEnum[]
+}
+
+/**
+ * XcTask.editionTasks
+ */
+export type XcTask$editionTasksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcEditionTasks
+   */
+  select?: Prisma.XcEditionTasksSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcEditionTasks
+   */
+  omit?: Prisma.XcEditionTasksOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcEditionTasksInclude<ExtArgs> | null
+  where?: Prisma.XcEditionTasksWhereInput
+  orderBy?: Prisma.XcEditionTasksOrderByWithRelationInput | Prisma.XcEditionTasksOrderByWithRelationInput[]
+  cursor?: Prisma.XcEditionTasksWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcEditionTasksScalarFieldEnum | Prisma.XcEditionTasksScalarFieldEnum[]
 }
 
 /**

@@ -63,9 +63,8 @@ export const ModelName = {
   Report: 'Report',
   Coupon: 'Coupon',
   XcEdition: 'XcEdition',
-  XcCategory: 'XcCategory',
   XcTask: 'XcTask',
-  XcTaskWaypoint: 'XcTaskWaypoint',
+  XcEditionTasks: 'XcEditionTasks',
   XcEnrollment: 'XcEnrollment',
   XcTrackSubmission: 'XcTrackSubmission',
   XcAchievement: 'XcAchievement'
@@ -316,31 +315,16 @@ export const XcEditionScalarFieldEnum = {
 export type XcEditionScalarFieldEnum = (typeof XcEditionScalarFieldEnum)[keyof typeof XcEditionScalarFieldEnum]
 
 
-export const XcCategoryScalarFieldEnum = {
-  id: 'id',
-  editionId: 'editionId',
-  level: 'level',
-  minPoints: 'minPoints',
-  title: 'title',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type XcCategoryScalarFieldEnum = (typeof XcCategoryScalarFieldEnum)[keyof typeof XcCategoryScalarFieldEnum]
-
-
 export const XcTaskScalarFieldEnum = {
   id: 'id',
-  categoryId: 'categoryId',
   slug: 'slug',
   name: 'name',
   description: 'description',
   points: 'points',
+  category: 'category',
   distanceKm: 'distanceKm',
   taskFileUrl: 'taskFileUrl',
   imageUrl: 'imageUrl',
-  isPublished: 'isPublished',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -348,26 +332,20 @@ export const XcTaskScalarFieldEnum = {
 export type XcTaskScalarFieldEnum = (typeof XcTaskScalarFieldEnum)[keyof typeof XcTaskScalarFieldEnum]
 
 
-export const XcTaskWaypointScalarFieldEnum = {
-  id: 'id',
+export const XcEditionTasksScalarFieldEnum = {
+  editionId: 'editionId',
   taskId: 'taskId',
-  orderIndex: 'orderIndex',
-  name: 'name',
-  latitude: 'latitude',
-  longitude: 'longitude',
-  radiusMeters: 'radiusMeters',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type XcTaskWaypointScalarFieldEnum = (typeof XcTaskWaypointScalarFieldEnum)[keyof typeof XcTaskWaypointScalarFieldEnum]
+export type XcEditionTasksScalarFieldEnum = (typeof XcEditionTasksScalarFieldEnum)[keyof typeof XcEditionTasksScalarFieldEnum]
 
 
 export const XcEnrollmentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   editionId: 'editionId',
-  status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -380,15 +358,8 @@ export const XcTrackSubmissionScalarFieldEnum = {
   userId: 'userId',
   editionId: 'editionId',
   taskId: 'taskId',
-  enrollmentId: 'enrollmentId',
-  fileType: 'fileType',
   status: 'status',
   fileName: 'fileName',
-  mimeType: 'mimeType',
-  sizeBytes: 'sizeBytes',
-  storageProvider: 'storageProvider',
-  storageBucket: 'storageBucket',
-  storageObjectKey: 'storageObjectKey',
   checksum: 'checksum',
   notes: 'notes',
   pointsAwarded: 'pointsAwarded',
@@ -405,7 +376,7 @@ export const XcAchievementScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   editionId: 'editionId',
-  categoryId: 'categoryId',
+  category: 'category',
   points: 'points',
   achievedAt: 'achievedAt',
   createdAt: 'createdAt',

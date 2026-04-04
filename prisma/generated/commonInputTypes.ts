@@ -243,16 +243,6 @@ export type EnumXcCategoryLevelFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumXcCategoryLevelFilter<$PrismaModel> | $Enums.XcCategoryLevel
 }
 
-export type EnumXcCategoryLevelWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcCategoryLevel | Prisma.EnumXcCategoryLevelFieldRefInput<$PrismaModel>
-  in?: $Enums.XcCategoryLevel[] | Prisma.ListEnumXcCategoryLevelFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcCategoryLevel[] | Prisma.ListEnumXcCategoryLevelFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcCategoryLevelWithAggregatesFilter<$PrismaModel> | $Enums.XcCategoryLevel
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumXcCategoryLevelFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumXcCategoryLevelFilter<$PrismaModel>
-}
-
 export type FloatNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.FloatFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel> | null
@@ -262,6 +252,16 @@ export type FloatNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
+}
+
+export type EnumXcCategoryLevelWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.XcCategoryLevel | Prisma.EnumXcCategoryLevelFieldRefInput<$PrismaModel>
+  in?: $Enums.XcCategoryLevel[] | Prisma.ListEnumXcCategoryLevelFieldRefInput<$PrismaModel>
+  notIn?: $Enums.XcCategoryLevel[] | Prisma.ListEnumXcCategoryLevelFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumXcCategoryLevelWithAggregatesFilter<$PrismaModel> | $Enums.XcCategoryLevel
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumXcCategoryLevelFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumXcCategoryLevelFilter<$PrismaModel>
 }
 
 export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -280,72 +280,11 @@ export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
 }
 
-export type FloatFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedFloatFilter<$PrismaModel> | number
-}
-
-export type FloatWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedFloatWithAggregatesFilter<$PrismaModel> | number
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
-  _sum?: Prisma.NestedFloatFilter<$PrismaModel>
-  _min?: Prisma.NestedFloatFilter<$PrismaModel>
-  _max?: Prisma.NestedFloatFilter<$PrismaModel>
-}
-
-export type EnumXcEnrollmentStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcEnrollmentStatus | Prisma.EnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel> | $Enums.XcEnrollmentStatus
-}
-
-export type EnumXcEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcEnrollmentStatus | Prisma.EnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.XcEnrollmentStatus
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel>
-}
-
-export type EnumXcTrackFileTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcTrackFileType | Prisma.EnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel> | $Enums.XcTrackFileType
-}
-
 export type EnumXcSubmissionStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.XcSubmissionStatus | Prisma.EnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   in?: $Enums.XcSubmissionStatus[] | Prisma.ListEnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.XcSubmissionStatus[] | Prisma.ListEnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumXcSubmissionStatusFilter<$PrismaModel> | $Enums.XcSubmissionStatus
-}
-
-export type EnumXcTrackFileTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcTrackFileType | Prisma.EnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcTrackFileTypeWithAggregatesFilter<$PrismaModel> | $Enums.XcTrackFileType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel>
 }
 
 export type EnumXcSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -626,61 +565,11 @@ export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedFloatNullableFilter<$PrismaModel>
 }
 
-export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>
-  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedFloatWithAggregatesFilter<$PrismaModel> | number
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _avg?: Prisma.NestedFloatFilter<$PrismaModel>
-  _sum?: Prisma.NestedFloatFilter<$PrismaModel>
-  _min?: Prisma.NestedFloatFilter<$PrismaModel>
-  _max?: Prisma.NestedFloatFilter<$PrismaModel>
-}
-
-export type NestedEnumXcEnrollmentStatusFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcEnrollmentStatus | Prisma.EnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel> | $Enums.XcEnrollmentStatus
-}
-
-export type NestedEnumXcEnrollmentStatusWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcEnrollmentStatus | Prisma.EnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  in?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcEnrollmentStatus[] | Prisma.ListEnumXcEnrollmentStatusFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcEnrollmentStatusWithAggregatesFilter<$PrismaModel> | $Enums.XcEnrollmentStatus
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumXcEnrollmentStatusFilter<$PrismaModel>
-}
-
-export type NestedEnumXcTrackFileTypeFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcTrackFileType | Prisma.EnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel> | $Enums.XcTrackFileType
-}
-
 export type NestedEnumXcSubmissionStatusFilter<$PrismaModel = never> = {
   equals?: $Enums.XcSubmissionStatus | Prisma.EnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   in?: $Enums.XcSubmissionStatus[] | Prisma.ListEnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   notIn?: $Enums.XcSubmissionStatus[] | Prisma.ListEnumXcSubmissionStatusFieldRefInput<$PrismaModel>
   not?: Prisma.NestedEnumXcSubmissionStatusFilter<$PrismaModel> | $Enums.XcSubmissionStatus
-}
-
-export type NestedEnumXcTrackFileTypeWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.XcTrackFileType | Prisma.EnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  in?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  notIn?: $Enums.XcTrackFileType[] | Prisma.ListEnumXcTrackFileTypeFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumXcTrackFileTypeWithAggregatesFilter<$PrismaModel> | $Enums.XcTrackFileType
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumXcTrackFileTypeFilter<$PrismaModel>
 }
 
 export type NestedEnumXcSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {

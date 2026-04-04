@@ -38,7 +38,7 @@ export type XcAchievementMinAggregateOutputType = {
   id: string | null
   userId: string | null
   editionId: string | null
-  categoryId: string | null
+  category: $Enums.XcCategoryLevel | null
   points: number | null
   achievedAt: Date | null
   createdAt: Date | null
@@ -49,7 +49,7 @@ export type XcAchievementMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   editionId: string | null
-  categoryId: string | null
+  category: $Enums.XcCategoryLevel | null
   points: number | null
   achievedAt: Date | null
   createdAt: Date | null
@@ -60,7 +60,7 @@ export type XcAchievementCountAggregateOutputType = {
   id: number
   userId: number
   editionId: number
-  categoryId: number
+  category: number
   points: number
   achievedAt: number
   createdAt: number
@@ -81,7 +81,7 @@ export type XcAchievementMinAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  categoryId?: true
+  category?: true
   points?: true
   achievedAt?: true
   createdAt?: true
@@ -92,7 +92,7 @@ export type XcAchievementMaxAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  categoryId?: true
+  category?: true
   points?: true
   achievedAt?: true
   createdAt?: true
@@ -103,7 +103,7 @@ export type XcAchievementCountAggregateInputType = {
   id?: true
   userId?: true
   editionId?: true
-  categoryId?: true
+  category?: true
   points?: true
   achievedAt?: true
   createdAt?: true
@@ -201,7 +201,7 @@ export type XcAchievementGroupByOutputType = {
   id: string
   userId: string
   editionId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points: number
   achievedAt: Date | null
   createdAt: Date
@@ -235,53 +235,50 @@ export type XcAchievementWhereInput = {
   id?: Prisma.StringFilter<"XcAchievement"> | string
   userId?: Prisma.StringFilter<"XcAchievement"> | string
   editionId?: Prisma.StringFilter<"XcAchievement"> | string
-  categoryId?: Prisma.StringFilter<"XcAchievement"> | string
+  category?: Prisma.EnumXcCategoryLevelFilter<"XcAchievement"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcAchievement"> | number
   achievedAt?: Prisma.DateTimeNullableFilter<"XcAchievement"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcAchievement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcAchievement"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-  category?: Prisma.XOR<Prisma.XcCategoryScalarRelationFilter, Prisma.XcCategoryWhereInput>
 }
 
 export type XcAchievementOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   achievedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   edition?: Prisma.XcEditionOrderByWithRelationInput
-  category?: Prisma.XcCategoryOrderByWithRelationInput
 }
 
 export type XcAchievementWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  userId_editionId_categoryId?: Prisma.XcAchievementUserIdEditionIdCategoryIdCompoundUniqueInput
+  userId_editionId?: Prisma.XcAchievementUserIdEditionIdCompoundUniqueInput
   AND?: Prisma.XcAchievementWhereInput | Prisma.XcAchievementWhereInput[]
   OR?: Prisma.XcAchievementWhereInput[]
   NOT?: Prisma.XcAchievementWhereInput | Prisma.XcAchievementWhereInput[]
   userId?: Prisma.StringFilter<"XcAchievement"> | string
   editionId?: Prisma.StringFilter<"XcAchievement"> | string
-  categoryId?: Prisma.StringFilter<"XcAchievement"> | string
+  category?: Prisma.EnumXcCategoryLevelFilter<"XcAchievement"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcAchievement"> | number
   achievedAt?: Prisma.DateTimeNullableFilter<"XcAchievement"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcAchievement"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcAchievement"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   edition?: Prisma.XOR<Prisma.XcEditionScalarRelationFilter, Prisma.XcEditionWhereInput>
-  category?: Prisma.XOR<Prisma.XcCategoryScalarRelationFilter, Prisma.XcCategoryWhereInput>
-}, "id" | "userId_editionId_categoryId">
+}, "id" | "userId_editionId">
 
 export type XcAchievementOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   achievedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -300,7 +297,7 @@ export type XcAchievementScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"XcAchievement"> | string
   userId?: Prisma.StringWithAggregatesFilter<"XcAchievement"> | string
   editionId?: Prisma.StringWithAggregatesFilter<"XcAchievement"> | string
-  categoryId?: Prisma.StringWithAggregatesFilter<"XcAchievement"> | string
+  category?: Prisma.EnumXcCategoryLevelWithAggregatesFilter<"XcAchievement"> | $Enums.XcCategoryLevel
   points?: Prisma.IntWithAggregatesFilter<"XcAchievement"> | number
   achievedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"XcAchievement"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcAchievement"> | Date | string
@@ -309,20 +306,20 @@ export type XcAchievementScalarWhereWithAggregatesInput = {
 
 export type XcAchievementCreateInput = {
   id?: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcAchievementsInput
   edition: Prisma.XcEditionCreateNestedOneWithoutAchievementsInput
-  category: Prisma.XcCategoryCreateNestedOneWithoutAchievementsInput
 }
 
 export type XcAchievementUncheckedCreateInput = {
   id?: string
   userId: string
   editionId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -331,20 +328,20 @@ export type XcAchievementUncheckedCreateInput = {
 
 export type XcAchievementUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcAchievementsNestedInput
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutAchievementsNestedInput
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutAchievementsNestedInput
 }
 
 export type XcAchievementUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -355,7 +352,7 @@ export type XcAchievementCreateManyInput = {
   id?: string
   userId: string
   editionId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -364,6 +361,7 @@ export type XcAchievementCreateManyInput = {
 
 export type XcAchievementUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,7 +372,7 @@ export type XcAchievementUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -391,17 +389,16 @@ export type XcAchievementOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type XcAchievementUserIdEditionIdCategoryIdCompoundUniqueInput = {
+export type XcAchievementUserIdEditionIdCompoundUniqueInput = {
   userId: string
   editionId: string
-  categoryId: string
 }
 
 export type XcAchievementCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   achievedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -416,7 +413,7 @@ export type XcAchievementMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   achievedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -427,7 +424,7 @@ export type XcAchievementMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   editionId?: Prisma.SortOrder
-  categoryId?: Prisma.SortOrder
+  category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   achievedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -522,62 +519,20 @@ export type XcAchievementUncheckedUpdateManyWithoutEditionNestedInput = {
   deleteMany?: Prisma.XcAchievementScalarWhereInput | Prisma.XcAchievementScalarWhereInput[]
 }
 
-export type XcAchievementCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput> | Prisma.XcAchievementCreateWithoutCategoryInput[] | Prisma.XcAchievementUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcAchievementCreateOrConnectWithoutCategoryInput | Prisma.XcAchievementCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.XcAchievementCreateManyCategoryInputEnvelope
-  connect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-}
-
-export type XcAchievementUncheckedCreateNestedManyWithoutCategoryInput = {
-  create?: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput> | Prisma.XcAchievementCreateWithoutCategoryInput[] | Prisma.XcAchievementUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcAchievementCreateOrConnectWithoutCategoryInput | Prisma.XcAchievementCreateOrConnectWithoutCategoryInput[]
-  createMany?: Prisma.XcAchievementCreateManyCategoryInputEnvelope
-  connect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-}
-
-export type XcAchievementUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput> | Prisma.XcAchievementCreateWithoutCategoryInput[] | Prisma.XcAchievementUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcAchievementCreateOrConnectWithoutCategoryInput | Prisma.XcAchievementCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.XcAchievementUpsertWithWhereUniqueWithoutCategoryInput | Prisma.XcAchievementUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.XcAchievementCreateManyCategoryInputEnvelope
-  set?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  disconnect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  delete?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  connect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  update?: Prisma.XcAchievementUpdateWithWhereUniqueWithoutCategoryInput | Prisma.XcAchievementUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.XcAchievementUpdateManyWithWhereWithoutCategoryInput | Prisma.XcAchievementUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.XcAchievementScalarWhereInput | Prisma.XcAchievementScalarWhereInput[]
-}
-
-export type XcAchievementUncheckedUpdateManyWithoutCategoryNestedInput = {
-  create?: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput> | Prisma.XcAchievementCreateWithoutCategoryInput[] | Prisma.XcAchievementUncheckedCreateWithoutCategoryInput[]
-  connectOrCreate?: Prisma.XcAchievementCreateOrConnectWithoutCategoryInput | Prisma.XcAchievementCreateOrConnectWithoutCategoryInput[]
-  upsert?: Prisma.XcAchievementUpsertWithWhereUniqueWithoutCategoryInput | Prisma.XcAchievementUpsertWithWhereUniqueWithoutCategoryInput[]
-  createMany?: Prisma.XcAchievementCreateManyCategoryInputEnvelope
-  set?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  disconnect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  delete?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  connect?: Prisma.XcAchievementWhereUniqueInput | Prisma.XcAchievementWhereUniqueInput[]
-  update?: Prisma.XcAchievementUpdateWithWhereUniqueWithoutCategoryInput | Prisma.XcAchievementUpdateWithWhereUniqueWithoutCategoryInput[]
-  updateMany?: Prisma.XcAchievementUpdateManyWithWhereWithoutCategoryInput | Prisma.XcAchievementUpdateManyWithWhereWithoutCategoryInput[]
-  deleteMany?: Prisma.XcAchievementScalarWhereInput | Prisma.XcAchievementScalarWhereInput[]
-}
-
 export type XcAchievementCreateWithoutUserInput = {
   id?: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   edition: Prisma.XcEditionCreateNestedOneWithoutAchievementsInput
-  category: Prisma.XcCategoryCreateNestedOneWithoutAchievementsInput
 }
 
 export type XcAchievementUncheckedCreateWithoutUserInput = {
   id?: string
   editionId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -617,7 +572,7 @@ export type XcAchievementScalarWhereInput = {
   id?: Prisma.StringFilter<"XcAchievement"> | string
   userId?: Prisma.StringFilter<"XcAchievement"> | string
   editionId?: Prisma.StringFilter<"XcAchievement"> | string
-  categoryId?: Prisma.StringFilter<"XcAchievement"> | string
+  category?: Prisma.EnumXcCategoryLevelFilter<"XcAchievement"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcAchievement"> | number
   achievedAt?: Prisma.DateTimeNullableFilter<"XcAchievement"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcAchievement"> | Date | string
@@ -626,18 +581,18 @@ export type XcAchievementScalarWhereInput = {
 
 export type XcAchievementCreateWithoutEditionInput = {
   id?: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutXcAchievementsInput
-  category: Prisma.XcCategoryCreateNestedOneWithoutAchievementsInput
 }
 
 export type XcAchievementUncheckedCreateWithoutEditionInput = {
   id?: string
   userId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -670,56 +625,10 @@ export type XcAchievementUpdateManyWithWhereWithoutEditionInput = {
   data: Prisma.XOR<Prisma.XcAchievementUpdateManyMutationInput, Prisma.XcAchievementUncheckedUpdateManyWithoutEditionInput>
 }
 
-export type XcAchievementCreateWithoutCategoryInput = {
-  id?: string
-  points?: number
-  achievedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutXcAchievementsInput
-  edition: Prisma.XcEditionCreateNestedOneWithoutAchievementsInput
-}
-
-export type XcAchievementUncheckedCreateWithoutCategoryInput = {
-  id?: string
-  userId: string
-  editionId: string
-  points?: number
-  achievedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcAchievementCreateOrConnectWithoutCategoryInput = {
-  where: Prisma.XcAchievementWhereUniqueInput
-  create: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput>
-}
-
-export type XcAchievementCreateManyCategoryInputEnvelope = {
-  data: Prisma.XcAchievementCreateManyCategoryInput | Prisma.XcAchievementCreateManyCategoryInput[]
-  skipDuplicates?: boolean
-}
-
-export type XcAchievementUpsertWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.XcAchievementWhereUniqueInput
-  update: Prisma.XOR<Prisma.XcAchievementUpdateWithoutCategoryInput, Prisma.XcAchievementUncheckedUpdateWithoutCategoryInput>
-  create: Prisma.XOR<Prisma.XcAchievementCreateWithoutCategoryInput, Prisma.XcAchievementUncheckedCreateWithoutCategoryInput>
-}
-
-export type XcAchievementUpdateWithWhereUniqueWithoutCategoryInput = {
-  where: Prisma.XcAchievementWhereUniqueInput
-  data: Prisma.XOR<Prisma.XcAchievementUpdateWithoutCategoryInput, Prisma.XcAchievementUncheckedUpdateWithoutCategoryInput>
-}
-
-export type XcAchievementUpdateManyWithWhereWithoutCategoryInput = {
-  where: Prisma.XcAchievementScalarWhereInput
-  data: Prisma.XOR<Prisma.XcAchievementUpdateManyMutationInput, Prisma.XcAchievementUncheckedUpdateManyWithoutCategoryInput>
-}
-
 export type XcAchievementCreateManyUserInput = {
   id?: string
   editionId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -728,18 +637,18 @@ export type XcAchievementCreateManyUserInput = {
 
 export type XcAchievementUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   edition?: Prisma.XcEditionUpdateOneRequiredWithoutAchievementsNestedInput
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutAchievementsNestedInput
 }
 
 export type XcAchievementUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -749,7 +658,7 @@ export type XcAchievementUncheckedUpdateWithoutUserInput = {
 export type XcAchievementUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -759,7 +668,7 @@ export type XcAchievementUncheckedUpdateManyWithoutUserInput = {
 export type XcAchievementCreateManyEditionInput = {
   id?: string
   userId: string
-  categoryId: string
+  category: $Enums.XcCategoryLevel
   points?: number
   achievedAt?: Date | string | null
   createdAt?: Date | string
@@ -768,18 +677,18 @@ export type XcAchievementCreateManyEditionInput = {
 
 export type XcAchievementUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutXcAchievementsNestedInput
-  category?: Prisma.XcCategoryUpdateOneRequiredWithoutAchievementsNestedInput
 }
 
 export type XcAchievementUncheckedUpdateWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -789,47 +698,7 @@ export type XcAchievementUncheckedUpdateWithoutEditionInput = {
 export type XcAchievementUncheckedUpdateManyWithoutEditionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  categoryId?: Prisma.StringFieldUpdateOperationsInput | string
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type XcAchievementCreateManyCategoryInput = {
-  id?: string
-  userId: string
-  editionId: string
-  points?: number
-  achievedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type XcAchievementUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutXcAchievementsNestedInput
-  edition?: Prisma.XcEditionUpdateOneRequiredWithoutAchievementsNestedInput
-}
-
-export type XcAchievementUncheckedUpdateWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
-  points?: Prisma.IntFieldUpdateOperationsInput | number
-  achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type XcAchievementUncheckedUpdateManyWithoutCategoryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   achievedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -842,70 +711,64 @@ export type XcAchievementSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  categoryId?: boolean
+  category?: boolean
   points?: boolean
   achievedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcAchievement"]>
 
 export type XcAchievementSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  categoryId?: boolean
+  category?: boolean
   points?: boolean
   achievedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcAchievement"]>
 
 export type XcAchievementSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  categoryId?: boolean
+  category?: boolean
   points?: boolean
   achievedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["xcAchievement"]>
 
 export type XcAchievementSelectScalar = {
   id?: boolean
   userId?: boolean
   editionId?: boolean
-  categoryId?: boolean
+  category?: boolean
   points?: boolean
   achievedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcAchievementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "categoryId" | "points" | "achievedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["xcAchievement"]>
+export type XcAchievementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "category" | "points" | "achievedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["xcAchievement"]>
 export type XcAchievementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }
 export type XcAchievementIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }
 export type XcAchievementIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
-  category?: boolean | Prisma.XcCategoryDefaultArgs<ExtArgs>
 }
 
 export type $XcAchievementPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -913,13 +776,12 @@ export type $XcAchievementPayload<ExtArgs extends runtime.Types.Extensions.Inter
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     edition: Prisma.$XcEditionPayload<ExtArgs>
-    category: Prisma.$XcCategoryPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
     editionId: string
-    categoryId: string
+    category: $Enums.XcCategoryLevel
     points: number
     achievedAt: Date | null
     createdAt: Date
@@ -1320,7 +1182,6 @@ export interface Prisma__XcAchievementClient<T, Null = never, ExtArgs extends ru
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   edition<T extends Prisma.XcEditionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcEditionDefaultArgs<ExtArgs>>): Prisma.Prisma__XcEditionClient<runtime.Types.Result.GetResult<Prisma.$XcEditionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  category<T extends Prisma.XcCategoryDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.XcCategoryDefaultArgs<ExtArgs>>): Prisma.Prisma__XcCategoryClient<runtime.Types.Result.GetResult<Prisma.$XcCategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1353,7 +1214,7 @@ export interface XcAchievementFieldRefs {
   readonly id: Prisma.FieldRef<"XcAchievement", 'String'>
   readonly userId: Prisma.FieldRef<"XcAchievement", 'String'>
   readonly editionId: Prisma.FieldRef<"XcAchievement", 'String'>
-  readonly categoryId: Prisma.FieldRef<"XcAchievement", 'String'>
+  readonly category: Prisma.FieldRef<"XcAchievement", 'XcCategoryLevel'>
   readonly points: Prisma.FieldRef<"XcAchievement", 'Int'>
   readonly achievedAt: Prisma.FieldRef<"XcAchievement", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"XcAchievement", 'DateTime'>

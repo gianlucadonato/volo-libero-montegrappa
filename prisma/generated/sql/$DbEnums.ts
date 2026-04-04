@@ -7,7 +7,5 @@ export interface $DbEnums {
   UserRole: "ADMIN" | "USER" | "MEMBER"
   EventRegistrationStatus: "REGISTERED" | "CANCELLED"
   XcCategoryLevel: "BASIC" | "INTERMEDIATE" | "ADVANCED"
-  XcEnrollmentStatus: "ACTIVE" | "WITHDRAWN"
-  XcTrackFileType: "GPX" | "IGC"
   XcSubmissionStatus: "PENDING" | "APPROVED" | "REJECTED"
 }
