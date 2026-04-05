@@ -17,7 +17,7 @@ export default async function PublicLayout({
 	return (
 		<SidebarProvider defaultOpen={false}>
 			<SidebarInset className="relative w-full">
-				<header className="fixed inset-x-0 top-0 z-100 flex h-18 shrink-0 items-center gap-2 border-b bg-white px-4">
+				<header className="fixed inset-x-0 top-0 z-[1200] flex h-18 shrink-0 items-center gap-2 border-b bg-white px-4">
 					<Navbar />
 					<SidebarTrigger className="mr-1 ml-auto rotate-180" />
 				</header>

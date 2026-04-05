@@ -75,7 +75,7 @@ export default async function TaskPage({
 		: [];
 
 	return (
-		<section className="px-4 py-20">
+		<section className="sm:px-4 pt-5 sm:pt-10 pb-20">
 			<div className="container mx-auto max-w-5xl">
 				{/* Back button */}
 				<div className="mb-4 flex justify-start">
