@@ -13,6 +13,7 @@ import type React from "react";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import TaskActionButtons from "@/components/xc/TaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
@@ -138,13 +139,17 @@ export default async function TaskPage({
 							description={task.description}
 							taskInfo={parsedTask.info}
 						/>
-						<TaskActionButtons
-							taskId={id}
-							taskFileUrl={task.taskFileUrl}
-							downloadLabel={t("download_task")}
-							uploadLabel={t("upload_route")}
-							uploadingLabel={t("uploading")}
-						/>
+						<Card className="mt-4 mb-8 bg-amber-50 border-amber-200">
+							<CardContent>
+								<TaskActionButtons
+									taskId={id}
+									taskFileUrl={task.taskFileUrl}
+									downloadLabel={t("download_task")}
+									uploadLabel={t("upload_route")}
+									uploadingLabel={t("uploading")}
+								/>
+							</CardContent>
+						</Card>
 					</>
 				) : (
 					<div className="rounded-md border bg-muted/40 p-4 text-sm text-muted-foreground">

@@ -84,7 +84,7 @@ export default function TaskActionButtons({
 	};
 
 	return (
-		<div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2 mt-8">
+		<div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
 			{taskFileUrl && (
 				<Button
 					onClick={handleDownload}
@@ -100,8 +100,7 @@ export default function TaskActionButtons({
 					<Button
 						onClick={handleUploadClick}
 						disabled={isUploading}
-						variant="outline"
-						className="gap-2 flex-1 sm:flex-none"
+						className="gap-2 flex-1 sm:flex-none rounded-lg bg-linear-to-r from-amber-500 to-amber-600 py-4 font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:from-amber-600 hover:to-amber-700 disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-500 disabled:hover:scale-100"
 					>
 						<Upload className="size-4" />
 						{isUploading ? uploadingLabel : uploadLabel}
