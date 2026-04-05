@@ -3,7 +3,7 @@
 import { Laptop, Moon, SunMedium } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { SectionColumns } from "@/components/dashboard/section-columns";
 import {
 	Select,
@@ -20,6 +20,9 @@ export function ThemeSettings() {
 	const t = useTranslations("SettingsPage.theme");
 	const { theme, setTheme } = useTheme();
 	const [_, startTransition] = useTransition();
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => setMounted(true), []);
 
 	function onSelect(value: string) {
 		startTransition(() => {
@@ -31,7 +34,10 @@ export function ThemeSettings() {
 		<SectionColumns title={t("title")} description={t("description")}>
 			<div className="flex w-full items-center justify-between gap-2">
 				<div className="flex-1">
-					<Select defaultValue={theme} onValueChange={onSelect}>
+					<Select
+						value={mounted ? (theme ?? "system") : undefined}
+						onValueChange={onSelect}
+					>
 						<SelectTrigger className="w-full">
 							<SelectValue placeholder={t("select_theme")} />
 						</SelectTrigger>
@@ -46,9 +52,9 @@ export function ThemeSettings() {
 				</div>
 				<div>
 					<Button variant="outline">
-						{theme === "dark" ? (
+						{mounted && theme === "dark" ? (
 							<Moon className="size-4" />
-						) : theme === "light" ? (
+						) : mounted && theme === "light" ? (
 							<SunMedium className="size-4" />
 						) : (
 							<Laptop className="size-4" />

@@ -161,12 +161,10 @@ export const navUserLinks = [
 		title: "profile",
 		url: "/profile",
 		icon: User,
-		authorizeOnly: [UserRole.USER, UserRole.MEMBER],
 	},
 	{
 		title: "settings",
 		url: "/settings",
 		icon: Settings,
-		authorizeOnly: [UserRole.USER, UserRole.MEMBER],
 	},
 ] as NavMainItem[];
