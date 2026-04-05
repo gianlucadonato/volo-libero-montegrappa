@@ -25,7 +25,11 @@ import {
 import { Separator } from "@/components/ui/separator";
 import XcTaskMapLoader from "@/components/xc/XcTaskMapLoader";
 import { constructMetadata, siteConfig } from "@/config/site";
-import { parseTskXml, type TaskWaypoint } from "@/lib/tsk-parser";
+import {
+	type ParsedTask,
+	parseTskXml,
+	type TaskWaypoint,
+} from "@/lib/tsk-parser";
 
 export const metadata = constructMetadata({
 	title: `Task - ${siteConfig.name}`,
@@ -48,13 +52,12 @@ const WAYPOINT_TYPE_COLOR: Record<string, string> = {
 	turnpoint: "bg-purple-500/10 text-purple-600 border-purple-500/30",
 };
 
-async function fetchAndParseTask(taskFileUrl: string): Promise<TaskWaypoint[]> {
+async function fetchAndParseTask(taskFileUrl: string): Promise<ParsedTask> {
 	const { readFileSync } = await import("fs");
 	const { join } = await import("path");
 	const filePath = join(process.cwd(), "public", taskFileUrl);
 	const xml = readFileSync(filePath, "utf-8");
-	const parsed = parseTskXml(xml);
-	return parsed.waypoints;
+	return parseTskXml(xml);
 }
 
 export default async function TaskPage({
@@ -70,9 +73,11 @@ export default async function TaskPage({
 		return <div>{t("not_found")}</div>;
 	}
 
-	const waypoints: TaskWaypoint[] = task.taskFileUrl
+	const parsedTask: ParsedTask = task.taskFileUrl
 		? await fetchAndParseTask(task.taskFileUrl)
-		: [];
+		: { waypoints: [] };
+
+	const waypoints: TaskWaypoint[] = parsedTask.waypoints;
 
 	return (
 		<section className="sm:px-4 pt-5 sm:pt-10 pb-20">
@@ -143,6 +148,11 @@ export default async function TaskPage({
 									<span className="font-medium">{waypoints.length}</span>
 								</div>
 							)}
+							{parsedTask.info && (
+								<div className="rounded-md border bg-muted/40 p-3 text-xs leading-relaxed text-muted-foreground whitespace-pre-wrap">
+									{parsedTask.info}
+								</div>
+							)}
 						</CardContent>
 					</Card>
 
@@ -177,10 +187,13 @@ export default async function TaskPage({
 													</Badge>
 												</div>
 												<div className="mt-1 flex flex-wrap gap-3 text-xs text-muted-foreground">
+													{wp.id && (
+														<span>
+															TP: <strong>{wp.id}</strong>
+														</span>
+													)}
 													<span>R: {wp.radiusM.toFixed(0)} m</span>
 													{wp.altM > 0 && <span>Alt: {wp.altM} m</span>}
-													{wp.open && <span>Apre: {wp.open}</span>}
-													{wp.close && <span>Chiude: {wp.close}</span>}
 												</div>
 											</div>
 										</div>

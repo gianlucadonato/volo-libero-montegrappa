@@ -1,6 +1,7 @@
 export type TurnpointType = "takeoff" | "turnpoint" | "goal" | "sss" | "ess";
 
 export interface TaskWaypoint {
+	id?: string;
 	name: string;
 	lat: number;
 	lon: number;
@@ -55,6 +56,7 @@ export function parseTskXml(xml: string): ParsedTask {
 
 		const lat = parseFloat(getAttr("lat") ?? "0");
 		const lon = parseFloat(getAttr("lon") ?? "0");
+		const id = getText(body, "id")?.trim();
 		const name = getText(body, "name") ?? "";
 		const altM = parseFloat(getText(body, "z") ?? "0");
 		const radiusM = parseFloat(getText(body, "radius") ?? "400");
@@ -70,6 +72,7 @@ export function parseTskXml(xml: string): ParsedTask {
 		else if (rawType === "ess") type = "ess";
 
 		result.waypoints.push({
+			id: id && id.length > 0 ? id : undefined,
 			name,
 			lat,
 			lon,

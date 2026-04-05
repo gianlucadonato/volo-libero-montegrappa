@@ -75,8 +75,111 @@ export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
 
 	const center: [number, number] = [waypoints[0].lat, waypoints[0].lon];
 
-	// Route polyline: center of each cylinder in order
-	const routeLine: [number, number][] = waypoints.map((wp) => [wp.lat, wp.lon]);
+	// Route polyline: points on cylinder boundaries (touching buoy radius)
+	const buildCircleTouchingRoute = (
+		items: TaskWaypoint[],
+	): [number, number][] => {
+		if (items.length < 2) return items.map((wp) => [wp.lat, wp.lon]);
+
+		const avgLat =
+			items.reduce((sum, wp) => sum + wp.lat, 0) / Math.max(items.length, 1);
+		const avgLon =
+			items.reduce((sum, wp) => sum + wp.lon, 0) / Math.max(items.length, 1);
+
+		const metersPerLat = 111_320;
+		const metersPerLon = 111_320 * Math.cos((avgLat * Math.PI) / 180);
+
+		const toXY = (lat: number, lon: number) => ({
+			x: (lon - avgLon) * metersPerLon,
+			y: (lat - avgLat) * metersPerLat,
+		});
+
+		const toLatLon = (x: number, y: number): [number, number] => [
+			avgLat + y / metersPerLat,
+			avgLon + x / metersPerLon,
+		];
+
+		const circles = items.map((wp) => {
+			const c = toXY(wp.lat, wp.lon);
+			return { c, r: Math.max(0, wp.radiusM || 0) };
+		});
+
+		const distance = (
+			a: { x: number; y: number },
+			b: { x: number; y: number },
+		) => Math.hypot(a.x - b.x, a.y - b.y);
+
+		const onCircle = (
+			centerPoint: { x: number; y: number },
+			radius: number,
+			theta: number,
+		) => ({
+			x: centerPoint.x + radius * Math.cos(theta),
+			y: centerPoint.y + radius * Math.sin(theta),
+		});
+
+		const closestOnCircleToward = (
+			circle: { c: { x: number; y: number }; r: number },
+			target: { x: number; y: number },
+		) => {
+			if (circle.r <= 0) return { ...circle.c };
+			const vx = target.x - circle.c.x;
+			const vy = target.y - circle.c.y;
+			const n = Math.hypot(vx, vy) || 1;
+			return {
+				x: circle.c.x + (circle.r * vx) / n,
+				y: circle.c.y + (circle.r * vy) / n,
+			};
+		};
+
+		const routePoints = circles.map((circle, i) => {
+			const target =
+				i < circles.length - 1 ? circles[i + 1].c : circles[i - 1].c;
+			return closestOnCircleToward(circle, target);
+		});
+
+		for (let iter = 0; iter < 8; iter++) {
+			for (let i = 0; i < circles.length; i++) {
+				const circle = circles[i];
+				if (circle.r <= 0) {
+					routePoints[i] = { ...circle.c };
+					continue;
+				}
+
+				if (i === 0) {
+					routePoints[i] = closestOnCircleToward(circle, routePoints[i + 1]);
+					continue;
+				}
+
+				if (i === circles.length - 1) {
+					routePoints[i] = closestOnCircleToward(circle, routePoints[i - 1]);
+					continue;
+				}
+
+				const prev = routePoints[i - 1];
+				const next = routePoints[i + 1];
+
+				let bestTheta = 0;
+				let bestCost = Number.POSITIVE_INFINITY;
+
+				for (let s = 0; s < 72; s++) {
+					const theta = (2 * Math.PI * s) / 72;
+					const q = onCircle(circle.c, circle.r, theta);
+					const cost = distance(prev, q) + distance(q, next);
+					if (cost < bestCost) {
+						bestCost = cost;
+						bestTheta = theta;
+					}
+				}
+
+				routePoints[i] = onCircle(circle.c, circle.r, bestTheta);
+			}
+		}
+
+		return routePoints.map((p) => toLatLon(p.x, p.y));
+	};
+
+	const routeLine: [number, number][] = buildCircleTouchingRoute(waypoints);
 
 	// Create numbered div icons for waypoints
 	const createWpIcon = (wp: TaskWaypoint, index: number) => {
