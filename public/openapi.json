@@ -879,6 +879,43 @@
 					}
 				}
 			}
+		},
+		"/xc/tasks/{id}": {
+			"get": {
+				"operationId": "get-xc-tasks-{id}",
+				"summary": "/xc/tasks/[id]",
+				"description": "Fetch XC Task details",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
 		}
 	},
 	"tags": [

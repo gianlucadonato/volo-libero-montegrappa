@@ -1,7 +1,7 @@
 import { ArrowLeft, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import getTaskById from "@/actions/xc/getTaskById";
+import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,7 +24,7 @@ export default async function TaskPage({
 	params: Promise<{ id: string }>;
 }) {
 	const { id } = await params;
-	const task = await getTaskById(id);
+	const task = await getXcTaskById(id);
 	const t = await getTranslations("TaskPage");
 	if (!task || !task.name) {
 		return <div>{t("not_found")}</div>;

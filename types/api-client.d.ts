@@ -68,6 +68,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/xc/tasks/{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/tasks/[id]
+		 * @description Fetch XC Task details
+		 */
+		get: operations["get-xc-tasks-{id}"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -421,6 +441,31 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcTaskSchema"][];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-xc-tasks-{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example example */
+				category: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcTaskSchema"];
 				};
 			};
 			400: components["responses"]["400"];
