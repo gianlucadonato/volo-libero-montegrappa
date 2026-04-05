@@ -5,7 +5,6 @@ import {
 	MountainSnow,
 	Navigation,
 	Route,
-	Star,
 	Target,
 } from "lucide-react";
 import Link from "next/link";
@@ -13,17 +12,8 @@ import { getTranslations } from "next-intl/server";
 import type React from "react";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import XcTaskMapLoader from "@/components/xc/XcTaskMapLoader";
+import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
 import {
 	type ParsedTask,
@@ -112,7 +102,6 @@ export default async function TaskPage({
 	return (
 		<section className="sm:px-4 pt-5 sm:pt-10 pb-20">
 			<div className="container mx-auto max-w-5xl">
-				{/* Back button */}
 				<div className="mb-4 flex justify-start">
 					<Link href={`/xc/${task.category.toLowerCase()}`}>
 						<Button variant="outline" size="sm">
@@ -122,7 +111,6 @@ export default async function TaskPage({
 					</Link>
 				</div>
 
-				{/* Header */}
 				<div className="mb-6">
 					<DashboardHeader
 						heading={
@@ -135,107 +123,24 @@ export default async function TaskPage({
 					/>
 				</div>
 
-				{/* Map */}
-				<div className="mb-6">
-					<XcTaskMapLoader waypoints={waypoints} className="h-120" />
-				</div>
-
-				{/* Info + waypoints */}
-				<div className="grid gap-6 md:grid-cols-2">
-					{/* Task info card */}
-					<Card>
-						<CardHeader>
-							<CardTitle className="flex items-center gap-2">
-								<Star className="size-5 text-yellow-500" />
-								{t("dashboard_title")}
-							</CardTitle>
-							<CardDescription>{task.description ?? ""}</CardDescription>
-						</CardHeader>
-						<CardContent className="space-y-3 text-sm">
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">Categoria</span>
-								<Badge variant="outline" className="capitalize">
-									{task.category.toLowerCase()}
-								</Badge>
-							</div>
-							{task.distanceKm != null && (
-								<div className="flex justify-between">
-									<span className="text-muted-foreground">Distanza</span>
-									<span className="font-medium">
-										{task.distanceKm.toFixed(1)} km
-									</span>
-								</div>
-							)}
-							<div className="flex justify-between">
-								<span className="text-muted-foreground">Punti</span>
-								<span className="font-semibold text-primary">
-									{task.points}
-								</span>
-							</div>
-							{waypoints.length > 0 && (
-								<div className="flex justify-between">
-									<span className="text-muted-foreground">Waypoints</span>
-									<span className="font-medium">{waypoints.length}</span>
-								</div>
-							)}
-							{parsedTask.info && (
-								<div className="rounded-md border bg-muted/40 p-3 text-xs leading-relaxed text-muted-foreground whitespace-pre-wrap">
-									{parsedTask.info}
-								</div>
-							)}
-						</CardContent>
-					</Card>
-
-					{/* Waypoints list card */}
-					{waypoints.length > 0 && (
-						<Card>
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Route className="size-5" />
-									Waypoints
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="space-y-2">
-								{waypoints.map((wp, idx) => (
-									<div key={idx}>
-										{idx > 0 && <Separator className="my-2" />}
-										<div className="flex items-start gap-3">
-											<div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-bold">
-												{idx + 1}
-											</div>
-											<div className="min-w-0 flex-1">
-												<div className="flex flex-wrap items-center gap-2">
-													<span className="truncate font-medium text-sm">
-														{wp.name}
-													</span>
-													<Badge
-														variant="outline"
-														className={`shrink-0 gap-1 text-xs ${WAYPOINT_TYPE_COLOR[wp.type] ?? ""}`}
-													>
-														{WAYPOINT_TYPE_ICON[wp.type]}
-														{wp.type}
-													</Badge>
-												</div>
-												<div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-													{wp.id && (
-														<span>
-															TP: <strong>{wp.id}</strong>
-														</span>
-													)}
-													<span>R: {wp.radiusM.toFixed(0)} m</span>
-													{wp.altM > 0 && <span>Alt: {wp.altM} m</span>}
-													<span className="sm:ml-auto font-semibold text-foreground">
-														{legDistancesKm[idx].toFixed(1)} km
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								))}
-							</CardContent>
-						</Card>
-					)}
-				</div>
+				{waypoints.length > 0 ? (
+					<XcTaskInteractivePanel
+						waypoints={waypoints}
+						legDistancesKm={legDistancesKm}
+						waypointTypeColor={WAYPOINT_TYPE_COLOR}
+						waypointTypeIcon={WAYPOINT_TYPE_ICON}
+						dashboardTitle={t("dashboard_title")}
+						category={task.category}
+						points={task.points}
+						distanceKm={task.distanceKm}
+						description={task.description}
+						taskInfo={parsedTask.info}
+					/>
+				) : (
+					<div className="rounded-md border bg-muted/40 p-4 text-sm text-muted-foreground">
+						Nessun waypoint disponibile per questa task.
+					</div>
+				)}
 			</div>
 		</section>
 	);

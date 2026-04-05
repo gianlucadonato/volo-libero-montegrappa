@@ -13,9 +13,17 @@ const XcTaskMap = dynamic(() => import("@/components/xc/XcTaskMap"), {
 export default function XcTaskMapLoader({
 	waypoints,
 	className,
+	selectedWaypointIndex,
 }: {
 	waypoints: TaskWaypoint[];
 	className?: string;
+	selectedWaypointIndex?: number | null;
 }) {
-	return <XcTaskMap waypoints={waypoints} className={className} />;
+	return (
+		<XcTaskMap
+			waypoints={waypoints}
+			className={className}
+			selectedWaypointIndex={selectedWaypointIndex}
+		/>
+	);
 }

@@ -37,6 +37,33 @@ function AutoFit({ waypoints }: { waypoints: TaskWaypoint[] }) {
 	return null;
 }
 
+function FocusSelectedWaypoint({
+	waypoints,
+	selectedWaypointIndex,
+}: {
+	waypoints: TaskWaypoint[];
+	selectedWaypointIndex?: number | null;
+}) {
+	const map = useMap();
+
+	useEffect(() => {
+		if (
+			selectedWaypointIndex === null ||
+			selectedWaypointIndex === undefined ||
+			selectedWaypointIndex < 0 ||
+			selectedWaypointIndex >= waypoints.length
+		) {
+			return;
+		}
+
+		const wp = waypoints[selectedWaypointIndex];
+		const targetZoom = Math.max(map.getZoom(), 11);
+		map.flyTo([wp.lat, wp.lon], targetZoom, { duration: 0.5 });
+	}, [map, selectedWaypointIndex, waypoints]);
+
+	return null;
+}
+
 const WP_COLORS: Record<string, string> = {
 	takeoff: "#f39c12",
 	sss: "#2ecc71",
@@ -60,9 +87,14 @@ function waypointLabel(wp: TaskWaypoint, index: number): string {
 interface XcTaskMapProps {
 	waypoints: TaskWaypoint[];
 	className?: string;
+	selectedWaypointIndex?: number | null;
 }
 
-export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
+export default function XcTaskMap({
+	waypoints,
+	className,
+	selectedWaypointIndex,
+}: XcTaskMapProps) {
 	if (waypoints.length === 0) {
 		return (
 			<div
@@ -182,24 +214,32 @@ export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
 	const routeLine: [number, number][] = buildCircleTouchingRoute(waypoints);
 
 	// Create numbered div icons for waypoints
-	const createWpIcon = (wp: TaskWaypoint, index: number) => {
+	const createWpIcon = (
+		wp: TaskWaypoint,
+		index: number,
+		isSelected: boolean,
+	) => {
 		const color = waypointColor(wp);
 		const label = waypointLabel(wp, index + 1);
+		const size = isSelected ? 34 : 28;
+		const borderWidth = isSelected ? 3 : 2;
+		const fontSize = isSelected ? 12 : 11;
+		const iconAnchor = size / 2;
 		return L.divIcon({
 			html: `<div style="
         background:${color};
         color:#fff;
-        border:2px solid #fff;
+        border:${borderWidth}px solid #fff;
         border-radius:50%;
-        width:28px;height:28px;
+        width:${size}px;height:${size}px;
         display:flex;align-items:center;justify-content:center;
-        font-size:11px;font-weight:700;
+        font-size:${fontSize}px;font-weight:700;
         box-shadow:0 1px 4px rgba(0,0,0,0.4);
         font-family:sans-serif;
       ">${label}</div>`,
 			className: "",
-			iconSize: [28, 28],
-			iconAnchor: [14, 14],
+			iconSize: [size, size],
+			iconAnchor: [iconAnchor, iconAnchor],
 		});
 	};
 
@@ -221,6 +261,10 @@ export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
 				/>
 
 				<AutoFit waypoints={waypoints} />
+				<FocusSelectedWaypoint
+					waypoints={waypoints}
+					selectedWaypointIndex={selectedWaypointIndex}
+				/>
 
 				{/* Route line */}
 				<Polyline
@@ -236,21 +280,22 @@ export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
 				{/* Cylinders + markers */}
 				{waypoints.map((wp, idx) => {
 					const color = waypointColor(wp);
+					const isSelected = idx === selectedWaypointIndex;
 					return (
 						<React.Fragment key={idx}>
 							<Circle
 								center={[wp.lat, wp.lon]}
 								radius={wp.radiusM}
 								pathOptions={{
-									color,
+									color: isSelected ? "#22d3ee" : color,
 									fillColor: color,
-									fillOpacity: 0.12,
-									weight: 2,
+									fillOpacity: isSelected ? 0.22 : 0.12,
+									weight: isSelected ? 4 : 2,
 								}}
 							/>
 							<Marker
 								position={[wp.lat, wp.lon]}
-								icon={createWpIcon(wp, idx)}
+								icon={createWpIcon(wp, idx, isSelected)}
 							/>
 						</React.Fragment>
 					);
