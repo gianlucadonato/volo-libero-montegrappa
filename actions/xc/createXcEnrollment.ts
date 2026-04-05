@@ -3,7 +3,8 @@
 import Boom from "@hapi/boom";
 import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
-import { getXcEdition } from "@/store/xc";
+import { XcCategoryLevel } from "@/prisma/generated/enums";
+import { getXcEdition, minPointsForCategory } from "@/store/xc";
 
 export default async function createXcEnrollment({
 	userId,
@@ -39,6 +40,17 @@ export default async function createXcEnrollment({
 		include: {
 			edition: true,
 		},
+	});
+
+	const initXcProgress = Object.values(XcCategoryLevel).map((category) => ({
+		category,
+		userId,
+		editionId: edition.id,
+		minPoints: minPointsForCategory(category, edition),
+	}));
+
+	await prisma.xcProgress.createMany({
+		data: initXcProgress,
 	});
 
 	return enrollment;

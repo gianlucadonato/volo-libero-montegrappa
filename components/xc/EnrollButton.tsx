@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { NotebookPen } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -24,6 +25,7 @@ export default function EnrollButton({ callback }: { callback?: string }) {
 	const [isEnrollDialogOpen, setIsEnrollDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
+	const queryClient = useQueryClient();
 
 	const handleEnrollClick = () => {
 		if (!session) {
@@ -37,6 +39,9 @@ export default function EnrollButton({ callback }: { callback?: string }) {
 		setIsLoading(true);
 		const { response } = await createXcEnrollmentApi();
 		if (response.ok) {
+			await queryClient.invalidateQueries({
+				queryKey: ["get", "/xc/{category}/progress"],
+			});
 			toast.success(t("toast.success"));
 			setIsEnrollDialogOpen(false);
 			callback && router.push(callback);

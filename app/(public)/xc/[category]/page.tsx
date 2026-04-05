@@ -53,8 +53,6 @@ export default function CategoryPage() {
 		error: progressError,
 	} = useGetProgressByCategory(category?.level);
 
-	const isEnrolled = xcProgress ?? false;
-
 	if (!category) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
@@ -140,7 +138,7 @@ export default function CategoryPage() {
 				</div>
 
 				{/* Progress Card */}
-				{isEnrolled && xcProgress && (
+				{!isLoadingProgress && xcProgress && (
 					<Card className="mb-8 bg-blue-50 border-blue-200">
 						<CardHeader>
 							<CardTitle>{t("progress.title")}</CardTitle>
@@ -178,7 +176,7 @@ export default function CategoryPage() {
 					</Card>
 				)}
 
-				{!isEnrolled && (
+				{!isLoadingProgress && !xcProgress && (
 					<Card className="mb-8 bg-blue-50 border border-blue-200">
 						<CardContent className="text-center pt-6">
 							<p className="text-blue-800 mb-4">{t("enrollPrompt")}</p>

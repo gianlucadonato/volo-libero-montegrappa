@@ -109,7 +109,10 @@ export default function XcTaskCard({
 										target="_blank"
 										download
 										className="w-full sm:w-auto"
-										onClick={(e) => e.stopPropagation()}
+										onClick={(e) => {
+											e.stopPropagation();
+											console.log("Download clicked", task.taskFileUrl);
+										}}
 									>
 										<Button variant="outline" className="w-full">
 											<span>{t("downloadTask")}</span>
