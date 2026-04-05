@@ -210,6 +210,8 @@ export default function XcTaskMap({ waypoints, className }: XcTaskMapProps) {
 			<MapContainer
 				center={center}
 				zoom={10}
+				minZoom={7}
+				maxZoom={14}
 				style={{ height: "100%", width: "100%" }}
 				zoomControl
 			>

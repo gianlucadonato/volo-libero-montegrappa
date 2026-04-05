@@ -52,6 +52,33 @@ const WAYPOINT_TYPE_COLOR: Record<string, string> = {
 	turnpoint: "bg-purple-500/10 text-purple-600 border-purple-500/30",
 };
 
+function haversineKm(a: TaskWaypoint, b: TaskWaypoint): number {
+	const toRad = (deg: number) => (deg * Math.PI) / 180;
+	const earthRadiusKm = 6371;
+
+	const dLat = toRad(b.lat - a.lat);
+	const dLon = toRad(b.lon - a.lon);
+	const lat1 = toRad(a.lat);
+	const lat2 = toRad(b.lat);
+
+	const h =
+		Math.sin(dLat / 2) ** 2 +
+		Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+
+	return 2 * earthRadiusKm * Math.asin(Math.sqrt(h));
+}
+
+function legDistanceBetweenBuoysKm(
+	prev: TaskWaypoint | undefined,
+	curr: TaskWaypoint,
+): number {
+	if (!prev) return 0;
+	const centerDistanceKm = haversineKm(prev, curr);
+	const prevRadiusKm = (prev.radiusM || 0) / 1000;
+	const currRadiusKm = (curr.radiusM || 0) / 1000;
+	return Math.max(0, centerDistanceKm - prevRadiusKm - currRadiusKm);
+}
+
 async function fetchAndParseTask(taskFileUrl: string): Promise<ParsedTask> {
 	const { readFileSync } = await import("fs");
 	const { join } = await import("path");
@@ -78,6 +105,9 @@ export default async function TaskPage({
 		: { waypoints: [] };
 
 	const waypoints: TaskWaypoint[] = parsedTask.waypoints;
+	const legDistancesKm = waypoints.map((wp, idx) =>
+		legDistanceBetweenBuoysKm(waypoints[idx - 1], wp),
+	);
 
 	return (
 		<section className="sm:px-4 pt-5 sm:pt-10 pb-20">
@@ -186,7 +216,7 @@ export default async function TaskPage({
 														{wp.type}
 													</Badge>
 												</div>
-												<div className="mt-1 flex flex-wrap gap-3 text-xs text-muted-foreground">
+												<div className="mt-1 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
 													{wp.id && (
 														<span>
 															TP: <strong>{wp.id}</strong>
@@ -194,6 +224,9 @@ export default async function TaskPage({
 													)}
 													<span>R: {wp.radiusM.toFixed(0)} m</span>
 													{wp.altM > 0 && <span>Alt: {wp.altM} m</span>}
+													<span className="sm:ml-auto font-semibold text-foreground">
+														{legDistancesKm[idx].toFixed(1)} km
+													</span>
 												</div>
 											</div>
 										</div>
