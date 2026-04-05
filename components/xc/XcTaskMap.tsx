@@ -252,6 +252,7 @@ export default function XcTaskMap({
 				zoom={10}
 				minZoom={7}
 				maxZoom={14}
+				className="relative z-0"
 				style={{ height: "100%", width: "100%" }}
 				zoomControl
 			>

@@ -13,6 +13,7 @@ import type React from "react";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
+import TaskActionButtons from "@/components/xc/TaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
 import {
@@ -124,18 +125,27 @@ export default async function TaskPage({
 				</div>
 
 				{waypoints.length > 0 ? (
-					<XcTaskInteractivePanel
-						waypoints={waypoints}
-						legDistancesKm={legDistancesKm}
-						waypointTypeColor={WAYPOINT_TYPE_COLOR}
-						waypointTypeIcon={WAYPOINT_TYPE_ICON}
-						dashboardTitle={t("dashboard_title")}
-						category={task.category}
-						points={task.points}
-						distanceKm={task.distanceKm}
-						description={task.description}
-						taskInfo={parsedTask.info}
-					/>
+					<>
+						<XcTaskInteractivePanel
+							waypoints={waypoints}
+							legDistancesKm={legDistancesKm}
+							waypointTypeColor={WAYPOINT_TYPE_COLOR}
+							waypointTypeIcon={WAYPOINT_TYPE_ICON}
+							dashboardTitle={t("dashboard_title")}
+							category={task.category}
+							points={task.points}
+							distanceKm={task.distanceKm}
+							description={task.description}
+							taskInfo={parsedTask.info}
+						/>
+						<TaskActionButtons
+							taskId={id}
+							taskFileUrl={task.taskFileUrl}
+							downloadLabel={t("download_task")}
+							uploadLabel={t("upload_route")}
+							uploadingLabel={t("uploading")}
+						/>
+					</>
 				) : (
 					<div className="rounded-md border bg-muted/40 p-4 text-sm text-muted-foreground">
 						Nessun waypoint disponibile per questa task.

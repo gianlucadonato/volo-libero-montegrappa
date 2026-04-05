@@ -675,7 +675,12 @@
 		"header_description": "Task details",
 		"dashboard_title": "Task Information",
 		"no_data": "No data",
-		"not_found": "Task not found"
+		"not_found": "Task not found",
+		"download_task": "Download Task",
+		"upload_route": "Upload your Route",
+		"uploading": "Uploading...",
+		"upload_success": "Route uploaded successfully!",
+		"upload_error": "Error uploading route"
 	},
 	"XcMontegrappaPage": {
 		"banner": {
