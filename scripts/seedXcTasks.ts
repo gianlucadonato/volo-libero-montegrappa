@@ -13,7 +13,7 @@ async function seedEditionWithTasks(year: number, isActive: boolean) {
 
 	// 1. Create or get edition
 	let edition = await prisma.xcEdition.findFirst({
-		where: { year },
+		where: { id: year },
 	});
 
 	if (!edition) {

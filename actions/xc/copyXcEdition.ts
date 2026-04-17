@@ -5,7 +5,7 @@ export default async function copyXcEdition(year: number, newYear: number) {
 		`🌱 Creating new XC edition from year ${year} to year ${newYear}...`,
 	);
 	const existingTasks = await prisma.xcTask.findMany({
-		where: { editionTasks: { every: { edition: { year } } } },
+		where: { editionTasks: { every: { editionId: year } } },
 	});
 	if (!existingTasks.length) {
 		console.warn(
@@ -23,14 +23,14 @@ export default async function copyXcEdition(year: number, newYear: number) {
 	// Create new edition with copied tasks
 	const newEdition = await prisma.xcEdition.create({
 		data: {
-			year: newYear,
+			id: newYear,
 			title: `XC Montegrappa ${newYear}`,
 			isActive: true,
 			startsAt: new Date(`${newYear}-01-01T00:00:00Z`),
 			endsAt: new Date(`${newYear}-12-31T23:59:59Z`),
 		},
 	});
-	console.log("✅ New edition created!", newEdition.year);
+	console.log("✅ New edition created!", newEdition.id);
 
 	const editionTasks = await prisma.xcEditionTasks.createMany({
 		data: existingTasks.map((task) => ({

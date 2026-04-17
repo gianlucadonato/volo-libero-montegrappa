@@ -6,8 +6,7 @@ CREATE TYPE "XcSubmissionStatus" AS ENUM ('PENDING', 'APPROVED', 'REJECTED');
 
 -- CreateTable
 CREATE TABLE "xc_editions" (
-    "id" TEXT NOT NULL,
-    "year" INTEGER NOT NULL,
+    "id" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "starts_at" TIMESTAMP(3) NOT NULL,
@@ -41,7 +40,7 @@ CREATE TABLE "xc_tasks" (
 
 -- CreateTable
 CREATE TABLE "xc_edition_tasks" (
-    "edition_id" TEXT NOT NULL,
+    "edition_id" INTEGER NOT NULL,
     "task_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -51,20 +50,19 @@ CREATE TABLE "xc_edition_tasks" (
 
 -- CreateTable
 CREATE TABLE "xc_enrollments" (
-    "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
-    "edition_id" TEXT NOT NULL,
+    "edition_id" INTEGER NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "xc_enrollments_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "xc_enrollments_pkey" PRIMARY KEY ("user_id","edition_id")
 );
 
 -- CreateTable
 CREATE TABLE "xc_track_submissions" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
-    "edition_id" TEXT NOT NULL,
+    "edition_id" INTEGER NOT NULL,
     "task_id" TEXT NOT NULL,
     "status" "XcSubmissionStatus" NOT NULL DEFAULT 'PENDING',
     "file_name" TEXT NOT NULL,
@@ -83,7 +81,7 @@ CREATE TABLE "xc_track_submissions" (
 CREATE TABLE "xc_progress" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
-    "edition_id" TEXT NOT NULL,
+    "edition_id" INTEGER NOT NULL,
     "category" "XcCategoryLevel" NOT NULL,
     "points" INTEGER NOT NULL DEFAULT 0,
     "min_points" INTEGER NOT NULL,
@@ -95,19 +93,10 @@ CREATE TABLE "xc_progress" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "xc_editions_year_key" ON "xc_editions"("year");
-
--- CreateIndex
 CREATE INDEX "xc_editions_is_active_idx" ON "xc_editions"("is_active");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "xc_tasks_category_slug_key" ON "xc_tasks"("category", "slug");
-
--- CreateIndex
-CREATE INDEX "xc_enrollments_edition_id_idx" ON "xc_enrollments"("edition_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "xc_enrollments_user_id_edition_id_key" ON "xc_enrollments"("user_id", "edition_id");
 
 -- CreateIndex
 CREATE INDEX "xc_track_submissions_user_id_edition_id_idx" ON "xc_track_submissions"("user_id", "edition_id");

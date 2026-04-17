@@ -20,20 +20,30 @@ export type XcEnrollmentModel = runtime.Types.Result.DefaultSelection<Prisma.$Xc
 
 export type AggregateXcEnrollment = {
   _count: XcEnrollmentCountAggregateOutputType | null
+  _avg: XcEnrollmentAvgAggregateOutputType | null
+  _sum: XcEnrollmentSumAggregateOutputType | null
   _min: XcEnrollmentMinAggregateOutputType | null
   _max: XcEnrollmentMaxAggregateOutputType | null
 }
 
+export type XcEnrollmentAvgAggregateOutputType = {
+  editionId: number | null
+}
+
+export type XcEnrollmentSumAggregateOutputType = {
+  editionId: number | null
+}
+
 export type XcEnrollmentMinAggregateOutputType = {
   userId: string | null
-  editionId: string | null
+  editionId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type XcEnrollmentMaxAggregateOutputType = {
   userId: string | null
-  editionId: string | null
+  editionId: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +56,14 @@ export type XcEnrollmentCountAggregateOutputType = {
   _all: number
 }
 
+
+export type XcEnrollmentAvgAggregateInputType = {
+  editionId?: true
+}
+
+export type XcEnrollmentSumAggregateInputType = {
+  editionId?: true
+}
 
 export type XcEnrollmentMinAggregateInputType = {
   userId?: true
@@ -107,6 +125,18 @@ export type XcEnrollmentAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: XcEnrollmentAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: XcEnrollmentSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: XcEnrollmentMinAggregateInputType
@@ -137,16 +167,20 @@ export type XcEnrollmentGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   _count?: XcEnrollmentCountAggregateInputType | true
+  _avg?: XcEnrollmentAvgAggregateInputType
+  _sum?: XcEnrollmentSumAggregateInputType
   _min?: XcEnrollmentMinAggregateInputType
   _max?: XcEnrollmentMaxAggregateInputType
 }
 
 export type XcEnrollmentGroupByOutputType = {
   userId: string
-  editionId: string
+  editionId: number
   createdAt: Date
   updatedAt: Date
   _count: XcEnrollmentCountAggregateOutputType | null
+  _avg: XcEnrollmentAvgAggregateOutputType | null
+  _sum: XcEnrollmentSumAggregateOutputType | null
   _min: XcEnrollmentMinAggregateOutputType | null
   _max: XcEnrollmentMaxAggregateOutputType | null
 }
@@ -171,7 +205,7 @@ export type XcEnrollmentWhereInput = {
   OR?: Prisma.XcEnrollmentWhereInput[]
   NOT?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
-  editionId?: Prisma.StringFilter<"XcEnrollment"> | string
+  editionId?: Prisma.IntFilter<"XcEnrollment"> | number
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -193,7 +227,7 @@ export type XcEnrollmentWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.XcEnrollmentWhereInput[]
   NOT?: Prisma.XcEnrollmentWhereInput | Prisma.XcEnrollmentWhereInput[]
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
-  editionId?: Prisma.StringFilter<"XcEnrollment"> | string
+  editionId?: Prisma.IntFilter<"XcEnrollment"> | number
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -206,8 +240,10 @@ export type XcEnrollmentOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.XcEnrollmentCountOrderByAggregateInput
+  _avg?: Prisma.XcEnrollmentAvgOrderByAggregateInput
   _max?: Prisma.XcEnrollmentMaxOrderByAggregateInput
   _min?: Prisma.XcEnrollmentMinOrderByAggregateInput
+  _sum?: Prisma.XcEnrollmentSumOrderByAggregateInput
 }
 
 export type XcEnrollmentScalarWhereWithAggregatesInput = {
@@ -215,7 +251,7 @@ export type XcEnrollmentScalarWhereWithAggregatesInput = {
   OR?: Prisma.XcEnrollmentScalarWhereWithAggregatesInput[]
   NOT?: Prisma.XcEnrollmentScalarWhereWithAggregatesInput | Prisma.XcEnrollmentScalarWhereWithAggregatesInput[]
   userId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
-  editionId?: Prisma.StringWithAggregatesFilter<"XcEnrollment"> | string
+  editionId?: Prisma.IntWithAggregatesFilter<"XcEnrollment"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcEnrollment"> | Date | string
 }
@@ -229,7 +265,7 @@ export type XcEnrollmentCreateInput = {
 
 export type XcEnrollmentUncheckedCreateInput = {
   userId: string
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -243,14 +279,14 @@ export type XcEnrollmentUpdateInput = {
 
 export type XcEnrollmentUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentCreateManyInput = {
   userId: string
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -262,7 +298,7 @@ export type XcEnrollmentUpdateManyMutationInput = {
 
 export type XcEnrollmentUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -279,7 +315,7 @@ export type XcEnrollmentOrderByRelationAggregateInput = {
 
 export type XcEnrollmentUserIdEditionIdCompoundUniqueInput = {
   userId: string
-  editionId: string
+  editionId: number
 }
 
 export type XcEnrollmentCountOrderByAggregateInput = {
@@ -287,6 +323,10 @@ export type XcEnrollmentCountOrderByAggregateInput = {
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type XcEnrollmentAvgOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
 }
 
 export type XcEnrollmentMaxOrderByAggregateInput = {
@@ -301,6 +341,10 @@ export type XcEnrollmentMinOrderByAggregateInput = {
   editionId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type XcEnrollmentSumOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
 }
 
 export type XcEnrollmentCreateNestedManyWithoutUserInput = {
@@ -394,7 +438,7 @@ export type XcEnrollmentCreateWithoutUserInput = {
 }
 
 export type XcEnrollmentUncheckedCreateWithoutUserInput = {
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -430,7 +474,7 @@ export type XcEnrollmentScalarWhereInput = {
   OR?: Prisma.XcEnrollmentScalarWhereInput[]
   NOT?: Prisma.XcEnrollmentScalarWhereInput | Prisma.XcEnrollmentScalarWhereInput[]
   userId?: Prisma.StringFilter<"XcEnrollment"> | string
-  editionId?: Prisma.StringFilter<"XcEnrollment"> | string
+  editionId?: Prisma.IntFilter<"XcEnrollment"> | number
   createdAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEnrollment"> | Date | string
 }
@@ -474,7 +518,7 @@ export type XcEnrollmentUpdateManyWithWhereWithoutEditionInput = {
 }
 
 export type XcEnrollmentCreateManyUserInput = {
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -486,13 +530,13 @@ export type XcEnrollmentUpdateWithoutUserInput = {
 }
 
 export type XcEnrollmentUncheckedUpdateWithoutUserInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEnrollmentUncheckedUpdateManyWithoutUserInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -579,7 +623,7 @@ export type $XcEnrollmentPayload<ExtArgs extends runtime.Types.Extensions.Intern
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     userId: string
-    editionId: string
+    editionId: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["xcEnrollment"]>
@@ -1008,7 +1052,7 @@ export interface Prisma__XcEnrollmentClient<T, Null = never, ExtArgs extends run
  */
 export interface XcEnrollmentFieldRefs {
   readonly userId: Prisma.FieldRef<"XcEnrollment", 'String'>
-  readonly editionId: Prisma.FieldRef<"XcEnrollment", 'String'>
+  readonly editionId: Prisma.FieldRef<"XcEnrollment", 'Int'>
   readonly createdAt: Prisma.FieldRef<"XcEnrollment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcEnrollment", 'DateTime'>
 }

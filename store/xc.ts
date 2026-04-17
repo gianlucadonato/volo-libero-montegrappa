@@ -17,7 +17,7 @@ export async function getActiveXcEdition() {
 export async function getXcEdition(year: number) {
 	return prisma.xcEdition.findFirst({
 		where: {
-			year,
+			id: year,
 		},
 	});
 }
@@ -32,9 +32,7 @@ export async function getXcEnrollment({
 	return prisma.xcEnrollment.findFirst({
 		where: {
 			userId,
-			edition: {
-				year,
-			},
+			editionId: year,
 		},
 		include: {
 			edition: true,

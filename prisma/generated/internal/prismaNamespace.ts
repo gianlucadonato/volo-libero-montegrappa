@@ -1934,7 +1934,6 @@ export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof 
 
 export const XcEditionScalarFieldEnum = {
   id: 'id',
-  year: 'year',
   title: 'title',
   description: 'description',
   startsAt: 'startsAt',

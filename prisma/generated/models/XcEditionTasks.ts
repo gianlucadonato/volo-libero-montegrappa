@@ -20,19 +20,29 @@ export type XcEditionTasksModel = runtime.Types.Result.DefaultSelection<Prisma.$
 
 export type AggregateXcEditionTasks = {
   _count: XcEditionTasksCountAggregateOutputType | null
+  _avg: XcEditionTasksAvgAggregateOutputType | null
+  _sum: XcEditionTasksSumAggregateOutputType | null
   _min: XcEditionTasksMinAggregateOutputType | null
   _max: XcEditionTasksMaxAggregateOutputType | null
 }
 
+export type XcEditionTasksAvgAggregateOutputType = {
+  editionId: number | null
+}
+
+export type XcEditionTasksSumAggregateOutputType = {
+  editionId: number | null
+}
+
 export type XcEditionTasksMinAggregateOutputType = {
-  editionId: string | null
+  editionId: number | null
   taskId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type XcEditionTasksMaxAggregateOutputType = {
-  editionId: string | null
+  editionId: number | null
   taskId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -46,6 +56,14 @@ export type XcEditionTasksCountAggregateOutputType = {
   _all: number
 }
 
+
+export type XcEditionTasksAvgAggregateInputType = {
+  editionId?: true
+}
+
+export type XcEditionTasksSumAggregateInputType = {
+  editionId?: true
+}
 
 export type XcEditionTasksMinAggregateInputType = {
   editionId?: true
@@ -107,6 +125,18 @@ export type XcEditionTasksAggregateArgs<ExtArgs extends runtime.Types.Extensions
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: XcEditionTasksAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: XcEditionTasksSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: XcEditionTasksMinAggregateInputType
@@ -137,16 +167,20 @@ export type XcEditionTasksGroupByArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   _count?: XcEditionTasksCountAggregateInputType | true
+  _avg?: XcEditionTasksAvgAggregateInputType
+  _sum?: XcEditionTasksSumAggregateInputType
   _min?: XcEditionTasksMinAggregateInputType
   _max?: XcEditionTasksMaxAggregateInputType
 }
 
 export type XcEditionTasksGroupByOutputType = {
-  editionId: string
+  editionId: number
   taskId: string
   createdAt: Date
   updatedAt: Date
   _count: XcEditionTasksCountAggregateOutputType | null
+  _avg: XcEditionTasksAvgAggregateOutputType | null
+  _sum: XcEditionTasksSumAggregateOutputType | null
   _min: XcEditionTasksMinAggregateOutputType | null
   _max: XcEditionTasksMaxAggregateOutputType | null
 }
@@ -170,7 +204,7 @@ export type XcEditionTasksWhereInput = {
   AND?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
   OR?: Prisma.XcEditionTasksWhereInput[]
   NOT?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
-  editionId?: Prisma.StringFilter<"XcEditionTasks"> | string
+  editionId?: Prisma.IntFilter<"XcEditionTasks"> | number
   taskId?: Prisma.StringFilter<"XcEditionTasks"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
@@ -192,7 +226,7 @@ export type XcEditionTasksWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
   OR?: Prisma.XcEditionTasksWhereInput[]
   NOT?: Prisma.XcEditionTasksWhereInput | Prisma.XcEditionTasksWhereInput[]
-  editionId?: Prisma.StringFilter<"XcEditionTasks"> | string
+  editionId?: Prisma.IntFilter<"XcEditionTasks"> | number
   taskId?: Prisma.StringFilter<"XcEditionTasks"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
@@ -206,15 +240,17 @@ export type XcEditionTasksOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.XcEditionTasksCountOrderByAggregateInput
+  _avg?: Prisma.XcEditionTasksAvgOrderByAggregateInput
   _max?: Prisma.XcEditionTasksMaxOrderByAggregateInput
   _min?: Prisma.XcEditionTasksMinOrderByAggregateInput
+  _sum?: Prisma.XcEditionTasksSumOrderByAggregateInput
 }
 
 export type XcEditionTasksScalarWhereWithAggregatesInput = {
   AND?: Prisma.XcEditionTasksScalarWhereWithAggregatesInput | Prisma.XcEditionTasksScalarWhereWithAggregatesInput[]
   OR?: Prisma.XcEditionTasksScalarWhereWithAggregatesInput[]
   NOT?: Prisma.XcEditionTasksScalarWhereWithAggregatesInput | Prisma.XcEditionTasksScalarWhereWithAggregatesInput[]
-  editionId?: Prisma.StringWithAggregatesFilter<"XcEditionTasks"> | string
+  editionId?: Prisma.IntWithAggregatesFilter<"XcEditionTasks"> | number
   taskId?: Prisma.StringWithAggregatesFilter<"XcEditionTasks"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcEditionTasks"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcEditionTasks"> | Date | string
@@ -228,7 +264,7 @@ export type XcEditionTasksCreateInput = {
 }
 
 export type XcEditionTasksUncheckedCreateInput = {
-  editionId: string
+  editionId: number
   taskId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -242,14 +278,14 @@ export type XcEditionTasksUpdateInput = {
 }
 
 export type XcEditionTasksUncheckedUpdateInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEditionTasksCreateManyInput = {
-  editionId: string
+  editionId: number
   taskId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -261,7 +297,7 @@ export type XcEditionTasksUpdateManyMutationInput = {
 }
 
 export type XcEditionTasksUncheckedUpdateManyInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   taskId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -279,7 +315,7 @@ export type XcEditionTasksOrderByRelationAggregateInput = {
 
 export type XcEditionTasksTaskIdEditionIdCompoundUniqueInput = {
   taskId: string
-  editionId: string
+  editionId: number
 }
 
 export type XcEditionTasksCountOrderByAggregateInput = {
@@ -287,6 +323,10 @@ export type XcEditionTasksCountOrderByAggregateInput = {
   taskId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type XcEditionTasksAvgOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
 }
 
 export type XcEditionTasksMaxOrderByAggregateInput = {
@@ -301,6 +341,10 @@ export type XcEditionTasksMinOrderByAggregateInput = {
   taskId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type XcEditionTasksSumOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
 }
 
 export type XcEditionTasksCreateNestedManyWithoutEditionInput = {
@@ -429,7 +473,7 @@ export type XcEditionTasksScalarWhereInput = {
   AND?: Prisma.XcEditionTasksScalarWhereInput | Prisma.XcEditionTasksScalarWhereInput[]
   OR?: Prisma.XcEditionTasksScalarWhereInput[]
   NOT?: Prisma.XcEditionTasksScalarWhereInput | Prisma.XcEditionTasksScalarWhereInput[]
-  editionId?: Prisma.StringFilter<"XcEditionTasks"> | string
+  editionId?: Prisma.IntFilter<"XcEditionTasks"> | number
   taskId?: Prisma.StringFilter<"XcEditionTasks"> | string
   createdAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEditionTasks"> | Date | string
@@ -442,7 +486,7 @@ export type XcEditionTasksCreateWithoutTaskInput = {
 }
 
 export type XcEditionTasksUncheckedCreateWithoutTaskInput = {
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -498,7 +542,7 @@ export type XcEditionTasksUncheckedUpdateManyWithoutEditionInput = {
 }
 
 export type XcEditionTasksCreateManyTaskInput = {
-  editionId: string
+  editionId: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -510,13 +554,13 @@ export type XcEditionTasksUpdateWithoutTaskInput = {
 }
 
 export type XcEditionTasksUncheckedUpdateWithoutTaskInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type XcEditionTasksUncheckedUpdateManyWithoutTaskInput = {
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -578,7 +622,7 @@ export type $XcEditionTasksPayload<ExtArgs extends runtime.Types.Extensions.Inte
     edition: Prisma.$XcEditionPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    editionId: string
+    editionId: number
     taskId: string
     createdAt: Date
     updatedAt: Date
@@ -1007,7 +1051,7 @@ export interface Prisma__XcEditionTasksClient<T, Null = never, ExtArgs extends r
  * Fields of the XcEditionTasks model
  */
 export interface XcEditionTasksFieldRefs {
-  readonly editionId: Prisma.FieldRef<"XcEditionTasks", 'String'>
+  readonly editionId: Prisma.FieldRef<"XcEditionTasks", 'Int'>
   readonly taskId: Prisma.FieldRef<"XcEditionTasks", 'String'>
   readonly createdAt: Prisma.FieldRef<"XcEditionTasks", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcEditionTasks", 'DateTime'>

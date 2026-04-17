@@ -27,11 +27,13 @@ export type AggregateXcProgress = {
 }
 
 export type XcProgressAvgAggregateOutputType = {
+  editionId: number | null
   points: number | null
   minPoints: number | null
 }
 
 export type XcProgressSumAggregateOutputType = {
+  editionId: number | null
   points: number | null
   minPoints: number | null
 }
@@ -39,7 +41,7 @@ export type XcProgressSumAggregateOutputType = {
 export type XcProgressMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  editionId: string | null
+  editionId: number | null
   category: $Enums.XcCategoryLevel | null
   points: number | null
   minPoints: number | null
@@ -51,7 +53,7 @@ export type XcProgressMinAggregateOutputType = {
 export type XcProgressMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  editionId: string | null
+  editionId: number | null
   category: $Enums.XcCategoryLevel | null
   points: number | null
   minPoints: number | null
@@ -75,11 +77,13 @@ export type XcProgressCountAggregateOutputType = {
 
 
 export type XcProgressAvgAggregateInputType = {
+  editionId?: true
   points?: true
   minPoints?: true
 }
 
 export type XcProgressSumAggregateInputType = {
+  editionId?: true
   points?: true
   minPoints?: true
 }
@@ -210,7 +214,7 @@ export type XcProgressGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inter
 export type XcProgressGroupByOutputType = {
   id: string
   userId: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
   points: number
   minPoints: number
@@ -245,7 +249,7 @@ export type XcProgressWhereInput = {
   NOT?: Prisma.XcProgressWhereInput | Prisma.XcProgressWhereInput[]
   id?: Prisma.StringFilter<"XcProgress"> | string
   userId?: Prisma.StringFilter<"XcProgress"> | string
-  editionId?: Prisma.StringFilter<"XcProgress"> | string
+  editionId?: Prisma.IntFilter<"XcProgress"> | number
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
@@ -277,7 +281,7 @@ export type XcProgressWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.XcProgressWhereInput[]
   NOT?: Prisma.XcProgressWhereInput | Prisma.XcProgressWhereInput[]
   userId?: Prisma.StringFilter<"XcProgress"> | string
-  editionId?: Prisma.StringFilter<"XcProgress"> | string
+  editionId?: Prisma.IntFilter<"XcProgress"> | number
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
@@ -311,7 +315,7 @@ export type XcProgressScalarWhereWithAggregatesInput = {
   NOT?: Prisma.XcProgressScalarWhereWithAggregatesInput | Prisma.XcProgressScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"XcProgress"> | string
   userId?: Prisma.StringWithAggregatesFilter<"XcProgress"> | string
-  editionId?: Prisma.StringWithAggregatesFilter<"XcProgress"> | string
+  editionId?: Prisma.IntWithAggregatesFilter<"XcProgress"> | number
   category?: Prisma.EnumXcCategoryLevelWithAggregatesFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntWithAggregatesFilter<"XcProgress"> | number
   minPoints?: Prisma.IntWithAggregatesFilter<"XcProgress"> | number
@@ -335,7 +339,7 @@ export type XcProgressCreateInput = {
 export type XcProgressUncheckedCreateInput = {
   id?: string
   userId: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
@@ -359,7 +363,7 @@ export type XcProgressUpdateInput = {
 export type XcProgressUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -371,7 +375,7 @@ export type XcProgressUncheckedUpdateInput = {
 export type XcProgressCreateManyInput = {
   id?: string
   userId: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
@@ -393,7 +397,7 @@ export type XcProgressUpdateManyMutationInput = {
 export type XcProgressUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -414,7 +418,7 @@ export type XcProgressOrderByRelationAggregateInput = {
 
 export type XcProgressUserIdEditionIdCategoryCompoundUniqueInput = {
   userId: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
 }
 
@@ -431,6 +435,7 @@ export type XcProgressCountOrderByAggregateInput = {
 }
 
 export type XcProgressAvgOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
 }
@@ -460,6 +465,7 @@ export type XcProgressMinOrderByAggregateInput = {
 }
 
 export type XcProgressSumOrderByAggregateInput = {
+  editionId?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
 }
@@ -561,7 +567,7 @@ export type XcProgressCreateWithoutUserInput = {
 
 export type XcProgressUncheckedCreateWithoutUserInput = {
   id?: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
@@ -602,7 +608,7 @@ export type XcProgressScalarWhereInput = {
   NOT?: Prisma.XcProgressScalarWhereInput | Prisma.XcProgressScalarWhereInput[]
   id?: Prisma.StringFilter<"XcProgress"> | string
   userId?: Prisma.StringFilter<"XcProgress"> | string
-  editionId?: Prisma.StringFilter<"XcProgress"> | string
+  editionId?: Prisma.IntFilter<"XcProgress"> | number
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
@@ -661,7 +667,7 @@ export type XcProgressUpdateManyWithWhereWithoutEditionInput = {
 
 export type XcProgressCreateManyUserInput = {
   id?: string
-  editionId: string
+  editionId: number
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
@@ -683,7 +689,7 @@ export type XcProgressUpdateWithoutUserInput = {
 
 export type XcProgressUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -694,7 +700,7 @@ export type XcProgressUncheckedUpdateWithoutUserInput = {
 
 export type XcProgressUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  editionId?: Prisma.StringFieldUpdateOperationsInput | string
+  editionId?: Prisma.IntFieldUpdateOperationsInput | number
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
@@ -826,7 +832,7 @@ export type $XcProgressPayload<ExtArgs extends runtime.Types.Extensions.Internal
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    editionId: string
+    editionId: number
     category: $Enums.XcCategoryLevel
     points: number
     minPoints: number
@@ -1260,7 +1266,7 @@ export interface Prisma__XcProgressClient<T, Null = never, ExtArgs extends runti
 export interface XcProgressFieldRefs {
   readonly id: Prisma.FieldRef<"XcProgress", 'String'>
   readonly userId: Prisma.FieldRef<"XcProgress", 'String'>
-  readonly editionId: Prisma.FieldRef<"XcProgress", 'String'>
+  readonly editionId: Prisma.FieldRef<"XcProgress", 'Int'>
   readonly category: Prisma.FieldRef<"XcProgress", 'XcCategoryLevel'>
   readonly points: Prisma.FieldRef<"XcProgress", 'Int'>
   readonly minPoints: Prisma.FieldRef<"XcProgress", 'Int'>

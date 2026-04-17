@@ -27,22 +27,21 @@ export type AggregateXcEdition = {
 }
 
 export type XcEditionAvgAggregateOutputType = {
-  year: number | null
+  id: number | null
   basicMinPoints: number | null
   interMinPoints: number | null
   advMinPoints: number | null
 }
 
 export type XcEditionSumAggregateOutputType = {
-  year: number | null
+  id: number | null
   basicMinPoints: number | null
   interMinPoints: number | null
   advMinPoints: number | null
 }
 
 export type XcEditionMinAggregateOutputType = {
-  id: string | null
-  year: number | null
+  id: number | null
   title: string | null
   description: string | null
   startsAt: Date | null
@@ -56,8 +55,7 @@ export type XcEditionMinAggregateOutputType = {
 }
 
 export type XcEditionMaxAggregateOutputType = {
-  id: string | null
-  year: number | null
+  id: number | null
   title: string | null
   description: string | null
   startsAt: Date | null
@@ -72,7 +70,6 @@ export type XcEditionMaxAggregateOutputType = {
 
 export type XcEditionCountAggregateOutputType = {
   id: number
-  year: number
   title: number
   description: number
   startsAt: number
@@ -88,14 +85,14 @@ export type XcEditionCountAggregateOutputType = {
 
 
 export type XcEditionAvgAggregateInputType = {
-  year?: true
+  id?: true
   basicMinPoints?: true
   interMinPoints?: true
   advMinPoints?: true
 }
 
 export type XcEditionSumAggregateInputType = {
-  year?: true
+  id?: true
   basicMinPoints?: true
   interMinPoints?: true
   advMinPoints?: true
@@ -103,7 +100,6 @@ export type XcEditionSumAggregateInputType = {
 
 export type XcEditionMinAggregateInputType = {
   id?: true
-  year?: true
   title?: true
   description?: true
   startsAt?: true
@@ -118,7 +114,6 @@ export type XcEditionMinAggregateInputType = {
 
 export type XcEditionMaxAggregateInputType = {
   id?: true
-  year?: true
   title?: true
   description?: true
   startsAt?: true
@@ -133,7 +128,6 @@ export type XcEditionMaxAggregateInputType = {
 
 export type XcEditionCountAggregateInputType = {
   id?: true
-  year?: true
   title?: true
   description?: true
   startsAt?: true
@@ -234,8 +228,7 @@ export type XcEditionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 export type XcEditionGroupByOutputType = {
-  id: string
-  year: number
+  id: number
   title: string
   description: string | null
   startsAt: Date
@@ -272,8 +265,7 @@ export type XcEditionWhereInput = {
   AND?: Prisma.XcEditionWhereInput | Prisma.XcEditionWhereInput[]
   OR?: Prisma.XcEditionWhereInput[]
   NOT?: Prisma.XcEditionWhereInput | Prisma.XcEditionWhereInput[]
-  id?: Prisma.StringFilter<"XcEdition"> | string
-  year?: Prisma.IntFilter<"XcEdition"> | number
+  id?: Prisma.IntFilter<"XcEdition"> | number
   title?: Prisma.StringFilter<"XcEdition"> | string
   description?: Prisma.StringNullableFilter<"XcEdition"> | string | null
   startsAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
@@ -292,7 +284,6 @@ export type XcEditionWhereInput = {
 
 export type XcEditionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -310,8 +301,7 @@ export type XcEditionOrderByWithRelationInput = {
 }
 
 export type XcEditionWhereUniqueInput = Prisma.AtLeast<{
-  id?: string
-  year?: number
+  id?: number
   AND?: Prisma.XcEditionWhereInput | Prisma.XcEditionWhereInput[]
   OR?: Prisma.XcEditionWhereInput[]
   NOT?: Prisma.XcEditionWhereInput | Prisma.XcEditionWhereInput[]
@@ -329,11 +319,10 @@ export type XcEditionWhereUniqueInput = Prisma.AtLeast<{
   submissions?: Prisma.XcTrackSubmissionListRelationFilter
   editionTasks?: Prisma.XcEditionTasksListRelationFilter
   xcProgresses?: Prisma.XcProgressListRelationFilter
-}, "id" | "year">
+}, "id">
 
 export type XcEditionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -355,8 +344,7 @@ export type XcEditionScalarWhereWithAggregatesInput = {
   AND?: Prisma.XcEditionScalarWhereWithAggregatesInput | Prisma.XcEditionScalarWhereWithAggregatesInput[]
   OR?: Prisma.XcEditionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.XcEditionScalarWhereWithAggregatesInput | Prisma.XcEditionScalarWhereWithAggregatesInput[]
-  id?: Prisma.StringWithAggregatesFilter<"XcEdition"> | string
-  year?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
+  id?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
   title?: Prisma.StringWithAggregatesFilter<"XcEdition"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"XcEdition"> | string | null
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"XcEdition"> | Date | string
@@ -370,8 +358,7 @@ export type XcEditionScalarWhereWithAggregatesInput = {
 }
 
 export type XcEditionCreateInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -389,8 +376,7 @@ export type XcEditionCreateInput = {
 }
 
 export type XcEditionUncheckedCreateInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -408,8 +394,7 @@ export type XcEditionUncheckedCreateInput = {
 }
 
 export type XcEditionUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -427,8 +412,7 @@ export type XcEditionUpdateInput = {
 }
 
 export type XcEditionUncheckedUpdateInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -446,8 +430,7 @@ export type XcEditionUncheckedUpdateInput = {
 }
 
 export type XcEditionCreateManyInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -461,8 +444,7 @@ export type XcEditionCreateManyInput = {
 }
 
 export type XcEditionUpdateManyMutationInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,8 +458,7 @@ export type XcEditionUpdateManyMutationInput = {
 }
 
 export type XcEditionUncheckedUpdateManyInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -492,7 +473,6 @@ export type XcEditionUncheckedUpdateManyInput = {
 
 export type XcEditionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -506,7 +486,7 @@ export type XcEditionCountOrderByAggregateInput = {
 }
 
 export type XcEditionAvgOrderByAggregateInput = {
-  year?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   basicMinPoints?: Prisma.SortOrder
   interMinPoints?: Prisma.SortOrder
   advMinPoints?: Prisma.SortOrder
@@ -514,7 +494,6 @@ export type XcEditionAvgOrderByAggregateInput = {
 
 export type XcEditionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -529,7 +508,6 @@ export type XcEditionMaxOrderByAggregateInput = {
 
 export type XcEditionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  year?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
   startsAt?: Prisma.SortOrder
@@ -543,7 +521,7 @@ export type XcEditionMinOrderByAggregateInput = {
 }
 
 export type XcEditionSumOrderByAggregateInput = {
-  year?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   basicMinPoints?: Prisma.SortOrder
   interMinPoints?: Prisma.SortOrder
   advMinPoints?: Prisma.SortOrder
@@ -611,8 +589,7 @@ export type XcEditionUpdateOneRequiredWithoutXcProgressesNestedInput = {
 }
 
 export type XcEditionCreateWithoutEditionTasksInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -629,8 +606,7 @@ export type XcEditionCreateWithoutEditionTasksInput = {
 }
 
 export type XcEditionUncheckedCreateWithoutEditionTasksInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -663,8 +639,7 @@ export type XcEditionUpdateToOneWithWhereWithoutEditionTasksInput = {
 }
 
 export type XcEditionUpdateWithoutEditionTasksInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -681,8 +656,7 @@ export type XcEditionUpdateWithoutEditionTasksInput = {
 }
 
 export type XcEditionUncheckedUpdateWithoutEditionTasksInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -699,8 +673,7 @@ export type XcEditionUncheckedUpdateWithoutEditionTasksInput = {
 }
 
 export type XcEditionCreateWithoutEnrollmentsInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -717,8 +690,7 @@ export type XcEditionCreateWithoutEnrollmentsInput = {
 }
 
 export type XcEditionUncheckedCreateWithoutEnrollmentsInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -751,8 +723,7 @@ export type XcEditionUpdateToOneWithWhereWithoutEnrollmentsInput = {
 }
 
 export type XcEditionUpdateWithoutEnrollmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -769,8 +740,7 @@ export type XcEditionUpdateWithoutEnrollmentsInput = {
 }
 
 export type XcEditionUncheckedUpdateWithoutEnrollmentsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -787,8 +757,7 @@ export type XcEditionUncheckedUpdateWithoutEnrollmentsInput = {
 }
 
 export type XcEditionCreateWithoutSubmissionsInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -805,8 +774,7 @@ export type XcEditionCreateWithoutSubmissionsInput = {
 }
 
 export type XcEditionUncheckedCreateWithoutSubmissionsInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -839,8 +807,7 @@ export type XcEditionUpdateToOneWithWhereWithoutSubmissionsInput = {
 }
 
 export type XcEditionUpdateWithoutSubmissionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -857,8 +824,7 @@ export type XcEditionUpdateWithoutSubmissionsInput = {
 }
 
 export type XcEditionUncheckedUpdateWithoutSubmissionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -875,8 +841,7 @@ export type XcEditionUncheckedUpdateWithoutSubmissionsInput = {
 }
 
 export type XcEditionCreateWithoutXcProgressesInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -893,8 +858,7 @@ export type XcEditionCreateWithoutXcProgressesInput = {
 }
 
 export type XcEditionUncheckedCreateWithoutXcProgressesInput = {
-  id?: string
-  year: number
+  id: number
   title: string
   description?: string | null
   startsAt: Date | string
@@ -927,8 +891,7 @@ export type XcEditionUpdateToOneWithWhereWithoutXcProgressesInput = {
 }
 
 export type XcEditionUpdateWithoutXcProgressesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -945,8 +908,7 @@ export type XcEditionUpdateWithoutXcProgressesInput = {
 }
 
 export type XcEditionUncheckedUpdateWithoutXcProgressesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  year?: Prisma.IntFieldUpdateOperationsInput | number
+  id?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1022,7 +984,6 @@ export type XcEditionCountOutputTypeCountXcProgressesArgs<ExtArgs extends runtim
 
 export type XcEditionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  year?: boolean
   title?: boolean
   description?: boolean
   startsAt?: boolean
@@ -1042,7 +1003,6 @@ export type XcEditionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type XcEditionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  year?: boolean
   title?: boolean
   description?: boolean
   startsAt?: boolean
@@ -1057,7 +1017,6 @@ export type XcEditionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type XcEditionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  year?: boolean
   title?: boolean
   description?: boolean
   startsAt?: boolean
@@ -1072,7 +1031,6 @@ export type XcEditionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 
 export type XcEditionSelectScalar = {
   id?: boolean
-  year?: boolean
   title?: boolean
   description?: boolean
   startsAt?: boolean
@@ -1085,7 +1043,7 @@ export type XcEditionSelectScalar = {
   updatedAt?: boolean
 }
 
-export type XcEditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "year" | "title" | "description" | "startsAt" | "endsAt" | "isActive" | "basicMinPoints" | "interMinPoints" | "advMinPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEdition"]>
+export type XcEditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "startsAt" | "endsAt" | "isActive" | "basicMinPoints" | "interMinPoints" | "advMinPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEdition"]>
 export type XcEditionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.XcEdition$enrollmentsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcEdition$submissionsArgs<ExtArgs>
@@ -1105,8 +1063,7 @@ export type $XcEditionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     xcProgresses: Prisma.$XcProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    id: string
-    year: number
+    id: number
     title: string
     description: string | null
     startsAt: Date
@@ -1544,8 +1501,7 @@ export interface Prisma__XcEditionClient<T, Null = never, ExtArgs extends runtim
  * Fields of the XcEdition model
  */
 export interface XcEditionFieldRefs {
-  readonly id: Prisma.FieldRef<"XcEdition", 'String'>
-  readonly year: Prisma.FieldRef<"XcEdition", 'Int'>
+  readonly id: Prisma.FieldRef<"XcEdition", 'Int'>
   readonly title: Prisma.FieldRef<"XcEdition", 'String'>
   readonly description: Prisma.FieldRef<"XcEdition", 'String'>
   readonly startsAt: Prisma.FieldRef<"XcEdition", 'DateTime'>

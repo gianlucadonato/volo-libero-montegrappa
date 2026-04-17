@@ -275,8 +275,7 @@ model Coupon {
 }
 
 model XcEdition {
-  id             String   @id @default(cuid())
-  year           Int      @unique
+  id             Int      @id // YEAR
   title          String
   description    String?
   startsAt       DateTime @map(name: "starts_at")
@@ -318,7 +317,7 @@ model XcTask {
 }
 
 model XcEditionTasks {
-  editionId String   @map(name: "edition_id")
+  editionId Int      @map(name: "edition_id")
   taskId    String   @map(name: "task_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
@@ -332,7 +331,7 @@ model XcEditionTasks {
 
 model XcEnrollment {
   userId    String   @map(name: "user_id")
-  editionId String   @map(name: "edition_id")
+  editionId Int      @map(name: "edition_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -346,7 +345,7 @@ model XcEnrollment {
 model XcTrackSubmission {
   id            String             @id @default(cuid())
   userId        String             @map(name: "user_id")
-  editionId     String             @map(name: "edition_id")
+  editionId     Int                @map(name: "edition_id")
   taskId        String             @map(name: "task_id")
   status        XcSubmissionStatus @default(PENDING)
   fileName      String             @map(name: "file_name")
@@ -372,7 +371,7 @@ model XcTrackSubmission {
 model XcProgress {
   id          String          @id @default(cuid())
   userId      String          @map(name: "user_id")
-  editionId   String          @map(name: "edition_id")
+  editionId   Int             @map(name: "edition_id")
   category    XcCategoryLevel
   points      Int             @default(0)
   minPoints   Int             @map(name: "min_points")

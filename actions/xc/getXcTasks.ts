@@ -13,9 +13,7 @@ export async function getXcTasksByCategory(
 			category,
 			editionTasks: {
 				some: {
-					edition: {
-						year,
-					},
+					editionId: year,
 				},
 			},
 		},
