@@ -50,17 +50,7 @@ export default function XcTaskInteractivePanel({
 
 	return (
 		<>
-			<div className="mb-6">
-				<XcTaskMapLoader
-					waypoints={waypoints}
-					className="h-120"
-					selectedWaypointIndex={selectedWaypointIndex}
-					trackCoordinates={trackCoordinates}
-					hoveredTrackPosition={hoveredTrackPosition}
-				/>
-			</div>
-
-			<div className="grid gap-6 md:grid-cols-2">
+			<div className="grid gap-6 md:grid-cols-2 mb-6">
 				<Card>
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
@@ -163,6 +153,15 @@ export default function XcTaskInteractivePanel({
 						})}
 					</CardContent>
 				</Card>
+			</div>
+			<div className="mb-6">
+				<XcTaskMapLoader
+					waypoints={waypoints}
+					className="h-120"
+					selectedWaypointIndex={selectedWaypointIndex}
+					trackCoordinates={trackCoordinates}
+					hoveredTrackPosition={hoveredTrackPosition}
+				/>
 			</div>
 		</>
 	);

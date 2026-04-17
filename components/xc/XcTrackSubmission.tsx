@@ -20,44 +20,18 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useGetXcTrack } from "@/hooks/use-query-api";
-import { authClient } from "@/lib/auth-client";
+import type { IGCFlightStats, IGCHeader } from "@/lib/igc-parser";
 
 interface XcTrackSubmissionProps {
-	taskId: string;
+	header: IGCHeader;
+	stats: IGCFlightStats;
 }
 
-export default function XcTrackSubmission({ taskId }: XcTrackSubmissionProps) {
+export default function XcTrackSubmission({
+	header,
+	stats,
+}: XcTrackSubmissionProps) {
 	const t = useTranslations("XcTrackSubmission");
-	const { data: session } = authClient.useSession();
-	const isLoggedIn = Boolean(session?.user);
-
-	const { data: track, isLoading } = useGetXcTrack(taskId, isLoggedIn);
-
-	if (!isLoggedIn || (!isLoading && !track)) return null;
-
-	if (isLoading) {
-		return (
-			<Card>
-				<CardHeader>
-					<Skeleton className="h-6 w-48" />
-					<Skeleton className="mt-1 h-4 w-64" />
-				</CardHeader>
-				<CardContent>
-					<div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-						{Array.from({ length: 6 }).map((_, i) => (
-							<Skeleton key={`skel-${i}`} className="h-16 rounded-lg" />
-						))}
-					</div>
-				</CardContent>
-			</Card>
-		);
-	}
-
-	if (!track) return null;
-
-	const { header, stats } = track;
 
 	const items = [
 		{

@@ -207,9 +207,11 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 								taskFileUrl={task.taskFileUrl}
 							/>
 						</div>
-						<div className="mb-8">
-							<XcTrackSubmission taskId={taskId} />
-						</div>
+						{track && (
+							<div className="mb-8">
+								<XcTrackSubmission header={track.header} stats={track.stats} />
+							</div>
+						)}
 					</>
 				) : (
 					<div className="rounded-md border bg-muted/40 p-4 text-sm text-muted-foreground">
