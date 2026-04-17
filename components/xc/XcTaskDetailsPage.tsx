@@ -19,7 +19,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
-import { useGetXcTask } from "@/hooks/use-query-api";
+import { useGetXcTask, useGetXcTrack } from "@/hooks/use-query-api";
+import { authClient } from "@/lib/auth-client";
 import {
 	type ParsedTask,
 	parseTskXml,
@@ -76,6 +77,17 @@ interface XcTaskDetailsPageProps {
 export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const t = useTranslations("TaskPage");
 	const { data: task, isLoading } = useGetXcTask(taskId);
+	const { data: session } = authClient.useSession();
+	const isLoggedIn = Boolean(session?.user);
+	const { data: track } = useGetXcTrack(taskId, isLoggedIn);
+
+	const trackCoordinates = useMemo(
+		() =>
+			track?.fixes
+				?.filter((f) => f.valid)
+				.map((f) => [f.latitude, f.longitude] as [number, number]) ?? [],
+		[track?.fixes],
+	);
 
 	const [parsedTask, setParsedTask] = useState<ParsedTask>({
 		waypoints: [],
@@ -165,6 +177,7 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							distanceKm={task.distanceKm}
 							description={task.description}
 							taskInfo={parsedTask.info}
+							trackCoordinates={trackCoordinates}
 						/>
 						<div className="mt-4 mb-8">
 							<XcTaskActionButtons

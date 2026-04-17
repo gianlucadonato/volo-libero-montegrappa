@@ -14,16 +14,19 @@ export default function XcTaskMapLoader({
 	waypoints,
 	className,
 	selectedWaypointIndex,
+	trackCoordinates,
 }: {
 	waypoints: TaskWaypoint[];
 	className?: string;
 	selectedWaypointIndex?: number | null;
+	trackCoordinates?: [number, number][];
 }) {
 	return (
 		<XcTaskMap
 			waypoints={waypoints}
 			className={className}
 			selectedWaypointIndex={selectedWaypointIndex}
+			trackCoordinates={trackCoordinates}
 		/>
 	);
 }

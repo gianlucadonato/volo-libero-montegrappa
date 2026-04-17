@@ -88,12 +88,14 @@ interface XcTaskMapProps {
 	waypoints: TaskWaypoint[];
 	className?: string;
 	selectedWaypointIndex?: number | null;
+	trackCoordinates?: [number, number][];
 }
 
 export default function XcTaskMap({
 	waypoints,
 	className,
 	selectedWaypointIndex,
+	trackCoordinates,
 }: XcTaskMapProps) {
 	if (waypoints.length === 0) {
 		return (
@@ -277,6 +279,18 @@ export default function XcTaskMap({
 						dashArray: "6 4",
 					}}
 				/>
+
+				{/* IGC flight track */}
+				{trackCoordinates && trackCoordinates.length > 0 && (
+					<Polyline
+						positions={trackCoordinates}
+						pathOptions={{
+							color: "#ff4444",
+							weight: 2.5,
+							opacity: 0.85,
+						}}
+					/>
+				)}
 
 				{/* Cylinders + markers */}
 				{waypoints.map((wp, idx) => {

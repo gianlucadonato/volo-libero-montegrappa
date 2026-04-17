@@ -26,6 +26,7 @@ interface XcTaskInteractivePanelProps {
 	distanceKm?: number | null;
 	description?: string | null;
 	taskInfo?: string;
+	trackCoordinates?: [number, number][];
 }
 
 export default function XcTaskInteractivePanel({
@@ -39,6 +40,7 @@ export default function XcTaskInteractivePanel({
 	distanceKm,
 	description,
 	taskInfo,
+	trackCoordinates,
 }: XcTaskInteractivePanelProps) {
 	const [selectedWaypointIndex, setSelectedWaypointIndex] = useState<
 		number | null
@@ -51,6 +53,7 @@ export default function XcTaskInteractivePanel({
 					waypoints={waypoints}
 					className="h-120"
 					selectedWaypointIndex={selectedWaypointIndex}
+					trackCoordinates={trackCoordinates}
 				/>
 			</div>
 
