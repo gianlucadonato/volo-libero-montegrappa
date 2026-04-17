@@ -88,6 +88,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/xc/tasks/{id}/submission": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/tasks/[id]/submission
+		 * @description Get the current user's latest submission for a task
+		 */
+		get: operations["get-xc-tasks-{id}-submission"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/tasks/{id}/upload": {
 		parameters: {
 			query?: never;
@@ -162,6 +182,25 @@ export interface components {
 		};
 		IdParamsSchema: {
 			id: string;
+		};
+		XcSubmissionSchema: {
+			id: string;
+			userId: string;
+			editionId: number;
+			taskId: string;
+			/** @enum {string} */
+			status: "PENDING" | "APPROVED" | "REJECTED";
+			fileName: string;
+			checksum?: string | null;
+			notes?: string | null;
+			pointsAwarded: number;
+			/** Format: date-time */
+			reviewedAt?: string | null;
+			reviewedBy?: string | null;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
 		};
 		/** @description IGC track file (binary) */
 		XcUploadTrackBodySchema: unknown;
@@ -496,6 +535,31 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcTaskSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-xc-tasks-{id}-submission": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example 123 */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcSubmissionSchema"];
 				};
 			};
 			400: components["responses"]["400"];

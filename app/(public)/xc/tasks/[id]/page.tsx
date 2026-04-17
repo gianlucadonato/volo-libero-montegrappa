@@ -14,6 +14,7 @@ import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import XcDownloadTaskButton from "@/components/xc/XcDownloadTaskButton";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
@@ -122,7 +123,15 @@ export default async function TaskPage({
 							</div>
 						}
 						text={task.description ?? ""}
-					/>
+					>
+						{task.taskFileUrl && (
+							<XcDownloadTaskButton
+								taskId={id}
+								taskFileUrl={task.taskFileUrl}
+								label={t("download_task")}
+							/>
+						)}
+					</DashboardHeader>
 				</div>
 
 				{waypoints.length > 0 ? (
@@ -143,8 +152,6 @@ export default async function TaskPage({
 							<CardContent>
 								<XcTaskActionButtons
 									taskId={id}
-									taskFileUrl={task.taskFileUrl}
-									downloadLabel={t("download_task")}
 									uploadLabel={t("upload_route")}
 									uploadingLabel={t("uploading")}
 								/>

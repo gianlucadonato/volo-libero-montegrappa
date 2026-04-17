@@ -881,5 +881,23 @@
 		"bannerSubtitle": "Brevetto Cross Country Montegrappa",
 		"title": "XC Montegrappa",
 		"subtitle": "BREVETTO BASICO"
+	},
+	"XcSubmissionStatus": {
+		"pending": {
+			"title": "Traccia inviata",
+			"description": "La tua traccia è in attesa di validazione.",
+			"badge": "In attesa"
+		},
+		"approved": {
+			"title": "Traccia approvata",
+			"badge": "Approvata",
+			"pointsAwarded": "{points} punti guadagnati"
+		},
+		"rejected": {
+			"title": "Traccia non valida",
+			"description": "Il file IGC caricato non è conforme ai requisiti di questa task.",
+			"badge": "Rifiutata",
+			"reupload": "Ricarica traccia"
+		}
 	}
 }

@@ -47,3 +47,22 @@ export const XcEnrollmentSchema = z.object({
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });
+
+export const XcSubmissionSchema = z.object({
+	id: z.string(),
+	userId: z.string(),
+	editionId: z.number(),
+	taskId: z.string(),
+	status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
+	fileName: z.string(),
+	checksum: z.string().nullish(),
+	notes: z.string().nullish(),
+	pointsAwarded: z.number(),
+	reviewedAt: z.coerce
+		.date()
+		.transform((val) => val.toISOString())
+		.nullish(),
+	reviewedBy: z.string().nullish(),
+	createdAt: z.coerce.date().transform((val) => val.toISOString()),
+	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
+});

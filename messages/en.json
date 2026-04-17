@@ -840,5 +840,23 @@
 		"bannerSubtitle": "XC Montegrappa Cross-Country Certificate",
 		"title": "XC Montegrappa",
 		"subtitle": "BASIC CERTIFICATE"
+	},
+	"XcSubmissionStatus": {
+		"pending": {
+			"title": "Track submitted",
+			"description": "Your track is waiting to be validated.",
+			"badge": "Pending"
+		},
+		"approved": {
+			"title": "Track approved",
+			"badge": "Approved",
+			"pointsAwarded": "{points} points earned"
+		},
+		"rejected": {
+			"title": "Track not valid",
+			"description": "The uploaded IGC file does not meet the requirements for this task.",
+			"badge": "Rejected",
+			"reupload": "Upload again"
+		}
 	}
 }

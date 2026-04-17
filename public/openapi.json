@@ -184,6 +184,69 @@
 				},
 				"required": ["id"]
 			},
+			"XcSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"editionId": {
+						"type": "number"
+					},
+					"taskId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": ["PENDING", "APPROVED", "REJECTED"]
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"checksum": {
+						"type": "string",
+						"nullable": true
+					},
+					"notes": {
+						"type": "string",
+						"nullable": true
+					},
+					"pointsAwarded": {
+						"type": "number"
+					},
+					"reviewedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"reviewedBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"userId",
+					"editionId",
+					"taskId",
+					"status",
+					"fileName",
+					"pointsAwarded",
+					"createdAt",
+					"updatedAt"
+				]
+			},
 			"XcUploadTrackBodySchema": {
 				"description": "IGC track file (binary)"
 			},
@@ -931,6 +994,48 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/tasks/{id}/submission": {
+			"get": {
+				"operationId": "get-xc-tasks-{id}-submission",
+				"summary": "/xc/tasks/[id]/submission",
+				"description": "Get the current user's latest submission for a task",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcSubmissionSchema"
 								}
 							}
 						}

@@ -15,6 +15,8 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
+import { useGetXcSubmission } from "@/hooks/use-query-api";
 import { authClient } from "@/lib/auth-client";
 import type { XcTaskApi } from "@/types/api-schema";
 
@@ -32,10 +34,11 @@ export default function XcTaskCard({
 		setShowSignInModal,
 		setShowEnrollXcEditionModal: setShowEnrollModal,
 	} = useContext(ModalContext);
+	const { data: submission } = useGetXcSubmission(task.id, !!session?.user);
 
-	const handleUploadClick = (e: React.MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
+	const handleUploadClick = (e?: React.MouseEvent) => {
+		e?.preventDefault();
+		e?.stopPropagation();
 
 		if (!session) {
 			setShowSignInModal(true);
@@ -49,6 +52,8 @@ export default function XcTaskCard({
 			alert(t("uploadComingSoon"));
 		}
 	};
+
+	const canUpload = !submission || submission.status === "REJECTED";
 
 	return (
 		<div className="mb-6">
@@ -84,6 +89,24 @@ export default function XcTaskCard({
 									{t("points")}: {task.points}
 								</p>
 							</div>
+
+							{submission && (
+								<div
+									className="mt-3"
+									onClick={(e) => e.stopPropagation()}
+									onKeyDown={(e) => e.stopPropagation()}
+								>
+									<XcSubmissionStatus
+										submission={submission}
+										onReupload={
+											submission.status === "REJECTED"
+												? handleUploadClick
+												: undefined
+										}
+									/>
+								</div>
+							)}
+
 							<div className="mt-2 flex flex-col gap-2 sm:flex-row">
 								<Link
 									href={task.taskFileUrl || "#"}
@@ -100,10 +123,12 @@ export default function XcTaskCard({
 										<Download className="ml-2 size-4" />
 									</Button>
 								</Link>
-								<Button onClick={handleUploadClick}>
-									<span>{t("uploadTrack")}</span>
-									<Upload className="ml-2 size-4" />
-								</Button>
+								{canUpload && (
+									<Button onClick={handleUploadClick}>
+										<span>{t("uploadTrack")}</span>
+										<Upload className="ml-2 size-4" />
+									</Button>
+								)}
 							</div>
 						</CardContent>
 					</div>
