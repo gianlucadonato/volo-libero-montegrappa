@@ -1,4 +1,8 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+	GetObjectCommand,
+	PutObjectCommand,
+	S3Client,
+} from "@aws-sdk/client-s3";
 import { env } from "@/env";
 
 let client: S3Client | undefined;
@@ -58,4 +62,14 @@ export async function uploadObject(params: {
 	});
 
 	return getR2Client().send(command);
+}
+
+export async function downloadObject(objectKey: string): Promise<string> {
+	const command = new GetObjectCommand({
+		Bucket: getBucket(),
+		Key: objectKey,
+	});
+
+	const response = await getR2Client().send(command);
+	return (await response.Body?.transformToString("utf-8")) ?? "";
 }

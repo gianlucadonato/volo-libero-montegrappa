@@ -904,5 +904,22 @@
 			"badge": "Rifiutata",
 			"reupload": "Ricarica traccia"
 		}
+	},
+	"XcTrackSubmission": {
+		"title": "Dati di Volo",
+		"description": "Estratti dal file IGC della traccia caricata.",
+		"duration": "Durata",
+		"distance": "Distanza",
+		"maxAltitude": "Quota Max",
+		"minAltitude": "Quota Min",
+		"altGain": "Guadagno Quota",
+		"fixes": "Fix GPS",
+		"flightDetails": "Dettagli Volo",
+		"date": "Data",
+		"pilot": "Pilota",
+		"glider": "Vela",
+		"site": "Sito",
+		"startTime": "Inizio",
+		"endTime": "Fine"
 	}
 }

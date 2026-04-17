@@ -15,6 +15,7 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
+import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
 import { constructMetadata, siteConfig } from "@/config/site";
 import {
 	type ParsedTask,
@@ -140,6 +141,9 @@ export default async function TaskPage({
 						/>
 						<div className="mt-4 mb-8">
 							<XcTaskActionButtons taskId={id} taskFileUrl={task.taskFileUrl} />
+						</div>
+						<div className="mb-8">
+							<XcTrackSubmission taskId={id} />
 						</div>
 					</>
 				) : (

@@ -863,5 +863,22 @@
 			"badge": "Rejected",
 			"reupload": "Upload again"
 		}
+	},
+	"XcTrackSubmission": {
+		"title": "Flight Data",
+		"description": "Parsed from the uploaded IGC track log.",
+		"duration": "Duration",
+		"distance": "Distance",
+		"maxAltitude": "Max Altitude",
+		"minAltitude": "Min Altitude",
+		"altGain": "Alt. Gain",
+		"fixes": "GPS Fixes",
+		"flightDetails": "Flight Details",
+		"date": "Date",
+		"pilot": "Pilot",
+		"glider": "Glider",
+		"site": "Site",
+		"startTime": "Start",
+		"endTime": "End"
 	}
 }
