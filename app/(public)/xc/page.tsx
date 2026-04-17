@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IoIosMedal } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import EnrollButton from "@/components/xc/EnrollButton";
+import EnrollXcEditionButton from "@/components/xc/EnrollXcEditionButton";
 import { NEXT_YEAR } from "@/config/constants";
 import FAQ from "./FAQ";
 
@@ -169,7 +169,7 @@ export default function XcMontegrappaPage() {
 								<div className="mb-4 text-center text-3xl font-caveat">
 									{t.rich("cta", { br: () => <br /> })}
 								</div>
-								<EnrollButton />
+								<EnrollXcEditionButton />
 							</div>
 						</div>
 					</div>

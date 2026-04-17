@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import EnrollButton from "@/components/xc/EnrollButton";
+import EnrollButton from "@/components/xc/EnrollXcEditionButton";
 import XcTaskCard from "@/components/xc/XcTaskCard";
 import {
 	useGetProgressByCategory,

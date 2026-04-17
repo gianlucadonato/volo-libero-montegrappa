@@ -741,6 +741,20 @@
 			"loading": "Enrolling..."
 		}
 	},
+	"EnrollXcEditionModal": {
+		"toast": {
+			"success": "Welcome to XC Montegrappa!",
+			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
+			"genericError": "Enrollment failed. Please try again."
+		},
+		"dialog": {
+			"title": "Enroll in XC Montegrappa {year}",
+			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
+			"cancel": "Cancel",
+			"confirm": "Confirm enrollment",
+			"loading": "Enrolling..."
+		}
+	},
 	"XcMontegrappaFAQ": {
 		"items": {
 			"whoCan": {

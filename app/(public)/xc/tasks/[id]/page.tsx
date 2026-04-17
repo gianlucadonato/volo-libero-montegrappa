@@ -14,7 +14,7 @@ import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import TaskActionButtons from "@/components/xc/TaskActionButtons";
+import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
 import {
@@ -141,7 +141,7 @@ export default async function TaskPage({
 						/>
 						<Card className="mt-4 mb-8 bg-amber-50 border-amber-200">
 							<CardContent>
-								<TaskActionButtons
+								<XcTaskActionButtons
 									taskId={id}
 									taskFileUrl={task.taskFileUrl}
 									downloadLabel={t("download_task")}

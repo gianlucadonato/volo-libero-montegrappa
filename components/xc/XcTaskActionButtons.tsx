@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { uploadXcTaskTrackApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
-interface TaskActionButtonsProps {
+interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl: string | null;
 	downloadLabel: string;
@@ -17,13 +17,13 @@ interface TaskActionButtonsProps {
 	uploadingLabel: string;
 }
 
-export default function TaskActionButtons({
+export default function XcTaskActionButtons({
 	taskId,
 	taskFileUrl,
 	downloadLabel,
 	uploadLabel,
 	uploadingLabel,
-}: TaskActionButtonsProps) {
+}: XcTaskActionButtonsProps) {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);

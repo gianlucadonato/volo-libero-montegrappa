@@ -782,6 +782,20 @@
 			"loading": "Iscrizione in corso..."
 		}
 	},
+	"EnrollXcEditionModal": {
+		"toast": {
+			"success": "Benvenuto nel Brevetto XC Montegrappa!",
+			"alreadyEnrolled": "Sei già iscritto al brevetto XC per quest'anno.",
+			"genericError": "Errore nell'iscrizione. Riprova."
+		},
+		"dialog": {
+			"title": "Vuoi iscriverti al Brevetto XC Montegrappa {year}?",
+			"description": "Iscriviti all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
+			"cancel": "Annulla",
+			"confirm": "Conferma Iscrizione",
+			"loading": "Iscrizione in corso..."
+		}
+	},
 	"XcMontegrappaFAQ": {
 		"items": {
 			"whoCan": {
