@@ -39,6 +39,21 @@ export const useGetProgressByCategory = (category: string, enabled = false) => {
 	);
 };
 
+export const useGetXcTask = (taskId: string) => {
+	return $api.useQuery(
+		"get",
+		"/xc/tasks/{id}",
+		{
+			params: {
+				path: { id: taskId },
+			},
+		},
+		{
+			enabled: !!taskId,
+		},
+	);
+};
+
 export const useGetXcEnrollment = (enabled = false) => {
 	return $api.useQuery("get", "/xc/enroll", {}, { enabled });
 };

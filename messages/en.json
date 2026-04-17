@@ -676,6 +676,7 @@
 		"dashboard_title": "Task Information",
 		"no_data": "No data",
 		"not_found": "Task not found",
+		"no_waypoints": "No waypoints available for this task.",
 		"download_task": "Download Task",
 		"upload_route": "Upload your Route",
 		"uploading": "Uploading...",

@@ -979,12 +979,12 @@
 				"parameters": [
 					{
 						"in": "path",
-						"name": "category",
+						"name": "id",
 						"required": true,
 						"schema": {
 							"type": "string"
 						},
-						"example": "example"
+						"example": "123"
 					}
 				],
 				"responses": {
@@ -1087,6 +1087,48 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcUploadTrackResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/tasks/{id}/submission/track": {
+			"get": {
+				"operationId": "get-xc-tasks-{id}-submission-track",
+				"summary": "/xc/tasks/[id]/submission/track",
+				"description": "Get parsed IGC track data for the user's submission",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
 								}
 							}
 						}

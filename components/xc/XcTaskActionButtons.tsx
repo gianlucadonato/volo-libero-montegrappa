@@ -13,7 +13,7 @@ import { authClient } from "@/lib/auth-client";
 
 interface XcTaskActionButtonsProps {
 	taskId: string;
-	taskFileUrl: string | null;
+	taskFileUrl?: string | null;
 }
 
 export default function XcTaskActionButtons({

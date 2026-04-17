@@ -717,6 +717,7 @@
 		"dashboard_title": "Informazioni Task",
 		"no_data": "Nessun dato",
 		"not_found": "Task non trovato",
+		"no_waypoints": "Nessun waypoint disponibile per questa task.",
 		"download_task": "Scarica Task",
 		"upload_route": "Carica la tua Traccia",
 		"uploading": "Caricamento...",

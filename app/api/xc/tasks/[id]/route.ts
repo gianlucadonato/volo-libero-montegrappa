@@ -1,17 +1,12 @@
 import Boom from "@hapi/boom";
-import z from "zod";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
-import { XcTaskSchema } from "@/schemas";
-
-const ParamsSchema = z.object({
-	id: z.string(),
-});
+import { IdParamsSchema, XcTaskSchema } from "@/schemas";
 
 /**
  * /xc/tasks/[id]
  * @description Fetch XC Task details
- * @pathParams ParamsSchema
+ * @pathParams IdParamsSchema
  * @response XcTaskSchema
  * @openapi
  */
@@ -21,7 +16,7 @@ export const GET = async (
 	context: { params: Promise<{ id: string }> },
 ) => {
 	const { id } = await context.params;
-	const { success, data: parsedParams } = ParamsSchema.safeParse({
+	const { success, data: parsedParams } = IdParamsSchema.safeParse({
 		id,
 	});
 	if (!success) {
