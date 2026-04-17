@@ -20,7 +20,7 @@ export default async function createXcSubmission(input: Input) {
 	const task = await prisma.xcTask.findUnique({
 		where: {
 			id: input.taskId,
-			editionTasks: { some: { editionId: input.editionId } },
+			editionTasks: { some: { editionId: Number(input.editionId) } },
 		},
 	});
 
@@ -33,7 +33,7 @@ export default async function createXcSubmission(input: Input) {
 		where: {
 			userId_editionId: {
 				userId: user.id,
-				editionId: input.editionId,
+				editionId: Number(input.editionId),
 			},
 		},
 	});
@@ -45,7 +45,7 @@ export default async function createXcSubmission(input: Input) {
 	const submission = await prisma.xcTrackSubmission.create({
 		data: {
 			userId: user.id,
-			editionId: input.editionId,
+			editionId: Number(input.editionId),
 			taskId: input.taskId,
 			status: XcSubmissionStatus.PENDING,
 			fileName: input.fileName,

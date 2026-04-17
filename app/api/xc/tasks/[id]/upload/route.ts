@@ -53,7 +53,7 @@ export async function POST(
 		const objectKey = buildObjectKey({
 			year: new Date().getFullYear(),
 			userId: session.user.id,
-			taskId: task.id,
+			taskId: `${task.category}-${task.slug}-${task.id}`,
 			fileName: file.name,
 		});
 

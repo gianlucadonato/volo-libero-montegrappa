@@ -20,8 +20,7 @@ export const uploadXcTaskTrackApi = async (taskId: string, file: File) => {
 		params: {
 			path: { id: taskId },
 		},
-		body: {
-			file: formData,
-		},
+		body: formData,
+		bodySerializer: (body) => body,
 	});
 };

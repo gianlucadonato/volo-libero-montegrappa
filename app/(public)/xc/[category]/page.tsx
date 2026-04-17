@@ -7,12 +7,15 @@ import { useTranslations } from "next-intl";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
 import XcTaskCard from "@/components/xc/XcTaskCard";
 import {
 	useGetProgressByCategory,
 	useGetTasksByCategory,
+	useGetXcEnrollment,
 } from "@/hooks/use-query-api";
+import { authClient } from "@/lib/auth-client";
 
 const categoryConfig: Record<
 	string,
@@ -41,17 +44,18 @@ const categoryConfig: Record<
 export default function CategoryPage() {
 	const params = useParams();
 	const t = useTranslations("XcCategoryPage");
+	const { data: session } = authClient.useSession();
+	const isLoggedIn = !!session?.user;
 	const category = categoryConfig[String(params.category).toLowerCase()];
 	const {
 		isLoading: isLoadingTasks,
 		data: tasks,
 		error: tasksError,
 	} = useGetTasksByCategory(category?.level);
-	const {
-		isLoading: isLoadingProgress,
-		data: xcProgress,
-		error: progressError,
-	} = useGetProgressByCategory(category?.level);
+	const { isLoading: isLoadingProgress, data: xcProgress } =
+		useGetProgressByCategory(category?.level, isLoggedIn);
+	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
+		useGetXcEnrollment(isLoggedIn);
 
 	if (!category) {
 		return (
@@ -137,6 +141,21 @@ export default function CategoryPage() {
 					</div>
 				</div>
 
+				{(isLoadingEnrollment || isLoadingProgress) && (
+					<Card className="mb-8">
+						<CardHeader>
+							<Skeleton className="h-6 w-40" />
+						</CardHeader>
+						<CardContent>
+							<div className="space-y-3">
+								<Skeleton className="h-4 w-3/4" />
+								<Skeleton className="h-4 w-1/2" />
+								<Skeleton className="h-3 w-full rounded-full" />
+							</div>
+						</CardContent>
+					</Card>
+				)}
+
 				{/* Progress Card */}
 				{!isLoadingProgress && xcProgress && (
 					<Card className="mb-8 bg-blue-50 border-blue-200">
@@ -176,7 +195,7 @@ export default function CategoryPage() {
 					</Card>
 				)}
 
-				{!isLoadingProgress && !xcProgress && (
+				{!isLoadingEnrollment && !xcEnrollment && (
 					<Card className="mb-8 bg-blue-50 border border-blue-200">
 						<CardContent className="text-center pt-6">
 							<p className="text-blue-800 mb-4">{t("enrollPrompt")}</p>

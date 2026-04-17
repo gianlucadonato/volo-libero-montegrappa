@@ -8,19 +8,35 @@ const fetchClient = createFetchClient<paths>({
 const $api = createClient(fetchClient);
 
 export const useGetTasksByCategory = (category: string) => {
-	return $api.useQuery("get", "/xc/{category}/tasks", {
-		params: {
-			path: { category },
+	return $api.useQuery(
+		"get",
+		"/xc/{category}/tasks",
+		{
+			params: {
+				path: { category },
+			},
 		},
-		enabled: !!category,
-	});
+		{
+			enabled: !!category,
+		},
+	);
 };
 
-export const useGetProgressByCategory = (category: string) => {
-	return $api.useQuery("get", "/xc/{category}/progress", {
-		params: {
-			path: { category },
+export const useGetProgressByCategory = (category: string, enabled = false) => {
+	return $api.useQuery(
+		"get",
+		"/xc/{category}/progress",
+		{
+			params: {
+				path: { category },
+			},
 		},
-		enabled: !!category,
-	});
+		{
+			enabled: !!category && enabled,
+		},
+	);
+};
+
+export const useGetXcEnrollment = (enabled = false) => {
+	return $api.useQuery("get", "/xc/enroll", {}, { enabled });
 };

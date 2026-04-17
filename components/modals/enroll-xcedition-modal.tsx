@@ -37,7 +37,7 @@ function EnrollXcEditionModal({
 		const { response } = await createXcEnrollmentApi();
 		if (response.ok) {
 			await queryClient.invalidateQueries({
-				queryKey: ["get", "/xc/{category}/progress"],
+				queryKey: ["get", "/xc/enroll"],
 			});
 			toast.success(t("toast.success"));
 			setShowModal(false);

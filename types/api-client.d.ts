@@ -163,10 +163,8 @@ export interface components {
 		IdParamsSchema: {
 			id: string;
 		};
-		XcUploadTrackBodySchema: {
-			/** @description IGC track file (binary) */
-			file: unknown;
-		};
+		/** @description IGC track file (binary) */
+		XcUploadTrackBodySchema: unknown;
 		XcUploadTrackResponseSchema: {
 			success: boolean;
 			filename: string;

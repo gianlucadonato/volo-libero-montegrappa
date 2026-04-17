@@ -185,13 +185,7 @@
 				"required": ["id"]
 			},
 			"XcUploadTrackBodySchema": {
-				"type": "object",
-				"properties": {
-					"file": {
-						"description": "IGC track file (binary)"
-					}
-				},
-				"required": ["file"]
+				"description": "IGC track file (binary)"
 			},
 			"XcUploadTrackResponseSchema": {
 				"type": "object",

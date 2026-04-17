@@ -21,12 +21,8 @@ export async function GET() {
 	if (!session) {
 		return ApiErrorResponse(Boom.unauthorized());
 	}
-	const socio = await getSocio(session.user.id);
-	if (!socio) {
-		return ApiErrorResponse(Boom.forbidden());
-	}
 	try {
-		const enrollment = await getXcEnrollment({ userId: socio.id });
+		const enrollment = await getXcEnrollment({ userId: session.user.id });
 		return Response.json(enrollment);
 	} catch (error) {
 		return ApiErrorResponse(error, { endpoint: "GET /xc/enroll" });
@@ -50,7 +46,7 @@ export async function POST() {
 	}
 	const socio = await getSocio(session.user.id);
 	if (!socio) {
-		return ApiErrorResponse(Boom.forbidden());
+		return ApiErrorResponse(Boom.forbidden("User is not a member"));
 	}
 	try {
 		const enrollment = await createXcEnrollment({ userId: socio.id });

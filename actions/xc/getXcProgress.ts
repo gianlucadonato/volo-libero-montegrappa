@@ -13,9 +13,7 @@ export async function getXcProgressByCategory(
 		where: {
 			category,
 			userId,
-			edition: {
-				year,
-			},
+			editionId: year,
 		},
 		include: {
 			edition: true,

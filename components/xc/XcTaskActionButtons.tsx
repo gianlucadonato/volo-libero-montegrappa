@@ -6,6 +6,7 @@ import { useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
+import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import { uploadXcTaskTrackApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
@@ -28,8 +29,10 @@ export default function XcTaskActionButtons({
 	const [isUploading, setIsUploading] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const t = useTranslations("XcTaskCard");
-	const { data: session } = authClient.useSession();
-	const { setShowSignInModal } = useContext(ModalContext);
+	const { isPending, data: session } = authClient.useSession();
+	const { setShowSignInModal, setShowEnrollXcEditionModal } =
+		useContext(ModalContext);
+	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
 
 	const handleDownload = async () => {
 		if (!taskId || !taskFileUrl) return;
@@ -61,6 +64,10 @@ export default function XcTaskActionButtons({
 	const handleUploadClick = () => {
 		if (!session) {
 			setShowSignInModal(true);
+			return;
+		}
+		if (!enrollment) {
+			setShowEnrollXcEditionModal(true);
 			return;
 		}
 		fileInputRef.current?.click();
@@ -100,7 +107,7 @@ export default function XcTaskActionButtons({
 				<>
 					<Button
 						onClick={handleUploadClick}
-						disabled={isUploading}
+						disabled={isUploading || isPending}
 						className="gap-2 flex-1 sm:flex-none rounded-lg bg-linear-to-r from-amber-500 to-amber-600 font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:from-amber-600 hover:to-amber-700 disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-500 disabled:hover:scale-100"
 					>
 						<Upload className="size-4" />

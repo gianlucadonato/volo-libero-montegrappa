@@ -4,9 +4,9 @@ const supportedTrackExtensions = ["gpx", "igc"] as const;
 
 export const XcEnrollSchema = z.object({});
 
-export const XcUploadTrackBodySchema = z.object({
-	file: z.any().describe("IGC track file (binary)"),
-});
+export const XcUploadTrackBodySchema = z
+	.any()
+	.describe("IGC track file (binary)");
 
 export const XcUploadTrackResponseSchema = z.object({
 	success: z.boolean(),

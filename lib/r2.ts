@@ -1,4 +1,3 @@
-import { randomUUID } from "node:crypto";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { env } from "@/env";
 
@@ -43,7 +42,7 @@ export function buildObjectKey(params: {
 	fileName: string;
 }) {
 	const safeName = params.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
-	return `xcmontegrappa/${params.year}/${params.userId}/${params.taskId}/${Date.now()}-${randomUUID()}-${safeName}`;
+	return `uploads/${params.year}/${params.userId}/${params.taskId}/${Date.now()}-${safeName}`;
 }
 
 export async function uploadObject(params: {
