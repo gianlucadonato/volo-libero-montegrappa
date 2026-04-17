@@ -21,6 +21,10 @@ export const env = createEnv({
 		AWS_ACCESS_KEY_ID: z.string().optional(),
 		AWS_SECRET_ACCESS_KEY: z.string().optional(),
 		AWS_S3_XC_BUCKET: z.string().optional(),
+		R2_ACCOUNT_ID: z.string().optional(),
+		R2_ACCESS_KEY_ID: z.string().optional(),
+		R2_SECRET_ACCESS_KEY: z.string().optional(),
+		R2_BUCKET_NAME: z.string().optional(),
 	},
 	client: {
 		// 🌐 Client-side vars (browser safe)
@@ -45,6 +49,10 @@ export const env = createEnv({
 		AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
 		AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
 		AWS_S3_XC_BUCKET: process.env.AWS_S3_XC_BUCKET,
+		R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
+		R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
+		R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
+		R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
 		NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
 	},
 });

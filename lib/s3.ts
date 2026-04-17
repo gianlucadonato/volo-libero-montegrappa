@@ -27,16 +27,6 @@ function getS3Client() {
 	return client;
 }
 
-export function buildXcTrackObjectKey(params: {
-	year: number;
-	userId: string;
-	taskId: string;
-	fileName: string;
-}) {
-	const safeName = params.fileName.replace(/[^a-zA-Z0-9._-]/g, "_");
-	return `xcmontegrappa/${params.year}/${params.userId}/${params.taskId}/${Date.now()}-${randomUUID()}-${safeName}`;
-}
-
 export async function createUploadUrl(params: {
 	bucket: string;
 	objectKey: string;

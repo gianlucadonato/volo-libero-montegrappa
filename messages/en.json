@@ -809,6 +809,10 @@
 		"downloadTask": "Download Task (.tsk)",
 		"uploadTrack": "Upload Track",
 		"uploadComingSoon": "Upload feature coming soon!",
+		"toast": {
+			"uploadSuccess": "File uploaded successfully!",
+			"uploadError": "Error uploading file."
+		},
 		"modal": {
 			"title": "Enrollment required",
 			"description": "To upload your track you must first enroll in XC Montegrappa {year}.",

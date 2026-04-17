@@ -21,7 +21,7 @@
 		"db:seed": "pnpm tsx scripts/seedXcTasks.ts",
 		"tsx": "tsx --env-file=.env",
 		"openapi": "openapi-gen generate",
-		"generate:api-client": "openapi-typescript http://localhost:3000/openapi.json -o ./types/api-client.d.ts",
+		"gen:api-client": "pnpm openapi && openapi-typescript ./public/openapi.json -o ./types/api-client.d.ts",
 		"prepare": "husky"
 	},
 	"lint-staged": {

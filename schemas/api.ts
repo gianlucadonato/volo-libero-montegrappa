@@ -1,5 +1,9 @@
 import z from "zod";
 
+export const IdParamsSchema = z.object({
+	id: z.string(),
+});
+
 export const XcTaskSchema = z.object({
 	id: z.string(),
 	slug: z.string(),

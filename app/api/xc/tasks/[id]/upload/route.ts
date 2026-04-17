@@ -1,64 +1,78 @@
-import { writeFileSync } from "fs";
+import Boom from "@hapi/boom";
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { join } from "path";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
+import { auth } from "@/auth";
+import APIErrorResponse from "@/helpers/APIErrorResponse";
+import { buildObjectKey, uploadObject } from "@/lib/r2";
 
+/**
+ * /xc/tasks/[id]/upload
+ * @description Upload an IGC track file for a specific XC task to Cloudflare R2
+ * @pathParams IdParamsSchema
+ * @body XcUploadTrackBodySchema
+ * @contentType multipart/form-data
+ * @response XcUploadTrackResponseSchema
+ * @auth
+ * @openapi
+ */
 export async function POST(
 	request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
 	try {
+		const session = await auth.api.getSession({
+			headers: await headers(),
+		});
+		if (!session) {
+			console.log("🐞 > session:", session);
+			return APIErrorResponse(Boom.unauthorized());
+		}
+
 		const { id } = await params;
 		const task = await getXcTaskById(id);
 
 		if (!task) {
-			return NextResponse.json({ error: "Task not found" }, { status: 404 });
+			return APIErrorResponse(Boom.notFound("Task not found"));
 		}
 
 		const formData = await request.formData();
 		const file = formData.get("file") as File;
 
 		if (!file) {
-			return NextResponse.json({ error: "No file provided" }, { status: 400 });
+			return APIErrorResponse(Boom.badRequest("No file provided"));
 		}
 
-		if (!file.name.endsWith(".tsk")) {
-			return NextResponse.json(
-				{ error: "Only .tsk files are allowed" },
-				{ status: 400 },
-			);
+		if (!file.name.toLowerCase().endsWith(".igc")) {
+			return APIErrorResponse(Boom.badRequest("Only .igc files are allowed"));
 		}
 
-		// Read the file buffer
 		const buffer = await file.arrayBuffer();
 		const uint8Array = new Uint8Array(buffer);
 
-		// Create upload directory inside public/uploads/xc-user-tracks
-		const uploadDir = join(
-			process.cwd(),
-			"public",
-			"uploads",
-			"xc-user-tracks",
-		);
-		const fileName = `${id}_${task.name?.replace(/\s+/g, "_")}_${Date.now()}.tsk`;
-		const filePath = join(uploadDir, fileName);
+		const objectKey = buildObjectKey({
+			year: new Date().getFullYear(),
+			userId: session.user.id,
+			taskId: task.id,
+			fileName: file.name,
+		});
 
-		// Save the file
-		writeFileSync(filePath, uint8Array);
+		await uploadObject({
+			objectKey,
+			body: uint8Array,
+			contentType: "application/octet-stream",
+		});
 
 		return NextResponse.json(
 			{
 				success: true,
-				filename: fileName,
-				path: `/uploads/xc-user-tracks/${fileName}`,
+				filename: file.name,
+				objectKey,
 			},
 			{ status: 200 },
 		);
 	} catch (error) {
-		console.error("Upload error:", error);
-		return NextResponse.json(
-			{ error: "Failed to upload file" },
-			{ status: 500 },
-		);
+		console.log("🐞 > error:", error);
+		return APIErrorResponse(error, { message: "Failed to upload file" });
 	}
 }

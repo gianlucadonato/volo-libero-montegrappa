@@ -15,7 +15,10 @@ export default function APIErrorResponse(
 			},
 		);
 	}
-	const serverError = Boom.boomify(error as Error, { statusCode: 500 });
+	const serverError = Boom.boomify(error as Error, {
+		statusCode: 500,
+		message: (meta?.message as string) || "Internal Server Error",
+	});
 	logger.error(
 		{
 			error,

@@ -11,3 +11,17 @@ export const getXcTasksByCategoryApi = async (category: string) =>
 	});
 
 export const createXcEnrollmentApi = async () => api.POST("/xc/enroll", {});
+
+export const uploadXcTaskTrackApi = async (taskId: string, file: File) => {
+	const formData = new FormData();
+	formData.append("file", file);
+
+	return api.POST("/xc/tasks/{id}/upload", {
+		params: {
+			path: { id: taskId },
+		},
+		body: {
+			file: formData,
+		},
+	});
+};

@@ -850,6 +850,10 @@
 		"downloadTask": "Scarica Task (.tsk)",
 		"uploadTrack": "Carica Traccia",
 		"uploadComingSoon": "Funzione di upload in arrivo!",
+		"toast": {
+			"uploadSuccess": "File caricato con successo!",
+			"uploadError": "Errore durante il caricamento del file."
+		},
 		"modal": {
 			"title": "Iscrizione richiesta",
 			"description": "Per caricare la tua traccia devi prima iscriverti al Brevetto XC Montegrappa {year}.",

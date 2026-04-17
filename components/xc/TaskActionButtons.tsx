@@ -1,8 +1,13 @@
 "use client";
 
 import { Download, Upload } from "lucide-react";
-import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
+import { useContext, useRef, useState } from "react";
+import { toast } from "sonner";
+import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
+import { uploadXcTaskTrackApi } from "@/lib/api-client";
+import { authClient } from "@/lib/auth-client";
 
 interface TaskActionButtonsProps {
 	taskId: string;
@@ -22,6 +27,9 @@ export default function TaskActionButtons({
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const t = useTranslations("XcTaskCard");
+	const { data: session } = authClient.useSession();
+	const { setShowSignInModal } = useContext(ModalContext);
 
 	const handleDownload = async () => {
 		if (!taskId || !taskFileUrl) return;
@@ -51,36 +59,29 @@ export default function TaskActionButtons({
 	};
 
 	const handleUploadClick = () => {
+		if (!session) {
+			setShowSignInModal(true);
+			return;
+		}
 		fileInputRef.current?.click();
 	};
 
 	const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file || !taskId) return;
-
-		try {
-			setIsUploading(true);
-			const formData = new FormData();
-			formData.append("file", file);
-
-			const response = await fetch(`/api/xc/tasks/${taskId}/upload`, {
-				method: "POST",
-				body: formData,
-			});
-
-			if (!response.ok) {
-				throw new Error("Upload failed");
-			}
-
+		setIsUploading(true);
+		const response = await uploadXcTaskTrackApi(taskId, file);
+		if (response.error) {
+			console.error("Upload error:", response.error);
+			toast.error(t("toast.uploadError"));
+		} else {
+			toast.success(t("toast.uploadSuccess"));
 			// Reset file input
 			if (fileInputRef.current) {
 				fileInputRef.current.value = "";
 			}
-		} catch (error) {
-			console.error("Upload error:", error);
-		} finally {
-			setIsUploading(false);
 		}
+		setIsUploading(false);
 	};
 
 	return (
@@ -108,7 +109,7 @@ export default function TaskActionButtons({
 					<input
 						ref={fileInputRef}
 						type="file"
-						accept=".tsk"
+						accept=".igc"
 						onChange={handleFileSelect}
 						className="hidden"
 					/>

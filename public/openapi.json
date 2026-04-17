@@ -175,6 +175,39 @@
 				},
 				"required": ["id", "edition", "userId", "createdAt", "updatedAt"]
 			},
+			"IdParamsSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": ["id"]
+			},
+			"XcUploadTrackBodySchema": {
+				"type": "object",
+				"properties": {
+					"file": {
+						"description": "IGC track file (binary)"
+					}
+				},
+				"required": ["file"]
+			},
+			"XcUploadTrackResponseSchema": {
+				"type": "object",
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"filename": {
+						"type": "string"
+					},
+					"objectKey": {
+						"type": "string"
+					}
+				},
+				"required": ["success", "filename", "objectKey"]
+			},
 			"LoginSchema": {
 				"type": "object",
 				"properties": {
@@ -904,6 +937,57 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/tasks/{id}/upload": {
+			"post": {
+				"operationId": "post-xc-tasks-{id}-upload",
+				"summary": "/xc/tasks/[id]/upload",
+				"description": "Upload an IGC track file for a specific XC task to Cloudflare R2",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/XcUploadTrackBodySchema"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcUploadTrackResponseSchema"
 								}
 							}
 						}

@@ -4,6 +4,16 @@ const supportedTrackExtensions = ["gpx", "igc"] as const;
 
 export const XcEnrollSchema = z.object({});
 
+export const XcUploadTrackBodySchema = z.object({
+	file: z.any().describe("IGC track file (binary)"),
+});
+
+export const XcUploadTrackResponseSchema = z.object({
+	success: z.boolean(),
+	filename: z.string(),
+	objectKey: z.string(),
+});
+
 export const XcCreateUploadUrlSchema = z.object({
 	taskId: z.string().min(1),
 	fileName: z.string().min(1),
