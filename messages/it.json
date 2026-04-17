@@ -924,7 +924,7 @@
 		"endTime": "Fine"
 	},
 	"XcFlightChart": {
-		"title": "Profilo di Volo",
+		"title": "La tua traccia di volo",
 		"description": "Passa il mouse sul grafico per vedere la posizione sulla mappa.",
 		"altitude": "Quota",
 		"vario": "Vario",

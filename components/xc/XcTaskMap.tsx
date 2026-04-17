@@ -65,6 +65,22 @@ function FocusSelectedWaypoint({
 	return null;
 }
 
+function FocusHoveredTrackPosition({
+	position,
+}: {
+	position?: [number, number] | null;
+}) {
+	const map = useMap();
+
+	useEffect(() => {
+		if (!position) return;
+		const targetZoom = Math.max(map.getZoom(), 13);
+		map.setView(position, targetZoom, { animate: false });
+	}, [map, position]);
+
+	return null;
+}
+
 const WP_COLORS: Record<string, string> = {
 	takeoff: "#f39c12",
 	sss: "#2ecc71",
@@ -271,6 +287,7 @@ export default function XcTaskMap({
 					waypoints={waypoints}
 					selectedWaypointIndex={selectedWaypointIndex}
 				/>
+				<FocusHoveredTrackPosition position={hoveredTrackPosition} />
 
 				{/* Route line */}
 				<Polyline

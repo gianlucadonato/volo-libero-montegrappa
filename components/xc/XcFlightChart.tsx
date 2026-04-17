@@ -1,5 +1,6 @@
 "use client";
 
+import { ChartNoAxesCombined } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCallback, useMemo, useRef } from "react";
 import {
@@ -12,13 +13,7 @@ import {
 	XAxis,
 	YAxis,
 } from "recharts";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
 import type { IGCFix } from "@/lib/igc-parser";
 
@@ -178,8 +173,11 @@ export default function XcFlightChart({
 	return (
 		<Card>
 			<CardHeader className="pb-2">
-				<CardTitle className="text-lg">{t("title")}</CardTitle>
-				<CardDescription>{t("description")}</CardDescription>
+				<CardTitle className="flex items-center gap-2 text-lg">
+					<ChartNoAxesCombined className="size-5" />
+					{t("title")}
+				</CardTitle>
+				{/* <CardDescription>{t("description")}</CardDescription> */}
 			</CardHeader>
 			<CardContent>
 				<ChartContainer config={chartConfig} className="h-52 w-full">
@@ -227,7 +225,7 @@ export default function XcFlightChart({
 							label={{
 								value: "m",
 								position: "insideTopLeft",
-								offset: -5,
+								offset: 0,
 								style: { fontSize: 10, fill: "hsl(var(--muted-foreground))" },
 							}}
 						/>
