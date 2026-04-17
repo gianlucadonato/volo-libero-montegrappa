@@ -12,10 +12,11 @@ import {
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type React from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import XcFlightChart from "@/components/xc/XcFlightChart";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
@@ -88,6 +89,18 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 				.map((f) => [f.latitude, f.longitude] as [number, number]) ?? [],
 		[track?.fixes],
 	);
+
+	const [hoveredFixIndex, setHoveredFixIndex] = useState<number | null>(null);
+
+	const hoveredTrackPosition = useMemo(() => {
+		if (hoveredFixIndex == null || !trackCoordinates[hoveredFixIndex])
+			return null;
+		return trackCoordinates[hoveredFixIndex];
+	}, [hoveredFixIndex, trackCoordinates]);
+
+	const handleChartHover = useCallback((index: number | null) => {
+		setHoveredFixIndex(index);
+	}, []);
 
 	const [parsedTask, setParsedTask] = useState<ParsedTask>({
 		waypoints: [],
@@ -178,7 +191,16 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							description={task.description}
 							taskInfo={parsedTask.info}
 							trackCoordinates={trackCoordinates}
+							hoveredTrackPosition={hoveredTrackPosition}
 						/>
+						{track?.fixes && track.fixes.length > 0 && (
+							<div className="mt-6">
+								<XcFlightChart
+									fixes={track.fixes}
+									onHoverIndex={handleChartHover}
+								/>
+							</div>
+						)}
 						<div className="mt-4 mb-8">
 							<XcTaskActionButtons
 								taskId={taskId}

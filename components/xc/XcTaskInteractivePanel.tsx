@@ -27,6 +27,7 @@ interface XcTaskInteractivePanelProps {
 	description?: string | null;
 	taskInfo?: string;
 	trackCoordinates?: [number, number][];
+	hoveredTrackPosition?: [number, number] | null;
 }
 
 export default function XcTaskInteractivePanel({
@@ -41,6 +42,7 @@ export default function XcTaskInteractivePanel({
 	description,
 	taskInfo,
 	trackCoordinates,
+	hoveredTrackPosition,
 }: XcTaskInteractivePanelProps) {
 	const [selectedWaypointIndex, setSelectedWaypointIndex] = useState<
 		number | null
@@ -54,6 +56,7 @@ export default function XcTaskInteractivePanel({
 					className="h-120"
 					selectedWaypointIndex={selectedWaypointIndex}
 					trackCoordinates={trackCoordinates}
+					hoveredTrackPosition={hoveredTrackPosition}
 				/>
 			</div>
 

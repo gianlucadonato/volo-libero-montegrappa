@@ -15,11 +15,13 @@ export default function XcTaskMapLoader({
 	className,
 	selectedWaypointIndex,
 	trackCoordinates,
+	hoveredTrackPosition,
 }: {
 	waypoints: TaskWaypoint[];
 	className?: string;
 	selectedWaypointIndex?: number | null;
 	trackCoordinates?: [number, number][];
+	hoveredTrackPosition?: [number, number] | null;
 }) {
 	return (
 		<XcTaskMap
@@ -27,6 +29,7 @@ export default function XcTaskMapLoader({
 			className={className}
 			selectedWaypointIndex={selectedWaypointIndex}
 			trackCoordinates={trackCoordinates}
+			hoveredTrackPosition={hoveredTrackPosition}
 		/>
 	);
 }

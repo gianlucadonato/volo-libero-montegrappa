@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import React, { useEffect, useRef } from "react";
 import {
 	Circle,
+	CircleMarker,
 	MapContainer,
 	Marker,
 	Polyline,
@@ -89,6 +90,7 @@ interface XcTaskMapProps {
 	className?: string;
 	selectedWaypointIndex?: number | null;
 	trackCoordinates?: [number, number][];
+	hoveredTrackPosition?: [number, number] | null;
 }
 
 export default function XcTaskMap({
@@ -96,6 +98,7 @@ export default function XcTaskMap({
 	className,
 	selectedWaypointIndex,
 	trackCoordinates,
+	hoveredTrackPosition,
 }: XcTaskMapProps) {
 	if (waypoints.length === 0) {
 		return (
@@ -288,6 +291,20 @@ export default function XcTaskMap({
 							color: "#ff4444",
 							weight: 2.5,
 							opacity: 0.85,
+						}}
+					/>
+				)}
+
+				{/* Hovered position marker */}
+				{hoveredTrackPosition && (
+					<CircleMarker
+						center={hoveredTrackPosition}
+						radius={6}
+						pathOptions={{
+							color: "#ffffff",
+							fillColor: "#ff4444",
+							fillOpacity: 1,
+							weight: 2,
 						}}
 					/>
 				)}

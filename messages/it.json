@@ -922,5 +922,12 @@
 		"site": "Sito",
 		"startTime": "Inizio",
 		"endTime": "Fine"
+	},
+	"XcFlightChart": {
+		"title": "Profilo di Volo",
+		"description": "Passa il mouse sul grafico per vedere la posizione sulla mappa.",
+		"altitude": "Quota",
+		"vario": "Vario",
+		"speed": "Velocità"
 	}
 }

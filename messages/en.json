@@ -881,5 +881,12 @@
 		"site": "Site",
 		"startTime": "Start",
 		"endTime": "End"
+	},
+	"XcFlightChart": {
+		"title": "Flight Profile",
+		"description": "Hover over the chart to see the position on the map.",
+		"altitude": "Altitude",
+		"vario": "Vario",
+		"speed": "Speed"
 	}
 }
