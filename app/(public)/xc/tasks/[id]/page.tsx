@@ -13,8 +13,6 @@ import type React from "react";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import XcDownloadTaskButton from "@/components/xc/XcDownloadTaskButton";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import { constructMetadata, siteConfig } from "@/config/site";
@@ -123,15 +121,7 @@ export default async function TaskPage({
 							</div>
 						}
 						text={task.description ?? ""}
-					>
-						{task.taskFileUrl && (
-							<XcDownloadTaskButton
-								taskId={id}
-								taskFileUrl={task.taskFileUrl}
-								label={t("download_task")}
-							/>
-						)}
-					</DashboardHeader>
+					/>
 				</div>
 
 				{waypoints.length > 0 ? (
@@ -148,15 +138,9 @@ export default async function TaskPage({
 							description={task.description}
 							taskInfo={parsedTask.info}
 						/>
-						<Card className="mt-4 mb-8 bg-amber-50 border-amber-200">
-							<CardContent>
-								<XcTaskActionButtons
-									taskId={id}
-									uploadLabel={t("upload_route")}
-									uploadingLabel={t("uploading")}
-								/>
-							</CardContent>
-						</Card>
+						<div className="mt-4 mb-8">
+							<XcTaskActionButtons taskId={id} taskFileUrl={task.taskFileUrl} />
+						</div>
 					</>
 				) : (
 					<div className="rounded-md border bg-muted/40 p-4 text-sm text-muted-foreground">

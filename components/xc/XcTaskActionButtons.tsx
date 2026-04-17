@@ -1,6 +1,6 @@
 "use client";
 
-import { Upload } from "lucide-react";
+import { Download, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useContext, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -13,15 +13,14 @@ import { authClient } from "@/lib/auth-client";
 
 interface XcTaskActionButtonsProps {
 	taskId: string;
-	uploadLabel: string;
-	uploadingLabel: string;
+	taskFileUrl: string | null;
 }
 
 export default function XcTaskActionButtons({
 	taskId,
-	uploadLabel,
-	uploadingLabel,
+	taskFileUrl,
 }: XcTaskActionButtonsProps) {
+	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const t = useTranslations("XcTaskCard");
@@ -29,12 +28,35 @@ export default function XcTaskActionButtons({
 	const isLoggedIn = Boolean(session?.user);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
 	const isEnrolled = Boolean(enrollment);
-	const { data: submission, refetch: refetchSubmission } = useGetXcSubmission(
-		taskId,
-		isLoggedIn && isEnrolled,
-	);
+	const {
+		isLoading: isSubmissionLoading,
+		data: submission,
+		refetch: refetchSubmission,
+	} = useGetXcSubmission(taskId, isLoggedIn && isEnrolled);
 	const { setShowSignInModal, setShowEnrollXcEditionModal } =
 		useContext(ModalContext);
+
+	const handleDownload = async () => {
+		if (!taskId || !taskFileUrl) return;
+		try {
+			setIsDownloading(true);
+			const response = await fetch(`/api/xc/tasks/${taskId}/download`);
+			if (!response.ok) throw new Error("Download failed");
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = taskFileUrl.split("/").pop() || "task.tsk";
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			window.URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error("Download error:", error);
+		} finally {
+			setIsDownloading(false);
+		}
+	};
 
 	const handleUploadClick = () => {
 		if (!session) {
@@ -69,24 +91,40 @@ export default function XcTaskActionButtons({
 
 	return (
 		<div className="flex flex-col">
-			{submission && (
+			{!isSubmissionLoading && submission ? (
 				<XcSubmissionStatus
 					submission={submission}
 					onReupload={
 						submission.status === "REJECTED" ? handleUploadClick : undefined
 					}
 				/>
-			)}
-			<div className="flex flex-col sm:flex-row sm:justify-center sm:items-center gap-2">
-				{taskId && !submission && (
-					<>
+			) : (
+				<div className="mt-4 mb-8 flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">
+					<div className="space-y-1">
+						<h3 className="font-heading text-xl font-bold text-slate-900">
+							{t("cta.title")}
+						</h3>
+						<p className="text-sm text-slate-600">{t("cta.description")}</p>
+					</div>
+					<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
+						{taskFileUrl && (
+							<Button
+								variant="outline"
+								onClick={handleDownload}
+								disabled={isDownloading}
+								className="gap-2 bg-white"
+							>
+								<Download className="size-4" />
+								{isDownloading ? "Downloading..." : t("downloadTask")}
+							</Button>
+						)}
 						<Button
 							onClick={handleUploadClick}
 							disabled={isUploading || isPending}
-							className="gap-2 flex-1 sm:flex-none rounded-lg bg-linear-to-r from-amber-500 to-amber-600 font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:from-amber-600 hover:to-amber-700 disabled:cursor-not-allowed disabled:from-gray-400 disabled:to-gray-500 disabled:hover:scale-100"
+							className="gap-2 rounded-lg bg-slate-700 font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] hover:bg-slate-800"
 						>
 							<Upload className="size-4" />
-							{isUploading ? uploadingLabel : uploadLabel}
+							{isUploading ? t("uploading") : t("uploadTrack")}
 						</Button>
 						<input
 							ref={fileInputRef}
@@ -95,9 +133,9 @@ export default function XcTaskActionButtons({
 							onChange={handleFileSelect}
 							className="hidden"
 						/>
-					</>
-				)}
-			</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }

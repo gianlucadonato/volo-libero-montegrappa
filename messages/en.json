@@ -821,8 +821,13 @@
 		"distance": "Distance",
 		"points": "Points",
 		"downloadTask": "Download Task (.tsk)",
-		"uploadTrack": "Upload Track",
+		"uploadTrack": "Upload your Track",
+		"uploading": "Uploading...",
 		"uploadComingSoon": "Upload feature coming soon!",
+		"cta": {
+			"title": "Ready for Takeoff?",
+			"description": "Download the task to your flight instrument or upload your track (.igc) to complete this route and earn XC points!"
+		},
 		"toast": {
 			"uploadSuccess": "File uploaded successfully!",
 			"uploadError": "Error uploading file."
@@ -845,11 +850,11 @@
 		"pending": {
 			"title": "Track submitted",
 			"description": "Your track is waiting to be validated.",
-			"badge": "Pending"
+			"badge": "Pending review"
 		},
 		"approved": {
-			"title": "Track approved",
-			"badge": "Approved",
+			"title": "Track completed!",
+			"badge": "Completed",
 			"pointsAwarded": "{points} points earned"
 		},
 		"rejected": {

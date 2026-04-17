@@ -862,8 +862,13 @@
 		"distance": "Distanza",
 		"points": "Punti",
 		"downloadTask": "Scarica Task (.tsk)",
-		"uploadTrack": "Carica Traccia",
+		"uploadTrack": "Carica la tua traccia",
+		"uploading": "Caricamento in corso...",
 		"uploadComingSoon": "Funzione di upload in arrivo!",
+		"cta": {
+			"title": "Pronti al decollo?",
+			"description": "Scarica la task nel tuo strumento di volo o carica la tua traccia (.igc) per completare questo percorso e conquistare punti XC!"
+		},
 		"toast": {
 			"uploadSuccess": "File caricato con successo!",
 			"uploadError": "Errore durante il caricamento del file."
@@ -889,8 +894,8 @@
 			"badge": "In attesa"
 		},
 		"approved": {
-			"title": "Traccia approvata",
-			"badge": "Approvata",
+			"title": "Traccia completata!",
+			"badge": "Completata",
 			"pointsAwarded": "{points} punti guadagnati"
 		},
 		"rejected": {
