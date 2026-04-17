@@ -1,9 +1,12 @@
+import { createHash } from "node:crypto";
 import Boom from "@hapi/boom";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { auth } from "@/auth";
+import { NEXT_YEAR } from "@/config/constants";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
+import { prisma } from "@/lib/prisma";
 import { buildObjectKey, uploadObject } from "@/lib/r2";
 
 /**
@@ -49,6 +52,7 @@ export async function POST(
 
 		const buffer = await file.arrayBuffer();
 		const uint8Array = new Uint8Array(buffer);
+		const checksum = createHash("sha256").update(uint8Array).digest("hex");
 
 		const objectKey = buildObjectKey({
 			year: new Date().getFullYear(),
@@ -63,11 +67,23 @@ export async function POST(
 			contentType: "application/octet-stream",
 		});
 
+		// Create a new track submission record in the database
+		const submission = await prisma.xcTrackSubmission.create({
+			data: {
+				userId: session.user.id,
+				editionId: NEXT_YEAR,
+				taskId: task.id,
+				fileName: objectKey,
+				checksum,
+			},
+		});
+
 		return NextResponse.json(
 			{
 				success: true,
 				filename: file.name,
 				objectKey,
+				submissionId: submission.id,
 			},
 			{ status: 200 },
 		);
