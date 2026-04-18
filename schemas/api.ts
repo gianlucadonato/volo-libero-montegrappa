@@ -21,9 +21,8 @@ export const XcTaskSchema = z.object({
 export const XcProgressSchema = z.object({
 	id: z.string(),
 	edition: z.object({
-		id: z.string(),
+		id: z.number(),
 		title: z.string(),
-		year: z.number(),
 	}),
 	category: z.string(),
 	points: z.number(),
@@ -39,9 +38,8 @@ export const XcProgressSchema = z.object({
 export const XcEnrollmentSchema = z.object({
 	id: z.string(),
 	edition: z.object({
-		id: z.string(),
+		id: z.number(),
 		title: z.string(),
-		year: z.number(),
 	}),
 	userId: z.string(),
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),

@@ -178,9 +178,8 @@ export interface components {
 		XcProgressSchema: {
 			id: string;
 			edition: {
-				id: string;
+				id: number;
 				title: string;
-				year: number;
 			};
 			category: string;
 			points: number;
@@ -229,9 +228,8 @@ export interface components {
 		XcEnrollmentSchema: {
 			id: string;
 			edition: {
-				id: string;
+				id: number;
 				title: string;
-				year: number;
 			};
 			userId: string;
 			/** Format: date-time */

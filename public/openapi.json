@@ -43,16 +43,13 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "number"
 							},
 							"title": {
 								"type": "string"
-							},
-							"year": {
-								"type": "number"
 							}
 						},
-						"required": ["id", "title", "year"]
+						"required": ["id", "title"]
 					},
 					"category": {
 						"type": "string"
@@ -213,16 +210,13 @@
 						"type": "object",
 						"properties": {
 							"id": {
-								"type": "string"
+								"type": "number"
 							},
 							"title": {
 								"type": "string"
-							},
-							"year": {
-								"type": "number"
 							}
 						},
-						"required": ["id", "title", "year"]
+						"required": ["id", "title"]
 					},
 					"userId": {
 						"type": "string"
