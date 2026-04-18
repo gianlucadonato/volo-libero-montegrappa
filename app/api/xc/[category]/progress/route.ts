@@ -43,7 +43,10 @@ export const GET = async (
 			session.user.id,
 			parsedParams.category,
 		);
-		const parsedProgress = progress ? XcProgressSchema.parse(progress) : null;
+		if (!progress) {
+			return new Response(null, { status: 204 });
+		}
+		const parsedProgress = XcProgressSchema.parse(progress);
 		return Response.json(parsedProgress);
 	} catch (error) {
 		return APIErrorResponse(error, {
