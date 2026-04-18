@@ -1,13 +1,8 @@
 "use client";
 
-import { Download, Upload } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useContext } from "react";
-import { ModalContext } from "@/components/modals/providers";
-import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -16,45 +11,18 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
-import { useGetXcSubmission } from "@/hooks/use-query-api";
-import { authClient } from "@/lib/auth-client";
-import type { XcTaskApi } from "@/types/api-schema";
+import type { XcSubmissionApi, XcTaskApi } from "@/types/api-schema";
 
 export default function XcTaskCard({
 	task,
-	isEnrolled = false,
+	submission,
 }: {
 	task: XcTaskApi;
-	isEnrolled?: boolean;
+	submission?: XcSubmissionApi;
 }) {
 	const router = useRouter();
 	const t = useTranslations("XcTaskCard");
-	const { data: session } = authClient.useSession();
-	const {
-		setShowSignInModal,
-		setShowEnrollXcEditionModal: setShowEnrollModal,
-	} = useContext(ModalContext);
-	const { data: submission } = useGetXcSubmission(task.id, !!session?.user);
-
-	const handleUploadClick = (e?: React.MouseEvent) => {
-		e?.preventDefault();
-		e?.stopPropagation();
-
-		if (!session) {
-			setShowSignInModal(true);
-			return;
-		}
-
-		if (!isEnrolled) {
-			setShowEnrollModal(true);
-		} else {
-			// TODO: Implement upload modal
-			alert(t("uploadComingSoon"));
-		}
-	};
-
-	const canUpload = !submission || submission.status === "REJECTED";
-
+	const handleUploadClick = () => null;
 	return (
 		<div className="mb-6">
 			<Card
@@ -98,38 +66,10 @@ export default function XcTaskCard({
 								>
 									<XcSubmissionStatus
 										submission={submission}
-										onReupload={
-											submission.status === "REJECTED"
-												? handleUploadClick
-												: undefined
-										}
+										onReupload={handleUploadClick}
 									/>
 								</div>
 							)}
-
-							<div className="mt-2 flex flex-col gap-2 sm:flex-row">
-								<Link
-									href={task.taskFileUrl || "#"}
-									target="_blank"
-									download
-									className="w-full sm:w-auto"
-									onClick={(e) => {
-										e.stopPropagation();
-										console.log("Download clicked", task.taskFileUrl);
-									}}
-								>
-									<Button variant="outline" className="w-full">
-										<span>{t("downloadTask")}</span>
-										<Download className="ml-2 size-4" />
-									</Button>
-								</Link>
-								{canUpload && (
-									<Button onClick={handleUploadClick}>
-										<span>{t("uploadTrack")}</span>
-										<Upload className="ml-2 size-4" />
-									</Button>
-								)}
-							</div>
 						</CardContent>
 					</div>
 				</div>

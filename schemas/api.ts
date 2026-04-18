@@ -66,3 +66,42 @@ export const XcSubmissionSchema = z.object({
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });
+
+const IGCFixSchema = z.object({
+	timestamp: z.number(),
+	time: z.string(),
+	latitude: z.number(),
+	longitude: z.number(),
+	valid: z.boolean(),
+	pressureAltitude: z.number().nullable(),
+	gpsAltitude: z.number().nullable(),
+});
+
+const IGCHeaderSchema = z.object({
+	date: z.string().nullable(),
+	pilot: z.string().nullable(),
+	gliderType: z.string().nullable(),
+	registration: z.string().nullable(),
+	site: z.string().nullable(),
+});
+
+const IGCFlightStatsSchema = z.object({
+	durationSeconds: z.number(),
+	duration: z.string(),
+	maxAltitude: z.number(),
+	minAltitude: z.number(),
+	totalDistanceKm: z.number(),
+	startTime: z.string().nullable(),
+	endTime: z.string().nullable(),
+	fixCount: z.number(),
+});
+
+export const XcTrackResponseSchema = z
+	.object({
+		submissionId: z.string(),
+		status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
+		header: IGCHeaderSchema,
+		stats: IGCFlightStatsSchema,
+		fixes: z.array(IGCFixSchema),
+	})
+	.nullable();

@@ -14,11 +14,13 @@ import { authClient } from "@/lib/auth-client";
 interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl?: string | null;
+	onUploadSuccess?: () => void;
 }
 
 export default function XcTaskActionButtons({
 	taskId,
 	taskFileUrl,
+	onUploadSuccess,
 }: XcTaskActionButtonsProps) {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
@@ -81,6 +83,7 @@ export default function XcTaskActionButtons({
 		} else {
 			toast.success(t("toast.uploadSuccess"));
 			refetchSubmission();
+			onUploadSuccess?.();
 			// Reset file input
 			if (fileInputRef.current) {
 				fileInputRef.current.value = "";

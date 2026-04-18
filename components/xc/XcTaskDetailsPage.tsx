@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import {
 	ArrowLeft,
 	Flag,
@@ -77,9 +78,10 @@ interface XcTaskDetailsPageProps {
 
 export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const t = useTranslations("TaskPage");
-	const { data: task, isLoading } = useGetXcTask(taskId);
+	const queryClient = useQueryClient();
 	const { data: session } = authClient.useSession();
 	const isLoggedIn = Boolean(session?.user);
+	const { data: task, isLoading } = useGetXcTask(taskId);
 	const { data: track } = useGetXcTrack(taskId, isLoggedIn);
 
 	const trackCoordinates = useMemo(
@@ -101,6 +103,13 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const handleChartHover = useCallback((index: number | null) => {
 		setHoveredFixIndex(index);
 	}, []);
+
+	const handleUploadSuccess = useCallback(() => {
+		queryClient.invalidateQueries({ queryKey: ["xc", "track", taskId] });
+		queryClient.invalidateQueries({
+			queryKey: ["get", "/xc/{category}/submissions"],
+		});
+	}, [queryClient, taskId]);
 
 	const [parsedTask, setParsedTask] = useState<ParsedTask>({
 		waypoints: [],
@@ -205,6 +214,7 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							<XcTaskActionButtons
 								taskId={taskId}
 								taskFileUrl={task.taskFileUrl}
+								onUploadSuccess={handleUploadSuccess}
 							/>
 						</div>
 						{track && (

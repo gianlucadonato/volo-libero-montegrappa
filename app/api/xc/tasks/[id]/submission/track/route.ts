@@ -10,6 +10,7 @@ import { downloadObject } from "@/lib/r2";
  * /xc/tasks/[id]/submission/track
  * @description Get parsed IGC track data for the user's submission
  * @pathParams IdParamsSchema
+ * @response XcTrackResponseSchema
  * @auth
  * @openapi
  */
@@ -29,7 +30,7 @@ export async function GET(
 	try {
 		const submission = await getXcSubmissionByTask(session.user.id, taskId);
 		if (!submission) {
-			return APIErrorResponse(Boom.notFound("No submission found"));
+			return Response.json(null);
 		}
 
 		const igcContent = await downloadObject(submission.fileName);

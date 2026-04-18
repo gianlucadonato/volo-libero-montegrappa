@@ -73,6 +73,24 @@ export const useGetXcSubmission = (taskId: string, enabled = false) => {
 	);
 };
 
+export const useGetXcSubmissionsByCategory = (
+	category: string,
+	enabled = false,
+) => {
+	return $api.useQuery(
+		"get",
+		"/xc/{category}/submissions",
+		{
+			params: {
+				path: { category },
+			},
+		},
+		{
+			enabled: !!category && enabled,
+		},
+	);
+};
+
 interface TrackData extends ParsedIGC {
 	submissionId: string;
 	status: string;

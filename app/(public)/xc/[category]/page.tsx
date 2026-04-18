@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,8 +15,10 @@ import {
 	useGetProgressByCategory,
 	useGetTasksByCategory,
 	useGetXcEnrollment,
+	useGetXcSubmissionsByCategory,
 } from "@/hooks/use-query-api";
 import { authClient } from "@/lib/auth-client";
+import type { XcSubmissionApi } from "@/types/api-schema";
 
 const categoryConfig: Record<
 	string,
@@ -56,6 +59,18 @@ export default function CategoryPage() {
 		useGetProgressByCategory(category?.level, isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
 		useGetXcEnrollment(isLoggedIn);
+	const { data: submissions } = useGetXcSubmissionsByCategory(
+		category?.level,
+		isLoggedIn,
+	);
+
+	const submissionsByTaskId = useMemo(() => {
+		const map = new Map<string, XcSubmissionApi>();
+		for (const sub of submissions ?? []) {
+			map.set(sub.taskId, sub);
+		}
+		return map;
+	}, [submissions]);
 
 	if (!category) {
 		return (
@@ -216,7 +231,11 @@ export default function CategoryPage() {
 					) : (
 						<div className="space-y-4">
 							{tasks?.map((task) => (
-								<XcTaskCard key={task.id} task={task} />
+								<XcTaskCard
+									key={task.id}
+									task={task}
+									submission={submissionsByTaskId.get(task.id)}
+								/>
 							))}
 						</div>
 					)}

@@ -48,6 +48,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/xc/{category}/submissions": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/[category]/submissions
+		 * @description Fetch all submissions for the current user in a specific category
+		 */
+		get: operations["get-xc-{category}-submissions"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/{category}/tasks": {
 		parameters: {
 			query?: never;
@@ -172,6 +192,25 @@ export interface components {
 			/** Format: date-time */
 			updatedAt: string;
 		};
+		XcSubmissionSchema: {
+			id: string;
+			userId: string;
+			editionId: number;
+			taskId: string;
+			/** @enum {string} */
+			status: "PENDING" | "APPROVED" | "REJECTED";
+			fileName: string;
+			checksum?: string | null;
+			notes?: string | null;
+			pointsAwarded: number;
+			/** Format: date-time */
+			reviewedAt?: string | null;
+			reviewedBy?: string | null;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
+		};
 		XcTaskSchema: {
 			id: string;
 			slug: string;
@@ -203,31 +242,46 @@ export interface components {
 		IdParamsSchema: {
 			id: string;
 		};
-		XcSubmissionSchema: {
-			id: string;
-			userId: string;
-			editionId: number;
-			taskId: string;
+		XcTrackResponseSchema: {
+			submissionId: string;
 			/** @enum {string} */
 			status: "PENDING" | "APPROVED" | "REJECTED";
-			fileName: string;
-			checksum?: string | null;
-			notes?: string | null;
-			pointsAwarded: number;
-			/** Format: date-time */
-			reviewedAt?: string | null;
-			reviewedBy?: string | null;
-			/** Format: date-time */
-			createdAt: string;
-			/** Format: date-time */
-			updatedAt: string;
-		};
+			header: components["schemas"]["IGCHeaderSchema"];
+			stats: components["schemas"]["IGCFlightStatsSchema"];
+			fixes: components["schemas"]["IGCFixSchema"][];
+		} | null;
 		/** @description IGC track file (binary) */
 		XcUploadTrackBodySchema: unknown;
 		XcUploadTrackResponseSchema: {
 			success: boolean;
 			filename: string;
 			objectKey: string;
+		};
+		IGCFixSchema: {
+			timestamp: number;
+			time: string;
+			latitude: number;
+			longitude: number;
+			valid: boolean;
+			pressureAltitude: number | null;
+			gpsAltitude: number | null;
+		};
+		IGCHeaderSchema: {
+			date: string | null;
+			pilot: string | null;
+			gliderType: string | null;
+			registration: string | null;
+			site: string | null;
+		};
+		IGCFlightStatsSchema: {
+			durationSeconds: number;
+			duration: string;
+			maxAltitude: number;
+			minAltitude: number;
+			totalDistanceKm: number;
+			startTime: string | null;
+			endTime: string | null;
+			fixCount: number;
 		};
 		LoginSchema: {
 			/** Format: email */
@@ -511,6 +565,31 @@ export interface operations {
 			500: components["responses"]["500"];
 		};
 	};
+	"get-xc-{category}-submissions": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example example */
+				category: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcSubmissionSchema"][];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-xc-{category}-tasks": {
 		parameters: {
 			query?: never;
@@ -633,7 +712,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					"application/json": Record<string, never>;
+					"application/json": components["schemas"]["XcTrackResponseSchema"];
 				};
 			};
 			400: components["responses"]["400"];

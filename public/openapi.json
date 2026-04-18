@@ -87,6 +87,69 @@
 					"updatedAt"
 				]
 			},
+			"XcSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"editionId": {
+						"type": "number"
+					},
+					"taskId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": ["PENDING", "APPROVED", "REJECTED"]
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"checksum": {
+						"type": "string",
+						"nullable": true
+					},
+					"notes": {
+						"type": "string",
+						"nullable": true
+					},
+					"pointsAwarded": {
+						"type": "number"
+					},
+					"reviewedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"reviewedBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"userId",
+					"editionId",
+					"taskId",
+					"status",
+					"fileName",
+					"pointsAwarded",
+					"createdAt",
+					"updatedAt"
+				]
+			},
 			"XcTaskSchema": {
 				"type": "object",
 				"properties": {
@@ -184,68 +247,31 @@
 				},
 				"required": ["id"]
 			},
-			"XcSubmissionSchema": {
+			"XcTrackResponseSchema": {
 				"type": "object",
 				"properties": {
-					"id": {
-						"type": "string"
-					},
-					"userId": {
-						"type": "string"
-					},
-					"editionId": {
-						"type": "number"
-					},
-					"taskId": {
+					"submissionId": {
 						"type": "string"
 					},
 					"status": {
 						"type": "string",
 						"enum": ["PENDING", "APPROVED", "REJECTED"]
 					},
-					"fileName": {
-						"type": "string"
+					"header": {
+						"$ref": "#/components/schemas/IGCHeaderSchema"
 					},
-					"checksum": {
-						"type": "string",
-						"nullable": true
+					"stats": {
+						"$ref": "#/components/schemas/IGCFlightStatsSchema"
 					},
-					"notes": {
-						"type": "string",
-						"nullable": true
-					},
-					"pointsAwarded": {
-						"type": "number"
-					},
-					"reviewedAt": {
-						"type": "string",
-						"format": "date-time",
-						"nullable": true
-					},
-					"reviewedBy": {
-						"type": "string",
-						"nullable": true
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
+					"fixes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IGCFixSchema"
+						}
 					}
 				},
-				"required": [
-					"id",
-					"userId",
-					"editionId",
-					"taskId",
-					"status",
-					"fileName",
-					"pointsAwarded",
-					"createdAt",
-					"updatedAt"
-				]
+				"required": ["submissionId", "status", "header", "stats", "fixes"],
+				"nullable": true
 			},
 			"XcUploadTrackBodySchema": {
 				"description": "IGC track file (binary)"
@@ -264,6 +290,110 @@
 					}
 				},
 				"required": ["success", "filename", "objectKey"]
+			},
+			"IGCFixSchema": {
+				"type": "object",
+				"properties": {
+					"timestamp": {
+						"type": "number"
+					},
+					"time": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number"
+					},
+					"longitude": {
+						"type": "number"
+					},
+					"valid": {
+						"type": "boolean"
+					},
+					"pressureAltitude": {
+						"type": "number",
+						"nullable": true
+					},
+					"gpsAltitude": {
+						"type": "number",
+						"nullable": true
+					}
+				},
+				"required": [
+					"timestamp",
+					"time",
+					"latitude",
+					"longitude",
+					"valid",
+					"pressureAltitude",
+					"gpsAltitude"
+				]
+			},
+			"IGCHeaderSchema": {
+				"type": "object",
+				"properties": {
+					"date": {
+						"type": "string",
+						"nullable": true
+					},
+					"pilot": {
+						"type": "string",
+						"nullable": true
+					},
+					"gliderType": {
+						"type": "string",
+						"nullable": true
+					},
+					"registration": {
+						"type": "string",
+						"nullable": true
+					},
+					"site": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": ["date", "pilot", "gliderType", "registration", "site"]
+			},
+			"IGCFlightStatsSchema": {
+				"type": "object",
+				"properties": {
+					"durationSeconds": {
+						"type": "number"
+					},
+					"duration": {
+						"type": "string"
+					},
+					"maxAltitude": {
+						"type": "number"
+					},
+					"minAltitude": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"startTime": {
+						"type": "string",
+						"nullable": true
+					},
+					"endTime": {
+						"type": "string",
+						"nullable": true
+					},
+					"fixCount": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"durationSeconds",
+					"duration",
+					"maxAltitude",
+					"minAltitude",
+					"totalDistanceKm",
+					"startTime",
+					"endTime",
+					"fixCount"
+				]
 			},
 			"LoginSchema": {
 				"type": "object",
@@ -930,6 +1060,51 @@
 				}
 			}
 		},
+		"/xc/{category}/submissions": {
+			"get": {
+				"operationId": "get-xc-{category}-submissions",
+				"summary": "/xc/[category]/submissions",
+				"description": "Fetch all submissions for the current user in a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcSubmissionSchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/xc/{category}/tasks": {
 			"get": {
 				"operationId": "get-xc-{category}-tasks",
@@ -1128,7 +1303,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"type": "object"
+									"$ref": "#/components/schemas/XcTrackResponseSchema"
 								}
 							}
 						}
