@@ -8,13 +8,14 @@ import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
 import { useGetXcEnrollment, useGetXcSubmission } from "@/hooks/use-query-api";
-import { uploadXcTaskTrackApi } from "@/lib/api-client";
+import type { ValidationResult } from "@/lib/api-client";
+import { uploadXcTaskTrackApi, validateSubmissionApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
 interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl?: string | null;
-	onUploadSuccess?: () => void;
+	onUploadSuccess?: (validation: ValidationResult) => void;
 }
 
 export default function XcTaskActionButtons({
@@ -76,20 +77,42 @@ export default function XcTaskActionButtons({
 		const file = e.target.files?.[0];
 		if (!file || !taskId) return;
 		setIsUploading(true);
-		const response = await uploadXcTaskTrackApi(taskId, file);
-		if (response.error) {
-			console.error("Upload error:", response.error);
-			toast.error(t("toast.uploadError"));
-		} else {
-			toast.success(t("toast.uploadSuccess"));
-			refetchSubmission();
-			onUploadSuccess?.();
+		try {
+			const response = await uploadXcTaskTrackApi(taskId, file);
+			if (response.error) {
+				console.error("Upload error:", response.error);
+				toast.error(t("toast.uploadError"));
+				return;
+			}
+
+			// Validate the submission against the task waypoints
+			const submissionId = response.data?.submissionId;
+			if (submissionId) {
+				try {
+					const validation = await validateSubmissionApi(submissionId);
+					if (validation.valid) {
+						toast.success(t("toast.validationSuccess"));
+					} else {
+						toast.error(t("toast.validationFailed"));
+					}
+					refetchSubmission();
+					onUploadSuccess?.(validation);
+				} catch {
+					toast.success(t("toast.uploadSuccess"));
+					refetchSubmission();
+				}
+			} else {
+				toast.success(t("toast.uploadSuccess"));
+				refetchSubmission();
+			}
+
 			// Reset file input
 			if (fileInputRef.current) {
 				fileInputRef.current.value = "";
 			}
+		} finally {
+			setIsUploading(false);
 		}
-		setIsUploading(false);
 	};
 
 	return (

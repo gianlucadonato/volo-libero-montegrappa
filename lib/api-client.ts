@@ -24,3 +24,35 @@ export const uploadXcTaskTrackApi = async (taskId: string, file: File) => {
 		bodySerializer: (body) => body,
 	});
 };
+
+export interface ValidationWaypoint {
+	index: number;
+	name: string;
+	type: string;
+	reached: boolean;
+	closestDistanceM: number;
+	radiusM: number;
+	closestFixIndex: number | null;
+}
+
+export interface ValidationResult {
+	submissionId: string;
+	status: string;
+	valid: boolean;
+	summary: string;
+	pointsAwarded: number;
+	waypoints: ValidationWaypoint[];
+}
+
+export const validateSubmissionApi = async (
+	submissionId: string,
+): Promise<ValidationResult> => {
+	const res = await fetch(`/api/xc/submissions/${submissionId}/validate`, {
+		method: "POST",
+	});
+	if (!res.ok) {
+		const err = await res.json().catch(() => null);
+		throw new Error(err?.message ?? "Validation failed");
+	}
+	return res.json();
+};

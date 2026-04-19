@@ -853,7 +853,9 @@
 		},
 		"toast": {
 			"uploadSuccess": "File uploaded successfully!",
-			"uploadError": "Error uploading file."
+			"uploadError": "Error uploading file.",
+			"validationSuccess": "Track validated successfully! All waypoints reached.",
+			"validationFailed": "Track validation failed. Some waypoints were not reached."
 		},
 		"modal": {
 			"title": "Enrollment required",
@@ -884,7 +886,9 @@
 			"title": "Track not valid",
 			"description": "The uploaded IGC file does not meet the requirements for this task.",
 			"badge": "Rejected",
-			"reupload": "Upload again"
+			"reupload": "Upload again",
+			"missedWaypoints": "Missed {count, plural, one {# waypoint} other {# waypoints}}:",
+			"waypointDistance": "(closest: {distance}m, radius: {radius}m)"
 		}
 	},
 	"XcTrackSubmission": {

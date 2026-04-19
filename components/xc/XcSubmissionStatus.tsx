@@ -1,10 +1,32 @@
 "use client";
 
-import { CheckCircle, Clock, RefreshCw, Trophy, XCircle } from "lucide-react";
+import {
+	CheckCircle,
+	Clock,
+	MapPin,
+	RefreshCw,
+	Trophy,
+	XCircle,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { XcSubmissionApi } from "@/types/api-schema";
+
+interface ValidationWaypoint {
+	index: number;
+	name: string;
+	type: string;
+	reached: boolean;
+	closestDistanceM: number;
+	radiusM: number;
+}
+
+interface ValidationResult {
+	valid: boolean;
+	summary: string;
+	waypoints: ValidationWaypoint[];
+}
 
 interface XcSubmissionStatusProps {
 	submission: XcSubmissionApi;
@@ -66,6 +88,14 @@ export default function XcSubmissionStatus({
 	}
 
 	// REJECTED
+	const validationResult = submission.validationResult as
+		| ValidationResult
+		| null
+		| undefined;
+	const missedWaypoints = validationResult?.waypoints?.filter(
+		(wp) => !wp.reached,
+	);
+
 	return (
 		<div className="flex flex-col gap-2 rounded-lg border border-red-200 bg-red-50 p-3">
 			<div className="flex items-center gap-2">
@@ -76,7 +106,6 @@ export default function XcSubmissionStatus({
 					</p>
 					<p className="text-xs text-red-600">{t("rejected.description")}</p>
 				</div>
-				{/* <Badge variant="destructive">{t("rejected.badge")}</Badge> */}
 				{onReupload && (
 					<div className="flex justify-start">
 						<Button
@@ -91,6 +120,31 @@ export default function XcSubmissionStatus({
 					</div>
 				)}
 			</div>
+			{missedWaypoints && missedWaypoints.length > 0 && (
+				<div className="mt-1 space-y-1 pl-7">
+					<p className="text-xs font-medium text-red-700">
+						{t("rejected.missedWaypoints", { count: missedWaypoints.length })}
+					</p>
+					<ul className="space-y-0.5">
+						{missedWaypoints.map((wp) => (
+							<li
+								key={wp.index}
+								className="flex items-center gap-1.5 text-xs text-red-600"
+							>
+								<MapPin className="size-3 shrink-0" />
+								<span>
+									{wp.name}{" "}
+									{wp.closestDistanceM < Number.POSITIVE_INFINITY &&
+										t("rejected.waypointDistance", {
+											distance: wp.closestDistanceM,
+											radius: wp.radiusM,
+										})}
+								</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 			{submission.notes && (
 				<p className="pl-7 text-xs text-red-600">{submission.notes}</p>
 			)}

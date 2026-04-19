@@ -1,0 +1,96 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import Boom from "@hapi/boom";
+import { headers } from "next/headers";
+import { auth } from "@/auth";
+import APIErrorResponse from "@/helpers/APIErrorResponse";
+import { parseIGC } from "@/lib/igc-parser";
+import { prisma } from "@/lib/prisma";
+import { downloadObject } from "@/lib/r2";
+import { validateTrack } from "@/lib/track-validator";
+import { parseTskXml } from "@/lib/tsk-parser";
+
+/**
+ * /xc/submissions/[id]/validate
+ * @description Validate a submission's IGC track against the task's TSK waypoints
+ * @pathParams IdParamsSchema
+ * @auth
+ */
+export async function POST(
+	_request: Request,
+	context: { params: Promise<{ id: string }> },
+) {
+	const session = await auth.api.getSession({
+		headers: await headers(),
+	});
+	if (!session) {
+		return APIErrorResponse(Boom.unauthorized());
+	}
+
+	const { id } = await context.params;
+
+	try {
+		const submission = await prisma.xcTrackSubmission.findUnique({
+			where: { id },
+			include: { task: true },
+		});
+
+		if (!submission) {
+			return APIErrorResponse(Boom.notFound("Submission not found"));
+		}
+
+		if (submission.userId !== session.user.id) {
+			return APIErrorResponse(Boom.forbidden());
+		}
+
+		const { task } = submission;
+
+		if (!task.taskFileUrl) {
+			return APIErrorResponse(
+				Boom.badRequest("Task has no .tsk file configured"),
+			);
+		}
+
+		// Parse the .tsk file from the public folder
+		const tskPath = join(process.cwd(), "public", task.taskFileUrl);
+		const tskContent = readFileSync(tskPath, "utf-8");
+		const parsedTask = parseTskXml(tskContent);
+
+		if (parsedTask.waypoints.length === 0) {
+			return APIErrorResponse(
+				Boom.badRequest("Task file contains no waypoints"),
+			);
+		}
+
+		// Download and parse the IGC file from R2
+		const igcContent = await downloadObject(submission.fileName);
+		const parsedIgc = parseIGC(igcContent);
+
+		// Validate track against waypoints
+		const result = validateTrack(parsedIgc.fixes, parsedTask.waypoints);
+
+		// Update submission with validation results
+		const updatedSubmission = await prisma.xcTrackSubmission.update({
+			where: { id: submission.id },
+			data: {
+				status: result.valid ? "APPROVED" : "REJECTED",
+				pointsAwarded: result.valid ? task.points : 0,
+				validationResult: JSON.parse(JSON.stringify(result)),
+			},
+		});
+
+		return Response.json({
+			submissionId: updatedSubmission.id,
+			status: updatedSubmission.status,
+			valid: result.valid,
+			summary: result.summary,
+			pointsAwarded: updatedSubmission.pointsAwarded,
+			waypoints: result.waypoints,
+		});
+	} catch (error) {
+		return APIErrorResponse(error, {
+			endpoint: "POST /xc/submissions/[id]/validate",
+			id,
+		});
+	}
+}

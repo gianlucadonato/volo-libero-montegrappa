@@ -56,6 +56,7 @@ export const XcSubmissionSchema = z.object({
 	checksum: z.string().nullish(),
 	notes: z.string().nullish(),
 	pointsAwarded: z.number(),
+	validationResult: z.any().nullish(),
 	reviewedAt: z.coerce
 		.date()
 		.transform((val) => val.toISOString())

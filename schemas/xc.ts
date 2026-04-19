@@ -12,6 +12,7 @@ export const XcUploadTrackResponseSchema = z.object({
 	success: z.boolean(),
 	filename: z.string(),
 	objectKey: z.string(),
+	submissionId: z.string(),
 });
 
 export const XcCreateUploadUrlSchema = z.object({

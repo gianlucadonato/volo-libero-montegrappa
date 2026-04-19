@@ -202,6 +202,7 @@ export interface components {
 			checksum?: string | null;
 			notes?: string | null;
 			pointsAwarded: number;
+			validationResult?: unknown;
 			/** Format: date-time */
 			reviewedAt?: string | null;
 			reviewedBy?: string | null;
@@ -254,6 +255,7 @@ export interface components {
 			success: boolean;
 			filename: string;
 			objectKey: string;
+			submissionId: string;
 		};
 		IGCFixSchema: {
 			timestamp: number;

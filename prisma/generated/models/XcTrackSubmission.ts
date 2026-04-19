@@ -78,6 +78,7 @@ export type XcTrackSubmissionCountAggregateOutputType = {
   checksum: number
   notes: number
   pointsAwarded: number
+  validationResult: number
   reviewedAt: number
   reviewedBy: number
   createdAt: number
@@ -138,6 +139,7 @@ export type XcTrackSubmissionCountAggregateInputType = {
   checksum?: true
   notes?: true
   pointsAwarded?: true
+  validationResult?: true
   reviewedAt?: true
   reviewedBy?: true
   createdAt?: true
@@ -241,6 +243,7 @@ export type XcTrackSubmissionGroupByOutputType = {
   checksum: string | null
   notes: string | null
   pointsAwarded: number
+  validationResult: runtime.JsonValue | null
   reviewedAt: Date | null
   reviewedBy: string | null
   createdAt: Date
@@ -280,6 +283,7 @@ export type XcTrackSubmissionWhereInput = {
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
+  validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -300,6 +304,7 @@ export type XcTrackSubmissionOrderByWithRelationInput = {
   checksum?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  validationResult?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -323,6 +328,7 @@ export type XcTrackSubmissionWhereUniqueInput = Prisma.AtLeast<{
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
+  validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -343,6 +349,7 @@ export type XcTrackSubmissionOrderByWithAggregationInput = {
   checksum?: Prisma.SortOrderInput | Prisma.SortOrder
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  validationResult?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -367,6 +374,7 @@ export type XcTrackSubmissionScalarWhereWithAggregatesInput = {
   checksum?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntWithAggregatesFilter<"XcTrackSubmission"> | number
+  validationResult?: Prisma.JsonNullableWithAggregatesFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcTrackSubmission"> | Date | string
@@ -380,6 +388,7 @@ export type XcTrackSubmissionCreateInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -399,6 +408,7 @@ export type XcTrackSubmissionUncheckedCreateInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -412,6 +422,7 @@ export type XcTrackSubmissionUpdateInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -431,6 +442,7 @@ export type XcTrackSubmissionUncheckedUpdateInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,6 +459,7 @@ export type XcTrackSubmissionCreateManyInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -460,6 +473,7 @@ export type XcTrackSubmissionUpdateManyMutationInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -475,6 +489,7 @@ export type XcTrackSubmissionUncheckedUpdateManyInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -501,6 +516,7 @@ export type XcTrackSubmissionCountOrderByAggregateInput = {
   checksum?: Prisma.SortOrder
   notes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
+  validationResult?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -728,6 +744,7 @@ export type XcTrackSubmissionCreateWithoutUserInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -745,6 +762,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutUserInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -768,6 +786,7 @@ export type XcTrackSubmissionCreateWithoutReviewerInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -786,6 +805,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutReviewerInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -830,6 +850,7 @@ export type XcTrackSubmissionScalarWhereInput = {
   checksum?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
+  validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -859,6 +880,7 @@ export type XcTrackSubmissionCreateWithoutEditionInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -876,6 +898,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutEditionInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -915,6 +938,7 @@ export type XcTrackSubmissionCreateWithoutTaskInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -932,6 +956,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutTaskInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -973,6 +998,7 @@ export type XcTrackSubmissionCreateManyUserInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -989,6 +1015,7 @@ export type XcTrackSubmissionCreateManyReviewerInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1001,6 +1028,7 @@ export type XcTrackSubmissionUpdateWithoutUserInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1018,6 +1046,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutUserInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1033,6 +1062,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutUserInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1046,6 +1076,7 @@ export type XcTrackSubmissionUpdateWithoutReviewerInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1064,6 +1095,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutReviewerInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1079,6 +1111,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutReviewerInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1093,6 +1126,7 @@ export type XcTrackSubmissionCreateManyEditionInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1106,6 +1140,7 @@ export type XcTrackSubmissionUpdateWithoutEditionInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1123,6 +1158,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutEditionInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1138,6 +1174,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutEditionInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1153,6 +1190,7 @@ export type XcTrackSubmissionCreateManyTaskInput = {
   checksum?: string | null
   notes?: string | null
   pointsAwarded?: number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1166,6 +1204,7 @@ export type XcTrackSubmissionUpdateWithoutTaskInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1183,6 +1222,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutTaskInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1198,6 +1238,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutTaskInput = {
   checksum?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
+  validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1216,6 +1257,7 @@ export type XcTrackSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Int
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
+  validationResult?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1236,6 +1278,7 @@ export type XcTrackSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
+  validationResult?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1256,6 +1299,7 @@ export type XcTrackSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
+  validationResult?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1276,13 +1320,14 @@ export type XcTrackSubmissionSelectScalar = {
   checksum?: boolean
   notes?: boolean
   pointsAwarded?: boolean
+  validationResult?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "status" | "fileName" | "checksum" | "notes" | "pointsAwarded" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
+export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "status" | "fileName" | "checksum" | "notes" | "pointsAwarded" | "validationResult" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
 export type XcTrackSubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
@@ -1320,6 +1365,7 @@ export type $XcTrackSubmissionPayload<ExtArgs extends runtime.Types.Extensions.I
     checksum: string | null
     notes: string | null
     pointsAwarded: number
+    validationResult: runtime.JsonValue | null
     reviewedAt: Date | null
     reviewedBy: string | null
     createdAt: Date
@@ -1760,6 +1806,7 @@ export interface XcTrackSubmissionFieldRefs {
   readonly checksum: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly notes: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly pointsAwarded: Prisma.FieldRef<"XcTrackSubmission", 'Int'>
+  readonly validationResult: Prisma.FieldRef<"XcTrackSubmission", 'Json'>
   readonly reviewedAt: Prisma.FieldRef<"XcTrackSubmission", 'DateTime'>
   readonly reviewedBy: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly createdAt: Prisma.FieldRef<"XcTrackSubmission", 'DateTime'>

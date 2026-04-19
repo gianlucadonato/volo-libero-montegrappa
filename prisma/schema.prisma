@@ -343,19 +343,20 @@ model XcEnrollment {
 }
 
 model XcTrackSubmission {
-  id            String             @id @default(cuid())
-  userId        String             @map(name: "user_id")
-  editionId     Int                @map(name: "edition_id")
-  taskId        String             @map(name: "task_id")
-  status        XcSubmissionStatus @default(PENDING)
-  fileName      String             @map(name: "file_name")
-  checksum      String?
-  notes         String?
-  pointsAwarded Int                @default(0) @map(name: "points_awarded")
-  reviewedAt    DateTime?          @map(name: "reviewed_at")
-  reviewedBy    String?            @map(name: "reviewed_by")
-  createdAt     DateTime           @default(now()) @map(name: "created_at")
-  updatedAt     DateTime           @updatedAt @map(name: "updated_at")
+  id               String             @id @default(cuid())
+  userId           String             @map(name: "user_id")
+  editionId        Int                @map(name: "edition_id")
+  taskId           String             @map(name: "task_id")
+  status           XcSubmissionStatus @default(PENDING)
+  fileName         String             @map(name: "file_name")
+  checksum         String?
+  notes            String?
+  pointsAwarded    Int                @default(0) @map(name: "points_awarded")
+  validationResult Json?              @map(name: "validation_result")
+  reviewedAt       DateTime?          @map(name: "reviewed_at")
+  reviewedBy       String?            @map(name: "reviewed_by")
+  createdAt        DateTime           @default(now()) @map(name: "created_at")
+  updatedAt        DateTime           @updatedAt @map(name: "updated_at")
 
   user     User      @relation("user", fields: [userId], references: [id], onDelete: Cascade)
   reviewer User?     @relation("reviewer", fields: [reviewedBy], references: [id])

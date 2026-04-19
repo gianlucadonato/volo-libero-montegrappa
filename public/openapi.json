@@ -117,6 +117,9 @@
 					"pointsAwarded": {
 						"type": "number"
 					},
+					"validationResult": {
+						"nullable": true
+					},
 					"reviewedAt": {
 						"type": "string",
 						"format": "date-time",
@@ -281,9 +284,12 @@
 					},
 					"objectKey": {
 						"type": "string"
+					},
+					"submissionId": {
+						"type": "string"
 					}
 				},
-				"required": ["success", "filename", "objectKey"]
+				"required": ["success", "filename", "objectKey", "submissionId"]
 			},
 			"IGCFixSchema": {
 				"type": "object",

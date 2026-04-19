@@ -109,6 +109,9 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 		queryClient.invalidateQueries({
 			queryKey: ["get", "/xc/{category}/submissions"],
 		});
+		queryClient.invalidateQueries({
+			queryKey: ["get", "/xc/tasks/{id}/submission"],
+		});
 	}, [queryClient, taskId]);
 
 	const [parsedTask, setParsedTask] = useState<ParsedTask>({

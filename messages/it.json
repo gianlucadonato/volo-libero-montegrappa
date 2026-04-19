@@ -894,7 +894,9 @@
 		},
 		"toast": {
 			"uploadSuccess": "File caricato con successo!",
-			"uploadError": "Errore durante il caricamento del file."
+			"uploadError": "Errore durante il caricamento del file.",
+			"validationSuccess": "Traccia validata con successo! Tutti i waypoint raggiunti.",
+			"validationFailed": "Validazione della traccia fallita. Alcuni waypoint non sono stati raggiunti."
 		},
 		"modal": {
 			"title": "Iscrizione richiesta",
@@ -925,7 +927,9 @@
 			"title": "Traccia non valida",
 			"description": "Il file IGC caricato non è conforme ai requisiti di questa task.",
 			"badge": "Rifiutata",
-			"reupload": "Ricarica traccia"
+			"reupload": "Ricarica traccia",
+			"missedWaypoints": "{count, plural, one {# waypoint mancato} other {# waypoint mancati}}:",
+			"waypointDistance": "(più vicino: {distance}m, raggio: {radius}m)"
 		}
 	},
 	"XcTrackSubmission": {
