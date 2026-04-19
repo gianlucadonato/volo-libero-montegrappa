@@ -882,7 +882,7 @@
 		"badge": {
 			"completed": "Completata",
 			"pending": "In attesa",
-			"rejected": "Rifiutata",
+			"rejected": "Non valida",
 			"todo": "Da fare"
 		},
 		"uploadTrack": "Carica la tua traccia",

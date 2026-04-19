@@ -2,7 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { notFound, useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import Spinner from "@/components/Spinner";
@@ -36,20 +36,22 @@ export default function CategoryPage() {
 	const { data: session } = authClient.useSession();
 	const isLoggedIn = !!session?.user;
 	const currentLevel = String(params.category).toLowerCase();
-	const isValidCategory = validLevels.has(
-		currentLevel as (typeof categories)[number]["level"],
-	);
+
+	if (!validLevels.has(currentLevel as (typeof categories)[number]["level"])) {
+		notFound();
+	}
+
 	const {
 		isLoading: isLoadingTasks,
 		data: tasks,
 		error: tasksError,
-	} = useGetTasksByCategory(isValidCategory ? currentLevel : "");
+	} = useGetTasksByCategory(currentLevel);
 	const { isLoading: isLoadingProgress, data: xcProgress } =
-		useGetProgressByCategory(isValidCategory ? currentLevel : "", isLoggedIn);
+		useGetProgressByCategory(currentLevel, isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
 		useGetXcEnrollment(isLoggedIn);
 	const { data: submissions } = useGetXcSubmissionsByCategory(
-		isValidCategory ? currentLevel : "",
+		currentLevel,
 		isLoggedIn,
 	);
 
@@ -60,26 +62,6 @@ export default function CategoryPage() {
 		}
 		return map;
 	}, [submissions]);
-
-	if (!isValidCategory) {
-		return (
-			<div className="min-h-screen flex items-center justify-center">
-				<Card className="w-full max-w-md">
-					<CardContent className="text-center pt-6">
-						<p className="text-red-600 font-semibold mb-4">
-							{t("errors.categoryNotFound")}
-						</p>
-						<Link href="/xc">
-							<Button variant="outline" className="w-full">
-								<ArrowLeft className="mr-2 size-4" />
-								{t("buttons.backToXc")}
-							</Button>
-						</Link>
-					</CardContent>
-				</Card>
-			</div>
-		);
-	}
 
 	if (isLoadingTasks) {
 		return (

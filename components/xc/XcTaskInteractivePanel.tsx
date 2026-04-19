@@ -72,9 +72,11 @@ export default function XcTaskInteractivePanel({
 								<span className="font-medium">{distanceKm.toFixed(1)} km</span>
 							</div>
 						)}
-						<div className="flex justify-between">
+						<div className="flex justify-between items-center">
 							<span className="text-muted-foreground">Punti</span>
-							<span className="font-semibold text-primary">{points}</span>
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-sm font-semibold text-green-600">
+								<Star className="size-4" />+{points} XC
+							</span>
 						</div>
 						{waypoints.length > 0 && (
 							<div className="flex justify-between">

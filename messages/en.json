@@ -841,7 +841,7 @@
 		"badge": {
 			"completed": "Completed",
 			"pending": "Pending",
-			"rejected": "Rejected",
+			"rejected": "Not valid",
 			"todo": "To do"
 		},
 		"uploadTrack": "Upload your Track",
