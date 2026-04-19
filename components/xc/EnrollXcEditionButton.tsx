@@ -1,4 +1,4 @@
-import { NotebookPen } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useContext } from "react";
 import { ModalContext } from "@/components/modals/providers";
@@ -23,10 +23,10 @@ export default function EnrollXcEditionButton() {
 		<Button
 			variant="default"
 			size="lg"
-			className="btn-lime uppercase"
+			className="btn-lime w-full uppercase sm:w-auto"
 			onClick={handleEnrollClick}
 		>
-			<NotebookPen className="mr-2 size-4" />
+			<Trophy className="mr-2 size-4" />
 			{t("enrollButton")}
 		</Button>
 	);

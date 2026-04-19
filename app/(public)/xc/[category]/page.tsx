@@ -2,14 +2,15 @@
 
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
+import XcLevelProgress from "@/components/xc/XcLevelProgress";
 import XcTaskCard from "@/components/xc/XcTaskCard";
 import {
 	useGetProgressByCategory,
@@ -20,47 +21,35 @@ import {
 import { authClient } from "@/lib/auth-client";
 import type { XcSubmissionApi } from "@/types/api-schema";
 
-const categoryConfig: Record<
-	string,
-	{ level: string; name: string; icon: string; color: string }
-> = {
-	basic: {
-		level: "basic",
-		name: "Brevetto Basico",
-		icon: "🥉",
-		color: "bg-bronze-50 border-bronze-200",
-	},
-	intermediate: {
-		level: "intermediate",
-		name: "Brevetto Intermedio",
-		icon: "🥈",
-		color: "bg-slate-50 border-slate-200",
-	},
-	advanced: {
-		level: "advanced",
-		name: "Brevetto Avanzato",
-		icon: "🥇",
-		color: "bg-yellow-50 border-yellow-200",
-	},
-};
+const categories = [
+	{ level: "basic", icon: "🥉" },
+	{ level: "intermediate", icon: "🥈" },
+	{ level: "advanced", icon: "🥇" },
+] as const;
+
+const validLevels = new Set(categories.map((c) => c.level));
 
 export default function CategoryPage() {
 	const params = useParams();
+	const router = useRouter();
 	const t = useTranslations("XcCategoryPage");
 	const { data: session } = authClient.useSession();
 	const isLoggedIn = !!session?.user;
-	const category = categoryConfig[String(params.category).toLowerCase()];
+	const currentLevel = String(params.category).toLowerCase();
+	const isValidCategory = validLevels.has(
+		currentLevel as (typeof categories)[number]["level"],
+	);
 	const {
 		isLoading: isLoadingTasks,
 		data: tasks,
 		error: tasksError,
-	} = useGetTasksByCategory(category?.level);
+	} = useGetTasksByCategory(isValidCategory ? currentLevel : "");
 	const { isLoading: isLoadingProgress, data: xcProgress } =
-		useGetProgressByCategory(category?.level, isLoggedIn);
+		useGetProgressByCategory(isValidCategory ? currentLevel : "", isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
 		useGetXcEnrollment(isLoggedIn);
 	const { data: submissions } = useGetXcSubmissionsByCategory(
-		category?.level,
+		isValidCategory ? currentLevel : "",
 		isLoggedIn,
 	);
 
@@ -72,7 +61,7 @@ export default function CategoryPage() {
 		return map;
 	}, [submissions]);
 
-	if (!category) {
+	if (!isValidCategory) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Card className="w-full max-w-md">
@@ -122,114 +111,146 @@ export default function CategoryPage() {
 
 	return (
 		<div className="min-h-screen bg-linear-to-b from-gray-50 to-white">
-			<div className="overflow-hidden">
-				<div className="flex h-[20vh] flex-col bg-slate-50 bg-[url('/banner-panetun.jpg')] bg-cover bg-left">
-					<div
-						style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
-						className="flex h-full flex-col items-center justify-center px-2"
-					>
-						<h1 className="font-heading text-3xl uppercase text-white">
-							{t("bannerTitle")}
-						</h1>
-						<h3 className="pt-2 text-center text-sm text-white">
-							{t("bannerSubtitle")}
-						</h3>
-					</div>
-				</div>
-			</div>
-
-			<div className="max-w-5xl mx-auto px-4 py-8">
-				{/* Header */}
-				<div className="mb-8">
+			<div className="max-w-6xl mx-auto px-4 py-8">
+				{/* Back + Category Tabs */}
+				<div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 					<Link href="/xc">
-						<Button variant="outline" className="mb-4">
+						<Button variant="outline">
 							<ArrowLeft className="mr-2 size-4" />
 							{t("buttons.back")}
 						</Button>
 					</Link>
 
-					<div className={`rounded-lg border-2 p-6 ${category.color}`}>
-						<h1 className="text-4xl font-bold mb-2">
-							{category.icon} {t(`categories.${category.level}.title`)}
-						</h1>
-						<p className="text-gray-600 text-lg">{t("header.description")}</p>
+					<div className="flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+						{categories.map((cat) => (
+							<button
+								key={cat.level}
+								type="button"
+								onClick={() => router.push(`/xc/${cat.level}`)}
+								className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+									currentLevel === cat.level
+										? "bg-primary text-primary-foreground shadow-sm"
+										: "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+								}`}
+							>
+								<span>{cat.icon}</span>
+								<span className="hidden sm:inline">
+									{t(`categories.${cat.level}.title`)}
+								</span>
+								<span className="sm:hidden">
+									{t(`categories.${cat.level}.short`)}
+								</span>
+							</button>
+						))}
 					</div>
 				</div>
 
+				{/* Level Status Card */}
 				{(isLoadingEnrollment || isLoadingProgress) && (
-					<Card className="mb-8">
-						<CardHeader>
-							<Skeleton className="h-6 w-40" />
-						</CardHeader>
-						<CardContent>
-							<div className="space-y-3">
-								<Skeleton className="h-4 w-3/4" />
-								<Skeleton className="h-4 w-1/2" />
-								<Skeleton className="h-3 w-full rounded-full" />
-							</div>
-						</CardContent>
-					</Card>
+					<div className="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+						<div className="flex flex-col items-center p-8">
+							<Skeleton className="size-44 rounded-full" />
+							<Skeleton className="mt-4 h-4 w-32" />
+						</div>
+						<div className="border-t border-gray-100 px-6 py-4">
+							<Skeleton className="h-3 w-full rounded-full" />
+						</div>
+					</div>
 				)}
 
-				{/* Progress Card */}
-				{!isLoadingProgress && xcProgress && (
-					<Card className="mb-8 bg-blue-50 border-blue-200">
-						<CardHeader>
-							<CardTitle>{t("progress.title")}</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<div className="space-y-2">
-								<p className="text-sm text-gray-600">
-									{t("progress.currentPoints")}
-									<span className="font-bold text-lg">{xcProgress.points}</span>
-								</p>
-								<p className="text-sm text-gray-600">
-									{t("progress.minPoints")}
-									<span className="font-bold text-lg">
-										{xcProgress.minPoints}
-									</span>
-								</p>
-								<div className="w-full bg-gray-200 rounded-full h-3 mt-4">
-									<div
-										className="bg-green-500 h-3 rounded-full transition-all"
-										style={{
-											width: `${Math.min(
-												(xcProgress.points / xcProgress.minPoints) * 100,
-												100,
-											)}%`,
-										}}
-									></div>
+				{!isLoadingProgress &&
+					xcProgress &&
+					(() => {
+						const medal =
+							categories.find((c) => c.level === currentLevel)?.icon ?? "🥉";
+						const completedTasks =
+							submissions?.filter((s) => s.status === "APPROVED").length ?? 0;
+						const totalTasks = tasks?.length ?? 0;
+						const progressPct = Math.min(
+							(xcProgress.points / xcProgress.minPoints) * 100,
+							100,
+						);
+
+						return (
+							<div className="mb-8 overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+								{/* Main content */}
+								<div
+									className="relative bg-cover bg-center"
+									style={{
+										backgroundImage: "url('/background/panettone.jpg')",
+									}}
+								>
+									<div className="absolute inset-0 bg-black/50" />
+									<div className="relative flex flex-col items-center px-6 py-8">
+										<h2 className="self-start text-lg font-semibold text-white mb-6">
+											XC Montegrappa
+										</h2>
+
+										{/* Radial progress + medal */}
+										<XcLevelProgress
+											level={t(`categories.${currentLevel}.short`)}
+											levelLabel={t("progress.level")}
+											medal={medal}
+											points={xcProgress.points}
+											minPoints={xcProgress.minPoints}
+											completedTasks={completedTasks}
+											totalTasks={totalTasks}
+										/>
+									</div>
 								</div>
-								{Boolean(xcProgress.completedAt) && (
-									<p className="text-green-600 font-semibold mt-2">
-										{t("progress.completed")}
-									</p>
-								)}
+
+								{/* Bottom bar */}
+								<div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50 px-6 py-4 sm:flex-row sm:items-center">
+									<div className="flex w-full flex-col gap-1.5 sm:w-1/2">
+										<p className="text-sm font-semibold text-gray-700">
+											{xcProgress.points}/{xcProgress.minPoints}{" "}
+											<span className="font-normal text-gray-500">
+												{t("progress.xcPoints")}
+											</span>
+											{xcProgress.completedAt && (
+												<span className="ml-2 text-green-600">
+													{t("progress.completed")}
+												</span>
+											)}
+										</p>
+										<div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+											<div
+												className="h-full rounded-full bg-linear-to-r from-cyan-400 via-lime-400 to-green-400 transition-all"
+												style={{ width: `${progressPct}%` }}
+											/>
+										</div>
+									</div>
+									{!isLoadingEnrollment && (
+										<div className="flex w-full items-end justify-end sm:w-1/2">
+											<EnrollButton />
+										</div>
+									)}
+								</div>
 							</div>
-						</CardContent>
-					</Card>
-				)}
+						);
+					})()}
 
-				{!isLoadingEnrollment && !xcEnrollment && (
-					<Card className="mb-8 bg-blue-50 border border-blue-200">
-						<CardContent className="text-center pt-6">
-							<p className="text-blue-800 mb-4">{t("enrollPrompt")}</p>
+				{/* Enroll prompt when no progress and not enrolled */}
+				{!isLoadingProgress &&
+					!xcProgress &&
+					!isLoadingEnrollment &&
+					!xcEnrollment && (
+						<div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+							<p className="mb-4 text-gray-600">{t("enrollPrompt")}</p>
 							<EnrollButton />
-						</CardContent>
-					</Card>
-				)}
+						</div>
+					)}
 
-				{/* Tasks List */}
+				{/* Tasks Grid */}
 				<div className="mb-8">
-					<h2 className="text-2xl font-bold mb-6">{t("tasks.title")}</h2>
 					{tasks?.length === 0 ? (
 						<Card>
-							<CardContent className="text-center pt-6 text-gray-500">
+							<CardContent className="pt-6 text-center text-gray-500">
 								{t("tasks.empty")}
 							</CardContent>
 						</Card>
 					) : (
-						<div className="space-y-4">
+						<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 							{tasks?.map((task) => (
 								<XcTaskCard
 									key={task.id}

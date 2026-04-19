@@ -727,7 +727,7 @@
 		},
 		"faqTitle": "FREQUENTLY ASKED QUESTIONS",
 		"cta": "Always fly with a goal,<br></br>join the XC Montegrappa certificate",
-		"enrollButton": "Enroll",
+		"enrollButton": "Enroll in XC Certificate",
 		"toast": {
 			"success": "Welcome to XC Montegrappa!",
 			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
@@ -753,6 +753,7 @@
 			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
 			"cancel": "Cancel",
 			"confirm": "Confirm enrollment",
+			"alreadyEnrolledMessage": "You are already enrolled in the XC Certificate!",
 			"loading": "Enrolling..."
 		}
 	},
@@ -785,13 +786,16 @@
 		"bannerSubtitle": "Cross Country Montegrappa Certificate",
 		"categories": {
 			"basic": {
-				"title": "Basic Certificate"
+				"title": "Basic Certificate",
+				"short": "Basic"
 			},
 			"intermediate": {
-				"title": "Intermediate Certificate"
+				"title": "Intermediate Certificate",
+				"short": "Intermediate"
 			},
 			"advanced": {
-				"title": "Advanced Certificate"
+				"title": "Advanced Certificate",
+				"short": "Advanced"
 			}
 		},
 		"errors": {
@@ -807,7 +811,10 @@
 			"description": "Complete tasks and collect points to earn the certificate"
 		},
 		"progress": {
-			"title": "Your progress",
+			"title": "Level Status",
+			"level": "Level",
+			"tasksLabel": "Certificate Points",
+			"xcPoints": "XC points",
 			"currentPoints": "Current points:",
 			"minPoints": "Minimum required points:",
 			"completed": "✅ You have completed this category!"
@@ -820,8 +827,20 @@
 	},
 	"XcTaskCard": {
 		"distance": "Distance",
+		"difficulty": "Difficulty",
+		"difficultyLevel": {
+			"basic": "Basic",
+			"intermediate": "Intermediate",
+			"advanced": "Advanced"
+		},
 		"points": "Points",
 		"downloadTask": "Download Task (.tsk)",
+		"viewTrack": "View Track",
+		"noImage": "No image",
+		"badge": {
+			"completed": "Completed",
+			"pending": "Pending"
+		},
 		"uploadTrack": "Upload your Track",
 		"uploading": "Uploading...",
 		"uploadComingSoon": "Upload feature coming soon!",

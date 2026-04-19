@@ -17,7 +17,9 @@ import {
 } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 import { NEXT_YEAR } from "@/config/constants";
+import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import { createXcEnrollmentApi } from "@/lib/api-client";
+import { authClient } from "@/lib/auth-client";
 import { ModalContext } from "./providers";
 
 function EnrollXcEditionModal({
@@ -31,6 +33,9 @@ function EnrollXcEditionModal({
 	const { setShowMemberOnlyModal } = useContext(ModalContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const queryClient = useQueryClient();
+	const { data: session } = authClient.useSession();
+	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
+	const isAlreadyEnrolled = !!enrollment;
 
 	const handleConfirmEnrollment = async () => {
 		setIsLoading(true);
@@ -69,17 +74,24 @@ function EnrollXcEditionModal({
 						{t("dialog.description", { year: NEXT_YEAR })}
 					</DialogDescription>
 				</DialogHeader>
-				<div className="mt-4 flex gap-2 justify-end">
-					<Button variant="outline" onClick={() => setShowModal(false)}>
-						{t("dialog.cancel")}
-					</Button>
-					<Button
-						onClick={handleConfirmEnrollment}
-						disabled={isLoading}
-						className="bg-lime-500 hover:bg-lime-600"
-					>
-						{isLoading ? t("dialog.loading") : t("dialog.confirm")}
-					</Button>
+				<div className="mt-4 flex flex-col gap-2">
+					{isAlreadyEnrolled && (
+						<p className="text-sm font-medium text-green-600">
+							{t("dialog.alreadyEnrolledMessage")}
+						</p>
+					)}
+					<div className="flex gap-2 justify-end">
+						<Button variant="outline" onClick={() => setShowModal(false)}>
+							{t("dialog.cancel")}
+						</Button>
+						<Button
+							onClick={handleConfirmEnrollment}
+							disabled={isLoading || isAlreadyEnrolled}
+							className="bg-lime-500 hover:bg-lime-600"
+						>
+							{isLoading ? t("dialog.loading") : t("dialog.confirm")}
+						</Button>
+					</div>
 				</div>
 			</div>
 		</Modal>

@@ -768,7 +768,7 @@
 		},
 		"faqTitle": "DOMANDE FREQUENTI",
 		"cta": "Vola sempre con un obiettivo,<br></br>iscriviti al Brevetto XC Montegrappa",
-		"enrollButton": "Iscriviti",
+		"enrollButton": "Iscriviti al Brevetto XC",
 		"toast": {
 			"success": "Benvenuto nel Brevetto XC Montegrappa!",
 			"alreadyEnrolled": "Sei già iscritto al brevetto XC per quest'anno.",
@@ -794,6 +794,7 @@
 			"description": "Iscriviti all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
 			"cancel": "Annulla",
 			"confirm": "Conferma Iscrizione",
+			"alreadyEnrolledMessage": "Sei già iscritto al Brevetto XC!",
 			"loading": "Iscrizione in corso..."
 		}
 	},
@@ -826,13 +827,16 @@
 		"bannerSubtitle": "Brevetto Cross Country Montegrappa",
 		"categories": {
 			"basic": {
-				"title": "Brevetto Basico"
+				"title": "Brevetto Basico",
+				"short": "Basico"
 			},
 			"intermediate": {
-				"title": "Brevetto Intermedio"
+				"title": "Brevetto Intermedio",
+				"short": "Intermedio"
 			},
 			"advanced": {
-				"title": "Brevetto Avanzato"
+				"title": "Brevetto Avanzato",
+				"short": "Avanzato"
 			}
 		},
 		"errors": {
@@ -848,7 +852,10 @@
 			"description": "Completa i percorsi e accumula punti per ottenere il brevetto"
 		},
 		"progress": {
-			"title": "I tuoi progressi",
+			"title": "Level Status",
+			"level": "Livello",
+			"tasksLabel": "Punti Brevetto",
+			"xcPoints": "Punti XC",
 			"currentPoints": "Punti attuali:",
 			"minPoints": "Punti minimi richiesti:",
 			"completed": "✅ Hai completato questa categoria!"
@@ -861,8 +868,20 @@
 	},
 	"XcTaskCard": {
 		"distance": "Distanza",
+		"difficulty": "Difficoltà",
+		"difficultyLevel": {
+			"basic": "Basico",
+			"intermediate": "Intermedio",
+			"advanced": "Avanzato"
+		},
 		"points": "Punti",
 		"downloadTask": "Scarica Task (.tsk)",
+		"viewTrack": "Vedi Traccia",
+		"noImage": "Nessuna immagine",
+		"badge": {
+			"completed": "Completata",
+			"pending": "In attesa"
+		},
 		"uploadTrack": "Carica la tua traccia",
 		"uploading": "Caricamento in corso...",
 		"uploadComingSoon": "Funzione di upload in arrivo!",
