@@ -815,6 +815,7 @@
 			"level": "Level",
 			"tasksLabel": "Certificate Points",
 			"xcPoints": "XC points",
+			"tasksCompleted": "tasks completed",
 			"currentPoints": "Current points:",
 			"minPoints": "Minimum required points:",
 			"completed": "✅ You have completed this category!"
@@ -839,7 +840,9 @@
 		"noImage": "No image",
 		"badge": {
 			"completed": "Completed",
-			"pending": "Pending"
+			"pending": "Pending",
+			"rejected": "Rejected",
+			"todo": "To do"
 		},
 		"uploadTrack": "Upload your Track",
 		"uploading": "Uploading...",

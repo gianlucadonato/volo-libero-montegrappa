@@ -201,7 +201,7 @@ export default function CategoryPage() {
 
 								{/* Bottom bar */}
 								<div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50 px-6 py-4 sm:flex-row sm:items-center">
-									<div className="flex w-full flex-col gap-1.5 sm:w-1/2">
+									<div className="flex w-full flex-col gap-1.5 sm:w-1/3">
 										<p className="text-sm font-semibold text-gray-700">
 											{xcProgress.points}/{xcProgress.minPoints}{" "}
 											<span className="font-normal text-gray-500">
@@ -220,8 +220,24 @@ export default function CategoryPage() {
 											/>
 										</div>
 									</div>
+									<div className="flex w-full flex-col gap-1.5 sm:w-1/3">
+										<p className="text-sm font-semibold text-gray-700">
+											{completedTasks}/{totalTasks}{" "}
+											<span className="font-normal text-gray-500">
+												{t("progress.tasksCompleted")}
+											</span>
+										</p>
+										<div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+											<div
+												className="h-full rounded-full bg-linear-to-r from-blue-400 via-indigo-400 to-purple-400 transition-all"
+												style={{
+													width: `${totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0}%`,
+												}}
+											/>
+										</div>
+									</div>
 									{!isLoadingEnrollment && (
-										<div className="flex w-full items-end justify-end sm:w-1/2">
+										<div className="flex w-full items-center justify-center sm:w-1/3 sm:justify-end">
 											<EnrollButton />
 										</div>
 									)}

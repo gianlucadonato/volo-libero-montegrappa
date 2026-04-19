@@ -1,6 +1,14 @@
 "use client";
 
-import { CheckCircle, Clock, Download, Eye, Star } from "lucide-react";
+import {
+	CheckCircle,
+	Circle,
+	Clock,
+	Download,
+	Eye,
+	Star,
+	XCircle,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -10,7 +18,15 @@ import type { XcSubmissionApi, XcTaskApi } from "@/types/api-schema";
 
 function StatusBadge({ submission }: { submission?: XcSubmissionApi }) {
 	const t = useTranslations("XcTaskCard");
-	if (!submission) return null;
+
+	if (!submission) {
+		return (
+			<span className="inline-flex items-center gap-1 rounded-full bg-gray-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+				<Circle className="size-3" />
+				{t("badge.todo")}
+			</span>
+		);
+	}
 
 	if (submission.status === "APPROVED") {
 		return (
@@ -25,6 +41,14 @@ function StatusBadge({ submission }: { submission?: XcSubmissionApi }) {
 			<span className="inline-flex items-center gap-1 rounded-full bg-amber-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
 				<Clock className="size-3" />
 				{t("badge.pending")}
+			</span>
+		);
+	}
+	if (submission.status === "REJECTED") {
+		return (
+			<span className="inline-flex items-center gap-1 rounded-full bg-red-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
+				<XCircle className="size-3" />
+				{t("badge.rejected")}
 			</span>
 		);
 	}
@@ -68,75 +92,72 @@ export default function XcTaskCard({
 	return (
 		<div className="group flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-green-400/50 hover:shadow-md">
 			{/* Image + badge + gradient */}
-			<div className="relative aspect-4/3 w-full overflow-hidden">
-				{task.imageUrl ? (
-					<Image
-						src={task.imageUrl}
-						alt={task.name}
-						fill
-						className="object-cover transition-transform group-hover:scale-105"
-					/>
-				) : (
-					<div className="flex h-full items-center justify-center bg-gray-100">
-						<span className="text-gray-400 text-sm">{t("noImage")}</span>
-					</div>
-				)}
-				{/* Gradient overlay */}
-				<div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-white to-transparent" />
-				{/* Status badge */}
-				<div className="absolute top-2.5 right-2.5">
-					<StatusBadge submission={submission} />
-				</div>
-			</div>
-
-			{/* Info */}
-			<div className="flex flex-1 flex-col p-4">
-				<h3 className="font-bold text-gray-900 text-lg leading-tight">
-					{task.name}
-				</h3>
-				{task.description && (
-					<p className="mt-1 text-sm text-gray-500 line-clamp-1">
-						{task.description}
-					</p>
-				)}
-				<p className="mt-2 text-sm text-gray-600">
-					{t("distance")}: {task.distanceKm} km
-				</p>
-				<p className="mt-1 text-sm text-gray-600">
-					{t("difficulty")}:{" "}
-					{t(`difficultyLevel.${task.category.toLowerCase()}`)}
-				</p>
-
-				{/* XP Badge */}
-				<div className="mt-3">
-					<span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-sm font-semibold text-green-600">
-						<Star className="size-4" />+{task.points} XC
-					</span>
-				</div>
-				<div className="mt-auto flex items-center gap-2 pt-4">
-					{task.taskFileUrl && (
-						<Button
-							size="icon"
-							variant="outline"
-							className="shrink-0"
-							onClick={handleDownload}
-							disabled={isDownloading}
-							title={t("downloadTask")}
-						>
-							<Download className="size-4" />
-						</Button>
+			<Link href={`/xc/tasks/${task.id}`}>
+				<div className="relative aspect-4/3 w-full overflow-hidden">
+					{task.imageUrl ? (
+						<Image
+							src={task.imageUrl}
+							alt={task.name}
+							fill
+							className="object-cover transition-transform group-hover:scale-105"
+						/>
+					) : (
+						<div className="flex h-full items-center justify-center bg-gray-100">
+							<span className="text-gray-400 text-sm">{t("noImage")}</span>
+						</div>
 					)}
-					<Button className="flex-1">
-						<Link
-							href={`/xc/tasks/${task.id}`}
-							className="flex items-center justify-center gap-2"
-						>
-							<Eye className="size-4" />
-							{t("viewTrack")}
-						</Link>
-					</Button>
+					{/* Gradient overlay */}
+					<div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-white to-transparent" />
+					{/* Status badge */}
+					<div className="absolute top-2.5 right-2.5">
+						<StatusBadge submission={submission} />
+					</div>
 				</div>
-			</div>
+
+				{/* Info */}
+				<div className="flex flex-1 flex-col p-4">
+					<h3 className="font-bold text-gray-900 text-lg leading-tight">
+						{task.name}
+					</h3>
+					{task.description && (
+						<p className="mt-1 text-sm text-gray-500 line-clamp-1">
+							{task.description}
+						</p>
+					)}
+					<p className="mt-2 text-sm text-gray-600">
+						{t("distance")}: {task.distanceKm} km
+					</p>
+					<p className="mt-1 text-sm text-gray-600">
+						{t("difficulty")}:{" "}
+						{t(`difficultyLevel.${task.category.toLowerCase()}`)}
+					</p>
+
+					{/* XP Badge */}
+					<div className="mt-3">
+						<span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-sm font-semibold text-green-600">
+							<Star className="size-4" />+{task.points} XC
+						</span>
+					</div>
+					<div className="mt-auto flex items-center gap-2 pt-4">
+						{task.taskFileUrl && (
+							<Button
+								size="icon"
+								variant="outline"
+								className="shrink-0"
+								onClick={handleDownload}
+								disabled={isDownloading}
+								title={t("downloadTask")}
+							>
+								<Download className="size-4" />
+							</Button>
+						)}
+						<Button variant="outline" className="flex-1">
+							<Eye className="size-4 mr-2" />
+							{t("viewTrack")}
+						</Button>
+					</div>
+				</div>
+			</Link>
 		</div>
 	);
 }

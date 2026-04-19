@@ -856,6 +856,7 @@
 			"level": "Livello",
 			"tasksLabel": "Punti Brevetto",
 			"xcPoints": "Punti XC",
+			"tasksCompleted": "Task completate",
 			"currentPoints": "Punti attuali:",
 			"minPoints": "Punti minimi richiesti:",
 			"completed": "✅ Hai completato questa categoria!"
@@ -880,7 +881,9 @@
 		"noImage": "Nessuna immagine",
 		"badge": {
 			"completed": "Completata",
-			"pending": "In attesa"
+			"pending": "In attesa",
+			"rejected": "Rifiutata",
+			"todo": "Da fare"
 		},
 		"uploadTrack": "Carica la tua traccia",
 		"uploading": "Caricamento in corso...",
