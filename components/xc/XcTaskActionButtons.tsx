@@ -8,14 +8,13 @@ import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
 import { useGetXcEnrollment, useGetXcSubmission } from "@/hooks/use-query-api";
-import type { ValidationResult } from "@/lib/api-client";
 import { uploadXcTaskTrackApi, validateSubmissionApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
 interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl?: string | null;
-	onUploadSuccess?: (validation: ValidationResult) => void;
+	onUploadSuccess?: () => void;
 }
 
 export default function XcTaskActionButtons({
@@ -31,11 +30,8 @@ export default function XcTaskActionButtons({
 	const isLoggedIn = Boolean(session?.user);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
 	const isEnrolled = Boolean(enrollment);
-	const {
-		isLoading: isSubmissionLoading,
-		data: submission,
-		refetch: refetchSubmission,
-	} = useGetXcSubmission(taskId, isLoggedIn && isEnrolled);
+	const { isLoading: isSubmissionLoading, data: submission } =
+		useGetXcSubmission(taskId, isLoggedIn && isEnrolled);
 	const { setShowSignInModal, setShowEnrollXcEditionModal } =
 		useContext(ModalContext);
 
@@ -85,30 +81,29 @@ export default function XcTaskActionButtons({
 				return;
 			}
 
-			// Validate the submission against the task waypoints
-			const submissionId = response.data?.submissionId;
-			if (submissionId) {
-				try {
-					const validation = await validateSubmissionApi(submissionId);
-					if (validation.valid) {
-						toast.success(t("toast.validationSuccess"));
-					} else {
-						toast.error(t("toast.validationFailed"));
-					}
-					refetchSubmission();
-					onUploadSuccess?.(validation);
-				} catch {
-					toast.success(t("toast.uploadSuccess"));
-					refetchSubmission();
-				}
-			} else {
-				toast.success(t("toast.uploadSuccess"));
-				refetchSubmission();
-			}
+			toast.success(t("toast.uploadSuccess"));
+			onUploadSuccess?.();
 
 			// Reset file input
 			if (fileInputRef.current) {
 				fileInputRef.current.value = "";
+			}
+
+			// Fire validation in the background — don't block the UI
+			const submissionId = response.data?.submissionId;
+			if (submissionId) {
+				validateSubmissionApi(submissionId)
+					.then((validation) => {
+						if (validation.valid) {
+							toast.success(t("toast.validationSuccess"));
+						} else {
+							toast.error(t("toast.validationFailed"));
+						}
+						onUploadSuccess?.();
+					})
+					.catch(() => {
+						onUploadSuccess?.();
+					});
 			}
 		} finally {
 			setIsUploading(false);
@@ -120,9 +115,8 @@ export default function XcTaskActionButtons({
 			{!isSubmissionLoading && submission ? (
 				<XcSubmissionStatus
 					submission={submission}
-					onReupload={
-						submission.status === "REJECTED" ? handleUploadClick : undefined
-					}
+					onReupload={handleUploadClick}
+					isUploading={isUploading}
 				/>
 			) : (
 				<div className="mt-4 mb-8 flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">
@@ -152,16 +146,16 @@ export default function XcTaskActionButtons({
 							<Upload className="size-4" />
 							{isUploading ? t("uploading") : t("uploadTrack")}
 						</Button>
-						<input
-							ref={fileInputRef}
-							type="file"
-							accept=".igc"
-							onChange={handleFileSelect}
-							className="hidden"
-						/>
 					</div>
 				</div>
 			)}
+			<input
+				ref={fileInputRef}
+				type="file"
+				accept=".igc"
+				onChange={handleFileSelect}
+				className="hidden"
+			/>
 		</div>
 	);
 }

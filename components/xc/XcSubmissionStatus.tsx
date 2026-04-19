@@ -31,11 +31,13 @@ interface ValidationResult {
 interface XcSubmissionStatusProps {
 	submission: XcSubmissionApi;
 	onReupload?: () => void;
+	isUploading?: boolean;
 }
 
 export default function XcSubmissionStatus({
 	submission,
 	onReupload,
+	isUploading,
 }: XcSubmissionStatusProps) {
 	const t = useTranslations("XcSubmissionStatus");
 
@@ -98,24 +100,29 @@ export default function XcSubmissionStatus({
 
 	return (
 		<div className="flex flex-col gap-2 rounded-lg border border-red-200 bg-red-50 p-3">
-			<div className="flex items-center gap-2">
-				<XCircle className="size-5 shrink-0 text-red-600" />
-				<div className="flex-1">
-					<p className="text-sm font-medium text-red-800">
-						{t("rejected.title")}
-					</p>
-					<p className="text-xs text-red-600">{t("rejected.description")}</p>
+			<div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+				<div className="flex items-center gap-2 flex-1">
+					<XCircle className="size-5 shrink-0 text-red-600" />
+					<div className="flex-1">
+						<p className="text-sm font-medium text-red-800">
+							{t("rejected.title")}
+						</p>
+						<p className="text-xs text-red-600">{t("rejected.description")}</p>
+					</div>
 				</div>
 				{onReupload && (
-					<div className="flex justify-start">
+					<div className="flex justify-start pl-7 sm:pl-0">
 						<Button
 							variant="outline"
 							size="sm"
 							onClick={onReupload}
+							disabled={isUploading}
 							className="gap-1.5 border-red-300 text-red-700 hover:bg-red-100"
 						>
-							<RefreshCw className="size-3.5" />
-							{t("rejected.reupload")}
+							<RefreshCw
+								className={`size-3.5 ${isUploading ? "animate-spin" : ""}`}
+							/>
+							{isUploading ? t("rejected.reuploading") : t("rejected.reupload")}
 						</Button>
 					</div>
 				)}

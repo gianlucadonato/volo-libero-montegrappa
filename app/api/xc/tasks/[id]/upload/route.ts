@@ -7,7 +7,8 @@ import { auth } from "@/auth";
 import { NEXT_YEAR } from "@/config/constants";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { prisma } from "@/lib/prisma";
-import { buildObjectKey, uploadObject } from "@/lib/r2";
+import { buildObjectKey, deleteObject, uploadObject } from "@/lib/r2";
+import { Prisma } from "@/prisma/generated/client";
 
 /**
  * /xc/tasks/[id]/upload
@@ -67,16 +68,49 @@ export async function POST(
 			contentType: "application/octet-stream",
 		});
 
-		// Create a new track submission record in the database
-		const submission = await prisma.xcTrackSubmission.create({
-			data: {
+		// Check for existing submission and update or create
+		const existingSubmission = await prisma.xcTrackSubmission.findFirst({
+			where: {
 				userId: session.user.id,
-				editionId: NEXT_YEAR,
 				taskId: task.id,
-				fileName: objectKey,
-				checksum,
+				editionId: NEXT_YEAR,
 			},
 		});
+
+		let submission: { id: string };
+		if (existingSubmission) {
+			// Delete old R2 file
+			try {
+				await deleteObject(existingSubmission.fileName);
+			} catch (err) {
+				console.error("Failed to delete old R2 object:", err);
+			}
+
+			// Reset submission to PENDING with new file
+			submission = await prisma.xcTrackSubmission.update({
+				where: { id: existingSubmission.id },
+				data: {
+					fileName: objectKey,
+					checksum,
+					status: "PENDING",
+					pointsAwarded: 0,
+					validationResult: Prisma.DbNull,
+					notes: null,
+					reviewedAt: null,
+					reviewedBy: null,
+				},
+			});
+		} else {
+			submission = await prisma.xcTrackSubmission.create({
+				data: {
+					userId: session.user.id,
+					editionId: NEXT_YEAR,
+					taskId: task.id,
+					fileName: objectKey,
+					checksum,
+				},
+			});
+		}
 
 		return NextResponse.json(
 			{

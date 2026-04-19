@@ -1,4 +1,5 @@
 import {
+	DeleteObjectCommand,
 	GetObjectCommand,
 	PutObjectCommand,
 	S3Client,
@@ -72,4 +73,13 @@ export async function downloadObject(objectKey: string): Promise<string> {
 
 	const response = await getR2Client().send(command);
 	return (await response.Body?.transformToString("utf-8")) ?? "";
+}
+
+export async function deleteObject(objectKey: string) {
+	const command = new DeleteObjectCommand({
+		Bucket: getBucket(),
+		Key: objectKey,
+	});
+
+	return getR2Client().send(command);
 }

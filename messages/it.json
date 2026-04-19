@@ -928,6 +928,7 @@
 			"description": "Il file IGC caricato non è conforme ai requisiti di questa task.",
 			"badge": "Rifiutata",
 			"reupload": "Ricarica traccia",
+			"reuploading": "Caricamento in corso...",
 			"missedWaypoints": "{count, plural, one {# waypoint mancato} other {# waypoint mancati}}:",
 			"waypointDistance": "(più vicino: {distance}m, raggio: {radius}m)"
 		}
