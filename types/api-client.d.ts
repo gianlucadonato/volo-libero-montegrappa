@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+	"/xc/edition": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/edition
+		 * @description Fetch the current XC edition with its tasks, optionally filtered by category
+		 */
+		get: operations["get-xc-edition"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/enroll": {
 		parameters: {
 			query?: never;
@@ -225,6 +245,27 @@ export interface components {
 			createdAt: string;
 			/** Format: date-time */
 			updatedAt: string;
+		};
+		QuerySchema: {
+			category?: string;
+		};
+		XcEditionSchema: {
+			id: number;
+			title: string;
+			description?: string | null;
+			/** Format: date-time */
+			startsAt: string;
+			/** Format: date-time */
+			endsAt: string;
+			isActive: boolean;
+			basicMinPoints: number;
+			interMinPoints: number;
+			advMinPoints: number;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
+			tasks: components["schemas"]["XcTaskSchema"][];
 		};
 		XcEnrollmentSchema: {
 			id: string;
@@ -496,6 +537,30 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+	"get-xc-edition": {
+		parameters: {
+			query?: {
+				category?: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcEditionSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-xc-enroll": {
 		parameters: {
 			query?: never;

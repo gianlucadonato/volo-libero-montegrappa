@@ -722,7 +722,8 @@
 		"upload_route": "Carica la tua Traccia",
 		"uploading": "Caricamento...",
 		"upload_success": "Traccia caricata con successo!",
-		"upload_error": "Errore nel caricamento della traccia"
+		"upload_error": "Errore nel caricamento della traccia",
+		"enroll_prompt": "Iscriviti al Brevetto XC per poter caricare le tracce."
 	},
 	"XcMontegrappaPage": {
 		"banner": {

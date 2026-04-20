@@ -35,6 +35,21 @@ export const XcProgressSchema = z.object({
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });
 
+export const XcEditionSchema = z.object({
+	id: z.number(),
+	title: z.string(),
+	description: z.string().nullish(),
+	startsAt: z.coerce.date().transform((val) => val.toISOString()),
+	endsAt: z.coerce.date().transform((val) => val.toISOString()),
+	isActive: z.boolean(),
+	basicMinPoints: z.number(),
+	interMinPoints: z.number(),
+	advMinPoints: z.number(),
+	createdAt: z.coerce.date().transform((val) => val.toISOString()),
+	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
+	tasks: XcTaskSchema.array(),
+});
+
 export const XcEnrollmentSchema = z.object({
 	id: z.string(),
 	edition: z.object({

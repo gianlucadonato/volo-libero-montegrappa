@@ -9,6 +9,21 @@ const fetchClient = createFetchClient<paths>({
 });
 const $api = createClient(fetchClient);
 
+export const useGetXcEdition = (category?: string) => {
+	return $api.useQuery(
+		"get",
+		"/xc/edition",
+		{
+			params: {
+				query: category ? { category } : undefined,
+			},
+		},
+		{
+			enabled: true,
+		},
+	);
+};
+
 export const useGetTasksByCategory = (category: string) => {
 	return $api.useQuery(
 		"get",

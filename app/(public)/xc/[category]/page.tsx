@@ -14,7 +14,7 @@ import XcLevelProgress from "@/components/xc/XcLevelProgress";
 import XcTaskCard from "@/components/xc/XcTaskCard";
 import {
 	useGetProgressByCategory,
-	useGetTasksByCategory,
+	useGetXcEdition,
 	useGetXcEnrollment,
 	useGetXcSubmissionsByCategory,
 } from "@/hooks/use-query-api";
@@ -42,10 +42,18 @@ export default function CategoryPage() {
 	}
 
 	const {
-		isLoading: isLoadingTasks,
-		data: tasks,
-		error: tasksError,
-	} = useGetTasksByCategory(currentLevel);
+		isLoading: isLoadingEdition,
+		data: edition,
+		error: editionError,
+	} = useGetXcEdition(currentLevel);
+	const tasks = edition?.tasks;
+	const minPointsForLevel = edition
+		? currentLevel === "basic"
+			? edition.basicMinPoints
+			: currentLevel === "intermediate"
+				? edition.interMinPoints
+				: edition.advMinPoints
+		: 0;
 	const { isLoading: isLoadingProgress, data: xcProgress } =
 		useGetProgressByCategory(currentLevel, isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
@@ -63,7 +71,7 @@ export default function CategoryPage() {
 		return map;
 	}, [submissions]);
 
-	if (isLoadingTasks) {
+	if (isLoadingEdition) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Spinner />
@@ -71,7 +79,7 @@ export default function CategoryPage() {
 		);
 	}
 
-	if (tasksError) {
+	if (editionError) {
 		return (
 			<div className="min-h-screen flex items-center justify-center">
 				<Card className="w-full max-w-md">
@@ -128,7 +136,7 @@ export default function CategoryPage() {
 				</div>
 
 				{/* Level Status Card */}
-				{(isLoadingEnrollment || isLoadingProgress) && (
+				{isLoadingProgress && (
 					<div className="mb-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
 						<div className="flex flex-col items-center p-8">
 							<Skeleton className="size-44 rounded-full" />
@@ -141,17 +149,16 @@ export default function CategoryPage() {
 				)}
 
 				{!isLoadingProgress &&
-					xcProgress &&
 					(() => {
 						const medal =
 							categories.find((c) => c.level === currentLevel)?.icon ?? "🥉";
 						const completedTasks =
 							submissions?.filter((s) => s.status === "APPROVED").length ?? 0;
 						const totalTasks = tasks?.length ?? 0;
-						const progressPct = Math.min(
-							(xcProgress.points / xcProgress.minPoints) * 100,
-							100,
-						);
+						const points = xcProgress?.points ?? 0;
+						const minPoints = xcProgress?.minPoints ?? minPointsForLevel;
+						const progressPct =
+							minPoints > 0 ? Math.min((points / minPoints) * 100, 100) : 0;
 
 						return (
 							<div className="mb-8 overflow-hidden rounded-xl border border-gray-200 shadow-sm">
@@ -173,8 +180,8 @@ export default function CategoryPage() {
 											level={t(`categories.${currentLevel}.short`)}
 											levelLabel={t("progress.level")}
 											medal={medal}
-											points={xcProgress.points}
-											minPoints={xcProgress.minPoints}
+											points={points}
+											minPoints={minPoints}
 											completedTasks={completedTasks}
 											totalTasks={totalTasks}
 										/>
@@ -183,26 +190,7 @@ export default function CategoryPage() {
 
 								{/* Bottom bar */}
 								<div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50 px-6 py-4 sm:flex-row sm:items-center">
-									<div className="flex w-full flex-col gap-1.5 sm:w-1/3">
-										<p className="text-sm font-semibold text-gray-700">
-											{xcProgress.points}/{xcProgress.minPoints}{" "}
-											<span className="font-normal text-gray-500">
-												{t("progress.xcPoints")}
-											</span>
-											{xcProgress.completedAt && (
-												<span className="ml-2 text-green-600">
-													{t("progress.completed")}
-												</span>
-											)}
-										</p>
-										<div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-											<div
-												className="h-full rounded-full bg-linear-to-r from-cyan-400 via-lime-400 to-green-400 transition-all"
-												style={{ width: `${progressPct}%` }}
-											/>
-										</div>
-									</div>
-									<div className="flex w-full flex-col gap-1.5 sm:w-1/3">
+									<div className="flex w-full flex-col gap-1.5 sm:w-1/2">
 										<p className="text-sm font-semibold text-gray-700">
 											{completedTasks}/{totalTasks}{" "}
 											<span className="font-normal text-gray-500">
@@ -218,11 +206,25 @@ export default function CategoryPage() {
 											/>
 										</div>
 									</div>
-									{!isLoadingEnrollment && (
-										<div className="flex w-full items-center justify-center sm:w-1/3 sm:justify-end">
-											<EnrollButton />
+									<div className="flex w-full flex-col gap-1.5 sm:w-1/2">
+										<p className="text-sm font-semibold text-gray-700">
+											{points}/{minPoints}{" "}
+											<span className="font-normal text-gray-500">
+												{t("progress.xcPoints")}
+											</span>
+											{xcProgress?.completedAt && (
+												<span className="ml-2 text-green-600">
+													{t("progress.completed")}
+												</span>
+											)}
+										</p>
+										<div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+											<div
+												className="h-full rounded-full bg-linear-to-r from-cyan-400 via-lime-400 to-green-400 transition-all"
+												style={{ width: `${progressPct}%` }}
+											/>
 										</div>
-									)}
+									</div>
 								</div>
 							</div>
 						);

@@ -111,7 +111,7 @@ export default function XcTaskActionButtons({
 	};
 
 	return (
-		<div className="flex flex-col">
+		<div className="flex flex-col gap-4">
 			{!isSubmissionLoading && submission ? (
 				<XcSubmissionStatus
 					submission={submission}
@@ -119,7 +119,7 @@ export default function XcTaskActionButtons({
 					isUploading={isUploading}
 				/>
 			) : (
-				<div className="mt-4 mb-8 flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">
+				<div className="flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">
 					<div className="space-y-1">
 						<h3 className="font-heading text-xl font-bold text-slate-900">
 							{t("cta.title")}

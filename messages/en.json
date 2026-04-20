@@ -681,7 +681,8 @@
 		"upload_route": "Upload your Route",
 		"uploading": "Uploading...",
 		"upload_success": "Route uploaded successfully!",
-		"upload_error": "Error uploading route"
+		"upload_error": "Error uploading route",
+		"enroll_prompt": "Enroll in the XC Certificate to upload your tracks."
 	},
 	"XcMontegrappaPage": {
 		"banner": {

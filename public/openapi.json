@@ -203,6 +203,76 @@
 					"updatedAt"
 				]
 			},
+			"QuerySchema": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string"
+					}
+				}
+			},
+			"XcEditionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string",
+						"nullable": true
+					},
+					"startsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"basicMinPoints": {
+						"type": "number"
+					},
+					"interMinPoints": {
+						"type": "number"
+					},
+					"advMinPoints": {
+						"type": "number"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tasks": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcTaskSchema"
+						}
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"startsAt",
+					"endsAt",
+					"isActive",
+					"basicMinPoints",
+					"interMinPoints",
+					"advMinPoints",
+					"createdAt",
+					"updatedAt",
+					"tasks"
+				]
+			},
 			"XcEnrollmentSchema": {
 				"type": "object",
 				"properties": {
@@ -956,6 +1026,42 @@
 		}
 	},
 	"paths": {
+		"/xc/edition": {
+			"get": {
+				"operationId": "get-xc-edition",
+				"summary": "/xc/edition",
+				"description": "Fetch the current XC edition with its tasks, optionally filtered by category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEditionSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/xc/enroll": {
 			"get": {
 				"operationId": "get-xc-enroll",

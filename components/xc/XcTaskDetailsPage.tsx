@@ -17,11 +17,16 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import EnrollButton from "@/components/xc/EnrollXcEditionButton";
 import XcFlightChart from "@/components/xc/XcFlightChart";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
-import { useGetXcTask, useGetXcTrack } from "@/hooks/use-query-api";
+import {
+	useGetXcEnrollment,
+	useGetXcTask,
+	useGetXcTrack,
+} from "@/hooks/use-query-api";
 import { authClient } from "@/lib/auth-client";
 import {
 	type ParsedTask,
@@ -83,6 +88,8 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const isLoggedIn = Boolean(session?.user);
 	const { data: task, isLoading } = useGetXcTask(taskId);
 	const { data: track } = useGetXcTrack(taskId, isLoggedIn);
+	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
+	const isEnrolled = Boolean(enrollment);
 
 	const trackCoordinates = useMemo(
 		() =>
@@ -220,6 +227,12 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 								onUploadSuccess={handleUploadSuccess}
 							/>
 						</div>
+						{!isEnrolled && (
+							<div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+								<p className="mb-4 text-gray-600">{t("enroll_prompt")}</p>
+								<EnrollButton />
+							</div>
+						)}
 						{track && (
 							<div className="mb-8">
 								<XcTrackSubmission header={track.header} stats={track.stats} />
