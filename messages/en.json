@@ -819,7 +819,7 @@
 			"tasksCompleted": "tasks completed",
 			"currentPoints": "Current points:",
 			"minPoints": "Minimum required points:",
-			"completed": "✅ You have completed this category!"
+			"completed": "✅ You have completed this XC Certificate!"
 		},
 		"enrollPrompt": "Enroll in the XC certificate to upload your tracks.",
 		"tasks": {

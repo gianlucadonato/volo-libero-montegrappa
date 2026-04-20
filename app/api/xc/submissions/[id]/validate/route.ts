@@ -9,6 +9,7 @@ import { prisma } from "@/lib/prisma";
 import { downloadObject } from "@/lib/r2";
 import { validateTrack } from "@/lib/track-validator";
 import { parseTskXml } from "@/lib/tsk-parser";
+import { minPointsForCategory } from "@/store/xc";
 
 /**
  * /xc/submissions/[id]/validate
@@ -78,6 +79,50 @@ export async function POST(
 				validationResult: JSON.parse(JSON.stringify(result)),
 			},
 		});
+
+		// Update XcProgress when submission is approved
+		if (result.valid) {
+			const edition = await prisma.xcEdition.findUniqueOrThrow({
+				where: { id: submission.editionId },
+			});
+
+			const minPoints = minPointsForCategory(task.category, edition);
+
+			// Sum all approved points for this user/edition/category
+			const { _sum } = await prisma.xcTrackSubmission.aggregate({
+				where: {
+					userId: submission.userId,
+					editionId: submission.editionId,
+					task: { category: task.category },
+					status: "APPROVED",
+				},
+				_sum: { pointsAwarded: true },
+			});
+
+			const totalPoints = _sum.pointsAwarded ?? 0;
+
+			await prisma.xcProgress.upsert({
+				where: {
+					userId_editionId_category: {
+						userId: submission.userId,
+						editionId: submission.editionId,
+						category: task.category,
+					},
+				},
+				update: {
+					points: totalPoints,
+					completedAt: totalPoints >= minPoints ? new Date() : null,
+				},
+				create: {
+					userId: submission.userId,
+					editionId: submission.editionId,
+					category: task.category,
+					points: totalPoints,
+					minPoints,
+					completedAt: totalPoints >= minPoints ? new Date() : null,
+				},
+			});
+		}
 
 		return Response.json({
 			submissionId: updatedSubmission.id,

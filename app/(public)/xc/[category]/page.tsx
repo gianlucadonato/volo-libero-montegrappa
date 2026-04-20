@@ -213,7 +213,7 @@ export default function CategoryPage() {
 												{t("progress.xcPoints")}
 											</span>
 											{xcProgress?.completedAt && (
-												<span className="ml-2 text-green-600">
+												<span className="ml-2 block text-green-600 sm:inline">
 													{t("progress.completed")}
 												</span>
 											)}
