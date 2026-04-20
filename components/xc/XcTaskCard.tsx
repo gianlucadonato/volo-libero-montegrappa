@@ -12,7 +12,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { type MouseEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import type { XcSubmissionApi, XcTaskApi } from "@/types/api-schema";
 
@@ -65,7 +65,7 @@ export default function XcTaskCard({
 	const t = useTranslations("XcTaskCard");
 	const [isDownloading, setIsDownloading] = useState(false);
 
-	const handleDownload = async (e: React.MouseEvent) => {
+	const handleDownload = async (e: MouseEvent) => {
 		e.preventDefault();
 		e.stopPropagation();
 		if (!task.taskFileUrl) return;

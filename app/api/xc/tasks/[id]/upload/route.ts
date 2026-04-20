@@ -29,8 +29,19 @@ export async function POST(
 			headers: await headers(),
 		});
 		if (!session) {
-			console.log("🐞 > session:", session);
 			return APIErrorResponse(Boom.unauthorized());
+		}
+
+		const enrollment = await prisma.xcEnrollment.findUnique({
+			where: {
+				userId_editionId: {
+					userId: session.user.id,
+					editionId: NEXT_YEAR,
+				},
+			},
+		});
+		if (!enrollment) {
+			return APIErrorResponse(Boom.forbidden("Not enrolled in XC edition"));
 		}
 
 		const { id } = await params;
@@ -56,7 +67,7 @@ export async function POST(
 		const checksum = createHash("sha256").update(uint8Array).digest("hex");
 
 		const objectKey = buildObjectKey({
-			year: new Date().getFullYear(),
+			year: NEXT_YEAR,
 			userId: session.user.id,
 			taskId: `${task.category}-${task.slug}-${task.id}`,
 			fileName: file.name,

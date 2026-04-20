@@ -5,7 +5,7 @@ export default async function copyXcEdition(year: number, newYear: number) {
 		`🌱 Creating new XC edition from year ${year} to year ${newYear}...`,
 	);
 	const existingTasks = await prisma.xcTask.findMany({
-		where: { editionTasks: { every: { editionId: year } } },
+		where: { editionTasks: { some: { editionId: year } } },
 	});
 	if (!existingTasks.length) {
 		console.warn(

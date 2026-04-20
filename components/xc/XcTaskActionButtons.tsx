@@ -2,7 +2,7 @@
 
 import { Download, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useContext, useRef, useState } from "react";
+import { type ChangeEvent, useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
@@ -69,7 +69,7 @@ export default function XcTaskActionButtons({
 		fileInputRef.current?.click();
 	};
 
-	const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file || !taskId) return;
 		setIsUploading(true);

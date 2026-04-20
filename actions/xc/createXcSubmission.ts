@@ -17,7 +17,7 @@ export default async function createXcSubmission(input: Input) {
 		throw new Error("Unauthorized");
 	}
 
-	const task = await prisma.xcTask.findUnique({
+	const task = await prisma.xcTask.findFirst({
 		where: {
 			id: input.taskId,
 			editionTasks: { some: { editionId: Number(input.editionId) } },

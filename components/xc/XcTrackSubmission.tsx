@@ -13,6 +13,7 @@ import {
 	User,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import {
 	Card,
 	CardContent,
@@ -98,7 +99,7 @@ export default function XcTrackSubmission({
 			value: stats.endTime,
 		},
 	].filter(Boolean) as {
-		icon: React.ReactNode;
+		icon: ReactNode;
 		label: string;
 		value: string;
 	}[];
