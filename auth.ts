@@ -43,7 +43,12 @@ const devTrustedOrigins =
 			];
 
 const trustedOrigins = Array.from(
-	new Set([baseURL, ...devTrustedOrigins, ...(vercelUrl ? [vercelUrl] : [])]),
+	new Set([
+		baseURL,
+		"https://*.vololiberomontegrappa.it",
+		...devTrustedOrigins,
+		...(vercelUrl ? [vercelUrl] : []),
+	]),
 );
 
 export const auth = betterAuth({
