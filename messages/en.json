@@ -825,6 +825,23 @@
 		"tasks": {
 			"title": "Available tasks",
 			"empty": "No tasks available for this category yet."
+		},
+		"celebration": {
+			"basic": {
+				"title": "XC Montegrappa - Gheppio del Grappa",
+				"subtitle": "Basic Certificate Completed!",
+				"description": "Congratulations! You have completed all the basic certificate tasks! 🎉"
+			},
+			"intermediate": {
+				"title": "XC Montegrappa - Falco del Grappa",
+				"subtitle": "Intermediate Certificate Completed!",
+				"description": "Congratulations! You have completed all the intermediate certificate tasks! 🎉"
+			},
+			"advanced": {
+				"title": "XC Montegrappa - Aquila del Grappa",
+				"subtitle": "Advanced Certificate Completed!",
+				"description": "You have demonstrated peak performance and expert navigation, mastering the most challenging routes. Congratulations on reaching the ultimate level! 🎉🏅💪"
+			}
 		}
 	},
 	"XcTaskCard": {

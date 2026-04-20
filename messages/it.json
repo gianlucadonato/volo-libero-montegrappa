@@ -866,6 +866,23 @@
 		"tasks": {
 			"title": "Percorsi disponibili",
 			"empty": "Nessun percorso disponibile per questa categoria."
+		},
+		"celebration": {
+			"basic": {
+				"title": "XC Montegrappa - Nibbio del Grappa",
+				"subtitle": "Brevetto Basico Completato!",
+				"description": "Congratulazioni! Hai completato tutti i percorsi del brevetto basico! 🎉"
+			},
+			"intermediate": {
+				"title": "XC Montegrappa - Falco del Grappa",
+				"subtitle": "Brevetto Intermedio Completato!",
+				"description": "Congratulazioni! Hai completato tutti i percorsi del brevetto intermedio! 🎉"
+			},
+			"advanced": {
+				"title": "XC Montegrappa - Aquila del Grappa",
+				"subtitle": "Brevetto Avanzato Completato!",
+				"description": "Hai dimostrato prestazioni al massimo livello e una navigazione esperta, padroneggiando i percorsi più impegnativi. Congratulazioni per aver raggiunto il livello finale! 🎉🏅💪"
+			}
 		}
 	},
 	"XcTaskCard": {

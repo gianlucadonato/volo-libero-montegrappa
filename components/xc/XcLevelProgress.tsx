@@ -3,7 +3,6 @@
 interface XcLevelProgressProps {
 	level: string;
 	levelLabel: string;
-	medal: string;
 	points: number;
 	minPoints: number;
 	completedTasks: number;
@@ -13,7 +12,6 @@ interface XcLevelProgressProps {
 export default function XcLevelProgress({
 	level,
 	levelLabel,
-	medal,
 	points,
 	minPoints,
 }: XcLevelProgressProps) {
@@ -79,9 +77,6 @@ export default function XcLevelProgress({
 					</span>
 				</div>
 			</div>
-
-			{/* Medal */}
-			<span className="-mt-4.5 text-4xl drop-shadow-md">{medal}</span>
 		</div>
 	);
 }

@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
+import XcCelebrationCard from "@/components/xc/XcCelebrationCard";
 import XcLevelProgress from "@/components/xc/XcLevelProgress";
 import XcTaskCard from "@/components/xc/XcTaskCard";
 import {
@@ -150,8 +151,6 @@ export default function CategoryPage() {
 
 				{!isLoadingProgress &&
 					(() => {
-						const medal =
-							categories.find((c) => c.level === currentLevel)?.icon ?? "🥉";
 						const completedTasks =
 							submissions?.filter((s) => s.status === "APPROVED").length ?? 0;
 						const totalTasks = tasks?.length ?? 0;
@@ -179,7 +178,6 @@ export default function CategoryPage() {
 										<XcLevelProgress
 											level={t(`categories.${currentLevel}.short`)}
 											levelLabel={t("progress.level")}
-											medal={medal}
 											points={points}
 											minPoints={minPoints}
 											completedTasks={completedTasks}
@@ -240,6 +238,10 @@ export default function CategoryPage() {
 							<EnrollButton />
 						</div>
 					)}
+
+				{Boolean(xcProgress?.completedAt) && (
+					<XcCelebrationCard level={currentLevel} />
+				)}
 
 				{/* Tasks Grid */}
 				<div className="mb-8">
