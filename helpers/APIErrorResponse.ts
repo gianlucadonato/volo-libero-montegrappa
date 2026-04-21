@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
 import Boom from "@hapi/boom";
+import { ZodError } from "zod";
 import { logger } from "@/lib/logger";
 
 export default function APIErrorResponse(
@@ -15,10 +16,15 @@ export default function APIErrorResponse(
 			},
 		);
 	}
-	const serverError = Boom.boomify(error as Error, {
-		statusCode: 500,
-		message: (meta?.message as string) || "Internal Server Error",
-	});
+	let unhandledError: Boom.Boom;
+	if (error instanceof ZodError) {
+		unhandledError = Boom.badRequest("Validation response error");
+	} else {
+		unhandledError = Boom.boomify(error as Error, {
+			statusCode: 500,
+			message: (meta?.message as string) || "Internal Server Error",
+		});
+	}
 	logger.error(
 		{
 			error,
@@ -27,13 +33,13 @@ export default function APIErrorResponse(
 				...(meta || {}),
 			},
 		},
-		serverError.message,
+		unhandledError.message,
 	);
 	return Response.json(
-		{ error: serverError.message },
+		{ error: unhandledError.message },
 		{
-			status: serverError.output.statusCode,
-			statusText: serverError.output.payload.error,
+			status: unhandledError.output.statusCode,
+			statusText: unhandledError.output.payload.error,
 		},
 	);
 }

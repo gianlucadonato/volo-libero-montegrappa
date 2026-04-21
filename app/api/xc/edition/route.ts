@@ -33,7 +33,7 @@ export const GET = async (request: Request) => {
 		if (!edition) {
 			return APIErrorResponse(Boom.notFound("No active edition found"));
 		}
-		const parsed = XcEditionSchema.parse(edition);
+		const parsed = XcEditionSchema.parse(transformEdition(edition));
 		return Response.json(parsed);
 	} catch (error) {
 		return APIErrorResponse(error, {
@@ -42,3 +42,19 @@ export const GET = async (request: Request) => {
 		});
 	}
 };
+
+function transformEdition(edition: Awaited<ReturnType<typeof getXcEdition>>) {
+	if (!edition) return null;
+	return {
+		...edition,
+		createdAt: edition.createdAt.toISOString(),
+		updatedAt: edition.updatedAt.toISOString(),
+		startsAt: edition.startsAt.toISOString(),
+		endsAt: edition.endsAt.toISOString(),
+		tasks: edition.editionTasks.map((et) => ({
+			...et.task,
+			createdAt: et.task.createdAt.toISOString(),
+			updatedAt: et.task.updatedAt.toISOString(),
+		})),
+	};
+}

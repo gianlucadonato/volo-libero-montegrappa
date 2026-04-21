@@ -35,7 +35,7 @@ export async function GET(
 		if (!submission) {
 			return Response.json(null);
 		}
-		const parsed = XcSubmissionSchema.parse(submission);
+		const parsed = XcSubmissionSchema.parse(formatSubmission(submission));
 		return Response.json(parsed);
 	} catch (error) {
 		return APIErrorResponse(error, {
@@ -43,4 +43,15 @@ export async function GET(
 			id,
 		});
 	}
+}
+
+function formatSubmission(
+	submission: Awaited<ReturnType<typeof getXcSubmissionByTask>>,
+) {
+	if (!submission) return null;
+	return {
+		...submission,
+		createdAt: submission.createdAt.toISOString(),
+		updatedAt: submission.updatedAt.toISOString(),
+	};
 }

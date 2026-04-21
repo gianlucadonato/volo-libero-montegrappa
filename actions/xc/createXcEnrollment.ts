@@ -42,16 +42,5 @@ export default async function createXcEnrollment({
 		},
 	});
 
-	const initXcProgress = Object.values(XcCategoryLevel).map((category) => ({
-		category,
-		userId,
-		editionId: edition.id,
-		minPoints: minPointsForCategory(category, edition),
-	}));
-
-	await prisma.xcProgress.createMany({
-		data: initXcProgress,
-	});
-
 	return enrollment;
 }

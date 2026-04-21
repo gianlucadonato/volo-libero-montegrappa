@@ -24,7 +24,10 @@ export const GET = async (
 	}
 	try {
 		const task = await getXcTaskById(parsedParams.id);
-		const parsedTask = XcTaskSchema.parse(task);
+		if (!task) {
+			return APIErrorResponse(Boom.notFound("Task not found"));
+		}
+		const parsedTask = XcTaskSchema.parse(formatTask(task));
 		return Response.json(parsedTask);
 	} catch (error) {
 		return APIErrorResponse(error, {
@@ -33,3 +36,12 @@ export const GET = async (
 		});
 	}
 };
+
+function formatTask(task: Awaited<ReturnType<typeof getXcTaskById>>) {
+	if (!task) return null;
+	return {
+		...task,
+		createdAt: task.createdAt.toISOString(),
+		updatedAt: task.updatedAt.toISOString(),
+	};
+}

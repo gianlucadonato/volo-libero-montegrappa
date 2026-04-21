@@ -18,21 +18,5 @@ export async function getXcEdition(
 			},
 		},
 	});
-
-	if (!edition) return null;
-
-	return {
-		id: edition.id,
-		title: edition.title,
-		description: edition.description,
-		startsAt: edition.startsAt,
-		endsAt: edition.endsAt,
-		isActive: edition.isActive,
-		basicMinPoints: edition.basicMinPoints,
-		interMinPoints: edition.interMinPoints,
-		advMinPoints: edition.advMinPoints,
-		createdAt: edition.createdAt,
-		updatedAt: edition.updatedAt,
-		tasks: edition.editionTasks.map((et) => et.task),
-	};
+	return edition;
 }
