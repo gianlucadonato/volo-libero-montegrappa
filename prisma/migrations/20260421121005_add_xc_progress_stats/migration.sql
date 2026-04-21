@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "xc_progress" ADD COLUMN     "flight_time_hrs" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "max_alt_m" DOUBLE PRECISION NOT NULL DEFAULT 0,
+ADD COLUMN     "total_distance_km" DOUBLE PRECISION NOT NULL DEFAULT 0;

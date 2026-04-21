@@ -15,7 +15,7 @@ export default function XcMontegrappaPage() {
 	return (
 		<div className="mb-12">
 			<div className="overflow-hidden">
-				<div className="flex h-[20vh] flex-col bg-slate-50 bg-[url('/banner-panetun.jpg')] bg-cover bg-left">
+				<div className="flex h-[20vh] flex-col bg-slate-50 bg-[url('/background/panettone.jpg')] bg-cover bg-left">
 					<div
 						style={{ backgroundColor: "rgba(0,0,0,0.2)" }}
 						className="flex h-full flex-col items-center justify-center px-2"

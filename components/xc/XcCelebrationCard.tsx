@@ -40,34 +40,100 @@ const LEVEL_THEME: Record<
 	},
 };
 
-export default function XcCelebrationCard({ level }: { level: string }) {
+export interface XcCelebrationStats {
+	totalDistanceKm: number;
+	flightTimeHrs: number;
+	maxAltM: number;
+}
+
+export default function XcCelebrationCard({
+	level,
+	stats,
+}: {
+	level: string;
+	stats?: XcCelebrationStats;
+}) {
 	const t = useTranslations("XcCategoryPage");
 	const theme = LEVEL_THEME[level] ?? LEVEL_THEME.basic;
 
 	return (
 		<div
-			className={`mb-8 flex items-center gap-6 rounded-xl border ${theme.border} ${theme.bg} p-6 shadow-sm`}
+			className={`mb-8 overflow-hidden rounded-xl border ${theme.border} shadow-sm`}
 		>
-			<div className="relative size-24 shrink-0 sm:size-28">
-				<Image
-					src={MEDAL_IMAGE[level] ?? MEDAL_IMAGE.basic}
-					alt={t(`celebration.${level}.title`)}
-					fill
-					className="object-contain"
-				/>
+			{/* Medal + text */}
+			<div className={`flex items-center gap-6 ${theme.bg} p-6`}>
+				<div className="relative size-24 shrink-0 sm:size-28">
+					<Image
+						src={MEDAL_IMAGE[level] ?? MEDAL_IMAGE.basic}
+						alt={t(`celebration.${level}.title`)}
+						fill
+						className="object-contain"
+					/>
+				</div>
+				<div>
+					<h3
+						className={`mb-1 text-xl font-bold tracking-wide sm:text-2xl ${theme.title}`}
+					>
+						{t(`celebration.${level}.title`)}
+					</h3>
+					<p className={`mb-1 text-base font-semibold ${theme.subtitle}`}>
+						{t(`celebration.${level}.subtitle`)}
+					</p>
+					<p className={`text-sm ${theme.description}`}>
+						{t(`celebration.${level}.description`)}
+					</p>
+				</div>
 			</div>
-			<div>
-				<h3
-					className={`mb-1 text-xl font-bold tracking-wide sm:text-2xl ${theme.title}`}
+
+			{/* Aggregated flight stats */}
+			{stats && (
+				<div
+					className="relative bg-cover bg-center"
+					style={{ backgroundImage: "url('/bg-feltre.webp')" }}
 				>
-					{t(`celebration.${level}.title`)}
-				</h3>
-				<p className={`mb-1 text-base font-semibold ${theme.subtitle}`}>
-					{t(`celebration.${level}.subtitle`)}
-				</p>
-				<p className={`text-sm ${theme.description}`}>
-					{t(`celebration.${level}.description`)}
-				</p>
+					<div className="absolute inset-0 bg-[#1a2744]/80" />
+					<div className="relative px-6 py-6">
+						<div className="flex flex-wrap items-center justify-center gap-4">
+							<StatCard
+								label={t("celebration.stats.totalDistance")}
+								value={stats.totalDistanceKm.toLocaleString()}
+								unit="km"
+							/>
+							<StatCard
+								label={t("celebration.stats.flightTime")}
+								value={stats.flightTimeHrs.toLocaleString()}
+								unit="hrs"
+							/>
+							<StatCard
+								label={t("celebration.stats.maxAlt")}
+								value={stats.maxAltM.toLocaleString()}
+								unit="m"
+							/>
+						</div>
+					</div>
+				</div>
+			)}
+		</div>
+	);
+}
+
+function StatCard({
+	label,
+	value,
+	unit,
+}: {
+	label: string;
+	value: string;
+	unit: string;
+}) {
+	return (
+		<div className="flex min-w-[140px] flex-col items-center rounded-lg border border-white/10 bg-white/10 px-4 py-2 backdrop-blur-sm">
+			<span className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-slate-300">
+				{label}
+			</span>
+			<div className="flex items-baseline gap-1.5">
+				<span className="text-3xl font-bold text-white">{value}</span>
+				<span className="text-sm font-medium text-slate-300">{unit}</span>
 			</div>
 		</div>
 	);

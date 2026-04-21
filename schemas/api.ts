@@ -27,6 +27,9 @@ export const XcProgressSchema = z.object({
 	category: z.string(),
 	points: z.number(),
 	minPoints: z.number(),
+	totalDistanceKm: z.number(),
+	flightTimeHrs: z.number(),
+	maxAltM: z.number(),
 	completedAt: z.coerce
 		.date()
 		.transform((val) => val.toISOString())
@@ -47,7 +50,7 @@ export const XcEditionSchema = z.object({
 	advMinPoints: z.number(),
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
-	tasks: XcTaskSchema.array(),
+	tasks: z.array(XcTaskSchema),
 });
 
 export const XcEnrollmentSchema = z.object({

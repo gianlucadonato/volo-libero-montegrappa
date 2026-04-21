@@ -30,12 +30,18 @@ export type XcProgressAvgAggregateOutputType = {
   editionId: number | null
   points: number | null
   minPoints: number | null
+  totalDistanceKm: number | null
+  flightTimeHrs: number | null
+  maxAltM: number | null
 }
 
 export type XcProgressSumAggregateOutputType = {
   editionId: number | null
   points: number | null
   minPoints: number | null
+  totalDistanceKm: number | null
+  flightTimeHrs: number | null
+  maxAltM: number | null
 }
 
 export type XcProgressMinAggregateOutputType = {
@@ -45,6 +51,9 @@ export type XcProgressMinAggregateOutputType = {
   category: $Enums.XcCategoryLevel | null
   points: number | null
   minPoints: number | null
+  totalDistanceKm: number | null
+  flightTimeHrs: number | null
+  maxAltM: number | null
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,6 +66,9 @@ export type XcProgressMaxAggregateOutputType = {
   category: $Enums.XcCategoryLevel | null
   points: number | null
   minPoints: number | null
+  totalDistanceKm: number | null
+  flightTimeHrs: number | null
+  maxAltM: number | null
   completedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -69,6 +81,9 @@ export type XcProgressCountAggregateOutputType = {
   category: number
   points: number
   minPoints: number
+  totalDistanceKm: number
+  flightTimeHrs: number
+  maxAltM: number
   completedAt: number
   createdAt: number
   updatedAt: number
@@ -80,12 +95,18 @@ export type XcProgressAvgAggregateInputType = {
   editionId?: true
   points?: true
   minPoints?: true
+  totalDistanceKm?: true
+  flightTimeHrs?: true
+  maxAltM?: true
 }
 
 export type XcProgressSumAggregateInputType = {
   editionId?: true
   points?: true
   minPoints?: true
+  totalDistanceKm?: true
+  flightTimeHrs?: true
+  maxAltM?: true
 }
 
 export type XcProgressMinAggregateInputType = {
@@ -95,6 +116,9 @@ export type XcProgressMinAggregateInputType = {
   category?: true
   points?: true
   minPoints?: true
+  totalDistanceKm?: true
+  flightTimeHrs?: true
+  maxAltM?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -107,6 +131,9 @@ export type XcProgressMaxAggregateInputType = {
   category?: true
   points?: true
   minPoints?: true
+  totalDistanceKm?: true
+  flightTimeHrs?: true
+  maxAltM?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -119,6 +146,9 @@ export type XcProgressCountAggregateInputType = {
   category?: true
   points?: true
   minPoints?: true
+  totalDistanceKm?: true
+  flightTimeHrs?: true
+  maxAltM?: true
   completedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -218,6 +248,9 @@ export type XcProgressGroupByOutputType = {
   category: $Enums.XcCategoryLevel
   points: number
   minPoints: number
+  totalDistanceKm: number
+  flightTimeHrs: number
+  maxAltM: number
   completedAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -253,6 +286,9 @@ export type XcProgressWhereInput = {
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
+  totalDistanceKm?: Prisma.FloatFilter<"XcProgress"> | number
+  flightTimeHrs?: Prisma.FloatFilter<"XcProgress"> | number
+  maxAltM?: Prisma.FloatFilter<"XcProgress"> | number
   completedAt?: Prisma.DateTimeNullableFilter<"XcProgress"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
@@ -267,6 +303,9 @@ export type XcProgressOrderByWithRelationInput = {
   category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -285,6 +324,9 @@ export type XcProgressWhereUniqueInput = Prisma.AtLeast<{
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
+  totalDistanceKm?: Prisma.FloatFilter<"XcProgress"> | number
+  flightTimeHrs?: Prisma.FloatFilter<"XcProgress"> | number
+  maxAltM?: Prisma.FloatFilter<"XcProgress"> | number
   completedAt?: Prisma.DateTimeNullableFilter<"XcProgress"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
@@ -299,6 +341,9 @@ export type XcProgressOrderByWithAggregationInput = {
   category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
   completedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -319,6 +364,9 @@ export type XcProgressScalarWhereWithAggregatesInput = {
   category?: Prisma.EnumXcCategoryLevelWithAggregatesFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntWithAggregatesFilter<"XcProgress"> | number
   minPoints?: Prisma.IntWithAggregatesFilter<"XcProgress"> | number
+  totalDistanceKm?: Prisma.FloatWithAggregatesFilter<"XcProgress"> | number
+  flightTimeHrs?: Prisma.FloatWithAggregatesFilter<"XcProgress"> | number
+  maxAltM?: Prisma.FloatWithAggregatesFilter<"XcProgress"> | number
   completedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"XcProgress"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcProgress"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcProgress"> | Date | string
@@ -329,6 +377,9 @@ export type XcProgressCreateInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -343,6 +394,9 @@ export type XcProgressUncheckedCreateInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -353,6 +407,9 @@ export type XcProgressUpdateInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -367,6 +424,9 @@ export type XcProgressUncheckedUpdateInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -379,6 +439,9 @@ export type XcProgressCreateManyInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -389,6 +452,9 @@ export type XcProgressUpdateManyMutationInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -401,6 +467,9 @@ export type XcProgressUncheckedUpdateManyInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,6 +498,9 @@ export type XcProgressCountOrderByAggregateInput = {
   category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -438,6 +510,9 @@ export type XcProgressAvgOrderByAggregateInput = {
   editionId?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
 }
 
 export type XcProgressMaxOrderByAggregateInput = {
@@ -447,6 +522,9 @@ export type XcProgressMaxOrderByAggregateInput = {
   category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -459,6 +537,9 @@ export type XcProgressMinOrderByAggregateInput = {
   category?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
   completedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -468,6 +549,9 @@ export type XcProgressSumOrderByAggregateInput = {
   editionId?: Prisma.SortOrder
   points?: Prisma.SortOrder
   minPoints?: Prisma.SortOrder
+  totalDistanceKm?: Prisma.SortOrder
+  flightTimeHrs?: Prisma.SortOrder
+  maxAltM?: Prisma.SortOrder
 }
 
 export type XcProgressCreateNestedManyWithoutUserInput = {
@@ -554,11 +638,22 @@ export type XcProgressUncheckedUpdateManyWithoutEditionNestedInput = {
   deleteMany?: Prisma.XcProgressScalarWhereInput | Prisma.XcProgressScalarWhereInput[]
 }
 
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type XcProgressCreateWithoutUserInput = {
   id?: string
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -571,6 +666,9 @@ export type XcProgressUncheckedCreateWithoutUserInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -612,6 +710,9 @@ export type XcProgressScalarWhereInput = {
   category?: Prisma.EnumXcCategoryLevelFilter<"XcProgress"> | $Enums.XcCategoryLevel
   points?: Prisma.IntFilter<"XcProgress"> | number
   minPoints?: Prisma.IntFilter<"XcProgress"> | number
+  totalDistanceKm?: Prisma.FloatFilter<"XcProgress"> | number
+  flightTimeHrs?: Prisma.FloatFilter<"XcProgress"> | number
+  maxAltM?: Prisma.FloatFilter<"XcProgress"> | number
   completedAt?: Prisma.DateTimeNullableFilter<"XcProgress"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcProgress"> | Date | string
@@ -622,6 +723,9 @@ export type XcProgressCreateWithoutEditionInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -634,6 +738,9 @@ export type XcProgressUncheckedCreateWithoutEditionInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -671,6 +778,9 @@ export type XcProgressCreateManyUserInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -681,6 +791,9 @@ export type XcProgressUpdateWithoutUserInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -693,6 +806,9 @@ export type XcProgressUncheckedUpdateWithoutUserInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -704,6 +820,9 @@ export type XcProgressUncheckedUpdateManyWithoutUserInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -715,6 +834,9 @@ export type XcProgressCreateManyEditionInput = {
   category: $Enums.XcCategoryLevel
   points?: number
   minPoints: number
+  totalDistanceKm?: number
+  flightTimeHrs?: number
+  maxAltM?: number
   completedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -725,6 +847,9 @@ export type XcProgressUpdateWithoutEditionInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -737,6 +862,9 @@ export type XcProgressUncheckedUpdateWithoutEditionInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -748,6 +876,9 @@ export type XcProgressUncheckedUpdateManyWithoutEditionInput = {
   category?: Prisma.EnumXcCategoryLevelFieldUpdateOperationsInput | $Enums.XcCategoryLevel
   points?: Prisma.IntFieldUpdateOperationsInput | number
   minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  totalDistanceKm?: Prisma.FloatFieldUpdateOperationsInput | number
+  flightTimeHrs?: Prisma.FloatFieldUpdateOperationsInput | number
+  maxAltM?: Prisma.FloatFieldUpdateOperationsInput | number
   completedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -762,6 +893,9 @@ export type XcProgressSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   category?: boolean
   points?: boolean
   minPoints?: boolean
+  totalDistanceKm?: boolean
+  flightTimeHrs?: boolean
+  maxAltM?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -776,6 +910,9 @@ export type XcProgressSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   category?: boolean
   points?: boolean
   minPoints?: boolean
+  totalDistanceKm?: boolean
+  flightTimeHrs?: boolean
+  maxAltM?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -790,6 +927,9 @@ export type XcProgressSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   category?: boolean
   points?: boolean
   minPoints?: boolean
+  totalDistanceKm?: boolean
+  flightTimeHrs?: boolean
+  maxAltM?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -804,12 +944,15 @@ export type XcProgressSelectScalar = {
   category?: boolean
   points?: boolean
   minPoints?: boolean
+  totalDistanceKm?: boolean
+  flightTimeHrs?: boolean
+  maxAltM?: boolean
   completedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "category" | "points" | "minPoints" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["xcProgress"]>
+export type XcProgressOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "category" | "points" | "minPoints" | "totalDistanceKm" | "flightTimeHrs" | "maxAltM" | "completedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["xcProgress"]>
 export type XcProgressInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   edition?: boolean | Prisma.XcEditionDefaultArgs<ExtArgs>
@@ -836,6 +979,9 @@ export type $XcProgressPayload<ExtArgs extends runtime.Types.Extensions.Internal
     category: $Enums.XcCategoryLevel
     points: number
     minPoints: number
+    totalDistanceKm: number
+    flightTimeHrs: number
+    maxAltM: number
     completedAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1270,6 +1416,9 @@ export interface XcProgressFieldRefs {
   readonly category: Prisma.FieldRef<"XcProgress", 'XcCategoryLevel'>
   readonly points: Prisma.FieldRef<"XcProgress", 'Int'>
   readonly minPoints: Prisma.FieldRef<"XcProgress", 'Int'>
+  readonly totalDistanceKm: Prisma.FieldRef<"XcProgress", 'Float'>
+  readonly flightTimeHrs: Prisma.FieldRef<"XcProgress", 'Float'>
+  readonly maxAltM: Prisma.FieldRef<"XcProgress", 'Float'>
   readonly completedAt: Prisma.FieldRef<"XcProgress", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"XcProgress", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcProgress", 'DateTime'>

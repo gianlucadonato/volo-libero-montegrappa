@@ -238,9 +238,15 @@ export default function CategoryPage() {
 							<EnrollButton />
 						</div>
 					)}
-
 				{Boolean(xcProgress?.completedAt) && (
-					<XcCelebrationCard level={currentLevel} />
+					<XcCelebrationCard
+						level={currentLevel}
+						stats={{
+							totalDistanceKm: xcProgress?.totalDistanceKm ?? 0,
+							flightTimeHrs: Math.round(xcProgress?.flightTimeHrs ?? 0),
+							maxAltM: Math.round(xcProgress?.maxAltM ?? 0),
+						}}
+					/>
 				)}
 
 				{/* Tasks Grid */}

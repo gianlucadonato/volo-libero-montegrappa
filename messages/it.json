@@ -882,6 +882,11 @@
 				"title": "XC Montegrappa - Aquila del Grappa",
 				"subtitle": "Brevetto Avanzato Completato!",
 				"description": "Hai dimostrato prestazioni al massimo livello e una navigazione esperta, padroneggiando i percorsi più impegnativi. Congratulazioni per aver raggiunto il livello finale! 🎉🏅💪"
+			},
+			"stats": {
+				"totalDistance": "Distanza Totale",
+				"flightTime": "Tempo di Volo",
+				"maxAlt": "Alt Max"
 			}
 		}
 	},

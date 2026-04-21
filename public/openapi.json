@@ -60,6 +60,15 @@
 					"minPoints": {
 						"type": "number"
 					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"flightTimeHrs": {
+						"type": "number"
+					},
+					"maxAltM": {
+						"type": "number"
+					},
 					"completedAt": {
 						"type": "string",
 						"format": "date-time",
@@ -80,6 +89,9 @@
 					"category",
 					"points",
 					"minPoints",
+					"totalDistanceKm",
+					"flightTimeHrs",
+					"maxAltM",
 					"createdAt",
 					"updatedAt"
 				]
@@ -203,7 +215,7 @@
 					"updatedAt"
 				]
 			},
-			"QuerySchema": {
+			"CategoryQuerySchema": {
 				"type": "object",
 				"properties": {
 					"category": {

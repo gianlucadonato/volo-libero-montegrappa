@@ -5,14 +5,14 @@ import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { XcCategoryLevel } from "@/prisma/generated/enums";
 import { XcEditionSchema } from "@/schemas";
 
-const QuerySchema = z.object({
+const CategoryQuerySchema = z.object({
 	category: z.nativeEnum(XcCategoryLevel).optional(),
 });
 
 /**
  * /xc/edition
  * @description Fetch the current XC edition with its tasks, optionally filtered by category
- * @queryParams QuerySchema
+ * @queryParams CategoryQuerySchema
  * @response XcEditionSchema
  * @openapi
  */
@@ -21,7 +21,7 @@ export const GET = async (request: Request) => {
 	const { searchParams } = new URL(request.url);
 	const categoryParam = searchParams.get("category")?.toUpperCase();
 
-	const { success, data: parsedQuery } = QuerySchema.safeParse({
+	const { success, data: parsedQuery } = CategoryQuerySchema.safeParse({
 		category: categoryParam || undefined,
 	});
 	if (!success) {

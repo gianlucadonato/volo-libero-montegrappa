@@ -101,6 +101,27 @@ export async function POST(
 
 			const totalPoints = _sum.pointsAwarded ?? 0;
 
+			// Compute aggregated flight stats from current progress + this flight
+			const existingProgress = await prisma.xcProgress.findUnique({
+				where: {
+					userId_editionId_category: {
+						userId: submission.userId,
+						editionId: submission.editionId,
+						category: task.category,
+					},
+				},
+			});
+
+			const flightDistanceKm = parsedIgc.stats.totalDistanceKm;
+			const flightTimeHrs = parsedIgc.stats.durationSeconds / 3600;
+			const flightMaxAlt = parsedIgc.stats.maxAltitude;
+
+			const newTotalDistanceKm =
+				(existingProgress?.totalDistanceKm ?? 0) + flightDistanceKm;
+			const newFlightTimeHrs =
+				(existingProgress?.flightTimeHrs ?? 0) + flightTimeHrs;
+			const newMaxAltM = Math.max(existingProgress?.maxAltM ?? 0, flightMaxAlt);
+
 			await prisma.xcProgress.upsert({
 				where: {
 					userId_editionId_category: {
@@ -111,6 +132,9 @@ export async function POST(
 				},
 				update: {
 					points: totalPoints,
+					totalDistanceKm: newTotalDistanceKm,
+					flightTimeHrs: newFlightTimeHrs,
+					maxAltM: newMaxAltM,
 					completedAt: totalPoints >= minPoints ? new Date() : null,
 				},
 				create: {
@@ -119,6 +143,9 @@ export async function POST(
 					category: task.category,
 					points: totalPoints,
 					minPoints,
+					totalDistanceKm: flightDistanceKm,
+					flightTimeHrs: flightTimeHrs,
+					maxAltM: flightMaxAlt,
 					completedAt: totalPoints >= minPoints ? new Date() : null,
 				},
 			});

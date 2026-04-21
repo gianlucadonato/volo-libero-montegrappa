@@ -204,6 +204,9 @@ export interface components {
 			category: string;
 			points: number;
 			minPoints: number;
+			totalDistanceKm: number;
+			flightTimeHrs: number;
+			maxAltM: number;
 			/** Format: date-time */
 			completedAt?: string | null;
 			/** Format: date-time */
@@ -246,7 +249,7 @@ export interface components {
 			/** Format: date-time */
 			updatedAt: string;
 		};
-		QuerySchema: {
+		CategoryQuerySchema: {
 			category?: string;
 		};
 		XcEditionSchema: {

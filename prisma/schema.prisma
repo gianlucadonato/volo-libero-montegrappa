@@ -370,15 +370,18 @@ model XcTrackSubmission {
 }
 
 model XcProgress {
-  id          String          @id @default(cuid())
-  userId      String          @map(name: "user_id")
-  editionId   Int             @map(name: "edition_id")
-  category    XcCategoryLevel
-  points      Int             @default(0)
-  minPoints   Int             @map(name: "min_points")
-  completedAt DateTime?       @map(name: "completed_at")
-  createdAt   DateTime        @default(now()) @map(name: "created_at")
-  updatedAt   DateTime        @updatedAt @map(name: "updated_at")
+  id              String          @id @default(cuid())
+  userId          String          @map(name: "user_id")
+  editionId       Int             @map(name: "edition_id")
+  category        XcCategoryLevel
+  points          Int             @default(0)
+  minPoints       Int             @map(name: "min_points")
+  totalDistanceKm Float           @default(0) @map(name: "total_distance_km")
+  flightTimeHrs   Float           @default(0) @map(name: "flight_time_hrs")
+  maxAltM         Float           @default(0) @map(name: "max_alt_m")
+  completedAt     DateTime?       @map(name: "completed_at")
+  createdAt       DateTime        @default(now()) @map(name: "created_at")
+  updatedAt       DateTime        @updatedAt @map(name: "updated_at")
 
   user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   edition XcEdition @relation(fields: [editionId], references: [id], onDelete: Cascade)

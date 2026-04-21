@@ -29,10 +29,6 @@ export const additionalFields = {
 const baseURL =
 	env.BETTER_AUTH_URL ?? env.NEXTAUTH_URL ?? env.NEXT_PUBLIC_APP_URL;
 
-const vercelUrl = process.env.VERCEL_URL
-	? `https://${process.env.VERCEL_URL}`
-	: undefined;
-
 const devTrustedOrigins =
 	env.NODE_ENV === "production"
 		? []
@@ -47,7 +43,6 @@ const trustedOrigins = Array.from(
 		baseURL,
 		"https://*.vololiberomontegrappa.it",
 		...devTrustedOrigins,
-		...(vercelUrl ? [vercelUrl] : []),
 	]),
 );
 

@@ -841,6 +841,11 @@
 				"title": "XC Montegrappa - Aquila del Grappa",
 				"subtitle": "Advanced Certificate Completed!",
 				"description": "You have demonstrated peak performance and expert navigation, mastering the most challenging routes. Congratulations on reaching the ultimate level! 🎉🏅💪"
+			},
+			"stats": {
+				"totalDistance": "Total Distance",
+				"flightTime": "Flight Time",
+				"maxAlt": "Max Alt"
 			}
 		}
 	},

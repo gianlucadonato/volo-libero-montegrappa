@@ -378,6 +378,9 @@ export const XcProgressScalarFieldEnum = {
   category: 'category',
   points: 'points',
   minPoints: 'minPoints',
+  totalDistanceKm: 'totalDistanceKm',
+  flightTimeHrs: 'flightTimeHrs',
+  maxAltM: 'maxAltM',
   completedAt: 'completedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
