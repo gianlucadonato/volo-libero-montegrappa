@@ -48,7 +48,6 @@ export default function CategoryPage() {
 		error: editionError,
 	} = useGetXcEdition(currentLevel);
 	const tasks = edition?.tasks;
-	const minPointsForLevel = edition?.minPoints ?? 0;
 	const { isLoading: isLoadingProgress, data: xcProgress } =
 		useGetProgressByCategory(currentLevel, isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =
@@ -149,9 +148,10 @@ export default function CategoryPage() {
 							submissions?.filter((s) => s.status === "APPROVED").length ?? 0;
 						const totalTasks = tasks?.length ?? 0;
 						const points = xcProgress?.points ?? 0;
-						const minPoints = xcProgress?.minPoints ?? minPointsForLevel;
+						const minPoints = edition?.minPoints ?? 0;
+						const maxPoints = edition?.maxPoints ?? 0;
 						const progressPct =
-							minPoints > 0 ? Math.min((points / minPoints) * 100, 100) : 0;
+							maxPoints > 0 ? Math.min((points / maxPoints) * 100, 100) : 0;
 
 						return (
 							<div className="mb-8 overflow-hidden rounded-xl border border-gray-200 shadow-sm">
@@ -174,6 +174,7 @@ export default function CategoryPage() {
 											levelLabel={t("progress.level")}
 											points={points}
 											minPoints={minPoints}
+											maxPoints={maxPoints}
 											completedTasks={completedTasks}
 											totalTasks={totalTasks}
 										/>
@@ -200,7 +201,7 @@ export default function CategoryPage() {
 									</div>
 									<div className="flex w-full flex-col gap-1.5 sm:w-1/2">
 										<p className="text-sm font-semibold text-gray-700">
-											{points}/{minPoints}{" "}
+											{points}/{maxPoints}{" "}
 											<span className="font-normal text-gray-500">
 												{t("progress.xcPoints")}
 											</span>
@@ -210,11 +211,26 @@ export default function CategoryPage() {
 												</span>
 											)}
 										</p>
-										<div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+										<div className="relative h-2 w-full rounded-full bg-gray-200">
 											<div
 												className="h-full rounded-full bg-linear-to-r from-cyan-400 via-lime-400 to-green-400 transition-all"
 												style={{ width: `${progressPct}%` }}
 											/>
+											{maxPoints > 0 &&
+												minPoints > 0 &&
+												minPoints < maxPoints && (
+													<div
+														className="absolute top-0 flex flex-col items-center"
+														style={{
+															left: `${(minPoints / maxPoints) * 100}%`,
+														}}
+													>
+														<div className="h-2 w-0.5 bg-amber-600" />
+														<span className="mt-0.5 text-[10px] font-medium text-amber-600">
+															{minPoints}
+														</span>
+													</div>
+												)}
 										</div>
 									</div>
 								</div>
