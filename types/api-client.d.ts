@@ -261,9 +261,8 @@ export interface components {
 			/** Format: date-time */
 			endsAt: string;
 			isActive: boolean;
-			basicMinPoints: number;
-			interMinPoints: number;
-			advMinPoints: number;
+			minPoints: number;
+			maxPoints: number;
 			/** Format: date-time */
 			createdAt: string;
 			/** Format: date-time */

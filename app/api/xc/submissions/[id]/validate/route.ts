@@ -9,7 +9,6 @@ import { prisma } from "@/lib/prisma";
 import { downloadObject } from "@/lib/r2";
 import { validateTrack } from "@/lib/track-validator";
 import { parseTskXml } from "@/lib/tsk-parser";
-import { minPointsForCategory } from "@/store/xc";
 
 /**
  * /xc/submissions/[id]/validate
@@ -86,8 +85,6 @@ export async function POST(
 				where: { id: submission.editionId },
 			});
 
-			const minPoints = minPointsForCategory(task.category, edition);
-
 			// Sum all approved points for this user/edition/category
 			const { _sum } = await prisma.xcTrackSubmission.aggregate({
 				where: {
@@ -112,6 +109,7 @@ export async function POST(
 				},
 			});
 
+			const minPoints = edition.minPoints;
 			const flightDistanceKm = parsedIgc.stats.totalDistanceKm;
 			const flightTimeHrs = parsedIgc.stats.durationSeconds / 3600;
 			const flightMaxAlt = parsedIgc.stats.maxAltitude;

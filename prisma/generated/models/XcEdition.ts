@@ -28,16 +28,14 @@ export type AggregateXcEdition = {
 
 export type XcEditionAvgAggregateOutputType = {
   id: number | null
-  basicMinPoints: number | null
-  interMinPoints: number | null
-  advMinPoints: number | null
+  minPoints: number | null
+  maxPoints: number | null
 }
 
 export type XcEditionSumAggregateOutputType = {
   id: number | null
-  basicMinPoints: number | null
-  interMinPoints: number | null
-  advMinPoints: number | null
+  minPoints: number | null
+  maxPoints: number | null
 }
 
 export type XcEditionMinAggregateOutputType = {
@@ -47,9 +45,8 @@ export type XcEditionMinAggregateOutputType = {
   startsAt: Date | null
   endsAt: Date | null
   isActive: boolean | null
-  basicMinPoints: number | null
-  interMinPoints: number | null
-  advMinPoints: number | null
+  minPoints: number | null
+  maxPoints: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,9 +58,8 @@ export type XcEditionMaxAggregateOutputType = {
   startsAt: Date | null
   endsAt: Date | null
   isActive: boolean | null
-  basicMinPoints: number | null
-  interMinPoints: number | null
-  advMinPoints: number | null
+  minPoints: number | null
+  maxPoints: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -75,9 +71,8 @@ export type XcEditionCountAggregateOutputType = {
   startsAt: number
   endsAt: number
   isActive: number
-  basicMinPoints: number
-  interMinPoints: number
-  advMinPoints: number
+  minPoints: number
+  maxPoints: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -86,16 +81,14 @@ export type XcEditionCountAggregateOutputType = {
 
 export type XcEditionAvgAggregateInputType = {
   id?: true
-  basicMinPoints?: true
-  interMinPoints?: true
-  advMinPoints?: true
+  minPoints?: true
+  maxPoints?: true
 }
 
 export type XcEditionSumAggregateInputType = {
   id?: true
-  basicMinPoints?: true
-  interMinPoints?: true
-  advMinPoints?: true
+  minPoints?: true
+  maxPoints?: true
 }
 
 export type XcEditionMinAggregateInputType = {
@@ -105,9 +98,8 @@ export type XcEditionMinAggregateInputType = {
   startsAt?: true
   endsAt?: true
   isActive?: true
-  basicMinPoints?: true
-  interMinPoints?: true
-  advMinPoints?: true
+  minPoints?: true
+  maxPoints?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -119,9 +111,8 @@ export type XcEditionMaxAggregateInputType = {
   startsAt?: true
   endsAt?: true
   isActive?: true
-  basicMinPoints?: true
-  interMinPoints?: true
-  advMinPoints?: true
+  minPoints?: true
+  maxPoints?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -133,9 +124,8 @@ export type XcEditionCountAggregateInputType = {
   startsAt?: true
   endsAt?: true
   isActive?: true
-  basicMinPoints?: true
-  interMinPoints?: true
-  advMinPoints?: true
+  minPoints?: true
+  maxPoints?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -234,9 +224,8 @@ export type XcEditionGroupByOutputType = {
   startsAt: Date
   endsAt: Date
   isActive: boolean
-  basicMinPoints: number
-  interMinPoints: number
-  advMinPoints: number
+  minPoints: number
+  maxPoints: number
   createdAt: Date
   updatedAt: Date
   _count: XcEditionCountAggregateOutputType | null
@@ -271,9 +260,8 @@ export type XcEditionWhereInput = {
   startsAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   endsAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   isActive?: Prisma.BoolFilter<"XcEdition"> | boolean
-  basicMinPoints?: Prisma.IntFilter<"XcEdition"> | number
-  interMinPoints?: Prisma.IntFilter<"XcEdition"> | number
-  advMinPoints?: Prisma.IntFilter<"XcEdition"> | number
+  minPoints?: Prisma.IntFilter<"XcEdition"> | number
+  maxPoints?: Prisma.IntFilter<"XcEdition"> | number
   createdAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   enrollments?: Prisma.XcEnrollmentListRelationFilter
@@ -289,9 +277,8 @@ export type XcEditionOrderByWithRelationInput = {
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   enrollments?: Prisma.XcEnrollmentOrderByRelationAggregateInput
@@ -310,9 +297,8 @@ export type XcEditionWhereUniqueInput = Prisma.AtLeast<{
   startsAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   endsAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   isActive?: Prisma.BoolFilter<"XcEdition"> | boolean
-  basicMinPoints?: Prisma.IntFilter<"XcEdition"> | number
-  interMinPoints?: Prisma.IntFilter<"XcEdition"> | number
-  advMinPoints?: Prisma.IntFilter<"XcEdition"> | number
+  minPoints?: Prisma.IntFilter<"XcEdition"> | number
+  maxPoints?: Prisma.IntFilter<"XcEdition"> | number
   createdAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"XcEdition"> | Date | string
   enrollments?: Prisma.XcEnrollmentListRelationFilter
@@ -328,9 +314,8 @@ export type XcEditionOrderByWithAggregationInput = {
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.XcEditionCountOrderByAggregateInput
@@ -350,9 +335,8 @@ export type XcEditionScalarWhereWithAggregatesInput = {
   startsAt?: Prisma.DateTimeWithAggregatesFilter<"XcEdition"> | Date | string
   endsAt?: Prisma.DateTimeWithAggregatesFilter<"XcEdition"> | Date | string
   isActive?: Prisma.BoolWithAggregatesFilter<"XcEdition"> | boolean
-  basicMinPoints?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
-  interMinPoints?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
-  advMinPoints?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
+  minPoints?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
+  maxPoints?: Prisma.IntWithAggregatesFilter<"XcEdition"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcEdition"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"XcEdition"> | Date | string
 }
@@ -364,9 +348,8 @@ export type XcEditionCreateInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
@@ -382,9 +365,8 @@ export type XcEditionUncheckedCreateInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
@@ -400,9 +382,8 @@ export type XcEditionUpdateInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
@@ -418,9 +399,8 @@ export type XcEditionUncheckedUpdateInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
@@ -436,9 +416,8 @@ export type XcEditionCreateManyInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -450,9 +429,8 @@ export type XcEditionUpdateManyMutationInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -464,9 +442,8 @@ export type XcEditionUncheckedUpdateManyInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -478,18 +455,16 @@ export type XcEditionCountOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type XcEditionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
 }
 
 export type XcEditionMaxOrderByAggregateInput = {
@@ -499,9 +474,8 @@ export type XcEditionMaxOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -513,18 +487,16 @@ export type XcEditionMinOrderByAggregateInput = {
   startsAt?: Prisma.SortOrder
   endsAt?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type XcEditionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  basicMinPoints?: Prisma.SortOrder
-  interMinPoints?: Prisma.SortOrder
-  advMinPoints?: Prisma.SortOrder
+  minPoints?: Prisma.SortOrder
+  maxPoints?: Prisma.SortOrder
 }
 
 export type XcEditionScalarRelationFilter = {
@@ -595,9 +567,8 @@ export type XcEditionCreateWithoutEditionTasksInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
@@ -612,9 +583,8 @@ export type XcEditionUncheckedCreateWithoutEditionTasksInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
@@ -645,9 +615,8 @@ export type XcEditionUpdateWithoutEditionTasksInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
@@ -662,9 +631,8 @@ export type XcEditionUncheckedUpdateWithoutEditionTasksInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
@@ -679,9 +647,8 @@ export type XcEditionCreateWithoutEnrollmentsInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutEditionInput
@@ -696,9 +663,8 @@ export type XcEditionUncheckedCreateWithoutEnrollmentsInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutEditionInput
@@ -729,9 +695,8 @@ export type XcEditionUpdateWithoutEnrollmentsInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.XcTrackSubmissionUpdateManyWithoutEditionNestedInput
@@ -746,9 +711,8 @@ export type XcEditionUncheckedUpdateWithoutEnrollmentsInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutEditionNestedInput
@@ -763,9 +727,8 @@ export type XcEditionCreateWithoutSubmissionsInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
@@ -780,9 +743,8 @@ export type XcEditionUncheckedCreateWithoutSubmissionsInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
@@ -813,9 +775,8 @@ export type XcEditionUpdateWithoutSubmissionsInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
@@ -830,9 +791,8 @@ export type XcEditionUncheckedUpdateWithoutSubmissionsInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
@@ -847,9 +807,8 @@ export type XcEditionCreateWithoutXcProgressesInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutEditionInput
@@ -864,9 +823,8 @@ export type XcEditionUncheckedCreateWithoutXcProgressesInput = {
   startsAt: Date | string
   endsAt: Date | string
   isActive?: boolean
-  basicMinPoints?: number
-  interMinPoints?: number
-  advMinPoints?: number
+  minPoints?: number
+  maxPoints?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutEditionInput
@@ -897,9 +855,8 @@ export type XcEditionUpdateWithoutXcProgressesInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUpdateManyWithoutEditionNestedInput
@@ -914,9 +871,8 @@ export type XcEditionUncheckedUpdateWithoutXcProgressesInput = {
   startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  basicMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  interMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
-  advMinPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  minPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  maxPoints?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   enrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutEditionNestedInput
@@ -989,9 +945,8 @@ export type XcEditionSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   startsAt?: boolean
   endsAt?: boolean
   isActive?: boolean
-  basicMinPoints?: boolean
-  interMinPoints?: boolean
-  advMinPoints?: boolean
+  minPoints?: boolean
+  maxPoints?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   enrollments?: boolean | Prisma.XcEdition$enrollmentsArgs<ExtArgs>
@@ -1008,9 +963,8 @@ export type XcEditionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   startsAt?: boolean
   endsAt?: boolean
   isActive?: boolean
-  basicMinPoints?: boolean
-  interMinPoints?: boolean
-  advMinPoints?: boolean
+  minPoints?: boolean
+  maxPoints?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["xcEdition"]>
@@ -1022,9 +976,8 @@ export type XcEditionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   startsAt?: boolean
   endsAt?: boolean
   isActive?: boolean
-  basicMinPoints?: boolean
-  interMinPoints?: boolean
-  advMinPoints?: boolean
+  minPoints?: boolean
+  maxPoints?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["xcEdition"]>
@@ -1036,14 +989,13 @@ export type XcEditionSelectScalar = {
   startsAt?: boolean
   endsAt?: boolean
   isActive?: boolean
-  basicMinPoints?: boolean
-  interMinPoints?: boolean
-  advMinPoints?: boolean
+  minPoints?: boolean
+  maxPoints?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcEditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "startsAt" | "endsAt" | "isActive" | "basicMinPoints" | "interMinPoints" | "advMinPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEdition"]>
+export type XcEditionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "startsAt" | "endsAt" | "isActive" | "minPoints" | "maxPoints" | "createdAt" | "updatedAt", ExtArgs["result"]["xcEdition"]>
 export type XcEditionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enrollments?: boolean | Prisma.XcEdition$enrollmentsArgs<ExtArgs>
   submissions?: boolean | Prisma.XcEdition$submissionsArgs<ExtArgs>
@@ -1069,9 +1021,8 @@ export type $XcEditionPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     startsAt: Date
     endsAt: Date
     isActive: boolean
-    basicMinPoints: number
-    interMinPoints: number
-    advMinPoints: number
+    minPoints: number
+    maxPoints: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["xcEdition"]>
@@ -1507,9 +1458,8 @@ export interface XcEditionFieldRefs {
   readonly startsAt: Prisma.FieldRef<"XcEdition", 'DateTime'>
   readonly endsAt: Prisma.FieldRef<"XcEdition", 'DateTime'>
   readonly isActive: Prisma.FieldRef<"XcEdition", 'Boolean'>
-  readonly basicMinPoints: Prisma.FieldRef<"XcEdition", 'Int'>
-  readonly interMinPoints: Prisma.FieldRef<"XcEdition", 'Int'>
-  readonly advMinPoints: Prisma.FieldRef<"XcEdition", 'Int'>
+  readonly minPoints: Prisma.FieldRef<"XcEdition", 'Int'>
+  readonly maxPoints: Prisma.FieldRef<"XcEdition", 'Int'>
   readonly createdAt: Prisma.FieldRef<"XcEdition", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"XcEdition", 'DateTime'>
 }

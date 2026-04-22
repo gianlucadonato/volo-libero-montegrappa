@@ -1,7 +1,5 @@
 import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
-import type { XcEdition } from "@/prisma/generated/client";
-import { XcCategoryLevel } from "@/prisma/generated/enums";
 
 export async function getActiveXcEdition() {
 	const now = new Date();
@@ -38,20 +36,4 @@ export async function getXcEnrollment({
 			edition: true,
 		},
 	});
-}
-
-export function minPointsForCategory(
-	category: XcCategoryLevel,
-	edition: XcEdition,
-): number {
-	switch (category) {
-		case XcCategoryLevel.BASIC:
-			return edition.basicMinPoints;
-		case XcCategoryLevel.INTERMEDIATE:
-			return edition.interMinPoints;
-		case XcCategoryLevel.ADVANCED:
-			return edition.advMinPoints;
-		default:
-			return 9999;
-	}
 }

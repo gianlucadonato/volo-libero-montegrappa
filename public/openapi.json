@@ -247,13 +247,10 @@
 					"isActive": {
 						"type": "boolean"
 					},
-					"basicMinPoints": {
+					"minPoints": {
 						"type": "number"
 					},
-					"interMinPoints": {
-						"type": "number"
-					},
-					"advMinPoints": {
+					"maxPoints": {
 						"type": "number"
 					},
 					"createdAt": {
@@ -277,9 +274,8 @@
 					"startsAt",
 					"endsAt",
 					"isActive",
-					"basicMinPoints",
-					"interMinPoints",
-					"advMinPoints",
+					"minPoints",
+					"maxPoints",
 					"createdAt",
 					"updatedAt",
 					"tasks"

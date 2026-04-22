@@ -275,17 +275,16 @@ model Coupon {
 }
 
 model XcEdition {
-  id             Int      @id // YEAR
-  title          String
-  description    String?
-  startsAt       DateTime @map(name: "starts_at")
-  endsAt         DateTime @map(name: "ends_at")
-  isActive       Boolean  @default(false) @map(name: "is_active")
-  basicMinPoints Int      @default(10) @map(name: "basic_min_points")
-  interMinPoints Int      @default(15) @map(name: "inter_min_points")
-  advMinPoints   Int      @default(20) @map(name: "adv_min_points")
-  createdAt      DateTime @default(now()) @map(name: "created_at")
-  updatedAt      DateTime @updatedAt @map(name: "updated_at")
+  id          Int      @id // YEAR
+  title       String
+  description String?
+  startsAt    DateTime @map(name: "starts_at")
+  endsAt      DateTime @map(name: "ends_at")
+  isActive    Boolean  @default(false) @map(name: "is_active")
+  minPoints   Int      @default(700) @map(name: "min_points")
+  maxPoints   Int      @default(1000) @map(name: "max_points")
+  createdAt   DateTime @default(now()) @map(name: "created_at")
+  updatedAt   DateTime @updatedAt @map(name: "updated_at")
 
   enrollments  XcEnrollment[]
   submissions  XcTrackSubmission[]

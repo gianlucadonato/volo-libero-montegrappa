@@ -48,13 +48,7 @@ export default function CategoryPage() {
 		error: editionError,
 	} = useGetXcEdition(currentLevel);
 	const tasks = edition?.tasks;
-	const minPointsForLevel = edition
-		? currentLevel === "basic"
-			? edition.basicMinPoints
-			: currentLevel === "intermediate"
-				? edition.interMinPoints
-				: edition.advMinPoints
-		: 0;
+	const minPointsForLevel = edition?.minPoints ?? 0;
 	const { isLoading: isLoadingProgress, data: xcProgress } =
 		useGetProgressByCategory(currentLevel, isLoggedIn);
 	const { isLoading: isLoadingEnrollment, data: xcEnrollment } =

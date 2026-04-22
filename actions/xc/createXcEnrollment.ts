@@ -3,8 +3,7 @@
 import Boom from "@hapi/boom";
 import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
-import { XcCategoryLevel } from "@/prisma/generated/enums";
-import { getXcEdition, minPointsForCategory } from "@/store/xc";
+import { getXcEdition } from "@/store/xc";
 
 export default async function createXcEnrollment({
 	userId,

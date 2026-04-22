@@ -1939,9 +1939,8 @@ export const XcEditionScalarFieldEnum = {
   startsAt: 'startsAt',
   endsAt: 'endsAt',
   isActive: 'isActive',
-  basicMinPoints: 'basicMinPoints',
-  interMinPoints: 'interMinPoints',
-  advMinPoints: 'advMinPoints',
+  minPoints: 'minPoints',
+  maxPoints: 'maxPoints',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

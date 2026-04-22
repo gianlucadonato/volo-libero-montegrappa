@@ -20,7 +20,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/01/b01.png",
 		taskFileUrl: "/xcmontegrappa/basic/01/b01.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 47,
 	},
 	{
 		index: 2,
@@ -30,7 +30,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/02/b02.png",
 		taskFileUrl: "/xcmontegrappa/basic/02/b02.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 60,
 	},
 	{
 		index: 3,
@@ -40,7 +40,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/03/b03.png",
 		taskFileUrl: "/xcmontegrappa/basic/03/b03.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 71,
 	},
 	{
 		index: 4,
@@ -50,7 +50,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/04/b04.png",
 		taskFileUrl: "/xcmontegrappa/basic/04/b04.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 86,
 	},
 	{
 		index: 5,
@@ -60,7 +60,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/05/b05.png",
 		taskFileUrl: "/xcmontegrappa/basic/05/b05.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 89,
 	},
 	{
 		index: 6,
@@ -70,7 +70,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/06/b06.png",
 		taskFileUrl: "/xcmontegrappa/basic/06/b06.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 89,
 	},
 	{
 		index: 7,
@@ -80,7 +80,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/07/b07.png",
 		taskFileUrl: "/xcmontegrappa/basic/07/b07.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 126,
 	},
 	{
 		index: 8,
@@ -90,7 +90,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/08/b08.png",
 		taskFileUrl: "/xcmontegrappa/basic/08/b08.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 138,
 	},
 	{
 		index: 9,
@@ -100,7 +100,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/09/b09.png",
 		taskFileUrl: "/xcmontegrappa/basic/09/b09.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 136,
 	},
 	{
 		index: 10,
@@ -110,7 +110,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/basic/10/b10.png",
 		taskFileUrl: "/xcmontegrappa/basic/10/b10.tsk",
 		category: XcCategoryLevel.BASIC,
-		points: 10,
+		points: 158,
 	},
 	// INTERMEDIATE
 	{
@@ -121,7 +121,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/11/s11.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/11/s11.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 63,
 	},
 	{
 		index: 12,
@@ -131,7 +131,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/12/s12.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/12/s12.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 63,
 	},
 	{
 		index: 13,
@@ -141,7 +141,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/13/s13.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/13/s13.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 78,
 	},
 	{
 		index: 14,
@@ -151,7 +151,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/14/s14.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/14/s14.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 90,
 	},
 	{
 		index: 15,
@@ -161,7 +161,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/15/s15.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/15/s15.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 106,
 	},
 	{
 		index: 16,
@@ -171,7 +171,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/16/s16.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/16/s16.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 106,
 	},
 	{
 		index: 17,
@@ -181,7 +181,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/17/s17.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/17/s17.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 122,
 	},
 	{
 		index: 18,
@@ -191,7 +191,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/18/s18.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/18/s18.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 102,
 	},
 	{
 		index: 19,
@@ -201,7 +201,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/19/s19.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/19/s19.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 133,
 	},
 	{
 		index: 20,
@@ -211,8 +211,9 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/intermediate/20/s20.png",
 		taskFileUrl: "/xcmontegrappa/intermediate/20/s20.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
-		points: 10,
+		points: 138,
 	},
+	// ADVANCED
 	{
 		index: 21,
 		name: "Mis - Boscherai",
@@ -221,7 +222,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/21/g21.png",
 		taskFileUrl: "/xcmontegrappa/advanced/21/g21.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 91,
 	},
 	{
 		index: 22,
@@ -231,7 +232,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/22/g22.png",
 		taskFileUrl: "/xcmontegrappa/advanced/22/g22.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 66,
 	},
 	{
 		index: 23,
@@ -241,7 +242,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/23/g23.png",
 		taskFileUrl: "/xcmontegrappa/advanced/23/g23.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 82,
 	},
 	{
 		index: 24,
@@ -251,7 +252,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/24/g24.png",
 		taskFileUrl: "/xcmontegrappa/advanced/24/g24.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 91,
 	},
 	{
 		index: 25,
@@ -261,7 +262,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/25/g25.png",
 		taskFileUrl: "/xcmontegrappa/advanced/25/g25.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 83,
 	},
 	{
 		index: 26,
@@ -271,7 +272,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/26/g26.png",
 		taskFileUrl: "/xcmontegrappa/advanced/26/g26.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 101,
 	},
 	{
 		index: 27,
@@ -281,7 +282,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/27/g27.png",
 		taskFileUrl: "/xcmontegrappa/advanced/27/g27.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 96,
 	},
 	{
 		index: 28,
@@ -291,7 +292,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/28/g28.png",
 		taskFileUrl: "/xcmontegrappa/advanced/28/g28.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 108,
 	},
 	{
 		index: 29,
@@ -301,7 +302,7 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/29/g29.png",
 		taskFileUrl: "/xcmontegrappa/advanced/29/g29.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 124,
 	},
 	{
 		index: 30,
@@ -311,6 +312,6 @@ export const XcTasks: XcTask[] = [
 		imageUrl: "/xcmontegrappa/advanced/30/g30.png",
 		taskFileUrl: "/xcmontegrappa/advanced/30/g30.tsk",
 		category: XcCategoryLevel.ADVANCED,
-		points: 10,
+		points: 159,
 	},
 ];
