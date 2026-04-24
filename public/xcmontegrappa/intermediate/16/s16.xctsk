@@ -1,0 +1,98 @@
+{
+  "version" : 1,
+  "taskType" : "CLASSIC",
+  "turnpoints" : [{
+       "radius" : 4590.0,
+       "waypoint" : {
+         "lon" : 11.80025,
+         "lat" : 45.8244,
+         "altSmoothed" : 290.0,
+         "name" : "B02   ",
+         "description" : "BORSO CHIESA"
+       }
+       
+        ,
+        "type" : "TAKEOFF"
+       
+     },{
+       "radius" : 4600.0,
+       "waypoint" : {
+         "lon" : 11.80025,
+         "lat" : 45.8244,
+         "altSmoothed" : 290.0,
+         "name" : "B02   ",
+         "description" : "BORSO CHIESA"
+       }
+       
+        ,
+        "type" : "SSS"
+       
+     },{
+       "radius" : 500.0,
+       "waypoint" : {
+         "lon" : 11.897983333333332,
+         "lat" : 45.88858333333334,
+         "altSmoothed" : 859.0,
+         "name" : "B55   ",
+         "description" : "TOMBA"
+       }
+       
+     },{
+       "radius" : 500.0,
+       "waypoint" : {
+         "lon" : 11.9129,
+         "lat" : 45.80225,
+         "altSmoothed" : 213.0,
+         "name" : "B26   ",
+         "description" : "ASOLO"
+       }
+       
+     },{
+       "radius" : 12000.0,
+       "waypoint" : {
+         "lon" : 11.544383333333334,
+         "lat" : 45.79978333333333,
+         "altSmoothed" : 118.0,
+         "name" : "D12   ",
+         "description" : "MAZZETTE T OFF"
+       }
+       
+     },{
+       "radius" : 1500.0,
+       "waypoint" : {
+         "lon" : 11.78655,
+         "lat" : 45.805683333333334,
+         "altSmoothed" : 156.0,
+         "name" : "A02   ",
+         "description" : "GARDEN LANDING [A]"
+       }
+       
+        ,
+        "type" : "ESS"
+       
+     },{
+       "radius" : 1490.0,
+       "waypoint" : {
+         "lon" : 11.78655,
+         "lat" : 45.805683333333334,
+         "altSmoothed" : 156.0,
+         "name" : "A02   ",
+         "description" : "GARDEN LANDING [A]"
+       }
+       
+     }
+  ],
+  "takeoff":{
+    "timeOpen": "06:00:00Z",
+    "timeClose": "19:00:00Z"
+  },
+  "sss" : {
+    "type" : "ELAPSED-TIME",
+    "direction" : "EXIT",
+    "timeGates" : ["06:00:00Z"]
+  },  
+  "goal" : {
+    "type" : "CYLINDER",
+    "deadline": "19:00:00Z"
+  }
+}

@@ -18,12 +18,13 @@ export async function GET(
 			);
 		}
 
-		// Read the file from the public folder
-		const filePath = join(process.cwd(), "public", task.taskFileUrl);
+		// Read the .xctsk file from the public folder
+		const xctskUrl = task.taskFileUrl.replace(/\.tsk$/, ".xctsk");
+		const filePath = join(process.cwd(), "public", xctskUrl);
 		const fileContent = readFileSync(filePath);
 
-		// Extract filename from path (e.g., 'g30.tsk' from '/events/g30.tsk')
-		const filename = task.taskFileUrl.split("/").pop() || "task.tsk";
+		// Extract filename from path (e.g., 'g30.xctsk' from '/events/g30.xctsk')
+		const filename = xctskUrl.split("/").pop() || "task.xctsk";
 
 		return new NextResponse(fileContent, {
 			headers: {

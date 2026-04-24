@@ -77,7 +77,10 @@ export default function XcTaskCard({
 			const url = window.URL.createObjectURL(blob);
 			const link = document.createElement("a");
 			link.href = url;
-			link.download = task.taskFileUrl.split("/").pop() || "task.tsk";
+			link.download = (task.taskFileUrl.split("/").pop() || "task.tsk").replace(
+				/\.tsk$/,
+				".xctsk",
+			);
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);

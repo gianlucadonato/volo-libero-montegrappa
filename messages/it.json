@@ -906,7 +906,7 @@
 			"advanced": "Avanzato"
 		},
 		"points": "Punti",
-		"downloadTask": "Scarica Task (.tsk)",
+		"downloadTask": "Scarica Task (.xctsk)",
 		"viewTrack": "Vedi Traccia",
 		"noImage": "Nessuna immagine",
 		"badge": {

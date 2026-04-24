@@ -45,7 +45,10 @@ export default function XcTaskActionButtons({
 			const url = window.URL.createObjectURL(blob);
 			const link = document.createElement("a");
 			link.href = url;
-			link.download = taskFileUrl.split("/").pop() || "task.tsk";
+			link.download = (taskFileUrl.split("/").pop() || "task.tsk").replace(
+				/\.tsk$/,
+				".xctsk",
+			);
 			document.body.appendChild(link);
 			link.click();
 			document.body.removeChild(link);

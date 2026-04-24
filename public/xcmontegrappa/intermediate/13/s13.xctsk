@@ -1,0 +1,88 @@
+{
+  "version" : 1,
+  "taskType" : "CLASSIC",
+  "turnpoints" : [{
+       "radius" : 2490.0,
+       "waypoint" : {
+         "lon" : 11.768116666666666,
+         "lat" : 45.82621666666667,
+         "altSmoothed" : 952.0,
+         "name" : "D04   ",
+         "description" : "CASETTE T OFF"
+       }
+       
+        ,
+        "type" : "TAKEOFF"
+       
+     },{
+       "radius" : 2500.0,
+       "waypoint" : {
+         "lon" : 11.768116666666666,
+         "lat" : 45.82621666666667,
+         "altSmoothed" : 952.0,
+         "name" : "D04   ",
+         "description" : "CASETTE T OFF"
+       }
+       
+        ,
+        "type" : "SSS"
+       
+     },{
+       "radius" : 2700.0,
+       "waypoint" : {
+         "lon" : 11.897983333333332,
+         "lat" : 45.88858333333334,
+         "altSmoothed" : 859.0,
+         "name" : "B55   ",
+         "description" : "TOMBA"
+       }
+       
+     },{
+       "radius" : 500.0,
+       "waypoint" : {
+         "lon" : 11.662816666666666,
+         "lat" : 45.793733333333336,
+         "altSmoothed" : 873.0,
+         "name" : "D02   ",
+         "description" : "RUBBIO T OFF"
+       }
+       
+     },{
+       "radius" : 1500.0,
+       "waypoint" : {
+         "lon" : 11.78655,
+         "lat" : 45.805683333333334,
+         "altSmoothed" : 156.0,
+         "name" : "A02   ",
+         "description" : "GARDEN LANDING [A]"
+       }
+       
+        ,
+        "type" : "ESS"
+       
+     },{
+       "radius" : 1490.0,
+       "waypoint" : {
+         "lon" : 11.78655,
+         "lat" : 45.805683333333334,
+         "altSmoothed" : 156.0,
+         "name" : "A02   ",
+         "description" : "GARDEN LANDING [A]"
+       }
+       
+     }
+  ],
+  "takeoff":{
+    "timeOpen": "06:00:00Z",
+    "timeClose": "17:00:00Z"
+  },
+  "sss" : {
+    "type" : "ELAPSED-TIME",
+    "direction" : "EXIT",
+    "timeGates" : ["06:00:00Z"]
+  },  
+  "goal" : {
+    "type" : "CYLINDER",
+    "deadline": "19:00:00Z"
+  }
+}

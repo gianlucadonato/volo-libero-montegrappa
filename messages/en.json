@@ -865,7 +865,7 @@
 			"advanced": "Advanced"
 		},
 		"points": "Points",
-		"downloadTask": "Download Task (.tsk)",
+		"downloadTask": "Download Task (.xctsk)",
 		"viewTrack": "View Track",
 		"noImage": "No image",
 		"badge": {
