@@ -708,7 +708,8 @@
 		},
 		"howItWorks": {
 			"title": "HOW IT WORKS",
-			"description": "XC Montegrappa has three difficulty levels (Basic, Intermediate, Advanced), each made up of predefined tasks with waypoints to pass.<br></br>Each task has a score that reflects its difficulty. To earn the certificate, you must reach the minimum required score for that level by summing points earned from completed tasks.<br></br>This means that, for each level, it is not strictly necessary to complete every task: you only need to reach the minimum score.<br></br><br></br><strong>Attention!</strong> Each task can count only toward one specific certificate level. A single flight track that includes multiple tasks is valid for one of them only. Therefore, different tasks cannot all be completed in one single flight session."
+			"description": "XC Montegrappa has three difficulty levels (Basic, Intermediate, Advanced), each made up of predefined tasks with waypoints to pass.<br></br>Each task has a score that reflects its difficulty. To earn the certificate, you must reach the minimum required score for that level by summing points earned from completed tasks.<br></br>This means that, for each level, it is not strictly necessary to complete every task: you only need to reach the minimum score.<br></br><br></br><strong>Attention!</strong> Each task can count only toward one specific certificate level. A single flight track that includes multiple tasks is valid for one of them only. Therefore, different tasks cannot all be completed in one single flight session.",
+			"readRegulations": "Read the regulations"
 		},
 		"levels": {
 			"title": "CERTIFICATE LEVELS",
@@ -759,6 +760,8 @@
 			"cancel": "Cancel",
 			"confirm": "Confirm enrollment",
 			"alreadyEnrolledMessage": "You are already enrolled in the XC Certificate!",
+			"acceptLiability": "I have read and accept the <link>Liability Waiver</link>",
+			"acceptRegolamento": "I have read and accept the <link>Regulations</link>",
 			"loading": "Enrolling..."
 		}
 	},

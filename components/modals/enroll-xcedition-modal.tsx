@@ -10,11 +10,13 @@ import {
 } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
 import { NEXT_YEAR } from "@/config/constants";
 import { useGetXcEnrollment } from "@/hooks/use-query-api";
@@ -32,6 +34,8 @@ function EnrollXcEditionModal({
 	const t = useTranslations("EnrollXcEditionModal");
 	const { setShowMemberOnlyModal } = useContext(ModalContext);
 	const [isLoading, setIsLoading] = useState(false);
+	const [acceptedLiability, setAcceptedLiability] = useState(false);
+	const [acceptedRegolamento, setAcceptedRegolamento] = useState(false);
 	const queryClient = useQueryClient();
 	const { data: session } = authClient.useSession();
 	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
@@ -61,7 +65,7 @@ function EnrollXcEditionModal({
 
 	return (
 		<Modal
-			className="max-w-lg"
+			className="md:max-w-2xl"
 			showModal={showModal}
 			setShowModal={setShowModal}
 		>
@@ -74,19 +78,71 @@ function EnrollXcEditionModal({
 						{t("dialog.description", { year: NEXT_YEAR })}
 					</DialogDescription>
 				</DialogHeader>
-				<div className="mt-4 flex flex-col gap-2">
+				<div className="mt-4 flex flex-col gap-3">
 					{isAlreadyEnrolled && (
 						<p className="text-sm font-medium text-green-600">
 							{t("dialog.alreadyEnrolledMessage")}
 						</p>
 					)}
+					<div className="flex items-start gap-2">
+						<Checkbox
+							id="accept-liability"
+							checked={acceptedLiability}
+							onCheckedChange={(v) => setAcceptedLiability(v === true)}
+							disabled={isAlreadyEnrolled}
+						/>
+						<Label htmlFor="accept-liability" className="text-sm leading-snug">
+							{t.rich("dialog.acceptLiability", {
+								link: (chunks) => (
+									<a
+										href="/xc/Dichiarazione%20e%20scarico%20responsabilita.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="underline text-primary"
+									>
+										{chunks}
+									</a>
+								),
+							})}
+						</Label>
+					</div>
+					<div className="flex items-start gap-2">
+						<Checkbox
+							id="accept-regolamento"
+							checked={acceptedRegolamento}
+							onCheckedChange={(v) => setAcceptedRegolamento(v === true)}
+							disabled={isAlreadyEnrolled}
+						/>
+						<Label
+							htmlFor="accept-regolamento"
+							className="text-sm leading-snug"
+						>
+							{t.rich("dialog.acceptRegolamento", {
+								link: (chunks) => (
+									<a
+										href="/xc/REGOLAMENTO%20v.1.4.pdf"
+										target="_blank"
+										rel="noopener noreferrer"
+										className="underline text-primary"
+									>
+										{chunks}
+									</a>
+								),
+							})}
+						</Label>
+					</div>
 					<div className="flex gap-2 justify-end">
 						<Button variant="outline" onClick={() => setShowModal(false)}>
 							{t("dialog.cancel")}
 						</Button>
 						<Button
 							onClick={handleConfirmEnrollment}
-							disabled={isLoading || isAlreadyEnrolled}
+							disabled={
+								isLoading ||
+								isAlreadyEnrolled ||
+								!acceptedLiability ||
+								!acceptedRegolamento
+							}
 							className="bg-lime-500 hover:bg-lime-600"
 						>
 							{isLoading ? t("dialog.loading") : t("dialog.confirm")}

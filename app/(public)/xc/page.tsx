@@ -1,10 +1,10 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { IoIosMedal } from "react-icons/io";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import EnrollXcEditionButton from "@/components/xc/EnrollXcEditionButton";
 import XcCategoryCards from "@/components/xc/XcCategoryCards";
 import { NEXT_YEAR } from "@/config/constants";
@@ -74,6 +74,17 @@ export default function XcMontegrappaPage() {
 									br: () => <br />,
 								})}
 							</p>
+							<div className="mx-auto mt-6 max-w-3xl">
+								<a
+									href="/xc/REGOLAMENTO%20v.1.4.pdf"
+									target="_blank"
+									rel="noopener noreferrer"
+									className={buttonVariants({ variant: "outline" })}
+								>
+									<FileText className="mr-2 size-4" />
+									{t("howItWorks.readRegulations")}
+								</a>
+							</div>
 						</div>
 
 						<div className="py-10">

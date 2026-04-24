@@ -749,7 +749,8 @@
 		},
 		"howItWorks": {
 			"title": "COME FUNZIONA",
-			"description": "Il Brevetto XC Montegrappa ha tre livelli di difficoltà (Basico, Intermedio, Avanzato) che si compongono di un gruppo di percorsi prestabiliti (task) con delle boe da attraversare.<br></br>Ogni task ha un punteggio di valore differente che rispecchia il grado di difficoltà da affrontare. Per ottenere il Brevetto si dovrà superare il punteggio minimo richiesto dal livello, attraverso la somma dei punteggi ottenuti dal completamento delle task.<br></br>Ciò vuol dire che per ogni livello di Brevetto che si vuole ottenere non è strettamente necessario completare tutti i percorsi previsti di quel livello, ma solo raggiungere il punteggio minimo richiesto.<br></br><br></br><strong>Attenzione!</strong> Ogni percorso è destinato a concorrere esclusivamente per un determinato livello di brevetto. La singola traccia di volo, che potrebbe includere contemporaneamente più percorsi, avrà validità esclusivamente per uno solo di questi. Quindi non è possibile completare percorsi differenti in una sola sessione di volo."
+			"description": "Il Brevetto XC Montegrappa ha tre livelli di difficoltà (Basico, Intermedio, Avanzato) che si compongono di un gruppo di percorsi prestabiliti (task) con delle boe da attraversare.<br></br>Ogni task ha un punteggio di valore differente che rispecchia il grado di difficoltà da affrontare. Per ottenere il Brevetto si dovrà superare il punteggio minimo richiesto dal livello, attraverso la somma dei punteggi ottenuti dal completamento delle task.<br></br>Ciò vuol dire che per ogni livello di Brevetto che si vuole ottenere non è strettamente necessario completare tutti i percorsi previsti di quel livello, ma solo raggiungere il punteggio minimo richiesto.<br></br><br></br><strong>Attenzione!</strong> Ogni percorso è destinato a concorrere esclusivamente per un determinato livello di brevetto. La singola traccia di volo, che potrebbe includere contemporaneamente più percorsi, avrà validità esclusivamente per uno solo di questi. Quindi non è possibile completare percorsi differenti in una sola sessione di volo.",
+			"readRegulations": "Leggi il regolamento"
 		},
 		"levels": {
 			"title": "LIVELLI DI BREVETTO",
@@ -800,6 +801,8 @@
 			"cancel": "Annulla",
 			"confirm": "Conferma Iscrizione",
 			"alreadyEnrolledMessage": "Sei già iscritto al Brevetto XC!",
+			"acceptLiability": "Ho letto e accetto la <link>Dichiarazione e scarico di responsabilità</link>",
+			"acceptRegolamento": "Ho letto e accetto il <link>Regolamento</link>",
 			"loading": "Iscrizione in corso..."
 		}
 	},
