@@ -5,12 +5,23 @@ import {
 	Clock,
 	MapPin,
 	RefreshCw,
+	Star,
+	Trash2,
 	Trophy,
 	XCircle,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+} from "@/components/ui/dialog";
 import type { XcSubmissionApi } from "@/types/api-schema";
 
 interface ValidationWaypoint {
@@ -31,15 +42,20 @@ interface ValidationResult {
 interface XcSubmissionStatusProps {
 	submission: XcSubmissionApi;
 	onReupload?: () => void;
+	onDelete?: () => void;
 	isUploading?: boolean;
+	isDeleting?: boolean;
 }
 
 export default function XcSubmissionStatus({
 	submission,
 	onReupload,
+	onDelete,
 	isUploading,
+	isDeleting,
 }: XcSubmissionStatusProps) {
 	const t = useTranslations("XcSubmissionStatus");
+	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
 	if (submission.status === "PENDING") {
 		return (
@@ -72,19 +88,70 @@ export default function XcSubmissionStatus({
 						{t("approved.badge")}
 					</Badge>
 				</div>
-				{submission.pointsAwarded > 0 && (
-					<div className="flex items-center gap-1.5 pl-7 text-sm text-green-700">
-						<Trophy className="size-4" />
-						<span>
-							{t("approved.pointsAwarded", {
-								points: submission.pointsAwarded,
-							})}
-						</span>
-					</div>
-				)}
-				{submission.notes && (
-					<p className="pl-7 text-xs text-green-600">{submission.notes}</p>
-				)}
+				<div className="flex items-center justify-between">
+					{submission.pointsAwarded > 0 && (
+						<div className="flex items-center gap-1.5 pl-7 text-sm text-green-700">
+							<Star className="size-4" />
+							<span>
+								{t("approved.pointsAwarded", {
+									points: submission.pointsAwarded,
+								})}
+							</span>
+						</div>
+					)}
+					{onDelete && (
+						<div className="flex pl-7">
+							<Button
+								variant="outline"
+								size="sm"
+								onClick={() => setShowDeleteConfirm(true)}
+								disabled={isDeleting}
+								className="gap-1.5 border-red-300 text-red-700 hover:bg-red-100"
+							>
+								<Trash2 className="size-3.5" />
+								<span className="hidden sm:inline">
+									{isDeleting
+										? t("approved.deleting")
+										: t("approved.deleteTrack")}
+								</span>
+							</Button>
+							<Dialog
+								open={showDeleteConfirm}
+								onOpenChange={setShowDeleteConfirm}
+							>
+								<DialogContent>
+									<DialogHeader>
+										<DialogTitle>
+											{t("approved.confirmDelete.title")}
+										</DialogTitle>
+										<DialogDescription>
+											{t("approved.confirmDelete.description")}
+										</DialogDescription>
+									</DialogHeader>
+									<DialogFooter>
+										<Button
+											variant="outline"
+											onClick={() => setShowDeleteConfirm(false)}
+										>
+											{t("approved.confirmDelete.cancel")}
+										</Button>
+										<Button
+											variant="destructive"
+											onClick={() => {
+												setShowDeleteConfirm(false);
+												onDelete();
+											}}
+											className="text-white"
+											disabled={isDeleting}
+										>
+											{t("approved.confirmDelete.confirm")}
+										</Button>
+									</DialogFooter>
+								</DialogContent>
+							</Dialog>
+						</div>
+					)}
+				</div>
 			</div>
 		);
 	}

@@ -926,7 +926,9 @@
 			"uploadSuccess": "File caricato con successo!",
 			"uploadError": "Errore durante il caricamento del file.",
 			"validationSuccess": "Traccia validata con successo! Tutti i waypoint raggiunti.",
-			"validationFailed": "Validazione della traccia fallita. Alcuni waypoint non sono stati raggiunti."
+			"validationFailed": "Validazione della traccia fallita. Alcuni waypoint non sono stati raggiunti.",
+			"deleteSuccess": "Traccia rimossa con successo.",
+			"deleteError": "Errore durante la rimozione della traccia."
 		},
 		"modal": {
 			"title": "Iscrizione richiesta",
@@ -951,7 +953,15 @@
 		"approved": {
 			"title": "Traccia completata!",
 			"badge": "Completata",
-			"pointsAwarded": "{points} punti guadagnati"
+			"pointsAwarded": "Hai guadagnato {points} punti XC!",
+			"deleteTrack": "Rimuovi traccia",
+			"deleting": "Rimozione in corso...",
+			"confirmDelete": {
+				"title": "Rimuovere la traccia?",
+				"description": "Sei sicuro di voler rimuovere questa traccia? Tutti i punti e i progressi ottenuti da questa traccia verranno persi.",
+				"cancel": "Annulla",
+				"confirm": "Rimuovi traccia"
+			}
 		},
 		"rejected": {
 			"title": "Traccia non valida",

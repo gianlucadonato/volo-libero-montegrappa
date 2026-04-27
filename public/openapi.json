@@ -1259,6 +1259,48 @@
 				}
 			}
 		},
+		"/xc/submissions/{id}": {
+			"delete": {
+				"operationId": "delete-xc-submissions-{id}",
+				"summary": "/xc/submissions/[id]",
+				"description": "Delete a submission: removes R2 file, deletes record, recalculates XcProgress",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/xc/tasks/{id}": {
 			"get": {
 				"operationId": "get-xc-tasks-{id}",
@@ -1283,6 +1325,48 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/submissions/{id}/validate": {
+			"post": {
+				"operationId": "post-xc-submissions-{id}-validate",
+				"summary": "/xc/submissions/[id]/validate",
+				"description": "Validate a submission's IGC track against the task's TSK waypoints",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
 								}
 							}
 						}

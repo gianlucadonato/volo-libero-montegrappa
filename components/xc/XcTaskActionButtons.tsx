@@ -8,7 +8,11 @@ import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
 import { useGetXcEnrollment, useGetXcSubmission } from "@/hooks/use-query-api";
-import { uploadXcTaskTrackApi, validateSubmissionApi } from "@/lib/api-client";
+import {
+	deleteSubmissionApi,
+	uploadXcTaskTrackApi,
+	validateSubmissionApi,
+} from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
 
 interface XcTaskActionButtonsProps {
@@ -24,6 +28,7 @@ export default function XcTaskActionButtons({
 }: XcTaskActionButtonsProps) {
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const t = useTranslations("XcTaskCard");
 	const { isPending, data: session } = authClient.useSession();
@@ -96,11 +101,11 @@ export default function XcTaskActionButtons({
 			const submissionId = response.data?.submissionId;
 			if (submissionId) {
 				validateSubmissionApi(submissionId)
-					.then((validation) => {
-						if (validation.valid) {
-							toast.success(t("toast.validationSuccess"));
-						} else {
+					.then(({ data: validation, error }) => {
+						if (error || !validation) {
 							toast.error(t("toast.validationFailed"));
+						} else {
+							toast.success(t("toast.validationSuccess"));
 						}
 						onUploadSuccess?.();
 					})
@@ -113,13 +118,34 @@ export default function XcTaskActionButtons({
 		}
 	};
 
+	const handleDelete = async () => {
+		if (!submission?.id) return;
+		setIsDeleting(true);
+		try {
+			const { error } = await deleteSubmissionApi(submission.id);
+			if (error) {
+				toast.error(t("toast.deleteError"));
+				return;
+			}
+			toast.success(t("toast.deleteSuccess"));
+			onUploadSuccess?.();
+		} catch (error) {
+			console.error("Delete error:", error);
+			toast.error(t("toast.deleteError"));
+		} finally {
+			setIsDeleting(false);
+		}
+	};
+
 	return (
 		<div className="flex flex-col gap-4">
 			{!isSubmissionLoading && submission ? (
 				<XcSubmissionStatus
 					submission={submission}
 					onReupload={handleUploadClick}
+					onDelete={handleDelete}
 					isUploading={isUploading}
+					isDeleting={isDeleting}
 				/>
 			) : (
 				<div className="flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">

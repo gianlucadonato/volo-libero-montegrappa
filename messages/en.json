@@ -885,7 +885,9 @@
 			"uploadSuccess": "File uploaded successfully!",
 			"uploadError": "Error uploading file.",
 			"validationSuccess": "Track validated successfully! All waypoints reached.",
-			"validationFailed": "Track validation failed. Some waypoints were not reached."
+			"validationFailed": "Track validation failed. Some waypoints were not reached.",
+			"deleteSuccess": "Track removed successfully.",
+			"deleteError": "Error removing track."
 		},
 		"modal": {
 			"title": "Enrollment required",
@@ -910,7 +912,15 @@
 		"approved": {
 			"title": "Track completed!",
 			"badge": "Completed",
-			"pointsAwarded": "{points} points earned"
+			"pointsAwarded": "You've earned {points} XC points!",
+			"deleteTrack": "Remove track",
+			"deleting": "Removing...",
+			"confirmDelete": {
+				"title": "Remove track?",
+				"description": "Are you sure you want to remove this track? All points and progress earned from this submission will be lost.",
+				"cancel": "Cancel",
+				"confirm": "Remove track"
+			}
 		},
 		"rejected": {
 			"title": "Track not valid",

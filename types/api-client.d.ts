@@ -108,6 +108,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/xc/submissions/{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post?: never;
+		/**
+		 * /xc/submissions/[id]
+		 * @description Delete a submission: removes R2 file, deletes record, recalculates XcProgress
+		 */
+		delete: operations["delete-xc-submissions-{id}"];
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/tasks/{id}": {
 		parameters: {
 			query?: never;
@@ -122,6 +142,26 @@ export interface paths {
 		get: operations["get-xc-tasks-{id}"];
 		put?: never;
 		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/xc/submissions/{id}/validate": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * /xc/submissions/[id]/validate
+		 * @description Validate a submission's IGC track against the task's TSK waypoints
+		 */
+		post: operations["post-xc-submissions-{id}-validate"];
 		delete?: never;
 		options?: never;
 		head?: never;
@@ -682,6 +722,31 @@ export interface operations {
 			500: components["responses"]["500"];
 		};
 	};
+	"delete-xc-submissions-{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example 123 */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": Record<string, never>;
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-xc-tasks-{id}": {
 		parameters: {
 			query?: never;
@@ -701,6 +766,31 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcTaskSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"post-xc-submissions-{id}-validate": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example 123 */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": Record<string, never>;
 				};
 			};
 			400: components["responses"]["400"];

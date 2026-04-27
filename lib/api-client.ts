@@ -25,34 +25,12 @@ export const uploadXcTaskTrackApi = async (taskId: string, file: File) => {
 	});
 };
 
-export interface ValidationWaypoint {
-	index: number;
-	name: string;
-	type: string;
-	reached: boolean;
-	closestDistanceM: number;
-	radiusM: number;
-	closestFixIndex: number | null;
-}
-
-export interface ValidationResult {
-	submissionId: string;
-	status: string;
-	valid: boolean;
-	summary: string;
-	pointsAwarded: number;
-	waypoints: ValidationWaypoint[];
-}
-
-export const validateSubmissionApi = async (
-	submissionId: string,
-): Promise<ValidationResult> => {
-	const res = await fetch(`/api/xc/submissions/${submissionId}/validate`, {
-		method: "POST",
+export const validateSubmissionApi = async (submissionId: string) =>
+	api.POST("/xc/submissions/{id}/validate", {
+		params: { path: { id: submissionId } },
 	});
-	if (!res.ok) {
-		const err = await res.json().catch(() => null);
-		throw new Error(err?.message ?? "Validation failed");
-	}
-	return res.json();
-};
+
+export const deleteSubmissionApi = async (submissionId: string) =>
+	api.DELETE("/xc/submissions/{id}", {
+		params: { path: { id: submissionId } },
+	});

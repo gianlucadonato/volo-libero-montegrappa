@@ -15,6 +15,7 @@ import { parseTskXml } from "@/lib/tsk-parser";
  * @description Validate a submission's IGC track against the task's TSK waypoints
  * @pathParams IdParamsSchema
  * @auth
+ * @openapi
  */
 export async function POST(
 	_request: Request,
