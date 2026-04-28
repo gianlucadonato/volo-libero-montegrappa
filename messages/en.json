@@ -835,6 +835,7 @@
 			"tasksCompleted": "tasks completed",
 			"currentPoints": "Current points:",
 			"minPoints": "Minimum required points:",
+			"minPointsTooltip": "Minimum XC points needed to pass the level and earn the certificate",
 			"completed": "✅ You have completed this XC Certificate!"
 		},
 		"enrollPrompt": "Enroll in the XC certificate to upload your tracks.",

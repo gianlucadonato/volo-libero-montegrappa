@@ -9,6 +9,12 @@ import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
 import XcCelebrationCard from "@/components/xc/XcCelebrationCard";
 import XcLevelProgress from "@/components/xc/XcLevelProgress";
@@ -228,17 +234,31 @@ export default function CategoryPage() {
 											{maxPoints > 0 &&
 												minPoints > 0 &&
 												minPoints < maxPoints && (
-													<div
-														className="absolute top-0 flex flex-col items-center"
-														style={{
-															left: `${(minPoints / maxPoints) * 100}%`,
-														}}
-													>
-														<div className="h-2 w-0.5 bg-amber-600" />
-														<span className="mt-0.5 text-[10px] font-medium text-amber-600">
-															{minPoints}
-														</span>
-													</div>
+													<TooltipProvider>
+														<Tooltip>
+															<TooltipTrigger asChild>
+																<button
+																	type="button"
+																	aria-label={t("progress.minPointsTooltip")}
+																	className="absolute top-0 flex -translate-x-1/2 flex-col items-center focus:outline-none"
+																	style={{
+																		left: `${(minPoints / maxPoints) * 100}%`,
+																	}}
+																>
+																	<span className="-mt-4 text-base leading-none">
+																		🏁
+																	</span>
+																	<div className="h-2 w-0.5 bg-amber-600" />
+																	<span className="mt-0.5 text-[10px] font-medium text-amber-600">
+																		{minPoints}
+																	</span>
+																</button>
+															</TooltipTrigger>
+															<TooltipContent side="top">
+																{t("progress.minPointsTooltip")}
+															</TooltipContent>
+														</Tooltip>
+													</TooltipProvider>
 												)}
 										</div>
 									</div>

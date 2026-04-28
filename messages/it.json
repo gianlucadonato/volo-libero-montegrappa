@@ -876,6 +876,7 @@
 			"tasksCompleted": "Task completate",
 			"currentPoints": "Punti attuali:",
 			"minPoints": "Punti minimi richiesti:",
+			"minPointsTooltip": "Punti XC minimi da raggiungere per superare il livello e ottenere il brevetto",
 			"completed": "✅ Hai completato questo brevetto!"
 		},
 		"enrollPrompt": "Iscriviti al Brevetto XC per poter caricare le tracce.",
