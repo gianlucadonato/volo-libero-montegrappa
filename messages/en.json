@@ -869,6 +869,7 @@
 		"title": "Leaderboard",
 		"empty": "No participants yet.",
 		"noMore": "No additional participants.",
+		"selectEdition": "Edition",
 		"errors": {
 			"failedToLoad": "Failed to load leaderboard. Please try again."
 		}

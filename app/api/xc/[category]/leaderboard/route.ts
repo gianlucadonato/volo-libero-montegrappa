@@ -9,16 +9,21 @@ const ParamsSchema = z.object({
 	category: z.nativeEnum(XcCategoryLevel),
 });
 
+const QuerySchema = z.object({
+	edition: z.coerce.number().int().optional(),
+});
+
 /**
  * /xc/[category]/leaderboard
  * @description Fetch the XC leaderboard for a specific category
  * @pathParams ParamsSchema
+ * @queryParams QuerySchema
  * @response XcLeaderboardEntrySchema[]
  * @openapi
  */
 
 export const GET = async (
-	_request: Request,
+	request: Request,
 	context: { params: Promise<{ category: string }> },
 ) => {
 	const { category } = await context.params;
@@ -28,8 +33,18 @@ export const GET = async (
 	if (!success) {
 		return APIErrorResponse(Boom.badRequest("Category not valid"));
 	}
+	const { searchParams } = new URL(request.url);
+	const parsedQuery = QuerySchema.safeParse({
+		edition: searchParams.get("edition") ?? undefined,
+	});
+	if (!parsedQuery.success) {
+		return APIErrorResponse(Boom.badRequest("Edition not valid"));
+	}
 	try {
-		const entries = await getXcLeaderboardByCategory(parsedParams.category);
+		const entries = await getXcLeaderboardByCategory(
+			parsedParams.category,
+			parsedQuery.data.edition,
+		);
 		const parsed = XcLeaderboardEntrySchema.array().parse(entries);
 		return Response.json(parsed);
 	} catch (error) {

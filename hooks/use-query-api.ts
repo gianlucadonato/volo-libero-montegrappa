@@ -91,19 +91,24 @@ export const useGetXcSubmissionsByCategory = (
 	);
 };
 
-export const useGetXcLeaderboard = (category: string) => {
+export const useGetXcLeaderboard = (category: string, edition?: number) => {
 	return $api.useQuery(
 		"get",
 		"/xc/{category}/leaderboard",
 		{
 			params: {
 				path: { category },
+				query: edition ? { edition } : undefined,
 			},
 		},
 		{
 			enabled: !!category,
 		},
 	);
+};
+
+export const useGetXcEditions = () => {
+	return $api.useQuery("get", "/xc/editions", {});
 };
 
 interface TrackData extends ParsedIGC {

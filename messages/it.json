@@ -910,6 +910,7 @@
 		"title": "Classifica",
 		"empty": "Nessun partecipante per ora.",
 		"noMore": "Nessun altro partecipante.",
+		"selectEdition": "Edizione",
 		"errors": {
 			"failedToLoad": "Errore nel caricamento della classifica. Riprova."
 		}

@@ -2,13 +2,25 @@
 
 import { ArrowLeft, Trophy } from "lucide-react";
 import Link from "next/link";
-import { notFound, useParams, useRouter } from "next/navigation";
+import {
+	notFound,
+	useParams,
+	useRouter,
+	useSearchParams,
+} from "next/navigation";
 import { useTranslations } from "next-intl";
 import { DiceBearAvatar } from "@/components/DiceBearAvatar";
 import Spinner from "@/components/Spinner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useGetXcLeaderboard } from "@/hooks/use-query-api";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { useGetXcEditions, useGetXcLeaderboard } from "@/hooks/use-query-api";
 import { cn } from "@/lib/utils";
 import type { XcLeaderboardEntryApi } from "@/types/api-schema";
 
@@ -23,6 +35,7 @@ const validLevels = new Set(categories.map((c) => c.level));
 export default function CategoryLeaderboardPage() {
 	const params = useParams();
 	const router = useRouter();
+	const searchParams = useSearchParams();
 	const t = useTranslations("XcLeaderboardPage");
 	const tCat = useTranslations("XcCategoryPage");
 	const currentLevel = String(params.category).toLowerCase();
@@ -31,10 +44,31 @@ export default function CategoryLeaderboardPage() {
 		notFound();
 	}
 
-	const { isLoading, data: entries, error } = useGetXcLeaderboard(currentLevel);
+	const { data: editions } = useGetXcEditions();
+	const editionParam = searchParams.get("edition");
+	const selectedEdition = editionParam
+		? Number(editionParam)
+		: (editions?.find((e) => e.isActive)?.id ?? editions?.[0]?.id);
+
+	const {
+		isLoading,
+		data: entries,
+		error,
+	} = useGetXcLeaderboard(currentLevel, selectedEdition);
 
 	const top3 = entries?.slice(0, 3) ?? [];
 	const rest = entries?.slice(3) ?? [];
+
+	const buildHref = (level: string) => {
+		const qs = editionParam ? `?edition=${editionParam}` : "";
+		return `/xc/${level}/leaderboard${qs}`;
+	};
+
+	const handleEditionChange = (value: string) => {
+		const newParams = new URLSearchParams(searchParams.toString());
+		newParams.set("edition", value);
+		router.push(`/xc/${currentLevel}/leaderboard?${newParams.toString()}`);
+	};
 
 	return (
 		<div className="min-h-screen bg-linear-to-b from-indigo-50 to-white">
@@ -48,28 +82,51 @@ export default function CategoryLeaderboardPage() {
 						</Button>
 					</Link>
 
-					<div className="flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
-						{categories.map((cat) => (
-							<button
-								key={cat.level}
-								type="button"
-								onClick={() => router.push(`/xc/${cat.level}/leaderboard`)}
-								className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
-									currentLevel === cat.level
-										? "bg-primary text-primary-foreground shadow-sm"
-										: "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-								}`}
-							>
-								<span>{cat.icon}</span>
-								<span className="hidden sm:inline">
-									{tCat(`categories.${cat.level}.title`)}
-								</span>
-								<span className="sm:hidden">
-									{tCat(`categories.${cat.level}.short`)}
-								</span>
-							</button>
-						))}
+					<div className="flex flex-wrap items-center gap-3">
+						<div className="flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+							{categories.map((cat) => (
+								<button
+									key={cat.level}
+									type="button"
+									onClick={() => router.push(buildHref(cat.level))}
+									className={`flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-medium transition-colors ${
+										currentLevel === cat.level
+											? "bg-primary text-primary-foreground shadow-sm"
+											: "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+									}`}
+								>
+									<span>{cat.icon}</span>
+									<span className="hidden sm:inline">
+										{tCat(`categories.${cat.level}.title`)}
+									</span>
+									<span className="sm:hidden">
+										{tCat(`categories.${cat.level}.short`)}
+									</span>
+								</button>
+							))}
+						</div>
 					</div>
+				</div>
+
+				<div className="flex items-center justify-center my-2">
+					{editions && editions.length > 1 && (
+						<Select
+							value={selectedEdition ? String(selectedEdition) : undefined}
+							onValueChange={handleEditionChange}
+						>
+							<SelectTrigger className="h-10 bg-white">
+								<SelectValue placeholder={t("selectEdition")} />
+							</SelectTrigger>
+							<SelectContent>
+								{editions.map((ed) => (
+									<SelectItem key={ed.id} value={String(ed.id)}>
+										{ed.title}
+										{ed.isActive ? " ★" : ""}
+									</SelectItem>
+								))}
+							</SelectContent>
+						</Select>
+					)}
 				</div>
 
 				{isLoading && (
@@ -100,6 +157,7 @@ export default function CategoryLeaderboardPage() {
 							</div>
 							<p className="mt-3 text-sm text-indigo-100">
 								{tCat(`categories.${currentLevel}.title`)}
+								{selectedEdition ? ` — ${selectedEdition}` : ""}
 							</p>
 
 							{/* Podium */}

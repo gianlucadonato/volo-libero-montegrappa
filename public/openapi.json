@@ -24,6 +24,14 @@
 			}
 		},
 		"schemas": {
+			"QuerySchema": {
+				"type": "object",
+				"properties": {
+					"edition": {
+						"type": "integer"
+					}
+				}
+			},
 			"ParamsSchema": {
 				"type": "object",
 				"properties": {
@@ -337,6 +345,29 @@
 					"updatedAt",
 					"tasks"
 				]
+			},
+			"XcEditionSummarySchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"startsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endsAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": ["id", "title", "isActive", "startsAt", "endsAt"]
 			},
 			"XcEnrollmentSchema": {
 				"type": "object",
@@ -1127,6 +1158,36 @@
 				}
 			}
 		},
+		"/xc/editions": {
+			"get": {
+				"operationId": "get-xc-editions",
+				"summary": "/xc/editions",
+				"description": "List all XC editions (id, title, active flag) ordered by year desc",
+				"tags": ["Xc"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcEditionSummarySchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/xc/enroll": {
 			"get": {
 				"operationId": "get-xc-enroll",
@@ -1196,6 +1257,14 @@
 				"description": "Fetch the XC leaderboard for a specific category",
 				"tags": ["Xc"],
 				"parameters": [
+					{
+						"in": "query",
+						"name": "edition",
+						"required": false,
+						"schema": {
+							"type": "integer"
+						}
+					},
 					{
 						"in": "path",
 						"name": "category",

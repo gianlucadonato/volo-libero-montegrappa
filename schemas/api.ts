@@ -139,3 +139,11 @@ export const XcLeaderboardEntrySchema = z.object({
 		.transform((val) => val.toISOString())
 		.nullish(),
 });
+
+export const XcEditionSummarySchema = z.object({
+	id: z.number(),
+	title: z.string(),
+	isActive: z.boolean(),
+	startsAt: z.coerce.date().transform((val) => val.toISOString()),
+	endsAt: z.coerce.date().transform((val) => val.toISOString()),
+});
