@@ -36,11 +36,16 @@ export async function GET(
 		const igcContent = await downloadObject(submission.fileName);
 		const parsed = parseIGC(igcContent);
 
+		const flightData = submission.flightData as {
+			header: typeof parsed.header;
+			stats: typeof parsed.stats;
+		} | null;
+
 		return Response.json({
 			submissionId: submission.id,
 			status: submission.status,
-			header: parsed.header,
-			stats: parsed.stats,
+			header: flightData?.header ?? parsed.header,
+			stats: flightData?.stats ?? parsed.stats,
 			fixes: parsed.fixes,
 		});
 	} catch (error) {

@@ -106,6 +106,7 @@ export async function POST(
 					status: "PENDING",
 					pointsAwarded: 0,
 					validationResult: Prisma.DbNull,
+					flightData: Prisma.DbNull,
 					notes: null,
 					reviewedAt: null,
 					reviewedBy: null,

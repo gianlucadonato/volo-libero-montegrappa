@@ -361,6 +361,7 @@ export const XcTrackSubmissionScalarFieldEnum = {
   notes: 'notes',
   pointsAwarded: 'pointsAwarded',
   validationResult: 'validationResult',
+  flightData: 'flightData',
   reviewedAt: 'reviewedAt',
   reviewedBy: 'reviewedBy',
   createdAt: 'createdAt',

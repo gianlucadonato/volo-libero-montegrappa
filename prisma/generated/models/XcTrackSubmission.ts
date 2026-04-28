@@ -79,6 +79,7 @@ export type XcTrackSubmissionCountAggregateOutputType = {
   notes: number
   pointsAwarded: number
   validationResult: number
+  flightData: number
   reviewedAt: number
   reviewedBy: number
   createdAt: number
@@ -140,6 +141,7 @@ export type XcTrackSubmissionCountAggregateInputType = {
   notes?: true
   pointsAwarded?: true
   validationResult?: true
+  flightData?: true
   reviewedAt?: true
   reviewedBy?: true
   createdAt?: true
@@ -244,6 +246,7 @@ export type XcTrackSubmissionGroupByOutputType = {
   notes: string | null
   pointsAwarded: number
   validationResult: runtime.JsonValue | null
+  flightData: runtime.JsonValue | null
   reviewedAt: Date | null
   reviewedBy: string | null
   createdAt: Date
@@ -284,6 +287,7 @@ export type XcTrackSubmissionWhereInput = {
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
+  flightData?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -305,6 +309,7 @@ export type XcTrackSubmissionOrderByWithRelationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
   validationResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  flightData?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -329,6 +334,7 @@ export type XcTrackSubmissionWhereUniqueInput = Prisma.AtLeast<{
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
+  flightData?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -350,6 +356,7 @@ export type XcTrackSubmissionOrderByWithAggregationInput = {
   notes?: Prisma.SortOrderInput | Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
   validationResult?: Prisma.SortOrderInput | Prisma.SortOrder
+  flightData?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   reviewedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -375,6 +382,7 @@ export type XcTrackSubmissionScalarWhereWithAggregatesInput = {
   notes?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntWithAggregatesFilter<"XcTrackSubmission"> | number
   validationResult?: Prisma.JsonNullableWithAggregatesFilter<"XcTrackSubmission">
+  flightData?: Prisma.JsonNullableWithAggregatesFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableWithAggregatesFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"XcTrackSubmission"> | Date | string
@@ -389,6 +397,7 @@ export type XcTrackSubmissionCreateInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -409,6 +418,7 @@ export type XcTrackSubmissionUncheckedCreateInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -423,6 +433,7 @@ export type XcTrackSubmissionUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -443,6 +454,7 @@ export type XcTrackSubmissionUncheckedUpdateInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -460,6 +472,7 @@ export type XcTrackSubmissionCreateManyInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -474,6 +487,7 @@ export type XcTrackSubmissionUpdateManyMutationInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -490,6 +504,7 @@ export type XcTrackSubmissionUncheckedUpdateManyInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -517,6 +532,7 @@ export type XcTrackSubmissionCountOrderByAggregateInput = {
   notes?: Prisma.SortOrder
   pointsAwarded?: Prisma.SortOrder
   validationResult?: Prisma.SortOrder
+  flightData?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
   reviewedBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -745,6 +761,7 @@ export type XcTrackSubmissionCreateWithoutUserInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -763,6 +780,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutUserInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -787,6 +805,7 @@ export type XcTrackSubmissionCreateWithoutReviewerInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -806,6 +825,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutReviewerInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -851,6 +871,7 @@ export type XcTrackSubmissionScalarWhereInput = {
   notes?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   pointsAwarded?: Prisma.IntFilter<"XcTrackSubmission"> | number
   validationResult?: Prisma.JsonNullableFilter<"XcTrackSubmission">
+  flightData?: Prisma.JsonNullableFilter<"XcTrackSubmission">
   reviewedAt?: Prisma.DateTimeNullableFilter<"XcTrackSubmission"> | Date | string | null
   reviewedBy?: Prisma.StringNullableFilter<"XcTrackSubmission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"XcTrackSubmission"> | Date | string
@@ -881,6 +902,7 @@ export type XcTrackSubmissionCreateWithoutEditionInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -899,6 +921,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutEditionInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -939,6 +962,7 @@ export type XcTrackSubmissionCreateWithoutTaskInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -957,6 +981,7 @@ export type XcTrackSubmissionUncheckedCreateWithoutTaskInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -999,6 +1024,7 @@ export type XcTrackSubmissionCreateManyUserInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1016,6 +1042,7 @@ export type XcTrackSubmissionCreateManyReviewerInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1029,6 +1056,7 @@ export type XcTrackSubmissionUpdateWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1047,6 +1075,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1063,6 +1092,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutUserInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1077,6 +1107,7 @@ export type XcTrackSubmissionUpdateWithoutReviewerInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1096,6 +1127,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutReviewerInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1112,6 +1144,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutReviewerInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1127,6 +1160,7 @@ export type XcTrackSubmissionCreateManyEditionInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1141,6 +1175,7 @@ export type XcTrackSubmissionUpdateWithoutEditionInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1159,6 +1194,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutEditionInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1175,6 +1211,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutEditionInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1191,6 +1228,7 @@ export type XcTrackSubmissionCreateManyTaskInput = {
   notes?: string | null
   pointsAwarded?: number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Date | string | null
   reviewedBy?: string | null
   createdAt?: Date | string
@@ -1205,6 +1243,7 @@ export type XcTrackSubmissionUpdateWithoutTaskInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1223,6 +1262,7 @@ export type XcTrackSubmissionUncheckedUpdateWithoutTaskInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1239,6 +1279,7 @@ export type XcTrackSubmissionUncheckedUpdateManyWithoutTaskInput = {
   notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   pointsAwarded?: Prisma.IntFieldUpdateOperationsInput | number
   validationResult?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  flightData?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reviewedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1258,6 +1299,7 @@ export type XcTrackSubmissionSelect<ExtArgs extends runtime.Types.Extensions.Int
   notes?: boolean
   pointsAwarded?: boolean
   validationResult?: boolean
+  flightData?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1279,6 +1321,7 @@ export type XcTrackSubmissionSelectCreateManyAndReturn<ExtArgs extends runtime.T
   notes?: boolean
   pointsAwarded?: boolean
   validationResult?: boolean
+  flightData?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1300,6 +1343,7 @@ export type XcTrackSubmissionSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   notes?: boolean
   pointsAwarded?: boolean
   validationResult?: boolean
+  flightData?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
@@ -1321,13 +1365,14 @@ export type XcTrackSubmissionSelectScalar = {
   notes?: boolean
   pointsAwarded?: boolean
   validationResult?: boolean
+  flightData?: boolean
   reviewedAt?: boolean
   reviewedBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "status" | "fileName" | "checksum" | "notes" | "pointsAwarded" | "validationResult" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
+export type XcTrackSubmissionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "editionId" | "taskId" | "status" | "fileName" | "checksum" | "notes" | "pointsAwarded" | "validationResult" | "flightData" | "reviewedAt" | "reviewedBy" | "createdAt" | "updatedAt", ExtArgs["result"]["xcTrackSubmission"]>
 export type XcTrackSubmissionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   reviewer?: boolean | Prisma.XcTrackSubmission$reviewerArgs<ExtArgs>
@@ -1366,6 +1411,7 @@ export type $XcTrackSubmissionPayload<ExtArgs extends runtime.Types.Extensions.I
     notes: string | null
     pointsAwarded: number
     validationResult: runtime.JsonValue | null
+    flightData: runtime.JsonValue | null
     reviewedAt: Date | null
     reviewedBy: string | null
     createdAt: Date
@@ -1807,6 +1853,7 @@ export interface XcTrackSubmissionFieldRefs {
   readonly notes: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly pointsAwarded: Prisma.FieldRef<"XcTrackSubmission", 'Int'>
   readonly validationResult: Prisma.FieldRef<"XcTrackSubmission", 'Json'>
+  readonly flightData: Prisma.FieldRef<"XcTrackSubmission", 'Json'>
   readonly reviewedAt: Prisma.FieldRef<"XcTrackSubmission", 'DateTime'>
   readonly reviewedBy: Prisma.FieldRef<"XcTrackSubmission", 'String'>
   readonly createdAt: Prisma.FieldRef<"XcTrackSubmission", 'DateTime'>

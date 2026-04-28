@@ -7,7 +7,6 @@ import {
 	RefreshCw,
 	Star,
 	Trash2,
-	Trophy,
 	XCircle,
 } from "lucide-react";
 import { useTranslations } from "next-intl";

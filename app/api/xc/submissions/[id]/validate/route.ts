@@ -77,6 +77,12 @@ export async function POST(
 				status: result.valid ? "APPROVED" : "REJECTED",
 				pointsAwarded: result.valid ? task.points : 0,
 				validationResult: JSON.parse(JSON.stringify(result)),
+				flightData: JSON.parse(
+					JSON.stringify({
+						header: parsedIgc.header,
+						stats: parsedIgc.stats,
+					}),
+				),
 			},
 		});
 

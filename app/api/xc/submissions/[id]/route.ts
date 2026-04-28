@@ -79,28 +79,43 @@ export async function DELETE(
 
 			if (_count === 0) {
 				// No more approved submissions — reset progress
-				await prisma.xcProgress.update({
+				await prisma.xcProgress.delete({
 					where: {
-						userId_editionId_category: {
-							userId: submission.userId,
-							editionId: submission.editionId,
-							category: task.category,
-						},
-					},
-					data: {
-						points: 0,
-						totalDistanceKm: 0,
-						flightTimeHrs: 0,
-						maxAltM: 0,
-						completedAt: null,
+						id: existingProgress.id,
 					},
 				});
 			} else {
 				const totalPoints = _sum.pointsAwarded ?? 0;
 
-				const edition = await prisma.xcEdition.findUniqueOrThrow({
-					where: { id: submission.editionId },
+				// Recalculate flight stats from remaining approved submissions' flightData
+				const remainingSubmissions = await prisma.xcTrackSubmission.findMany({
+					where: {
+						userId: submission.userId,
+						editionId: submission.editionId,
+						task: { category: task.category },
+						status: "APPROVED",
+					},
+					select: { flightData: true },
 				});
+
+				let totalDistanceKm = 0;
+				let flightTimeHrs = 0;
+				let maxAltM = 0;
+
+				for (const sub of remainingSubmissions) {
+					const fd = sub.flightData as {
+						stats?: {
+							totalDistanceKm?: number;
+							durationSeconds?: number;
+							maxAltitude?: number;
+						};
+					} | null;
+					if (fd?.stats) {
+						totalDistanceKm += fd.stats.totalDistanceKm ?? 0;
+						flightTimeHrs += (fd.stats.durationSeconds ?? 0) / 3600;
+						maxAltM = Math.max(maxAltM, fd.stats.maxAltitude ?? 0);
+					}
+				}
 
 				await prisma.xcProgress.update({
 					where: {
@@ -112,8 +127,11 @@ export async function DELETE(
 					},
 					data: {
 						points: totalPoints,
+						totalDistanceKm,
+						flightTimeHrs,
+						maxAltM,
 						completedAt:
-							totalPoints >= edition.minPoints
+							totalPoints >= existingProgress.minPoints
 								? existingProgress.completedAt
 								: null,
 					},

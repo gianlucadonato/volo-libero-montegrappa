@@ -352,6 +352,7 @@ model XcTrackSubmission {
   notes            String?
   pointsAwarded    Int                @default(0) @map(name: "points_awarded")
   validationResult Json?              @map(name: "validation_result")
+  flightData       Json?              @map(name: "flight_data")
   reviewedAt       DateTime?          @map(name: "reviewed_at")
   reviewedBy       String?            @map(name: "reviewed_by")
   createdAt        DateTime           @default(now()) @map(name: "created_at")

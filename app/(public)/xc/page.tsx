@@ -34,7 +34,7 @@ export default function XcMontegrappaPage() {
 			<XcCategoryCards />
 
 			<section className="px-4 pb-20">
-				<div className="container mx-auto flex min-h-[310px] flex-col items-center gap-16">
+				<div className="container mx-auto flex min-h-77.5 flex-col items-center gap-16">
 					<div>
 						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
 							<span className="highlight block">{t("hero.title")}</span>
@@ -97,7 +97,7 @@ export default function XcMontegrappaPage() {
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#CD7F32]">
 										<Link href="/xc/basic">
 											<div className="flex items-center gap-2">
-												<div className="flex w-[40px] items-center justify-center">
+												<div className="flex w-10 items-center justify-center">
 													<IoIosMedal className="size-10 text-[#CD7F32]" />
 												</div>
 												<div className="gap-1 pl-2">
@@ -121,7 +121,7 @@ export default function XcMontegrappaPage() {
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#C0C0C0]">
 										<Link href="/xc/intermediate">
 											<div className="flex items-center gap-2">
-												<div className="flex w-[40px] items-center justify-center">
+												<div className="flex w-10 items-center justify-center">
 													<IoIosMedal className="size-10 text-[#C0C0C0]" />
 												</div>
 												<div className="gap-1 pl-2">
@@ -145,7 +145,7 @@ export default function XcMontegrappaPage() {
 									<li className="mb-2 rounded-md border-2 border-transparent p-4 hover:cursor-pointer hover:border-[#FFD700]">
 										<Link href="/xc/advanced">
 											<div className="flex items-center gap-2">
-												<div className="flex w-[40px] items-center justify-center">
+												<div className="flex w-10 items-center justify-center">
 													<IoIosMedal className="size-10 text-[#FFD700]" />
 												</div>
 												<div className="gap-1 pl-2">
