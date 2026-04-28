@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.5.0
- * Query Engine version: 280c870be64f457428992c43c1f6d557fab6e29e
+ * Prisma Client JS version: 7.7.0
+ * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.5.0",
-  engine: "280c870be64f457428992c43c1f6d557fab6e29e"
+  client: "7.7.0",
+  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
 }
 
 /**
@@ -394,7 +394,13 @@ export const ModelName = {
   Event: 'Event',
   EventRegistration: 'EventRegistration',
   Report: 'Report',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  XcEdition: 'XcEdition',
+  XcTask: 'XcTask',
+  XcEditionTasks: 'XcEditionTasks',
+  XcEnrollment: 'XcEnrollment',
+  XcTrackSubmission: 'XcTrackSubmission',
+  XcProgress: 'XcProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -410,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon"
+    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon" | "xcEdition" | "xcTask" | "xcEditionTasks" | "xcEnrollment" | "xcTrackSubmission" | "xcProgress"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1228,6 +1234,450 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    XcEdition: {
+      payload: Prisma.$XcEditionPayload<ExtArgs>
+      fields: Prisma.XcEditionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcEditionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcEditionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        findFirst: {
+          args: Prisma.XcEditionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcEditionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        findMany: {
+          args: Prisma.XcEditionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>[]
+        }
+        create: {
+          args: Prisma.XcEditionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        createMany: {
+          args: Prisma.XcEditionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcEditionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>[]
+        }
+        delete: {
+          args: Prisma.XcEditionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        update: {
+          args: Prisma.XcEditionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcEditionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcEditionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcEditionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcEditionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionPayload>
+        }
+        aggregate: {
+          args: Prisma.XcEditionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcEdition>
+        }
+        groupBy: {
+          args: Prisma.XcEditionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEditionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcEditionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEditionCountAggregateOutputType> | number
+        }
+      }
+    }
+    XcTask: {
+      payload: Prisma.$XcTaskPayload<ExtArgs>
+      fields: Prisma.XcTaskFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcTaskFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcTaskFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        findFirst: {
+          args: Prisma.XcTaskFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcTaskFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        findMany: {
+          args: Prisma.XcTaskFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>[]
+        }
+        create: {
+          args: Prisma.XcTaskCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        createMany: {
+          args: Prisma.XcTaskCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcTaskCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>[]
+        }
+        delete: {
+          args: Prisma.XcTaskDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        update: {
+          args: Prisma.XcTaskUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcTaskDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcTaskUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcTaskUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcTaskUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTaskPayload>
+        }
+        aggregate: {
+          args: Prisma.XcTaskAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcTask>
+        }
+        groupBy: {
+          args: Prisma.XcTaskGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcTaskGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcTaskCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcTaskCountAggregateOutputType> | number
+        }
+      }
+    }
+    XcEditionTasks: {
+      payload: Prisma.$XcEditionTasksPayload<ExtArgs>
+      fields: Prisma.XcEditionTasksFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcEditionTasksFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcEditionTasksFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        findFirst: {
+          args: Prisma.XcEditionTasksFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcEditionTasksFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        findMany: {
+          args: Prisma.XcEditionTasksFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>[]
+        }
+        create: {
+          args: Prisma.XcEditionTasksCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        createMany: {
+          args: Prisma.XcEditionTasksCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcEditionTasksCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>[]
+        }
+        delete: {
+          args: Prisma.XcEditionTasksDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        update: {
+          args: Prisma.XcEditionTasksUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcEditionTasksDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcEditionTasksUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcEditionTasksUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcEditionTasksUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEditionTasksPayload>
+        }
+        aggregate: {
+          args: Prisma.XcEditionTasksAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcEditionTasks>
+        }
+        groupBy: {
+          args: Prisma.XcEditionTasksGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEditionTasksGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcEditionTasksCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEditionTasksCountAggregateOutputType> | number
+        }
+      }
+    }
+    XcEnrollment: {
+      payload: Prisma.$XcEnrollmentPayload<ExtArgs>
+      fields: Prisma.XcEnrollmentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcEnrollmentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcEnrollmentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        findFirst: {
+          args: Prisma.XcEnrollmentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcEnrollmentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        findMany: {
+          args: Prisma.XcEnrollmentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>[]
+        }
+        create: {
+          args: Prisma.XcEnrollmentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        createMany: {
+          args: Prisma.XcEnrollmentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcEnrollmentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>[]
+        }
+        delete: {
+          args: Prisma.XcEnrollmentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        update: {
+          args: Prisma.XcEnrollmentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcEnrollmentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcEnrollmentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcEnrollmentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcEnrollmentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcEnrollmentPayload>
+        }
+        aggregate: {
+          args: Prisma.XcEnrollmentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcEnrollment>
+        }
+        groupBy: {
+          args: Prisma.XcEnrollmentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEnrollmentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcEnrollmentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcEnrollmentCountAggregateOutputType> | number
+        }
+      }
+    }
+    XcTrackSubmission: {
+      payload: Prisma.$XcTrackSubmissionPayload<ExtArgs>
+      fields: Prisma.XcTrackSubmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcTrackSubmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcTrackSubmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.XcTrackSubmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcTrackSubmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        findMany: {
+          args: Prisma.XcTrackSubmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>[]
+        }
+        create: {
+          args: Prisma.XcTrackSubmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        createMany: {
+          args: Prisma.XcTrackSubmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcTrackSubmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.XcTrackSubmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        update: {
+          args: Prisma.XcTrackSubmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcTrackSubmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcTrackSubmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcTrackSubmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcTrackSubmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcTrackSubmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.XcTrackSubmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcTrackSubmission>
+        }
+        groupBy: {
+          args: Prisma.XcTrackSubmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcTrackSubmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcTrackSubmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcTrackSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
+    XcProgress: {
+      payload: Prisma.$XcProgressPayload<ExtArgs>
+      fields: Prisma.XcProgressFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.XcProgressFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.XcProgressFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        findFirst: {
+          args: Prisma.XcProgressFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.XcProgressFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        findMany: {
+          args: Prisma.XcProgressFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
+        }
+        create: {
+          args: Prisma.XcProgressCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        createMany: {
+          args: Prisma.XcProgressCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.XcProgressCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
+        }
+        delete: {
+          args: Prisma.XcProgressDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        update: {
+          args: Prisma.XcProgressUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        deleteMany: {
+          args: Prisma.XcProgressDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.XcProgressUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.XcProgressUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>[]
+        }
+        upsert: {
+          args: Prisma.XcProgressUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$XcProgressPayload>
+        }
+        aggregate: {
+          args: Prisma.XcProgressAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateXcProgress>
+        }
+        groupBy: {
+          args: Prisma.XcProgressGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcProgressGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.XcProgressCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.XcProgressCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1482,12 +1932,112 @@ export const CouponScalarFieldEnum = {
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
 
 
+export const XcEditionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  isActive: 'isActive',
+  minPoints: 'minPoints',
+  maxPoints: 'maxPoints',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEditionScalarFieldEnum = (typeof XcEditionScalarFieldEnum)[keyof typeof XcEditionScalarFieldEnum]
+
+
+export const XcTaskScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  description: 'description',
+  points: 'points',
+  category: 'category',
+  distanceKm: 'distanceKm',
+  taskFileUrl: 'taskFileUrl',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcTaskScalarFieldEnum = (typeof XcTaskScalarFieldEnum)[keyof typeof XcTaskScalarFieldEnum]
+
+
+export const XcEditionTasksScalarFieldEnum = {
+  editionId: 'editionId',
+  taskId: 'taskId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEditionTasksScalarFieldEnum = (typeof XcEditionTasksScalarFieldEnum)[keyof typeof XcEditionTasksScalarFieldEnum]
+
+
+export const XcEnrollmentScalarFieldEnum = {
+  userId: 'userId',
+  editionId: 'editionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEnrollmentScalarFieldEnum = (typeof XcEnrollmentScalarFieldEnum)[keyof typeof XcEnrollmentScalarFieldEnum]
+
+
+export const XcTrackSubmissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  editionId: 'editionId',
+  taskId: 'taskId',
+  status: 'status',
+  fileName: 'fileName',
+  checksum: 'checksum',
+  notes: 'notes',
+  pointsAwarded: 'pointsAwarded',
+  validationResult: 'validationResult',
+  flightData: 'flightData',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcTrackSubmissionScalarFieldEnum = (typeof XcTrackSubmissionScalarFieldEnum)[keyof typeof XcTrackSubmissionScalarFieldEnum]
+
+
+export const XcProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  editionId: 'editionId',
+  category: 'category',
+  points: 'points',
+  minPoints: 'minPoints',
+  totalDistanceKm: 'totalDistanceKm',
+  flightTimeHrs: 'flightTimeHrs',
+  maxAltM: 'maxAltM',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -1504,6 +2054,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1590,6 +2149,20 @@ export type ListEnumEventRegistrationStatusFieldRefInput<$PrismaModel> = FieldRe
 
 
 /**
+ * Reference to a field of type 'XcCategoryLevel'
+ */
+export type EnumXcCategoryLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'XcCategoryLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'XcCategoryLevel[]'
+ */
+export type ListEnumXcCategoryLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'XcCategoryLevel[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1600,6 +2173,34 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'XcSubmissionStatus'
+ */
+export type EnumXcSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'XcSubmissionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'XcSubmissionStatus[]'
+ */
+export type ListEnumXcSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'XcSubmissionStatus[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 /**
@@ -1708,6 +2309,12 @@ export type GlobalOmitConfig = {
   eventRegistration?: Prisma.EventRegistrationOmit
   report?: Prisma.ReportOmit
   coupon?: Prisma.CouponOmit
+  xcEdition?: Prisma.XcEditionOmit
+  xcTask?: Prisma.XcTaskOmit
+  xcEditionTasks?: Prisma.XcEditionTasksOmit
+  xcEnrollment?: Prisma.XcEnrollmentOmit
+  xcTrackSubmission?: Prisma.XcTrackSubmissionOmit
+  xcProgress?: Prisma.XcProgressOmit
 }
 
 /* Types for Logging */

@@ -1,0 +1,78 @@
+{
+  "version" : 1,
+  "taskType" : "CLASSIC",
+  "turnpoints" : [{
+       "radius" : 4590.0,
+       "waypoint" : {
+         "lon" : 11.80025,
+         "lat" : 45.8244,
+         "altSmoothed" : 290.0,
+         "name" : "B02   ",
+         "description" : "BORSO CHIESA"
+       }
+       
+        ,
+        "type" : "TAKEOFF"
+       
+     },{
+       "radius" : 4600.0,
+       "waypoint" : {
+         "lon" : 11.80025,
+         "lat" : 45.8244,
+         "altSmoothed" : 290.0,
+         "name" : "B02   ",
+         "description" : "BORSO CHIESA"
+       }
+       
+        ,
+        "type" : "SSS"
+       
+     },{
+       "radius" : 1000.0,
+       "waypoint" : {
+         "lon" : 12.082699999999999,
+         "lat" : 46.16093333333333,
+         "altSmoothed" : 410.0,
+         "name" : "B04   ",
+         "description" : "DIGA DEL MISS"
+       }
+       
+     },{
+       "radius" : 400.0,
+       "waypoint" : {
+         "lon" : 11.879616666666667,
+         "lat" : 46.03035,
+         "altSmoothed" : 359.0,
+         "name" : "A09   ",
+         "description" : "BOSCHERAI LANDING [A]"
+       }
+       
+        ,
+        "type" : "ESS"
+       
+     },{
+       "radius" : 390.0,
+       "waypoint" : {
+         "lon" : 11.879616666666667,
+         "lat" : 46.03035,
+         "altSmoothed" : 359.0,
+         "name" : "A09   ",
+         "description" : "BOSCHERAI LANDING [A]"
+       }
+       
+     }
+  ],
+  "takeoff":{
+    "timeOpen": "06:00:00Z",
+    "timeClose": "18:00:00Z"
+  },
+  "sss" : {
+    "type" : "ELAPSED-TIME",
+    "direction" : "EXIT",
+    "timeGates" : ["06:00:00Z"]
+  },  
+  "goal" : {
+    "type" : "CYLINDER",
+    "deadline": "19:00:00Z"
+  }
+}

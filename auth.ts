@@ -30,7 +30,7 @@ const baseURL =
 	env.BETTER_AUTH_URL ?? env.NEXTAUTH_URL ?? env.NEXT_PUBLIC_APP_URL;
 
 const devTrustedOrigins =
-	env.NODE_ENV === "production"
+	env.VLM_ENV === "production"
 		? []
 		: [
 				"http://local.infinicloud.net:3000",
@@ -38,7 +38,13 @@ const devTrustedOrigins =
 				"http://127.0.0.1:3000",
 			];
 
-const trustedOrigins = Array.from(new Set([baseURL, ...devTrustedOrigins]));
+const trustedOrigins = Array.from(
+	new Set([
+		baseURL,
+		"https://*.vololiberomontegrappa.it",
+		...devTrustedOrigins,
+	]),
+);
 
 export const auth = betterAuth({
 	baseURL,

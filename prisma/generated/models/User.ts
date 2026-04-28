@@ -374,7 +374,7 @@ export type UserGroupByOutputType = {
   _max: UserMaxAggregateOutputType | null
 }
 
-type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
+export type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<
   Array<
     Prisma.PickEnumerable<UserGroupByOutputType, T['by']> &
       {
@@ -432,6 +432,10 @@ export type UserWhereInput = {
   eventsCreated?: Prisma.EventListRelationFilter
   registrations?: Prisma.EventRegistrationListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  xcEnrollments?: Prisma.XcEnrollmentListRelationFilter
+  xcSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -474,6 +478,10 @@ export type UserOrderByWithRelationInput = {
   eventsCreated?: Prisma.EventOrderByRelationAggregateInput
   registrations?: Prisma.EventRegistrationOrderByRelationAggregateInput
   coupons?: Prisma.CouponOrderByRelationAggregateInput
+  xcEnrollments?: Prisma.XcEnrollmentOrderByRelationAggregateInput
+  xcSubmissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionOrderByRelationAggregateInput
+  xcProgresses?: Prisma.XcProgressOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -519,6 +527,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   eventsCreated?: Prisma.EventListRelationFilter
   registrations?: Prisma.EventRegistrationListRelationFilter
   coupons?: Prisma.CouponListRelationFilter
+  xcEnrollments?: Prisma.XcEnrollmentListRelationFilter
+  xcSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionListRelationFilter
+  xcProgresses?: Prisma.XcProgressListRelationFilter
 }, "id" | "memberId" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -637,6 +649,10 @@ export type UserCreateInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -679,6 +695,10 @@ export type UserUncheckedCreateInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -720,6 +740,10 @@ export type UserUpdateInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -762,6 +786,10 @@ export type UserUncheckedUpdateInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1135,6 +1163,64 @@ export type UserUpdateOneWithoutCouponsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCouponsInput, Prisma.UserUpdateWithoutCouponsInput>, Prisma.UserUncheckedUpdateWithoutCouponsInput>
 }
 
+export type UserCreateNestedOneWithoutXcEnrollmentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcEnrollmentsInput, Prisma.UserUncheckedCreateWithoutXcEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutXcEnrollmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcEnrollmentsInput, Prisma.UserUncheckedCreateWithoutXcEnrollmentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcEnrollmentsInput
+  upsert?: Prisma.UserUpsertWithoutXcEnrollmentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcEnrollmentsInput, Prisma.UserUpdateWithoutXcEnrollmentsInput>, Prisma.UserUncheckedUpdateWithoutXcEnrollmentsInput>
+}
+
+export type UserCreateNestedOneWithoutXcSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutXcReviewedSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcReviewedSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcReviewedSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutXcSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutXcSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcSubmissionsInput, Prisma.UserUpdateWithoutXcSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutXcSubmissionsInput>
+}
+
+export type UserUpdateOneWithoutXcReviewedSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcReviewedSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcReviewedSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutXcReviewedSubmissionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcReviewedSubmissionsInput, Prisma.UserUpdateWithoutXcReviewedSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutXcReviewedSubmissionsInput>
+}
+
+export type UserCreateNestedOneWithoutXcProgressesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcProgressesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutXcProgressesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutXcProgressesInput
+  upsert?: Prisma.UserUpsertWithoutXcProgressesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutXcProgressesInput, Prisma.UserUpdateWithoutXcProgressesInput>, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   memberId?: number
@@ -1174,6 +1260,10 @@ export type UserCreateWithoutSessionsInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -1215,6 +1305,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -1271,6 +1365,10 @@ export type UserUpdateWithoutSessionsInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -1312,6 +1410,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -1353,6 +1455,10 @@ export type UserCreateWithoutAccountsInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -1394,6 +1500,10 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -1450,6 +1560,10 @@ export type UserUpdateWithoutAccountsInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -1491,6 +1605,10 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMembershipsInput = {
@@ -1532,6 +1650,10 @@ export type UserCreateWithoutMembershipsInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -1573,6 +1695,10 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -1629,6 +1755,10 @@ export type UserUpdateWithoutMembershipsInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -1670,6 +1800,10 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentsInput = {
@@ -1711,6 +1845,10 @@ export type UserCreateWithoutPaymentsInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -1752,6 +1890,10 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -1798,6 +1940,10 @@ export type UserCreateWithoutPaymentsAddedInput = {
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentsAddedInput = {
@@ -1839,6 +1985,10 @@ export type UserUncheckedCreateWithoutPaymentsAddedInput = {
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentsAddedInput = {
@@ -1895,6 +2045,10 @@ export type UserUpdateWithoutPaymentsInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -1936,6 +2090,10 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutPaymentsAddedInput = {
@@ -1987,6 +2145,10 @@ export type UserUpdateWithoutPaymentsAddedInput = {
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
@@ -2028,6 +2190,10 @@ export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEventsCreatedInput = {
@@ -2069,6 +2235,10 @@ export type UserCreateWithoutEventsCreatedInput = {
   paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEventsCreatedInput = {
@@ -2110,6 +2280,10 @@ export type UserUncheckedCreateWithoutEventsCreatedInput = {
   paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEventsCreatedInput = {
@@ -2166,6 +2340,10 @@ export type UserUpdateWithoutEventsCreatedInput = {
   paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEventsCreatedInput = {
@@ -2207,6 +2385,10 @@ export type UserUncheckedUpdateWithoutEventsCreatedInput = {
   paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRegistrationsInput = {
@@ -2248,6 +2430,10 @@ export type UserCreateWithoutRegistrationsInput = {
   paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRegistrationsInput = {
@@ -2289,6 +2475,10 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRegistrationsInput = {
@@ -2345,6 +2535,10 @@ export type UserUpdateWithoutRegistrationsInput = {
   paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRegistrationsInput = {
@@ -2386,6 +2580,10 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCouponsInput = {
@@ -2427,6 +2625,10 @@ export type UserCreateWithoutCouponsInput = {
   paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
   eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCouponsInput = {
@@ -2468,6 +2670,10 @@ export type UserUncheckedCreateWithoutCouponsInput = {
   paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
   eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
   registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCouponsInput = {
@@ -2524,6 +2730,10 @@ export type UserUpdateWithoutCouponsInput = {
   paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
   eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCouponsInput = {
@@ -2565,6 +2775,790 @@ export type UserUncheckedUpdateWithoutCouponsInput = {
   paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
   eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
   registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutXcEnrollmentsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutXcEnrollmentsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutXcEnrollmentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcEnrollmentsInput, Prisma.UserUncheckedCreateWithoutXcEnrollmentsInput>
+}
+
+export type UserUpsertWithoutXcEnrollmentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXcEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutXcEnrollmentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcEnrollmentsInput, Prisma.UserUncheckedCreateWithoutXcEnrollmentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXcEnrollmentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXcEnrollmentsInput, Prisma.UserUncheckedUpdateWithoutXcEnrollmentsInput>
+}
+
+export type UserUpdateWithoutXcEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXcEnrollmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutXcSubmissionsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutXcSubmissionsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutXcSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcSubmissionsInput>
+}
+
+export type UserCreateWithoutXcReviewedSubmissionsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutXcReviewedSubmissionsInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcProgresses?: Prisma.XcProgressUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutXcReviewedSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcReviewedSubmissionsInput>
+}
+
+export type UserUpsertWithoutXcSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXcSubmissionsInput, Prisma.UserUncheckedUpdateWithoutXcSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXcSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXcSubmissionsInput, Prisma.UserUncheckedUpdateWithoutXcSubmissionsInput>
+}
+
+export type UserUpdateWithoutXcSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXcSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutXcReviewedSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedUpdateWithoutXcReviewedSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedCreateWithoutXcReviewedSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXcReviewedSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXcReviewedSubmissionsInput, Prisma.UserUncheckedUpdateWithoutXcReviewedSubmissionsInput>
+}
+
+export type UserUpdateWithoutXcReviewedSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXcReviewedSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcProgresses?: Prisma.XcProgressUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutXcProgressesInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionCreateNestedManyWithoutReviewerInput
+}
+
+export type UserUncheckedCreateWithoutXcProgressesInput = {
+  id?: string
+  memberId?: number
+  email: string
+  emailVerified?: boolean
+  name?: string
+  firstName: string
+  lastName: string
+  password?: string | null
+  image?: string | null
+  fiscalCode?: string | null
+  dateOfBirth?: string | null
+  placeOfBirth?: string | null
+  streetAddress?: string | null
+  city?: string | null
+  zipCode?: string | null
+  province?: string | null
+  state?: string | null
+  phone?: string | null
+  gender?: string
+  size?: string | null
+  sport?: string | null
+  vdsNumber?: string | null
+  vdsReleaseDate?: string | null
+  fivlNumber?: string | null
+  medicalExamValidDate?: string | null
+  emailConsent?: boolean
+  isAdmin?: boolean
+  role?: $Enums.UserRole
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  memberships?: Prisma.UserMembershipUncheckedCreateNestedManyWithoutUserInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutUserInput
+  paymentsAdded?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
+  eventsCreated?: Prisma.EventUncheckedCreateNestedManyWithoutCreatorInput
+  registrations?: Prisma.EventRegistrationUncheckedCreateNestedManyWithoutUserInput
+  coupons?: Prisma.CouponUncheckedCreateNestedManyWithoutUserInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedCreateNestedManyWithoutUserInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutUserInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedCreateNestedManyWithoutReviewerInput
+}
+
+export type UserCreateOrConnectWithoutXcProgressesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+}
+
+export type UserUpsertWithoutXcProgressesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutXcProgressesInput, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutXcProgressesInput, Prisma.UserUncheckedCreateWithoutXcProgressesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutXcProgressesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutXcProgressesInput, Prisma.UserUncheckedUpdateWithoutXcProgressesInput>
+}
+
+export type UserUpdateWithoutXcProgressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUpdateManyWithoutReviewerNestedInput
+}
+
+export type UserUncheckedUpdateWithoutXcProgressesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  memberId?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fiscalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dateOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  placeOfBirth?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  streetAddress?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  zipCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  province?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  gender?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  memberships?: Prisma.UserMembershipUncheckedUpdateManyWithoutUserNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutUserNestedInput
+  paymentsAdded?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
+  eventsCreated?: Prisma.EventUncheckedUpdateManyWithoutCreatorNestedInput
+  registrations?: Prisma.EventRegistrationUncheckedUpdateManyWithoutUserNestedInput
+  coupons?: Prisma.CouponUncheckedUpdateManyWithoutUserNestedInput
+  xcEnrollments?: Prisma.XcEnrollmentUncheckedUpdateManyWithoutUserNestedInput
+  xcSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutUserNestedInput
+  xcReviewedSubmissions?: Prisma.XcTrackSubmissionUncheckedUpdateManyWithoutReviewerNestedInput
 }
 
 
@@ -2581,6 +3575,10 @@ export type UserCountOutputType = {
   eventsCreated: number
   registrations: number
   coupons: number
+  xcEnrollments: number
+  xcSubmissions: number
+  xcReviewedSubmissions: number
+  xcProgresses: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2592,6 +3590,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   eventsCreated?: boolean | UserCountOutputTypeCountEventsCreatedArgs
   registrations?: boolean | UserCountOutputTypeCountRegistrationsArgs
   coupons?: boolean | UserCountOutputTypeCountCouponsArgs
+  xcEnrollments?: boolean | UserCountOutputTypeCountXcEnrollmentsArgs
+  xcSubmissions?: boolean | UserCountOutputTypeCountXcSubmissionsArgs
+  xcReviewedSubmissions?: boolean | UserCountOutputTypeCountXcReviewedSubmissionsArgs
+  xcProgresses?: boolean | UserCountOutputTypeCountXcProgressesArgs
 }
 
 /**
@@ -2660,6 +3662,34 @@ export type UserCountOutputTypeCountCouponsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.CouponWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXcEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcEnrollmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXcSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcTrackSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXcReviewedSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcTrackSubmissionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountXcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.XcProgressWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2701,6 +3731,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   eventsCreated?: boolean | Prisma.User$eventsCreatedArgs<ExtArgs>
   registrations?: boolean | Prisma.User$registrationsArgs<ExtArgs>
   coupons?: boolean | Prisma.User$couponsArgs<ExtArgs>
+  xcEnrollments?: boolean | Prisma.User$xcEnrollmentsArgs<ExtArgs>
+  xcSubmissions?: boolean | Prisma.User$xcSubmissionsArgs<ExtArgs>
+  xcReviewedSubmissions?: boolean | Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.User$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2816,6 +3850,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   eventsCreated?: boolean | Prisma.User$eventsCreatedArgs<ExtArgs>
   registrations?: boolean | Prisma.User$registrationsArgs<ExtArgs>
   coupons?: boolean | Prisma.User$couponsArgs<ExtArgs>
+  xcEnrollments?: boolean | Prisma.User$xcEnrollmentsArgs<ExtArgs>
+  xcSubmissions?: boolean | Prisma.User$xcSubmissionsArgs<ExtArgs>
+  xcReviewedSubmissions?: boolean | Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>
+  xcProgresses?: boolean | Prisma.User$xcProgressesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2832,6 +3870,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     eventsCreated: Prisma.$EventPayload<ExtArgs>[]
     registrations: Prisma.$EventRegistrationPayload<ExtArgs>[]
     coupons: Prisma.$CouponPayload<ExtArgs>[]
+    xcEnrollments: Prisma.$XcEnrollmentPayload<ExtArgs>[]
+    xcSubmissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
+    xcReviewedSubmissions: Prisma.$XcTrackSubmissionPayload<ExtArgs>[]
+    xcProgresses: Prisma.$XcProgressPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3267,6 +4309,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   eventsCreated<T extends Prisma.User$eventsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$eventsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   registrations<T extends Prisma.User$registrationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$registrationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventRegistrationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   coupons<T extends Prisma.User$couponsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$couponsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CouponPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcEnrollments<T extends Prisma.User$xcEnrollmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcEnrollmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcEnrollmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcSubmissions<T extends Prisma.User$xcSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcReviewedSubmissions<T extends Prisma.User$xcReviewedSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcReviewedSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcTrackSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  xcProgresses<T extends Prisma.User$xcProgressesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$xcProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$XcProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3909,6 +4955,102 @@ export type User$couponsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.CouponScalarFieldEnum | Prisma.CouponScalarFieldEnum[]
+}
+
+/**
+ * User.xcEnrollments
+ */
+export type User$xcEnrollmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcEnrollment
+   */
+  select?: Prisma.XcEnrollmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcEnrollment
+   */
+  omit?: Prisma.XcEnrollmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcEnrollmentInclude<ExtArgs> | null
+  where?: Prisma.XcEnrollmentWhereInput
+  orderBy?: Prisma.XcEnrollmentOrderByWithRelationInput | Prisma.XcEnrollmentOrderByWithRelationInput[]
+  cursor?: Prisma.XcEnrollmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcEnrollmentScalarFieldEnum | Prisma.XcEnrollmentScalarFieldEnum[]
+}
+
+/**
+ * User.xcSubmissions
+ */
+export type User$xcSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcTrackSubmission
+   */
+  select?: Prisma.XcTrackSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcTrackSubmission
+   */
+  omit?: Prisma.XcTrackSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcTrackSubmissionInclude<ExtArgs> | null
+  where?: Prisma.XcTrackSubmissionWhereInput
+  orderBy?: Prisma.XcTrackSubmissionOrderByWithRelationInput | Prisma.XcTrackSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.XcTrackSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcTrackSubmissionScalarFieldEnum | Prisma.XcTrackSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.xcReviewedSubmissions
+ */
+export type User$xcReviewedSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcTrackSubmission
+   */
+  select?: Prisma.XcTrackSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcTrackSubmission
+   */
+  omit?: Prisma.XcTrackSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcTrackSubmissionInclude<ExtArgs> | null
+  where?: Prisma.XcTrackSubmissionWhereInput
+  orderBy?: Prisma.XcTrackSubmissionOrderByWithRelationInput | Prisma.XcTrackSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.XcTrackSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcTrackSubmissionScalarFieldEnum | Prisma.XcTrackSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.xcProgresses
+ */
+export type User$xcProgressesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the XcProgress
+   */
+  select?: Prisma.XcProgressSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the XcProgress
+   */
+  omit?: Prisma.XcProgressOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.XcProgressInclude<ExtArgs> | null
+  where?: Prisma.XcProgressWhereInput
+  orderBy?: Prisma.XcProgressOrderByWithRelationInput | Prisma.XcProgressOrderByWithRelationInput[]
+  cursor?: Prisma.XcProgressWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.XcProgressScalarFieldEnum | Prisma.XcProgressScalarFieldEnum[]
 }
 
 /**

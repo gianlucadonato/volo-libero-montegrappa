@@ -61,7 +61,13 @@ export const ModelName = {
   Event: 'Event',
   EventRegistration: 'EventRegistration',
   Report: 'Report',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  XcEdition: 'XcEdition',
+  XcTask: 'XcTask',
+  XcEditionTasks: 'XcEditionTasks',
+  XcEnrollment: 'XcEnrollment',
+  XcTrackSubmission: 'XcTrackSubmission',
+  XcProgress: 'XcProgress'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -291,12 +297,112 @@ export const CouponScalarFieldEnum = {
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
 
 
+export const XcEditionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  isActive: 'isActive',
+  minPoints: 'minPoints',
+  maxPoints: 'maxPoints',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEditionScalarFieldEnum = (typeof XcEditionScalarFieldEnum)[keyof typeof XcEditionScalarFieldEnum]
+
+
+export const XcTaskScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  name: 'name',
+  description: 'description',
+  points: 'points',
+  category: 'category',
+  distanceKm: 'distanceKm',
+  taskFileUrl: 'taskFileUrl',
+  imageUrl: 'imageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcTaskScalarFieldEnum = (typeof XcTaskScalarFieldEnum)[keyof typeof XcTaskScalarFieldEnum]
+
+
+export const XcEditionTasksScalarFieldEnum = {
+  editionId: 'editionId',
+  taskId: 'taskId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEditionTasksScalarFieldEnum = (typeof XcEditionTasksScalarFieldEnum)[keyof typeof XcEditionTasksScalarFieldEnum]
+
+
+export const XcEnrollmentScalarFieldEnum = {
+  userId: 'userId',
+  editionId: 'editionId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcEnrollmentScalarFieldEnum = (typeof XcEnrollmentScalarFieldEnum)[keyof typeof XcEnrollmentScalarFieldEnum]
+
+
+export const XcTrackSubmissionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  editionId: 'editionId',
+  taskId: 'taskId',
+  status: 'status',
+  fileName: 'fileName',
+  checksum: 'checksum',
+  notes: 'notes',
+  pointsAwarded: 'pointsAwarded',
+  validationResult: 'validationResult',
+  flightData: 'flightData',
+  reviewedAt: 'reviewedAt',
+  reviewedBy: 'reviewedBy',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcTrackSubmissionScalarFieldEnum = (typeof XcTrackSubmissionScalarFieldEnum)[keyof typeof XcTrackSubmissionScalarFieldEnum]
+
+
+export const XcProgressScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  editionId: 'editionId',
+  category: 'category',
+  points: 'points',
+  minPoints: 'minPoints',
+  totalDistanceKm: 'totalDistanceKm',
+  flightTimeHrs: 'flightTimeHrs',
+  maxAltM: 'maxAltM',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -313,4 +419,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

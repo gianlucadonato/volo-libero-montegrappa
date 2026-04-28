@@ -6,4 +6,6 @@
 export interface $DbEnums {
   UserRole: "ADMIN" | "USER" | "MEMBER"
   EventRegistrationStatus: "REGISTERED" | "CANCELLED"
+  XcCategoryLevel: "BASIC" | "INTERMEDIATE" | "ADVANCED"
+  XcSubmissionStatus: "PENDING" | "APPROVED" | "REJECTED"
 }

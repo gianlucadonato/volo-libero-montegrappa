@@ -32,13 +32,13 @@ function MemberOnlyModal({
 			showModal={showModal}
 			setShowModal={setShowModal}
 		>
-			<div className="w-full px-4 pt-5">
+			<div className="w-full px-4 py-5">
 				<DialogHeader>
 					<DialogTitle className="flex items-center gap-2">
 						<TriangleAlert className="mr-2 size-5" />
 						{t("title")}
 					</DialogTitle>
-					<DialogDescription className="pb-2 pt-4">
+					<DialogDescription className="py-4">
 						{t("description")}
 					</DialogDescription>
 				</DialogHeader>

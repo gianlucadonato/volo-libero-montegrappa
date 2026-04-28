@@ -60,6 +60,10 @@
 		"orders": "Orders",
 		"weather": "Weather",
 		"events": "Events",
+		"all_events": "All events",
+		"events_description": "View all events",
+		"trofeo_montegrappa": "Trofeo Montegrappa",
+		"xc_montegrappa": "XC Montegrappa",
 		"membership": "Membership",
 		"cards": "Your cards",
 		"support": "Support",
@@ -664,5 +668,313 @@
 		"today": "Today",
 		"tomorrow": "Tomorrow",
 		"after_tomorrow": "After tomorrow"
+	},
+	"TaskPage": {
+		"back": "Back",
+		"header_title": "Task",
+		"header_description": "Task details",
+		"dashboard_title": "Task Information",
+		"no_data": "No data",
+		"not_found": "Task not found",
+		"no_waypoints": "No waypoints available for this task.",
+		"download_task": "Download Task",
+		"upload_route": "Upload your Route",
+		"uploading": "Uploading...",
+		"upload_success": "Route uploaded successfully!",
+		"upload_error": "Error uploading route",
+		"enroll_prompt": "Enroll in the XC Certificate to upload your tracks."
+	},
+	"XcSubmissionHistory": {
+		"title": "Previous flights",
+		"description": "Select a flight to display it on the map.",
+		"edition": "Edition {year}",
+		"points": "pts",
+		"view": "View",
+		"viewing": "Viewing"
+	},
+	"XcMontegrappaPage": {
+		"banner": {
+			"title": "XC Montegrappa",
+			"subtitle": "XC Montegrappa Cross-Country Certificate"
+		},
+		"categoryCards": {
+			"title": "Choose your Challenge",
+			"subtitle": "Conquer the skies and earn your certificates."
+		},
+		"hero": {
+			"title": "XC Montegrappa"
+		},
+		"intro": "This initiative is organized and promoted by the <strong>Club Volo Libero Montegrappa</strong>.<br></br>It is not a competition, but a personal challenge that recognizes each pilot's commitment and ability to reach cross-country flying goals.<br></br>The routes are based in the Monte Grappa flying area, with takeoff and landing within the designated zones.<br></br>Each pilot can freely choose when to fly throughout the year, starting from <strong>April 1, {year}</strong>.",
+		"objectives": {
+			"title": "OBJECTIVES",
+			"lead": "The XC Montegrappa certificate was created to:",
+			"items": [
+				"Promote and spread free flight practice in paragliding and hang gliding through predefined routes in the Veneto foothills, with takeoff points on Monte Grappa.",
+				"Encourage pilots to improve their experience, foster knowledge sharing, and explore nearby flying areas.",
+				"Help less experienced pilots approach cross-country flying through progressive route levels."
+			]
+		},
+		"howItWorks": {
+			"title": "HOW IT WORKS",
+			"description": "XC Montegrappa has three difficulty levels (Basic, Intermediate, Advanced), each made up of predefined tasks with waypoints to pass.<br></br>Each task has a score that reflects its difficulty. To earn the certificate, you must reach the minimum required score for that level by summing points earned from completed tasks.<br></br>This means that, for each level, it is not strictly necessary to complete every task: you only need to reach the minimum score.<br></br><br></br><strong>Attention!</strong> Each task can count only toward one specific certificate level. A single flight track that includes multiple tasks is valid for one of them only. Therefore, different tasks cannot all be completed in one single flight session.",
+			"readRegulations": "Read the regulations"
+		},
+		"levels": {
+			"title": "CERTIFICATE LEVELS",
+			"lead": "Certificates are divided into three increasing difficulty levels:",
+			"viewTasks": "View tasks",
+			"basic": {
+				"title": "BASIC CERTIFICATE",
+				"description": "Shorter and less demanding routes.",
+				"details": "Ideal for pilots at their first cross-country experiences."
+			},
+			"intermediate": {
+				"title": "INTERMEDIATE CERTIFICATE",
+				"description": "Longer, more technical routes.",
+				"details": "Includes crossing the main valleys around Monte Grappa."
+			},
+			"advanced": {
+				"title": "ADVANCED CERTIFICATE",
+				"description": "Routes for expert pilots.",
+				"details": "Routes with higher difficulty due to distance, flight time, and crossings through multiple valleys and diverse environmental contexts."
+			}
+		},
+		"faqTitle": "FREQUENTLY ASKED QUESTIONS",
+		"cta": "Always fly with a goal,<br></br>join the XC Montegrappa certificate",
+		"enrollButton": "Enroll in XC Certificate",
+		"toast": {
+			"success": "Welcome to XC Montegrappa!",
+			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
+			"genericError": "Enrollment failed. Please try again."
+		},
+		"dialog": {
+			"title": "Enroll in XC Montegrappa {year}",
+			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
+			"info": "With a single enrollment you can upload tracks for all categories during the entire {year} season.",
+			"cancel": "Cancel",
+			"confirm": "Confirm enrollment",
+			"loading": "Enrolling..."
+		}
+	},
+	"EnrollXcEditionModal": {
+		"toast": {
+			"success": "Welcome to XC Montegrappa!",
+			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
+			"genericError": "Enrollment failed. Please try again."
+		},
+		"dialog": {
+			"title": "Enroll in XC Montegrappa {year}",
+			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
+			"cancel": "Cancel",
+			"confirm": "Confirm enrollment",
+			"alreadyEnrolledMessage": "You are already enrolled in the XC Certificate!",
+			"acceptLiability": "I have read and accept the <link>Liability Waiver</link>",
+			"acceptRegolamento": "I have read and accept the <link>Regulations</link>",
+			"loading": "Enrolling..."
+		}
+	},
+	"XcMontegrappaFAQ": {
+		"items": {
+			"whoCan": {
+				"question": "Who can participate?",
+				"answer": "All Italian and international pilots compliant with current national free-flight regulations and local rules can take part in the XC certificate from Grappa."
+			},
+			"howMany": {
+				"question": "How many certificates can I earn?",
+				"answer": "There is no distinction or limit by wing category. Each pilot can enroll and complete one or more levels, and can therefore earn all three certificates: basic, intermediate, and advanced."
+			},
+			"whenFly": {
+				"question": "When can flights be made?",
+				"answer": "Flights made from October 1st to September 30th of the following year are considered. You can fly on any day of the week, weather permitting."
+			},
+			"whenCollect": {
+				"question": "If I reach the required score, when can I collect my certificate?",
+				"answer": "In October, during the Volo Libero Montegrappa social dinner, certificates are awarded to pilots who achieved the XC certificate from Grappa."
+			},
+			"prizes": {
+				"question": "Are there prizes?",
+				"answer": "The XC certificate from Grappa is not a competitive event and has no ranking for specific prizes. However, during the social dinner, prizes are drawn among all pilots who achieved the certificate at any level. Special recognitions are granted to pilots who complete multiple certificates in the same season. Drawn prizes are awarded only to pilots present."
+			}
+		}
+	},
+	"XcCategoryPage": {
+		"bannerTitle": "XC Montegrappa",
+		"bannerSubtitle": "Cross Country Montegrappa Certificate",
+		"categories": {
+			"basic": {
+				"title": "Basic Certificate",
+				"short": "Basic"
+			},
+			"intermediate": {
+				"title": "Intermediate Certificate",
+				"short": "Intermediate"
+			},
+			"advanced": {
+				"title": "Advanced Certificate",
+				"short": "Advanced"
+			}
+		},
+		"errors": {
+			"categoryNotFound": "Category not found",
+			"failedToLoad": "Failed to load tasks. Please try again."
+		},
+		"buttons": {
+			"back": "Back",
+			"backToXc": "Back to XC Montegrappa",
+			"enrollNow": "Enroll now",
+			"leaderboard": "Leaderboard"
+		},
+		"header": {
+			"description": "Complete tasks and collect points to earn the certificate"
+		},
+		"progress": {
+			"title": "Level Status",
+			"level": "Level",
+			"tasksLabel": "Certificate Points",
+			"xcPoints": "XC points",
+			"tasksCompleted": "tasks completed",
+			"currentPoints": "Current points:",
+			"minPoints": "Minimum required points:",
+			"minPointsTooltip": "Minimum XC points needed to pass the level and earn the certificate",
+			"completed": "✅ You have completed this XC Certificate!"
+		},
+		"enrollPrompt": "Enroll in the XC certificate to upload your tracks.",
+		"tasks": {
+			"title": "Available tasks",
+			"empty": "No tasks available for this category yet."
+		},
+		"celebration": {
+			"basic": {
+				"title": "XC Montegrappa - Gheppio del Grappa",
+				"subtitle": "Basic Certificate Completed!",
+				"description": "Congratulations! You have completed all the basic certificate tasks! 🎉"
+			},
+			"intermediate": {
+				"title": "XC Montegrappa - Falco del Grappa",
+				"subtitle": "Intermediate Certificate Completed!",
+				"description": "Congratulations! You have completed all the intermediate certificate tasks! 🎉"
+			},
+			"advanced": {
+				"title": "XC Montegrappa - Aquila del Grappa",
+				"subtitle": "Advanced Certificate Completed!",
+				"description": "You have demonstrated peak performance and expert navigation, mastering the most challenging routes. Congratulations on reaching the ultimate level! 🎉🏅💪"
+			},
+			"stats": {
+				"totalDistance": "Total Distance",
+				"flightTime": "Flight Time",
+				"maxAlt": "Max Alt"
+			}
+		}
+	},
+	"XcLeaderboardPage": {
+		"title": "Leaderboard",
+		"empty": "No participants yet.",
+		"noMore": "No additional participants.",
+		"selectEdition": "Edition",
+		"errors": {
+			"failedToLoad": "Failed to load leaderboard. Please try again."
+		}
+	},
+	"XcTaskCard": {
+		"distance": "Distance",
+		"difficulty": "Difficulty",
+		"difficultyLevel": {
+			"basic": "Basic",
+			"intermediate": "Intermediate",
+			"advanced": "Advanced"
+		},
+		"points": "Points",
+		"downloadTask": "Download Task (.xctsk)",
+		"viewTrack": "View Track",
+		"noImage": "No image",
+		"badge": {
+			"completed": "Completed",
+			"pending": "Pending",
+			"rejected": "Not valid",
+			"todo": "To do"
+		},
+		"uploadTrack": "Upload your Track",
+		"uploading": "Uploading...",
+		"uploadComingSoon": "Upload feature coming soon!",
+		"cta": {
+			"title": "Ready for Takeoff?",
+			"description": "Download the task to your flight instrument or upload your track (.igc) to complete this route and earn XC points!"
+		},
+		"toast": {
+			"uploadSuccess": "File uploaded successfully!",
+			"uploadError": "Error uploading file.",
+			"validationSuccess": "Track validated successfully! All waypoints reached.",
+			"validationFailed": "Track validation failed. Some waypoints were not reached.",
+			"deleteSuccess": "Track removed successfully.",
+			"deleteError": "Error removing track."
+		},
+		"modal": {
+			"title": "Enrollment required",
+			"description": "To upload your track you must first enroll in XC Montegrappa {year}.",
+			"info": "Once enrolled, you can upload GPX and IGC tracks for all categories (Basic, Intermediate, Advanced) throughout the year.",
+			"cancel": "Cancel",
+			"enrollNow": "Enroll now"
+		}
+	},
+	"XcBasicoPage": {
+		"bannerTitle": "BASIC CERTIFICATE",
+		"bannerSubtitle": "XC Montegrappa Cross-Country Certificate",
+		"title": "XC Montegrappa",
+		"subtitle": "BASIC CERTIFICATE"
+	},
+	"XcSubmissionStatus": {
+		"pending": {
+			"title": "Track submitted",
+			"description": "Your track is waiting to be validated.",
+			"badge": "Pending review",
+			"validateNow": "Validate now",
+			"validating": "Validating..."
+		},
+		"approved": {
+			"title": "Track completed!",
+			"badge": "Completed",
+			"pointsAwarded": "You've earned {points} XC points!",
+			"deleteTrack": "Remove track",
+			"deleting": "Removing...",
+			"confirmDelete": {
+				"title": "Remove track?",
+				"description": "Are you sure you want to remove this track? All points and progress earned from this submission will be lost.",
+				"cancel": "Cancel",
+				"confirm": "Remove track"
+			}
+		},
+		"rejected": {
+			"title": "Track not valid",
+			"description": "The uploaded IGC file does not meet the requirements for this task.",
+			"badge": "Rejected",
+			"reupload": "Upload again",
+			"reuploading": "Uploading...",
+			"missedWaypoints": "Missed {count, plural, one {# waypoint} other {# waypoints}}:",
+			"waypointDistance": "(closest: {distance}m, radius: {radius}m)"
+		}
+	},
+	"XcTrackSubmission": {
+		"title": "Flight Data",
+		"description": "Parsed from the uploaded IGC track log.",
+		"duration": "Duration",
+		"distance": "Distance",
+		"maxAltitude": "Max Altitude",
+		"minAltitude": "Min Altitude",
+		"altGain": "Alt. Gain",
+		"fixes": "GPS Fixes",
+		"flightDetails": "Flight Details",
+		"date": "Date",
+		"pilot": "Pilot",
+		"glider": "Glider",
+		"site": "Site",
+		"startTime": "Start",
+		"endTime": "End"
+	},
+	"XcFlightChart": {
+		"title": "Flight Profile",
+		"description": "Hover over the chart to see the position on the map.",
+		"altitude": "Altitude",
+		"vario": "Vario",
+		"speed": "Speed"
 	}
 }

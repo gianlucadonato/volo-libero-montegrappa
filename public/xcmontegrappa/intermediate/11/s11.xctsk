@@ -1,0 +1,78 @@
+{
+  "version" : 1,
+  "taskType" : "CLASSIC",
+  "turnpoints" : [{
+       "radius" : 2490.0,
+       "waypoint" : {
+         "lon" : 11.768116666666666,
+         "lat" : 45.82621666666667,
+         "altSmoothed" : 952.0,
+         "name" : "D04   ",
+         "description" : "CASETTE T OFF"
+       }
+       
+        ,
+        "type" : "TAKEOFF"
+       
+     },{
+       "radius" : 2500.0,
+       "waypoint" : {
+         "lon" : 11.768116666666666,
+         "lat" : 45.82621666666667,
+         "altSmoothed" : 952.0,
+         "name" : "D04   ",
+         "description" : "CASETTE T OFF"
+       }
+       
+        ,
+        "type" : "SSS"
+       
+     },{
+       "radius" : 500.0,
+       "waypoint" : {
+         "lon" : 11.8434,
+         "lat" : 45.8809,
+         "altSmoothed" : 144.0,
+         "name" : "D05   ",
+         "description" : "VEDETTA T OFF"
+       }
+       
+     },{
+       "radius" : 1000.0,
+       "waypoint" : {
+         "lon" : 11.879616666666667,
+         "lat" : 46.03035,
+         "altSmoothed" : 359.0,
+         "name" : "A09   ",
+         "description" : "BOSCHERAI LANDING [A]"
+       }
+       
+        ,
+        "type" : "ESS"
+       
+     },{
+       "radius" : 990.0,
+       "waypoint" : {
+         "lon" : 11.879616666666667,
+         "lat" : 46.03035,
+         "altSmoothed" : 359.0,
+         "name" : "A09   ",
+         "description" : "BOSCHERAI LANDING [A]"
+       }
+       
+     }
+  ],
+  "takeoff":{
+    "timeOpen": "06:00:00Z",
+    "timeClose": "17:00:00Z"
+  },
+  "sss" : {
+    "type" : "ELAPSED-TIME",
+    "direction" : "EXIT",
+    "timeGates" : ["06:00:00Z"]
+  },  
+  "goal" : {
+    "type" : "CYLINDER",
+    "deadline": "17:00:00Z"
+  }
+}

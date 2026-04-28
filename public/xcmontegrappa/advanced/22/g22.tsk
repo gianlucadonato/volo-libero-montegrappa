@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="Task Planner">
+  <rte>
+    <date>12-02-2025</date>
+    <type>elapsed-time</type>
+    <num>1</num>
+    <ngates>1</ngates>
+    <gateint>15</gateint>
+    <info>decolli: antenne, stella, casette, tappeti, campeggia. Target: Tomba-Caltrano. Landing: garden, paradiso. 
+Brevetto Oro 1, 64km</info>
+    
+      <rtept lon="11.80025" lat="45.8244">
+        <close>20:00</close>
+        <!-- <filename>task_12-02-2025.tsk</filename> -->
+        <fileOrigin>asd Vololibero Montegrappa 2025 CUP.cup</fileOrigin>
+        <goalType>cylinder</goalType>
+        <id>B02   </id>
+        <index>0</index>
+        <mode>entry</mode>
+        <name>BORSO CHIESA</name>
+        <open>08:00</open>
+        <radius>4600</radius>
+        <type>takeoff</type>
+        <z>290</z>
+      </rtept>
+    
+      <rtept lon="12.01955" lat="45.9323">
+        <close>19:00</close>
+        <!-- <filename>task_12-02-2025.tsk</filename> -->
+        <fileOrigin>asd Vololibero Montegrappa 2025 CUP.cup</fileOrigin>
+        <goalType>cylinder</goalType>
+        <id>D08   </id>
+        <index>1</index>
+        <mode>entry</mode>
+        <name>CESEN T OFF</name>
+        <open>14:00</open>
+        <radius>11500</radius>
+        <type>turnpoint</type>
+        <z>142</z>
+      </rtept>
+    
+      <rtept lon="11.437833333333334" lat="45.77328333333333">
+        <close>19:00</close>
+        <!-- <filename>task_12-02-2025.tsk</filename> -->
+        <fileOrigin>asd Vololibero Montegrappa 2025 CUP.cup</fileOrigin>
+        <goalType>cylinder</goalType>
+        <id>A05   </id>
+        <index>2</index>
+        <mode>entry</mode>
+        <name>COLOMBARE LANDING [A]</name>
+        <open>12:00</open>
+        <radius>4000</radius>
+        <type>turnpoint</type>
+        <z>273</z>
+      </rtept>
+    
+      <rtept lon="11.78655" lat="45.805683333333334">
+        <close>19:00</close>
+        <!-- <filename>task_12-02-2025.tsk</filename> -->
+        <fileOrigin>asd Vololibero Montegrappa 2025 CUP.cup</fileOrigin>
+        <goalType>cylinder</goalType>
+        <id>A02   </id>
+        <index>3</index>
+        <mode>entry</mode>
+        <name>GARDEN LANDING [A]</name>
+        <open>12:00</open>
+        <radius>1500</radius>
+        <type>turnpoint</type>
+        <z>156</z>
+      </rtept>
+    
+  </rte>
+</gpx>

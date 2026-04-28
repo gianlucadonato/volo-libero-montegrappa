@@ -70,6 +70,6 @@ function createMetrics(): Metrics {
 export const metrics = globalForMetrics._metrics ?? createMetrics();
 
 // Preserve singleton across hot-reloads in dev
-if (process.env.NODE_ENV !== "production") {
+if (process.env.VLM_ENV !== "production") {
 	globalForMetrics._metrics = metrics;
 }

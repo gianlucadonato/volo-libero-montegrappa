@@ -1,6 +1,7 @@
 import {
 	BookOpenText,
 	Calendar,
+	CalendarFold,
 	Car,
 	CreditCard,
 	Home,
@@ -13,9 +14,11 @@ import {
 	PencilLine,
 	Settings,
 	SunSnow,
+	Trophy,
 	User,
 	Users,
 } from "lucide-react";
+import { FaRoute } from "react-icons/fa";
 import { MdOutlineParagliding } from "react-icons/md";
 import { UserRole } from "@/prisma/generated/enums";
 import type { NavMainItem } from "@/types";
@@ -67,6 +70,36 @@ export const navbarLinks = [
 		title: "events",
 		url: "/events",
 		icon: Calendar,
+		image: "/bg-home.jpg",
+		description: "events_description",
+		items: [
+			{
+				title: "trofeo_montegrappa",
+				description: `Montegrappa Trophy ${new Date().getFullYear()}`,
+				url: "https://www.trofeomontegrappa.it/",
+				target: "_blank",
+				icon: Trophy,
+			},
+			{
+				title: "xc_montegrappa",
+				description: "Brevetto XC Montegrappa",
+				url: "/xc",
+				icon: FaRoute,
+			},
+			{
+				title: "canal_cup",
+				description: "Canal Cup",
+				url: "/canal-cup",
+				icon: Trophy,
+				hidden: true,
+			},
+			{
+				title: "all_events",
+				description: "Visualizza tutti gli eventi",
+				url: "/events",
+				icon: CalendarFold,
+			},
+		],
 	},
 	{
 		title: "contacts",
@@ -128,12 +161,10 @@ export const navUserLinks = [
 		title: "profile",
 		url: "/profile",
 		icon: User,
-		authorizeOnly: [UserRole.USER, UserRole.MEMBER],
 	},
 	{
 		title: "settings",
 		url: "/settings",
 		icon: Settings,
-		authorizeOnly: [UserRole.USER, UserRole.MEMBER],
 	},
 ] as NavMainItem[];

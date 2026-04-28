@@ -6,6 +6,7 @@ import {
 	useState,
 } from "react";
 import Login from "@/components/auth/Login";
+import { DialogTitle } from "@/components/ui/dialog";
 import { Modal } from "@/components/ui/modal";
 
 function SignInModal({
@@ -21,6 +22,7 @@ function SignInModal({
 			setShowModal={setShowSignInModal}
 			showModal={showSignInModal}
 		>
+			<DialogTitle className="sr-only">Sign In</DialogTitle>
 			<div className="w-full px-4 pt-5">
 				<Login onClick={() => setShowSignInModal(false)} />
 			</div>

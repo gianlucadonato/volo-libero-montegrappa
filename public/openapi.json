@@ -1,0 +1,1646 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "API Documentation",
+		"version": "1.0.0",
+		"description": "This is the OpenAPI specification for Volo Libero Montegrappa."
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/api",
+			"description": "Local development server"
+		},
+		{
+			"url": "https://www.vololiberomontegrappa.it/api",
+			"description": "Production server"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"BearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		},
+		"schemas": {
+			"QuerySchema": {
+				"type": "object",
+				"properties": {
+					"edition": {
+						"type": "integer"
+					}
+				}
+			},
+			"ParamsSchema": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string"
+					}
+				},
+				"required": ["category"]
+			},
+			"XcLeaderboardEntrySchema": {
+				"type": "object",
+				"properties": {
+					"rank": {
+						"type": "number"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string",
+						"nullable": true
+					},
+					"points": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"flightTimeHrs": {
+						"type": "number"
+					},
+					"maxAltM": {
+						"type": "number"
+					},
+					"completedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					}
+				},
+				"required": [
+					"rank",
+					"userId",
+					"firstName",
+					"lastName",
+					"points",
+					"totalDistanceKm",
+					"flightTimeHrs",
+					"maxAltM"
+				]
+			},
+			"XcProgressSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"edition": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number"
+							},
+							"title": {
+								"type": "string"
+							}
+						},
+						"required": ["id", "title"]
+					},
+					"category": {
+						"type": "string"
+					},
+					"points": {
+						"type": "number"
+					},
+					"minPoints": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"flightTimeHrs": {
+						"type": "number"
+					},
+					"maxAltM": {
+						"type": "number"
+					},
+					"completedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"edition",
+					"category",
+					"points",
+					"minPoints",
+					"totalDistanceKm",
+					"flightTimeHrs",
+					"maxAltM",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"XcSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"editionId": {
+						"type": "number"
+					},
+					"taskId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": ["PENDING", "APPROVED", "REJECTED"]
+					},
+					"fileName": {
+						"type": "string"
+					},
+					"checksum": {
+						"type": "string",
+						"nullable": true
+					},
+					"notes": {
+						"type": "string",
+						"nullable": true
+					},
+					"pointsAwarded": {
+						"type": "number"
+					},
+					"validationResult": {
+						"nullable": true
+					},
+					"flightData": {
+						"nullable": true
+					},
+					"reviewedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"reviewedBy": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"id",
+					"userId",
+					"editionId",
+					"taskId",
+					"status",
+					"fileName",
+					"pointsAwarded",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"XcTaskSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"slug": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string",
+						"nullable": true
+					},
+					"category": {
+						"type": "string"
+					},
+					"points": {
+						"type": "number"
+					},
+					"distanceKm": {
+						"type": "number"
+					},
+					"taskFileUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"imageUrl": {
+						"type": "string",
+						"nullable": true
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"submissions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcSubmissionSchema"
+						}
+					}
+				},
+				"required": [
+					"id",
+					"slug",
+					"name",
+					"category",
+					"points",
+					"distanceKm",
+					"createdAt",
+					"updatedAt"
+				]
+			},
+			"CategoryQuerySchema": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string"
+					}
+				}
+			},
+			"XcEditionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string",
+						"nullable": true
+					},
+					"startsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"minPoints": {
+						"type": "number"
+					},
+					"maxPoints": {
+						"type": "number"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"tasks": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcTaskSchema"
+						}
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"startsAt",
+					"endsAt",
+					"isActive",
+					"minPoints",
+					"maxPoints",
+					"createdAt",
+					"updatedAt",
+					"tasks"
+				]
+			},
+			"XcEditionSummarySchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					},
+					"startsAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"endsAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": ["id", "title", "isActive", "startsAt", "endsAt"]
+			},
+			"XcEnrollmentSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"edition": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number"
+							},
+							"title": {
+								"type": "string"
+							}
+						},
+						"required": ["id", "title"]
+					},
+					"userId": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": ["id", "edition", "userId", "createdAt", "updatedAt"]
+			},
+			"IdParamsSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					}
+				},
+				"required": ["id"]
+			},
+			"XcTrackResponseSchema": {
+				"type": "object",
+				"properties": {
+					"submissionId": {
+						"type": "string"
+					},
+					"status": {
+						"type": "string",
+						"enum": ["PENDING", "APPROVED", "REJECTED"]
+					},
+					"header": {
+						"$ref": "#/components/schemas/IGCHeaderSchema"
+					},
+					"stats": {
+						"$ref": "#/components/schemas/IGCFlightStatsSchema"
+					},
+					"fixes": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/IGCFixSchema"
+						}
+					}
+				},
+				"required": ["submissionId", "status", "header", "stats", "fixes"],
+				"nullable": true
+			},
+			"XcUploadTrackBodySchema": {
+				"description": "IGC track file (binary)"
+			},
+			"XcUploadTrackResponseSchema": {
+				"type": "object",
+				"properties": {
+					"success": {
+						"type": "boolean"
+					},
+					"filename": {
+						"type": "string"
+					},
+					"objectKey": {
+						"type": "string"
+					},
+					"submissionId": {
+						"type": "string"
+					}
+				},
+				"required": ["success", "filename", "objectKey", "submissionId"]
+			},
+			"IGCFixSchema": {
+				"type": "object",
+				"properties": {
+					"timestamp": {
+						"type": "number"
+					},
+					"time": {
+						"type": "string"
+					},
+					"latitude": {
+						"type": "number"
+					},
+					"longitude": {
+						"type": "number"
+					},
+					"valid": {
+						"type": "boolean"
+					},
+					"pressureAltitude": {
+						"type": "number",
+						"nullable": true
+					},
+					"gpsAltitude": {
+						"type": "number",
+						"nullable": true
+					}
+				},
+				"required": [
+					"timestamp",
+					"time",
+					"latitude",
+					"longitude",
+					"valid",
+					"pressureAltitude",
+					"gpsAltitude"
+				]
+			},
+			"IGCHeaderSchema": {
+				"type": "object",
+				"properties": {
+					"date": {
+						"type": "string",
+						"nullable": true
+					},
+					"pilot": {
+						"type": "string",
+						"nullable": true
+					},
+					"gliderType": {
+						"type": "string",
+						"nullable": true
+					},
+					"registration": {
+						"type": "string",
+						"nullable": true
+					},
+					"site": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": ["date", "pilot", "gliderType", "registration", "site"]
+			},
+			"IGCFlightStatsSchema": {
+				"type": "object",
+				"properties": {
+					"durationSeconds": {
+						"type": "number"
+					},
+					"duration": {
+						"type": "string"
+					},
+					"maxAltitude": {
+						"type": "number"
+					},
+					"minAltitude": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"startTime": {
+						"type": "string",
+						"nullable": true
+					},
+					"endTime": {
+						"type": "string",
+						"nullable": true
+					},
+					"fixCount": {
+						"type": "number"
+					}
+				},
+				"required": [
+					"durationSeconds",
+					"duration",
+					"maxAltitude",
+					"minAltitude",
+					"totalDistanceKm",
+					"startTime",
+					"endTime",
+					"fixCount"
+				]
+			},
+			"LoginSchema": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 3
+					}
+				},
+				"required": ["email", "password"]
+			},
+			"SignupSchema": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"email": {
+						"type": "string",
+						"format": "email"
+					},
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"email",
+					"password",
+					"confirmPassword"
+				]
+			},
+			"ResetPasswordSchema": {
+				"type": "object",
+				"properties": {
+					"email": {
+						"type": "string",
+						"format": "email"
+					}
+				},
+				"required": ["email"]
+			},
+			"NewPasswordSchema": {
+				"type": "object",
+				"properties": {
+					"password": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": ["password", "confirmPassword"]
+			},
+			"ChangePasswordSchema": {
+				"type": "object",
+				"properties": {
+					"newPassword": {
+						"type": "string",
+						"minLength": 8
+					},
+					"confirmPassword": {
+						"type": "string",
+						"minLength": 8
+					}
+				},
+				"required": ["newPassword", "confirmPassword"]
+			},
+			"UserFormSchema": {
+				"type": "object",
+				"properties": {
+					"firstName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"lastName": {
+						"type": "string",
+						"minLength": 2
+					},
+					"dateOfBirth": {
+						"type": "string",
+						"minLength": 1
+					},
+					"placeOfBirth": {
+						"type": "string",
+						"minLength": 1
+					},
+					"streetAddress": {
+						"type": "string",
+						"minLength": 1
+					},
+					"city": {
+						"type": "string",
+						"minLength": 1
+					},
+					"zipCode": {
+						"type": "string",
+						"minLength": 1
+					},
+					"province": {
+						"type": "string",
+						"minLength": 1
+					},
+					"state": {
+						"type": "string",
+						"minLength": 1
+					},
+					"phone": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fiscalCode": {
+						"type": "string",
+						"minLength": 16,
+						"maxLength": 16
+					},
+					"size": {
+						"type": "string"
+					},
+					"gender": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sport": {
+						"type": "string"
+					},
+					"vdsNumber": {
+						"type": "string"
+					},
+					"vdsReleaseDate": {
+						"type": "string"
+					},
+					"fivlNumber": {
+						"type": "string"
+					},
+					"medicalExamValidDate": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"placeOfBirth",
+					"streetAddress",
+					"city",
+					"zipCode",
+					"province",
+					"state",
+					"phone",
+					"fiscalCode",
+					"gender"
+				]
+			},
+			"UserSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"email": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"dateOfBirth": {
+						"type": "string"
+					},
+					"placeOfBirth": {
+						"type": "string"
+					},
+					"streetAddress": {
+						"type": "string"
+					},
+					"city": {
+						"type": "string"
+					},
+					"zipCode": {
+						"type": "string"
+					},
+					"province": {
+						"type": "string"
+					},
+					"state": {
+						"type": "string"
+					},
+					"phone": {
+						"type": "string",
+						"nullable": true
+					},
+					"fiscalCode": {
+						"type": "string",
+						"nullable": true
+					},
+					"size": {
+						"type": "string",
+						"nullable": true
+					},
+					"gender": {
+						"type": "string"
+					},
+					"sport": {
+						"type": "string",
+						"nullable": true
+					},
+					"vdsNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"vdsReleaseDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"fivlNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"medicalExamValidDate": {
+						"type": "string",
+						"nullable": true
+					},
+					"registeredAt": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"firstName",
+					"lastName",
+					"dateOfBirth",
+					"placeOfBirth",
+					"streetAddress",
+					"city",
+					"zipCode",
+					"province",
+					"state",
+					"gender",
+					"registeredAt"
+				]
+			},
+			"RegisterMembershipSchema": {
+				"type": "object",
+				"properties": {
+					"privacyPolicy": {
+						"type": "boolean"
+					},
+					"emailConsent": {
+						"type": "boolean"
+					}
+				},
+				"required": ["privacyPolicy", "emailConsent"]
+			},
+			"EventSchema": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"information": {
+						"type": "string"
+					},
+					"imageUrl": {
+						"type": "string"
+					},
+					"eventDate": {
+						"type": "string"
+					},
+					"optionalDate": {
+						"type": "string"
+					},
+					"startTime": {
+						"type": "string"
+					},
+					"endTime": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number"
+					},
+					"location": {
+						"type": "string"
+					},
+					"locationUrl": {
+						"type": "string"
+					},
+					"maxAvailability": {
+						"type": "number"
+					},
+					"isMemberOnly": {
+						"type": "boolean"
+					}
+				},
+				"required": ["title", "description", "eventDate", "isMemberOnly"]
+			},
+			"PaymentSchema": {
+				"type": "object",
+				"properties": {
+					"userId": {
+						"type": "string"
+					},
+					"paymentMethod": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"amount": {
+						"type": "number"
+					},
+					"slug": {
+						"type": "string"
+					},
+					"note": {
+						"type": "string"
+					}
+				},
+				"required": ["paymentMethod", "description", "amount", "slug"]
+			},
+			"XcEnrollSchema": {
+				"type": "object",
+				"properties": {}
+			},
+			"XcCreateUploadUrlSchema": {
+				"type": "object",
+				"properties": {
+					"taskId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fileName": {
+						"type": "string",
+						"minLength": 1
+					},
+					"contentType": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sizeBytes": {
+						"type": "integer",
+						"minimum": 0,
+						"exclusiveMinimum": true
+					}
+				},
+				"required": ["taskId", "fileName", "contentType", "sizeBytes"]
+			},
+			"XcCreateSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"taskId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"editionId": {
+						"type": "string",
+						"minLength": 1
+					},
+					"fileName": {
+						"type": "string",
+						"minLength": 1
+					},
+					"mimeType": {
+						"type": "string",
+						"minLength": 1
+					},
+					"sizeBytes": {
+						"type": "integer",
+						"minimum": 0,
+						"exclusiveMinimum": true
+					},
+					"storageObjectKey": {
+						"type": "string",
+						"minLength": 1
+					},
+					"storageBucket": {
+						"type": "string",
+						"minLength": 1
+					},
+					"checksum": {
+						"type": "string"
+					},
+					"notes": {
+						"type": "string",
+						"maxLength": 1500
+					}
+				},
+				"required": [
+					"taskId",
+					"editionId",
+					"fileName",
+					"mimeType",
+					"sizeBytes",
+					"storageObjectKey"
+				]
+			},
+			"XcReviewSubmissionSchema": {
+				"type": "object",
+				"properties": {
+					"status": {
+						"type": "string",
+						"enum": ["APPROVED", "REJECTED"]
+					},
+					"notes": {
+						"type": "string",
+						"maxLength": 1500
+					},
+					"pointsAwarded": {
+						"type": "integer",
+						"minimum": 0
+					}
+				},
+				"required": ["status"]
+			}
+		},
+		"responses": {
+			"400": {
+				"description": "Bad Request",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Invalid request parameters"
+								},
+								"code": {
+									"type": "string",
+									"example": "400"
+								}
+							}
+						}
+					}
+				}
+			},
+			"401": {
+				"description": "Unauthorized",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Authentication required"
+								},
+								"code": {
+									"type": "string",
+									"example": "401"
+								}
+							}
+						}
+					}
+				}
+			},
+			"403": {
+				"description": "Forbidden",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Access denied"
+								},
+								"code": {
+									"type": "string",
+									"example": "403"
+								}
+							}
+						}
+					}
+				}
+			},
+			"404": {
+				"description": "Not Found",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Resource not found"
+								},
+								"code": {
+									"type": "string",
+									"example": "404"
+								}
+							}
+						}
+					}
+				}
+			},
+			"409": {
+				"description": "Conflict",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "Resource already exists"
+								},
+								"code": {
+									"type": "string",
+									"example": "409"
+								}
+							}
+						}
+					}
+				}
+			},
+			"500": {
+				"description": "Internal Server Error",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"error": {
+									"type": "string",
+									"example": "An unexpected error occurred"
+								},
+								"code": {
+									"type": "string",
+									"example": "500"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"paths": {
+		"/xc/edition": {
+			"get": {
+				"operationId": "get-xc-edition",
+				"summary": "/xc/edition",
+				"description": "Fetch the current XC edition with its tasks, optionally filtered by category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "category",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEditionSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/editions": {
+			"get": {
+				"operationId": "get-xc-editions",
+				"summary": "/xc/editions",
+				"description": "List all XC editions (id, title, active flag) ordered by year desc",
+				"tags": ["Xc"],
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcEditionSummarySchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/enroll": {
+			"get": {
+				"operationId": "get-xc-enroll",
+				"summary": "/xc/enroll",
+				"description": "Check if the current user is enrolled in the current XC edition",
+				"tags": ["Xc"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEnrollmentSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			},
+			"post": {
+				"operationId": "post-xc-enroll",
+				"summary": "/xc/enroll",
+				"description": "Enroll the current user in the current XC edition",
+				"tags": ["Xc"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcEnrollmentSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/leaderboard": {
+			"get": {
+				"operationId": "get-xc-{category}-leaderboard",
+				"summary": "/xc/[category]/leaderboard",
+				"description": "Fetch the XC leaderboard for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "edition",
+						"required": false,
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcLeaderboardEntrySchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/progress": {
+			"get": {
+				"operationId": "get-xc-{category}-progress",
+				"summary": "/xc/[category]/progress",
+				"description": "Fetch XC progress for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcProgressSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/submissions": {
+			"get": {
+				"operationId": "get-xc-{category}-submissions",
+				"summary": "/xc/[category]/submissions",
+				"description": "Fetch all submissions for the current user in a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcSubmissionSchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/tasks": {
+			"get": {
+				"operationId": "get-xc-{category}-tasks",
+				"summary": "/xc/[category]/tasks",
+				"description": "Fetch XC tasks for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcTaskSchema"
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/submissions/{id}": {
+			"get": {
+				"operationId": "get-xc-submissions-{id}",
+				"summary": "/xc/submissions/[id]",
+				"description": "Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcTrackResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			},
+			"delete": {
+				"operationId": "delete-xc-submissions-{id}",
+				"summary": "/xc/submissions/[id]",
+				"description": "Delete a submission: removes R2 file, deletes record, recalculates XcProgress",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/tasks/{id}": {
+			"get": {
+				"operationId": "get-xc-tasks-{id}",
+				"summary": "/xc/tasks/[id]",
+				"description": "Fetch XC Task details (includes the current user's submissions when authenticated)",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/submissions/{id}/validate": {
+			"post": {
+				"operationId": "post-xc-submissions-{id}-validate",
+				"summary": "/xc/submissions/[id]/validate",
+				"description": "Validate a submission's IGC track against the task's TSK waypoints",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/tasks/{id}/upload": {
+			"post": {
+				"operationId": "post-xc-tasks-{id}-upload",
+				"summary": "/xc/tasks/[id]/upload",
+				"description": "Upload an IGC track file for a specific XC task to Cloudflare R2",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/XcUploadTrackBodySchema"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcUploadTrackResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "Xc"
+		}
+	]
+}

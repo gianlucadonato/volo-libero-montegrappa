@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { isSocio } from "../helpers/isSocio";
 
 export const getUserByEmail = async (email: string) => {
 	try {
@@ -29,4 +30,12 @@ export const getUserById = async (id: string) => {
 	} catch (_err) {
 		return null;
 	}
+};
+
+export const getSocio = async (userId: string) => {
+	const socio = await prisma.user.findFirst({
+		where: { id: userId },
+		include: { memberships: true },
+	});
+	return isSocio(socio) ? socio : null;
 };

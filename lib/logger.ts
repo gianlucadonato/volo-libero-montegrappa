@@ -3,7 +3,7 @@ import pino from "pino";
 
 const APP_NAME = process.env.LOG_APP_NAME ?? "volo-libero-montegrappa";
 const LOG_LEVEL = process.env.LOG_LEVEL ?? "info";
-const IS_DEV = process.env.NODE_ENV !== "production";
+const IS_DEV = process.env.VLM_ENV !== "production";
 const LOKI_URL = process.env.LOKI_URL;
 
 type PinoLogger = ReturnType<typeof pino>;
@@ -37,7 +37,7 @@ function createLogger(): PinoLogger {
 				target: "pino-loki",
 				options: {
 					host: LOKI_URL,
-					labels: { app: APP_NAME, env: "production" },
+					labels: { app: APP_NAME, env: process.env.VLM_ENV },
 					batching: true,
 					interval: 5,
 					silenceErrors: false,

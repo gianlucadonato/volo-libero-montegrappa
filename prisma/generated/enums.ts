@@ -24,3 +24,21 @@ export const EventRegistrationStatus = {
 } as const
 
 export type EventRegistrationStatus = (typeof EventRegistrationStatus)[keyof typeof EventRegistrationStatus]
+
+
+export const XcCategoryLevel = {
+  BASIC: 'BASIC',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED'
+} as const
+
+export type XcCategoryLevel = (typeof XcCategoryLevel)[keyof typeof XcCategoryLevel]
+
+
+export const XcSubmissionStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type XcSubmissionStatus = (typeof XcSubmissionStatus)[keyof typeof XcSubmissionStatus]

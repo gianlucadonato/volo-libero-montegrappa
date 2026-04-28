@@ -1,6 +1,6 @@
 import AdminUserView from "@/components/admin/AdminUserView";
 import { constructMetadata, siteConfig } from "@/config/site";
-import { getUserById } from "@/lib/user";
+import { getUserById } from "@/store/user";
 
 export const metadata = constructMetadata({
 	title: `User - ${siteConfig.name}`,

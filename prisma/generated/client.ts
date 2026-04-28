@@ -96,3 +96,33 @@ export type Report = Prisma.ReportModel
  * 
  */
 export type Coupon = Prisma.CouponModel
+/**
+ * Model XcEdition
+ * 
+ */
+export type XcEdition = Prisma.XcEditionModel
+/**
+ * Model XcTask
+ * 
+ */
+export type XcTask = Prisma.XcTaskModel
+/**
+ * Model XcEditionTasks
+ * 
+ */
+export type XcEditionTasks = Prisma.XcEditionTasksModel
+/**
+ * Model XcEnrollment
+ * 
+ */
+export type XcEnrollment = Prisma.XcEnrollmentModel
+/**
+ * Model XcTrackSubmission
+ * 
+ */
+export type XcTrackSubmission = Prisma.XcTrackSubmissionModel
+/**
+ * Model XcProgress
+ * 
+ */
+export type XcProgress = Prisma.XcProgressModel
