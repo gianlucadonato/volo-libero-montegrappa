@@ -100,11 +100,6 @@ export default function XcTaskActionButtons({
 			toast.success(t("toast.uploadSuccess"));
 			onUploadSuccess?.();
 
-			// Reset file input
-			if (fileInputRef.current) {
-				fileInputRef.current.value = "";
-			}
-
 			// Fire validation in the background — don't block the UI
 			const submissionId = response.data?.submissionId;
 			if (submissionId) {
@@ -123,6 +118,10 @@ export default function XcTaskActionButtons({
 			}
 		} finally {
 			setIsUploading(false);
+			// Always reset the file input so re-selecting the same file fires onChange again
+			if (fileInputRef.current) {
+				fileInputRef.current.value = "";
+			}
 		}
 	};
 
