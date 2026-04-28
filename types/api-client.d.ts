@@ -115,7 +115,11 @@ export interface paths {
 			path?: never;
 			cookie?: never;
 		};
-		get?: never;
+		/**
+		 * /xc/submissions/[id]
+		 * @description Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user
+		 */
+		get: operations["get-xc-submissions-{id}"];
 		put?: never;
 		post?: never;
 		/**
@@ -137,7 +141,7 @@ export interface paths {
 		};
 		/**
 		 * /xc/tasks/[id]
-		 * @description Fetch XC Task details
+		 * @description Fetch XC Task details (includes the current user's submissions when authenticated)
 		 */
 		get: operations["get-xc-tasks-{id}"];
 		put?: never;
@@ -168,26 +172,6 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
-	"/xc/tasks/{id}/submission": {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/**
-		 * /xc/tasks/[id]/submission
-		 * @description Get the current user's latest submission for a task
-		 */
-		get: operations["get-xc-tasks-{id}-submission"];
-		put?: never;
-		post?: never;
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
 	"/xc/tasks/{id}/upload": {
 		parameters: {
 			query?: never;
@@ -202,26 +186,6 @@ export interface paths {
 		 * @description Upload an IGC track file for a specific XC task to Cloudflare R2
 		 */
 		post: operations["post-xc-tasks-{id}-upload"];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	"/xc/tasks/{id}/submission/track": {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/**
-		 * /xc/tasks/[id]/submission/track
-		 * @description Get parsed IGC track data for the user's submission
-		 */
-		get: operations["get-xc-tasks-{id}-submission-track"];
-		put?: never;
-		post?: never;
 		delete?: never;
 		options?: never;
 		head?: never;
@@ -266,6 +230,7 @@ export interface components {
 			notes?: string | null;
 			pointsAwarded: number;
 			validationResult?: unknown;
+			flightData?: unknown;
 			/** Format: date-time */
 			reviewedAt?: string | null;
 			reviewedBy?: string | null;
@@ -288,6 +253,7 @@ export interface components {
 			createdAt: string;
 			/** Format: date-time */
 			updatedAt: string;
+			submissions?: components["schemas"]["XcSubmissionSchema"][];
 		};
 		CategoryQuerySchema: {
 			category?: string;
@@ -722,6 +688,31 @@ export interface operations {
 			500: components["responses"]["500"];
 		};
 	};
+	"get-xc-submissions-{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example 123 */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcTrackResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"delete-xc-submissions-{id}": {
 		parameters: {
 			query?: never;
@@ -797,31 +788,6 @@ export interface operations {
 			500: components["responses"]["500"];
 		};
 	};
-	"get-xc-tasks-{id}-submission": {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @example 123 */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			/** @description Successful response */
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					"application/json": components["schemas"]["XcSubmissionSchema"];
-				};
-			};
-			400: components["responses"]["400"];
-			500: components["responses"]["500"];
-		};
-	};
 	"post-xc-tasks-{id}-upload": {
 		parameters: {
 			query?: never;
@@ -845,31 +811,6 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcUploadTrackResponseSchema"];
-				};
-			};
-			400: components["responses"]["400"];
-			500: components["responses"]["500"];
-		};
-	};
-	"get-xc-tasks-{id}-submission-track": {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @example 123 */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			/** @description Successful response */
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					"application/json": components["schemas"]["XcTrackResponseSchema"];
 				};
 			};
 			400: components["responses"]["400"];

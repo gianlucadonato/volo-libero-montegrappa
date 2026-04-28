@@ -132,6 +132,9 @@
 					"validationResult": {
 						"nullable": true
 					},
+					"flightData": {
+						"nullable": true
+					},
 					"reviewedAt": {
 						"type": "string",
 						"format": "date-time",
@@ -202,6 +205,12 @@
 					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"submissions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcSubmissionSchema"
+						}
 					}
 				},
 				"required": [
@@ -1260,6 +1269,46 @@
 			}
 		},
 		"/xc/submissions/{id}": {
+			"get": {
+				"operationId": "get-xc-submissions-{id}",
+				"summary": "/xc/submissions/[id]",
+				"description": "Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcTrackResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			},
 			"delete": {
 				"operationId": "delete-xc-submissions-{id}",
 				"summary": "/xc/submissions/[id]",
@@ -1305,7 +1354,7 @@
 			"get": {
 				"operationId": "get-xc-tasks-{id}",
 				"summary": "/xc/tasks/[id]",
-				"description": "Fetch XC Task details",
+				"description": "Fetch XC Task details (includes the current user's submissions when authenticated)",
 				"tags": ["Xc"],
 				"parameters": [
 					{
@@ -1380,48 +1429,6 @@
 				}
 			}
 		},
-		"/xc/tasks/{id}/submission": {
-			"get": {
-				"operationId": "get-xc-tasks-{id}-submission",
-				"summary": "/xc/tasks/[id]/submission",
-				"description": "Get the current user's latest submission for a task",
-				"tags": ["Xc"],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"example": "123"
-					}
-				],
-				"security": [
-					{
-						"@openapi": []
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Successful response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/XcSubmissionSchema"
-								}
-							}
-						}
-					},
-					"400": {
-						"$ref": "#/components/responses/400"
-					},
-					"500": {
-						"$ref": "#/components/responses/500"
-					}
-				}
-			}
-		},
 		"/xc/tasks/{id}/upload": {
 			"post": {
 				"operationId": "post-xc-tasks-{id}-upload",
@@ -1460,48 +1467,6 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcUploadTrackResponseSchema"
-								}
-							}
-						}
-					},
-					"400": {
-						"$ref": "#/components/responses/400"
-					},
-					"500": {
-						"$ref": "#/components/responses/500"
-					}
-				}
-			}
-		},
-		"/xc/tasks/{id}/submission/track": {
-			"get": {
-				"operationId": "get-xc-tasks-{id}-submission-track",
-				"summary": "/xc/tasks/[id]/submission/track",
-				"description": "Get parsed IGC track data for the user's submission",
-				"tags": ["Xc"],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						},
-						"example": "123"
-					}
-				],
-				"security": [
-					{
-						"@openapi": []
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "Successful response",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/XcTrackResponseSchema"
 								}
 							}
 						}

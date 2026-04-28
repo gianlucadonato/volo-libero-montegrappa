@@ -684,6 +684,14 @@
 		"upload_error": "Error uploading route",
 		"enroll_prompt": "Enroll in the XC Certificate to upload your tracks."
 	},
+	"XcSubmissionHistory": {
+		"title": "Previous flights",
+		"description": "Select a flight to display it on the map.",
+		"edition": "Edition {year}",
+		"points": "pts",
+		"view": "View",
+		"viewing": "Viewing"
+	},
 	"XcMontegrappaPage": {
 		"banner": {
 			"title": "XC Montegrappa",

@@ -725,6 +725,14 @@
 		"upload_error": "Errore nel caricamento della traccia",
 		"enroll_prompt": "Iscriviti al Brevetto XC per poter caricare le tracce."
 	},
+	"XcSubmissionHistory": {
+		"title": "Storico Voli",
+		"description": "Seleziona un volo per visualizzarlo sulla mappa.",
+		"edition": "Edizione {year}",
+		"points": "pt",
+		"view": "Visualizza",
+		"viewing": "In visione"
+	},
 	"XcMontegrappaPage": {
 		"banner": {
 			"title": "XC Montegrappa",

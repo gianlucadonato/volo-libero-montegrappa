@@ -73,21 +73,6 @@ export const useGetXcEnrollment = (enabled = false) => {
 	return $api.useQuery("get", "/xc/enroll", {}, { enabled });
 };
 
-export const useGetXcSubmission = (taskId: string, enabled = false) => {
-	return $api.useQuery(
-		"get",
-		"/xc/tasks/{id}/submission",
-		{
-			params: {
-				path: { id: taskId },
-			},
-		},
-		{
-			enabled: !!taskId && enabled,
-		},
-	);
-};
-
 export const useGetXcSubmissionsByCategory = (
 	category: string,
 	enabled = false,
@@ -111,14 +96,17 @@ interface TrackData extends ParsedIGC {
 	status: string;
 }
 
-export const useGetXcTrack = (taskId: string, enabled = false) => {
+export const useGetXcSubmissionTrack = (
+	submissionId: string | undefined,
+	enabled = false,
+) => {
 	return useQuery<TrackData>({
-		queryKey: ["xc", "track", taskId],
+		queryKey: ["xc", "submission-track", submissionId],
 		queryFn: async () => {
-			const res = await fetch(`/api/xc/tasks/${taskId}/submission/track`);
+			const res = await fetch(`/api/xc/submissions/${submissionId}`);
 			if (!res.ok) throw new Error("Failed to fetch track data");
 			return res.json();
 		},
-		enabled: !!taskId && enabled,
+		enabled: !!submissionId && enabled,
 	});
 };

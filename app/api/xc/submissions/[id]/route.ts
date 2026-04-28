@@ -1,9 +1,62 @@
 import Boom from "@hapi/boom";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
+import { NEXT_YEAR } from "@/config/constants";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
+import { parseIGC } from "@/lib/igc-parser";
 import { prisma } from "@/lib/prisma";
-import { deleteObject } from "@/lib/r2";
+import { deleteObject, downloadObject } from "@/lib/r2";
+
+/**
+ * /xc/submissions/[id]
+ * @description Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user
+ * @pathParams IdParamsSchema
+ * @response XcTrackResponseSchema
+ * @auth
+ * @openapi
+ */
+export async function GET(
+	_request: Request,
+	context: { params: Promise<{ id: string }> },
+) {
+	const session = await auth.api.getSession({ headers: await headers() });
+	if (!session) return APIErrorResponse(Boom.unauthorized());
+
+	const { id } = await context.params;
+
+	try {
+		const submission = await prisma.xcTrackSubmission.findUnique({
+			where: { id },
+		});
+		if (!submission) {
+			return APIErrorResponse(Boom.notFound("Submission not found"));
+		}
+		if (submission.userId !== session.user.id) {
+			return APIErrorResponse(Boom.forbidden());
+		}
+
+		const igcContent = await downloadObject(submission.fileName);
+		const parsed = parseIGC(igcContent);
+
+		const flightData = submission.flightData as {
+			header: typeof parsed.header;
+			stats: typeof parsed.stats;
+		} | null;
+
+		return Response.json({
+			submissionId: submission.id,
+			status: submission.status,
+			header: flightData?.header ?? parsed.header,
+			stats: flightData?.stats ?? parsed.stats,
+			fixes: parsed.fixes,
+		});
+	} catch (error) {
+		return APIErrorResponse(error, {
+			endpoint: "GET /xc/submissions/[id]",
+			id,
+		});
+	}
+}
 
 /**
  * /xc/submissions/[id]
@@ -37,6 +90,12 @@ export async function DELETE(
 
 		if (submission.userId !== session.user.id) {
 			return APIErrorResponse(Boom.forbidden());
+		}
+
+		if (submission.editionId !== NEXT_YEAR) {
+			return APIErrorResponse(
+				Boom.forbidden("Cannot delete submissions from previous editions"),
+			);
 		}
 
 		// Delete the R2 file

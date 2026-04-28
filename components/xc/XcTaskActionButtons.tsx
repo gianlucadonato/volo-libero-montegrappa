@@ -7,23 +7,28 @@ import { toast } from "sonner";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
-import { useGetXcEnrollment, useGetXcSubmission } from "@/hooks/use-query-api";
+import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import {
 	deleteSubmissionApi,
 	uploadXcTaskTrackApi,
 	validateSubmissionApi,
 } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
+import type { components } from "@/types/api-client";
+
+type XcSubmission = components["schemas"]["XcSubmissionSchema"];
 
 interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl?: string | null;
+	submission?: XcSubmission | null;
 	onUploadSuccess?: () => void;
 }
 
 export default function XcTaskActionButtons({
 	taskId,
 	taskFileUrl,
+	submission,
 	onUploadSuccess,
 }: XcTaskActionButtonsProps) {
 	const [isDownloading, setIsDownloading] = useState(false);
@@ -34,9 +39,6 @@ export default function XcTaskActionButtons({
 	const { isPending, data: session } = authClient.useSession();
 	const isLoggedIn = Boolean(session?.user);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
-	const isEnrolled = Boolean(enrollment);
-	const { isLoading: isSubmissionLoading, data: submission } =
-		useGetXcSubmission(taskId, isLoggedIn && isEnrolled);
 	const { setShowSignInModal, setShowEnrollXcEditionModal } =
 		useContext(ModalContext);
 
@@ -139,7 +141,7 @@ export default function XcTaskActionButtons({
 
 	return (
 		<div className="flex flex-col gap-4">
-			{!isSubmissionLoading && submission ? (
+			{submission ? (
 				<XcSubmissionStatus
 					submission={submission}
 					onReupload={handleUploadClick}

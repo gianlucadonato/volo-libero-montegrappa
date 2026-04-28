@@ -4,6 +4,27 @@ export const IdParamsSchema = z.object({
 	id: z.string(),
 });
 
+export const XcSubmissionSchema = z.object({
+	id: z.string(),
+	userId: z.string(),
+	editionId: z.number(),
+	taskId: z.string(),
+	status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
+	fileName: z.string(),
+	checksum: z.string().nullish(),
+	notes: z.string().nullish(),
+	pointsAwarded: z.number(),
+	validationResult: z.any().nullish(),
+	flightData: z.any().nullish(),
+	reviewedAt: z.coerce
+		.date()
+		.transform((val) => val.toISOString())
+		.nullish(),
+	reviewedBy: z.string().nullish(),
+	createdAt: z.coerce.date().transform((val) => val.toISOString()),
+	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
+});
+
 export const XcTaskSchema = z.object({
 	id: z.string(),
 	slug: z.string(),
@@ -16,6 +37,7 @@ export const XcTaskSchema = z.object({
 	imageUrl: z.string().nullish(),
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
+	submissions: z.array(XcSubmissionSchema).optional(),
 });
 
 export const XcProgressSchema = z.object({
@@ -59,26 +81,6 @@ export const XcEnrollmentSchema = z.object({
 		title: z.string(),
 	}),
 	userId: z.string(),
-	createdAt: z.coerce.date().transform((val) => val.toISOString()),
-	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
-});
-
-export const XcSubmissionSchema = z.object({
-	id: z.string(),
-	userId: z.string(),
-	editionId: z.number(),
-	taskId: z.string(),
-	status: z.enum(["PENDING", "APPROVED", "REJECTED"]),
-	fileName: z.string(),
-	checksum: z.string().nullish(),
-	notes: z.string().nullish(),
-	pointsAwarded: z.number(),
-	validationResult: z.any().nullish(),
-	reviewedAt: z.coerce
-		.date()
-		.transform((val) => val.toISOString())
-		.nullish(),
-	reviewedBy: z.string().nullish(),
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });

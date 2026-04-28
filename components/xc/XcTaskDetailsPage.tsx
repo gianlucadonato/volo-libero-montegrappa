@@ -19,13 +19,15 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
 import XcFlightChart from "@/components/xc/XcFlightChart";
+import XcSubmissionHistory from "@/components/xc/XcSubmissionHistory";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
+import { NEXT_YEAR } from "@/config/constants";
 import {
 	useGetXcEnrollment,
+	useGetXcSubmissionTrack,
 	useGetXcTask,
-	useGetXcTrack,
 } from "@/hooks/use-query-api";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -87,9 +89,40 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const { data: session } = authClient.useSession();
 	const isLoggedIn = Boolean(session?.user);
 	const { data: task, isLoading } = useGetXcTask(taskId);
-	const { data: track } = useGetXcTrack(taskId, isLoggedIn);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
 	const isEnrolled = Boolean(enrollment);
+
+	const submissions = task?.submissions ?? [];
+	const currentSubmission = useMemo(
+		() => submissions.find((s) => s.editionId === NEXT_YEAR) ?? null,
+		[submissions],
+	);
+	const hasHistory = submissions.some((s) => s.editionId !== NEXT_YEAR);
+
+	// Which submission's track is currently displayed on the map/chart.
+	// Defaults to the current edition submission once known.
+	const [selectedSubmissionId, setSelectedSubmissionId] = useState<
+		string | null
+	>(null);
+
+	const isViewingCurrentEdition =
+		!selectedSubmissionId || selectedSubmissionId === currentSubmission?.id;
+
+	useEffect(() => {
+		if (currentSubmission && selectedSubmissionId === null) {
+			setSelectedSubmissionId(currentSubmission.id);
+		} else if (
+			selectedSubmissionId &&
+			!submissions.some((s) => s.id === selectedSubmissionId)
+		) {
+			setSelectedSubmissionId(null);
+		}
+	}, [currentSubmission, selectedSubmissionId, submissions]);
+
+	const { data: track } = useGetXcSubmissionTrack(
+		selectedSubmissionId ?? undefined,
+		isLoggedIn && Boolean(selectedSubmissionId),
+	);
 
 	const trackCoordinates = useMemo(
 		() =>
@@ -112,12 +145,14 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	}, []);
 
 	const handleUploadSuccess = useCallback(() => {
-		queryClient.invalidateQueries({ queryKey: ["xc", "track", taskId] });
+		setSelectedSubmissionId(null);
+		setHoveredFixIndex(null);
+		queryClient.invalidateQueries({
+			queryKey: ["get", "/xc/tasks/{id}", { params: { path: { id: taskId } } }],
+		});
+		queryClient.removeQueries({ queryKey: ["xc", "submission-track"] });
 		queryClient.invalidateQueries({
 			queryKey: ["get", "/xc/{category}/submissions"],
-		});
-		queryClient.invalidateQueries({
-			queryKey: ["get", "/xc/tasks/{id}/submission"],
 		});
 		queryClient.invalidateQueries({
 			queryKey: ["get", "/xc/{category}/progress"],
@@ -223,13 +258,16 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 								/>
 							</div>
 						)}
-						<div className="mt-4 mb-8">
-							<XcTaskActionButtons
-								taskId={taskId}
-								taskFileUrl={task.taskFileUrl}
-								onUploadSuccess={handleUploadSuccess}
-							/>
-						</div>
+						{isViewingCurrentEdition && (
+							<div className="my-4">
+								<XcTaskActionButtons
+									taskId={taskId}
+									taskFileUrl={task.taskFileUrl}
+									submission={currentSubmission}
+									onUploadSuccess={handleUploadSuccess}
+								/>
+							</div>
+						)}
 						{!isEnrolled && (
 							<div className="mb-8 rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
 								<p className="mb-4 text-gray-600">{t("enroll_prompt")}</p>
@@ -237,8 +275,17 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							</div>
 						)}
 						{track && (
-							<div className="mb-8">
+							<div className="mt-4 mb-8">
 								<XcTrackSubmission header={track.header} stats={track.stats} />
+							</div>
+						)}
+						{hasHistory && (
+							<div className="mb-8">
+								<XcSubmissionHistory
+									submissions={submissions}
+									selectedSubmissionId={selectedSubmissionId}
+									onSelect={setSelectedSubmissionId}
+								/>
 							</div>
 						)}
 					</>
