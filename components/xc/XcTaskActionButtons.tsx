@@ -87,7 +87,13 @@ export default function XcTaskActionButtons({
 			const response = await uploadXcTaskTrackApi(taskId, file);
 			if (response.error) {
 				console.error("Upload error:", response.error);
-				toast.error(t("toast.uploadError"));
+				const serverMessage =
+					typeof response.error === "object" &&
+					response.error !== null &&
+					"error" in response.error
+						? (response.error as { error?: string }).error
+						: undefined;
+				toast.error(serverMessage || t("toast.uploadError"));
 				return;
 			}
 
