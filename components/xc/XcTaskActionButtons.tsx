@@ -34,6 +34,7 @@ export default function XcTaskActionButtons({
 	const [isDownloading, setIsDownloading] = useState(false);
 	const [isUploading, setIsUploading] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
+	const [isValidating, setIsValidating] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const t = useTranslations("XcTaskCard");
 	const { isPending, data: session } = authClient.useSession();
@@ -144,6 +145,27 @@ export default function XcTaskActionButtons({
 		}
 	};
 
+	const handleValidate = async () => {
+		if (!submission?.id) return;
+		setIsValidating(true);
+		try {
+			const { data: validation, error } = await validateSubmissionApi(
+				submission.id,
+			);
+			if (error || !validation) {
+				toast.error(t("toast.validationFailed"));
+			} else {
+				toast.success(t("toast.validationSuccess"));
+			}
+			onUploadSuccess?.();
+		} catch (error) {
+			console.error("Validation error:", error);
+			toast.error(t("toast.validationFailed"));
+		} finally {
+			setIsValidating(false);
+		}
+	};
+
 	return (
 		<div className="flex flex-col gap-4">
 			{submission ? (
@@ -151,8 +173,10 @@ export default function XcTaskActionButtons({
 					submission={submission}
 					onReupload={handleUploadClick}
 					onDelete={handleDelete}
+					onValidate={handleValidate}
 					isUploading={isUploading}
 					isDeleting={isDeleting}
+					isValidating={isValidating}
 				/>
 			) : (
 				<div className="flex flex-col items-start gap-4 rounded-xl bg-blue-50 p-6 sm:flex-row sm:items-center sm:justify-between">

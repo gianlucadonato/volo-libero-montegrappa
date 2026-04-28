@@ -42,33 +42,57 @@ interface XcSubmissionStatusProps {
 	submission: XcSubmissionApi;
 	onReupload?: () => void;
 	onDelete?: () => void;
+	onValidate?: () => void;
 	isUploading?: boolean;
 	isDeleting?: boolean;
+	isValidating?: boolean;
 }
 
 export default function XcSubmissionStatus({
 	submission,
 	onReupload,
 	onDelete,
+	onValidate,
 	isUploading,
 	isDeleting,
+	isValidating,
 }: XcSubmissionStatusProps) {
 	const t = useTranslations("XcSubmissionStatus");
 	const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
 	if (submission.status === "PENDING") {
 		return (
-			<div className="flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3">
-				<Clock className="size-5 shrink-0 text-amber-600" />
-				<div className="flex-1">
-					<p className="text-sm font-medium text-amber-800">
-						{t("pending.title")}
-					</p>
-					<p className="text-xs text-amber-600">{t("pending.description")}</p>
+			<div className="flex flex-col gap-2 rounded-lg border border-amber-200 bg-amber-50 p-3 sm:flex-row sm:items-center">
+				<div className="flex flex-1 items-center gap-2">
+					<Clock className="size-5 shrink-0 text-amber-600" />
+					<div className="flex-1">
+						<p className="text-sm font-medium text-amber-800">
+							{t("pending.title")}
+						</p>
+						<p className="text-xs text-amber-600">{t("pending.description")}</p>
+					</div>
+					<Badge className="bg-amber-100 text-amber-800">
+						{t("pending.badge")}
+					</Badge>
 				</div>
-				<Badge className="bg-amber-100 text-amber-800">
-					{t("pending.badge")}
-				</Badge>
+				{onValidate && (
+					<div className="flex justify-start pl-7 sm:pl-0">
+						<Button
+							variant="outline"
+							size="sm"
+							onClick={onValidate}
+							disabled={isValidating}
+							className="gap-1.5 border-amber-300 text-amber-800 hover:bg-amber-100"
+						>
+							<RefreshCw
+								className={`size-3.5 ${isValidating ? "animate-spin" : ""}`}
+							/>
+							{isValidating
+								? t("pending.validating")
+								: t("pending.validateNow")}
+						</Button>
+					</div>
+				)}
 			</div>
 		);
 	}

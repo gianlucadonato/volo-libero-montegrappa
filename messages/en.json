@@ -926,7 +926,9 @@
 		"pending": {
 			"title": "Track submitted",
 			"description": "Your track is waiting to be validated.",
-			"badge": "Pending review"
+			"badge": "Pending review",
+			"validateNow": "Validate now",
+			"validating": "Validating..."
 		},
 		"approved": {
 			"title": "Track completed!",

@@ -967,7 +967,9 @@
 		"pending": {
 			"title": "Traccia inviata",
 			"description": "La tua traccia è in attesa di validazione.",
-			"badge": "In attesa"
+			"badge": "In attesa",
+			"validateNow": "Valida ora",
+			"validating": "Validazione in corso..."
 		},
 		"approved": {
 			"title": "Traccia completata!",
