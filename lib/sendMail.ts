@@ -18,8 +18,7 @@ export async function sendMail({
 	text: string;
 	html?: string;
 }) {
-	const emailTo =
-		env.VERCEL_ENV !== "production" ? "gian.dnt@gmail.com" : sendTo;
+	const emailTo = env.VLM_ENV !== "production" ? "gian.dnt@gmail.com" : sendTo;
 
 	const info = await resend.emails.send({
 		from: from || env.EMAIL_FROM,

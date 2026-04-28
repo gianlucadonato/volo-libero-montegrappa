@@ -4,8 +4,7 @@ import { z } from "zod";
 export const env = createEnv({
 	server: {
 		// 🛡️ Server-side vars (never browser)
-		NODE_ENV: z.string().min(1),
-		VERCEL_ENV: z.string().min(1),
+		VLM_ENV: z.string().min(1),
 		NEXTAUTH_URL: z.string().optional(),
 		BETTER_AUTH_URL: z.string().optional(),
 		BETTER_AUTH_SECRET: z.string().min(1),
@@ -32,8 +31,7 @@ export const env = createEnv({
 	},
 	runtimeEnv: {
 		// 🔄 Runtime values (don't change!)
-		NODE_ENV: process.env.NODE_ENV,
-		VERCEL_ENV: process.env.VERCEL_ENV,
+		VLM_ENV: process.env.VLM_ENV,
 		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 		BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
 		BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
