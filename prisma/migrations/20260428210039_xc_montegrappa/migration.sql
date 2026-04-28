@@ -69,6 +69,7 @@ CREATE TABLE "xc_track_submissions" (
     "notes" TEXT,
     "points_awarded" INTEGER NOT NULL DEFAULT 0,
     "validation_result" JSONB,
+    "flight_data" JSONB,
     "reviewed_at" TIMESTAMP(3),
     "reviewed_by" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

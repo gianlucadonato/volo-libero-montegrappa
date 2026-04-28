@@ -745,7 +745,7 @@
 		"hero": {
 			"title": "XC Montegrappa"
 		},
-		"intro": "L'iniziativa è organizzata e promossa dal <strong>Club Volo Libero Montegrappa</strong>.<br></br>Non è una competizione, ma una sfida personale che riconosce l'impegno e la capacità del pilota nel raggiungere obiettivi di volo cross-country.<br></br>I percorsi hanno come riferimento l'area di volo del Monte Grappa, con decollo e atterraggio all'interno delle zone stabilite.<br></br>Ogni pilota potrà decidere liberamente i giorni in cui volare durante tutto l'anno solare a partire dal <strong>01 aprile {year}</strong>.",
+		"intro": "L'iniziativa è organizzata e promossa dal <strong>Club Volo Libero Montegrappa</strong>.<br></br>Non è una competizione, ma una sfida personale che riconosce l'impegno e la capacità del pilota nel raggiungere obiettivi di volo cross-country.<br></br>I percorsi hanno come riferimento l'area di volo del Monte Grappa, con decollo e atterraggio all'interno delle zone stabilite.<br></br>Ogni pilota potrà decidere liberamente i giorni in cui volare durante tutto l'anno solare a partire dal <strong>01 maggio {year}</strong>.",
 		"objectives": {
 			"title": "OBIETTIVI",
 			"lead": "Il Brevetto di Cross Country Montegrappa nasce con l'intento di:",

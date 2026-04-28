@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { XcTasks } from "./input/xc-tasks";
 
 async function main() {
-	const EDITION_YEAR = 2025;
+	const EDITION_YEAR = 2026;
 	await seedEditionWithTasks(EDITION_YEAR, true);
 	console.log(`\n✨ Seed completed successfully!`);
 }
