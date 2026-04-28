@@ -862,7 +862,8 @@
 		"buttons": {
 			"back": "Indietro",
 			"backToXc": "Torna a XC Montegrappa",
-			"enrollNow": "Iscriviti ora"
+			"enrollNow": "Iscriviti ora",
+			"leaderboard": "Classifica"
 		},
 		"header": {
 			"description": "Completa i percorsi e accumula punti per ottenere il brevetto"
@@ -903,6 +904,14 @@
 				"flightTime": "Tempo di Volo",
 				"maxAlt": "Alt Max"
 			}
+		}
+	},
+	"XcLeaderboardPage": {
+		"title": "Classifica",
+		"empty": "Nessun partecipante per ora.",
+		"noMore": "Nessun altro partecipante.",
+		"errors": {
+			"failedToLoad": "Errore nel caricamento della classifica. Riprova."
 		}
 	},
 	"XcTaskCard": {

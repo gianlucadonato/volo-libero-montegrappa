@@ -48,6 +48,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/xc/{category}/leaderboard": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/[category]/leaderboard
+		 * @description Fetch the XC leaderboard for a specific category
+		 */
+		get: operations["get-xc-{category}-leaderboard"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/{category}/progress": {
 		parameters: {
 			query?: never;
@@ -198,6 +218,19 @@ export interface components {
 	schemas: {
 		ParamsSchema: {
 			category: string;
+		};
+		XcLeaderboardEntrySchema: {
+			rank: number;
+			userId: string;
+			firstName: string;
+			lastName: string;
+			image?: string | null;
+			points: number;
+			totalDistanceKm: number;
+			flightTimeHrs: number;
+			maxAltM: number;
+			/** Format: date-time */
+			completedAt?: string | null;
 		};
 		XcProgressSchema: {
 			id: string;
@@ -607,6 +640,31 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcEnrollmentSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-xc-{category}-leaderboard": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @example example */
+				category: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcLeaderboardEntrySchema"][];
 				};
 			};
 			400: components["responses"]["400"];

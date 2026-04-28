@@ -123,3 +123,19 @@ export const XcTrackResponseSchema = z
 		fixes: z.array(IGCFixSchema),
 	})
 	.nullable();
+
+export const XcLeaderboardEntrySchema = z.object({
+	rank: z.number(),
+	userId: z.string(),
+	firstName: z.string(),
+	lastName: z.string(),
+	image: z.string().nullish(),
+	points: z.number(),
+	totalDistanceKm: z.number(),
+	flightTimeHrs: z.number(),
+	maxAltM: z.number(),
+	completedAt: z.coerce
+		.date()
+		.transform((val) => val.toISOString())
+		.nullish(),
+});

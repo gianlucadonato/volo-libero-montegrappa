@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Trophy } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -98,14 +98,23 @@ export default function CategoryPage() {
 			<div className="max-w-6xl mx-auto px-4 py-8">
 				{/* Back + Category Tabs */}
 				<div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-					<Link href="/xc">
-						<Button variant="outline">
-							<ArrowLeft className="mr-2 size-4" />
-							{t("buttons.back")}
-						</Button>
-					</Link>
+					<div className="flex flex-wrap gap-2">
+						<Link href="/xc">
+							<Button variant="outline">
+								<ArrowLeft className="mr-2 size-4" />
+								{t("buttons.back")}
+							</Button>
+						</Link>
+						<Link href={`/xc/${currentLevel}/leaderboard`}>
+							<Button variant="outline">
+								<Trophy className="mr-2 size-4" />
+								{t("buttons.leaderboard")}
+							</Button>
+						</Link>
+					</div>
 
 					<div className="flex rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
+						{" "}
 						{categories.map((cat) => (
 							<button
 								key={cat.level}

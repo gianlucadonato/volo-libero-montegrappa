@@ -821,7 +821,8 @@
 		"buttons": {
 			"back": "Back",
 			"backToXc": "Back to XC Montegrappa",
-			"enrollNow": "Enroll now"
+			"enrollNow": "Enroll now",
+			"leaderboard": "Leaderboard"
 		},
 		"header": {
 			"description": "Complete tasks and collect points to earn the certificate"
@@ -862,6 +863,14 @@
 				"flightTime": "Flight Time",
 				"maxAlt": "Max Alt"
 			}
+		}
+	},
+	"XcLeaderboardPage": {
+		"title": "Leaderboard",
+		"empty": "No participants yet.",
+		"noMore": "No additional participants.",
+		"errors": {
+			"failedToLoad": "Failed to load leaderboard. Please try again."
 		}
 	},
 	"XcTaskCard": {

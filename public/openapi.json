@@ -33,6 +33,54 @@
 				},
 				"required": ["category"]
 			},
+			"XcLeaderboardEntrySchema": {
+				"type": "object",
+				"properties": {
+					"rank": {
+						"type": "number"
+					},
+					"userId": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string",
+						"nullable": true
+					},
+					"points": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"flightTimeHrs": {
+						"type": "number"
+					},
+					"maxAltM": {
+						"type": "number"
+					},
+					"completedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					}
+				},
+				"required": [
+					"rank",
+					"userId",
+					"firstName",
+					"lastName",
+					"points",
+					"totalDistanceKm",
+					"flightTimeHrs",
+					"maxAltM"
+				]
+			},
 			"XcProgressSchema": {
 				"type": "object",
 				"properties": {
@@ -1128,6 +1176,46 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcEnrollmentSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/{category}/leaderboard": {
+			"get": {
+				"operationId": "get-xc-{category}-leaderboard",
+				"summary": "/xc/[category]/leaderboard",
+				"description": "Fetch the XC leaderboard for a specific category",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "category",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/XcLeaderboardEntrySchema"
+									}
 								}
 							}
 						}
