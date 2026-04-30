@@ -1,16 +1,25 @@
 "use client";
 
-import { Route, Star } from "lucide-react";
+import { Download, Route, Star } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type React from "react";
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
 	Card,
+	CardAction,
 	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import XcTaskMapLoader from "@/components/xc/XcTaskMapLoader";
 import type { IGCFix } from "@/lib/igc-parser";
@@ -31,6 +40,8 @@ interface XcTaskInteractivePanelProps {
 	hoveredTrackPosition?: [number, number] | null;
 	trackFixes?: IGCFix[];
 	onChartHoverIndex?: (index: number | null) => void;
+	taskId?: string;
+	taskFileUrl?: string | null;
 }
 
 export default function XcTaskInteractivePanel({
@@ -48,10 +59,44 @@ export default function XcTaskInteractivePanel({
 	hoveredTrackPosition,
 	trackFixes,
 	onChartHoverIndex,
+	taskId,
+	taskFileUrl,
 }: XcTaskInteractivePanelProps) {
+	const t = useTranslations("TaskPage");
 	const [selectedWaypointIndex, setSelectedWaypointIndex] = useState<
 		number | null
 	>(null);
+
+	const handleDownloadTask = async () => {
+		if (!taskId || !taskFileUrl) return;
+		try {
+			const response = await fetch(`/api/xc/tasks/${taskId}/download`);
+			if (!response.ok) throw new Error("Download failed");
+			const blob = await response.blob();
+			const url = window.URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = url;
+			link.download = (taskFileUrl.split("/").pop() || "task.tsk").replace(
+				/\.tsk$/,
+				".xctsk",
+			);
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			window.URL.revokeObjectURL(url);
+		} catch (error) {
+			console.error("Download error:", error);
+		}
+	};
+
+	const handleDownloadWaypoints = () => {
+		const link = document.createElement("a");
+		link.href = "/xc/waypoints-xc-montegrappa.zip";
+		link.download = "waypoints-xc-montegrappa.zip";
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	};
 
 	return (
 		<>
@@ -66,26 +111,26 @@ export default function XcTaskInteractivePanel({
 					</CardHeader>
 					<CardContent className="space-y-3 text-sm">
 						<div className="flex justify-between">
-							<span className="text-muted-foreground">Categoria</span>
+							<span className="text-muted-foreground">{t("category")}</span>
 							<Badge variant="outline" className="capitalize">
 								{category.toLowerCase()}
 							</Badge>
 						</div>
 						{distanceKm != null && (
 							<div className="flex justify-between">
-								<span className="text-muted-foreground">Distanza</span>
+								<span className="text-muted-foreground">{t("distance")}</span>
 								<span className="font-medium">{distanceKm.toFixed(1)} km</span>
 							</div>
 						)}
 						<div className="flex justify-between items-center">
-							<span className="text-muted-foreground">Punti</span>
+							<span className="text-muted-foreground">{t("points")}</span>
 							<span className="inline-flex items-center gap-1.5 rounded-full bg-green-50 px-3 py-1.5 text-sm font-semibold text-green-600">
 								<Star className="size-4" />+{points} XC
 							</span>
 						</div>
 						{waypoints.length > 0 && (
 							<div className="flex justify-between">
-								<span className="text-muted-foreground">Waypoints</span>
+								<span className="text-muted-foreground">{t("turnpoints")}</span>
 								<span className="font-medium">{waypoints.length}</span>
 							</div>
 						)}
@@ -101,8 +146,31 @@ export default function XcTaskInteractivePanel({
 					<CardHeader>
 						<CardTitle className="flex items-center gap-2">
 							<Route className="size-5" />
-							Waypoints
+							{t("turnpoints")}
 						</CardTitle>
+						<CardAction>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button variant="ghost" size="icon" className="size-8">
+										<span className="sr-only">Download</span>
+										<Download className="size-4" />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="end">
+									<DropdownMenuItem
+										onClick={handleDownloadTask}
+										disabled={!taskId || !taskFileUrl}
+									>
+										<Download className="size-4" />
+										{t("download_task")} (.xctsk)
+									</DropdownMenuItem>
+									<DropdownMenuItem onClick={handleDownloadWaypoints}>
+										<Download className="size-4" />
+										{t("download_waypoints")} (.zip)
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</CardAction>
 					</CardHeader>
 					<CardContent className="space-y-2">
 						{waypoints.map((wp, idx) => {

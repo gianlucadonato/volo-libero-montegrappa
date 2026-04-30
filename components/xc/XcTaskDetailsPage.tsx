@@ -250,6 +250,8 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							hoveredTrackPosition={hoveredTrackPosition}
 							trackFixes={track?.fixes}
 							onChartHoverIndex={handleChartHover}
+							taskId={taskId}
+							taskFileUrl={task.taskFileUrl}
 						/>
 						{isViewingCurrentEdition && (
 							<div className="my-4">

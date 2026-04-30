@@ -253,6 +253,7 @@ export default function XcFlightChart({
 				<ChartContainer
 					config={chartConfig}
 					className={`w-full ${isOverlay ? "h-28" : "h-52"}`}
+					style={!isOverlay ? { backgroundColor: "#e4e4e4" } : undefined}
 				>
 					<ComposedChart
 						data={chartData}
@@ -261,16 +262,28 @@ export default function XcFlightChart({
 						margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
 					>
 						<defs>
-							<linearGradient id="altFill" x1="0" y1="0" x2="0" y2="1">
+							<linearGradient id="gpsAltFill" x1="0" y1="0" x2="0" y2="1">
 								<stop
 									offset="0%"
-									stopColor="hsl(var(--muted-foreground))"
+									stopColor={COLOR_GPS_ALT}
 									stopOpacity={0.45}
 								/>
 								<stop
 									offset="100%"
-									stopColor="hsl(var(--muted-foreground))"
-									stopOpacity={0.1}
+									stopColor={COLOR_GPS_ALT}
+									stopOpacity={0.08}
+								/>
+							</linearGradient>
+							<linearGradient id="baroAltFill" x1="0" y1="0" x2="0" y2="1">
+								<stop
+									offset="0%"
+									stopColor={COLOR_BARO_ALT}
+									stopOpacity={0.35}
+								/>
+								<stop
+									offset="100%"
+									stopColor={COLOR_BARO_ALT}
+									stopOpacity={0.05}
 								/>
 							</linearGradient>
 						</defs>
@@ -361,16 +374,33 @@ export default function XcFlightChart({
 							strokeDasharray="2 2"
 						/>
 
-						{/* Filled altitude silhouette */}
+						{/* Baro altitude filled area */}
+						{hasPressure && (
+							<Area
+								yAxisId="alt"
+								type="monotone"
+								dataKey="pressureAltitude"
+								stroke={COLOR_BARO_ALT}
+								strokeWidth={1.25}
+								fill="url(#baroAltFill)"
+								connectNulls
+								isAnimationActive={false}
+								dot={false}
+								activeDot={false}
+							/>
+						)}
+
+						{/* GPS altitude filled area */}
 						<Area
 							yAxisId="alt"
 							type="monotone"
 							dataKey="gpsAltitude"
-							stroke="none"
-							fill="url(#altFill)"
+							stroke={COLOR_GPS_ALT}
+							strokeWidth={1.5}
+							fill="url(#gpsAltFill)"
 							isAnimationActive={false}
 							dot={false}
-							activeDot={false}
+							activeDot={{ r: 3, fill: COLOR_GPS_ALT }}
 						/>
 
 						{/* Vario line */}
@@ -384,33 +414,6 @@ export default function XcFlightChart({
 							isAnimationActive={false}
 							dot={false}
 							activeDot={false}
-						/>
-
-						{/* Pressure altitude line (orange) */}
-						{hasPressure && (
-							<Line
-								yAxisId="alt"
-								type="monotone"
-								dataKey="pressureAltitude"
-								stroke={COLOR_BARO_ALT}
-								strokeWidth={1.25}
-								isAnimationActive={false}
-								connectNulls
-								dot={false}
-								activeDot={false}
-							/>
-						)}
-
-						{/* GPS altitude line (blue/primary) */}
-						<Line
-							yAxisId="alt"
-							type="monotone"
-							dataKey="gpsAltitude"
-							stroke={COLOR_GPS_ALT}
-							strokeWidth={1.5}
-							isAnimationActive={false}
-							dot={false}
-							activeDot={{ r: 3, fill: COLOR_GPS_ALT }}
 						/>
 					</ComposedChart>
 				</ChartContainer>

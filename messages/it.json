@@ -715,10 +715,15 @@
 		"header_title": "Task",
 		"header_description": "Dettagli del task",
 		"dashboard_title": "Informazioni Task",
+		"turnpoints": "Boe",
+		"points": "Punti",
+		"category": "Categoria",
+		"distance": "Distanza",
 		"no_data": "Nessun dato",
 		"not_found": "Task non trovato",
 		"no_waypoints": "Nessun waypoint disponibile per questa task.",
 		"download_task": "Scarica Task",
+		"download_waypoints": "Scarica Waypoints",
 		"upload_route": "Carica la tua Traccia",
 		"uploading": "Caricamento...",
 		"upload_success": "Traccia caricata con successo!",
@@ -1017,5 +1022,8 @@
 		"altitude": "Quota",
 		"vario": "Vario",
 		"speed": "Velocità"
+	},
+	"XcTaskInteractivePanel": {
+		"turnpoints": "Boe"
 	}
 }
