@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+	"/users": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /users
+		 * @description Fetch all the users
+		 */
+		get: operations["get-users"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/xc/edition": {
 		parameters: {
 			query?: never;
@@ -236,6 +256,16 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
 	schemas: {
+		UsersSchema: {
+			id: string;
+			firstName?: string | null;
+			lastName?: string | null;
+			email: string;
+			/** Format: date-time */
+			createdAt: string;
+			/** Format: date-time */
+			updatedAt: string;
+		};
 		QuerySchema: {
 			edition?: number;
 		};
@@ -610,6 +640,28 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+	"get-users": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["UsersSchema"][];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-xc-edition": {
 		parameters: {
 			query?: {

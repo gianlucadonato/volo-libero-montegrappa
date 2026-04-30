@@ -3,6 +3,7 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { hashPassword, verifyPassword } from "better-auth/crypto";
+import { bearer } from "better-auth/plugins";
 import { sendResetPasswordEmail } from "@/emails/sendResetPasswordEmail";
 import { env } from "@/env";
 import { prisma } from "@/lib/prisma";
@@ -49,6 +50,7 @@ const trustedOrigins = Array.from(
 export const auth = betterAuth({
 	baseURL,
 	trustedOrigins,
+	plugins: [bearer()],
 	database: prismaAdapter(prisma, {
 		provider: "postgresql",
 	}),
