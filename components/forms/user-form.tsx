@@ -3,7 +3,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { isValid, parse } from "date-fns";
 import { it } from "date-fns/locale";
-import { Check, ChevronsUpDown, Loader2, Phone, Shirt } from "lucide-react";
+import {
+	BookOpenText,
+	Check,
+	ChevronsUpDown,
+	HelpCircle,
+	Loader2,
+	Phone,
+	Shirt,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -44,6 +54,14 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+	Sheet,
+	SheetContent,
+	SheetDescription,
+	SheetHeader,
+	SheetTitle,
+	SheetTrigger,
+} from "@/components/ui/sheet";
 import { countries } from "@/i18n/countries";
 import { cn } from "@/lib/utils";
 import type { User } from "@/prisma/generated/client";
@@ -171,7 +189,10 @@ export function UserForm({
 								name="firstName"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("first_name")}</FormLabel>
+										<FormLabel>
+											{t("first_name")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -184,7 +205,10 @@ export function UserForm({
 								name="lastName"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("last_name")}</FormLabel>
+										<FormLabel>
+											{t("last_name")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -199,7 +223,10 @@ export function UserForm({
 								name="placeOfBirth"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("place_of_birth")}</FormLabel>
+										<FormLabel>
+											{t("place_of_birth")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -212,7 +239,10 @@ export function UserForm({
 								name="dateOfBirth"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("date_of_birth")}</FormLabel>
+										<FormLabel>
+											{t("date_of_birth")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input
 												{...field}
@@ -235,7 +265,10 @@ export function UserForm({
 								name="fiscalCode"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("fiscal_code")}</FormLabel>
+										<FormLabel>
+											{t("fiscal_code")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input
 												{...field}
@@ -257,7 +290,10 @@ export function UserForm({
 								name="streetAddress"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("street_address")}</FormLabel>
+										<FormLabel>
+											{t("street_address")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -272,7 +308,10 @@ export function UserForm({
 								name="city"
 								render={({ field }) => (
 									<FormItem className="col-span-4 md:col-span-1">
-										<FormLabel>{t("city")}</FormLabel>
+										<FormLabel>
+											{t("city")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -285,7 +324,10 @@ export function UserForm({
 								name="zipCode"
 								render={({ field }) => (
 									<FormItem className="col-span-4 md:col-span-1">
-										<FormLabel>{t("zip_code")}</FormLabel>
+										<FormLabel>
+											{t("zip_code")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} type="number" inputMode="numeric" />
 										</FormControl>
@@ -298,7 +340,10 @@ export function UserForm({
 								name="province"
 								render={({ field }) => (
 									<FormItem className="col-span-4 md:col-span-1">
-										<FormLabel>{t("province")}</FormLabel>
+										<FormLabel>
+											{t("province")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -311,7 +356,10 @@ export function UserForm({
 								name="state"
 								render={({ field }) => (
 									<FormItem className="col-span-4 md:col-span-1">
-										<FormLabel>{t("state")}</FormLabel>
+										<FormLabel>
+											{t("state")}
+											<RequiredMark />
+										</FormLabel>
 										<Popover>
 											<PopoverTrigger asChild>
 												<FormControl>
@@ -380,7 +428,10 @@ export function UserForm({
 								name="phone"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("phone")}</FormLabel>
+										<FormLabel>
+											{t("phone")}
+											<RequiredMark />
+										</FormLabel>
 										<FormControl>
 											<Input {...field} type="number" inputMode="numeric">
 												<Input.Group>
@@ -437,7 +488,10 @@ export function UserForm({
 								name="gender"
 								render={({ field }) => (
 									<FormItem className="col-span-2">
-										<FormLabel>{t("gender")}</FormLabel>
+										<FormLabel>
+											{t("gender")}
+											<RequiredMark />
+										</FormLabel>
 										<Select
 											onValueChange={field.onChange}
 											defaultValue={field.value}
@@ -583,7 +637,15 @@ export function UserForm({
 								name="xcontestId"
 								render={({ field }) => (
 									<FormItem className="col-span-1">
-										<FormLabel>{t("xcontest_id")}</FormLabel>
+										<div className="flex items-center gap-1.5">
+											<FormLabel>{t("xcontest_id")}</FormLabel>
+											<FieldHelpButton
+												title={t("xcontest_id")}
+												description={t("xcontest_id_description")}
+												helpContent={<HelpXContestId />}
+												srLabel={t("more_info")}
+											/>
+										</div>
 										<FormControl>
 											<Input {...field} type="text" />
 										</FormControl>
@@ -596,7 +658,15 @@ export function UserForm({
 								name="ognCallsign"
 								render={({ field }) => (
 									<FormItem className="col-span-1">
-										<FormLabel>{t("ogn_callsign")}</FormLabel>
+										<div className="flex items-center gap-1.5">
+											<FormLabel>{t("ogn_callsign")}</FormLabel>
+											<FieldHelpButton
+												title={t("ogn_callsign")}
+												description={t("ogn_callsign_description")}
+												helpContent={<HelpOgnFields />}
+												srLabel={t("more_info")}
+											/>
+										</div>
 										<FormControl>
 											<Input {...field} type="text" />
 										</FormControl>
@@ -609,7 +679,15 @@ export function UserForm({
 								name="ognHex"
 								render={({ field }) => (
 									<FormItem className="col-span-1">
-										<FormLabel>{t("ogn_hex")}</FormLabel>
+										<div className="flex items-center gap-1.5">
+											<FormLabel>{t("ogn_hex")}</FormLabel>
+											<FieldHelpButton
+												title={t("ogn_hex")}
+												description={t("ogn_hex_description")}
+												helpContent={<HelpOgnFields />}
+												srLabel={t("more_info")}
+											/>
+										</div>
 										<FormControl>
 											<Input {...field} type="text" />
 										</FormControl>
@@ -647,5 +725,87 @@ export function UserForm({
 				</div>
 			</form>
 		</Form>
+	);
+}
+
+function RequiredMark() {
+	return (
+		<span aria-hidden="true" className="ml-0.5 text-destructive">
+			*
+		</span>
+	);
+}
+
+function FieldHelpButton({
+	title,
+	description,
+	helpContent,
+	srLabel,
+}: {
+	title: string;
+	description: string;
+	helpContent?: React.ReactNode;
+	srLabel: string;
+}) {
+	return (
+		<Sheet>
+			<SheetTrigger asChild>
+				<button
+					type="button"
+					className="inline-flex size-4 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
+				>
+					<HelpCircle className="size-4" />
+					<span className="sr-only">{srLabel}</span>
+				</button>
+			</SheetTrigger>
+			<SheetContent side="right" className="sm:max-w-[35%] pt-[72px]">
+				<SheetHeader>
+					<SheetTitle>{title}</SheetTitle>
+					<SheetDescription>{description}</SheetDescription>
+					{helpContent && <div className="mt-4">{helpContent}</div>}
+				</SheetHeader>
+			</SheetContent>
+		</Sheet>
+	);
+}
+
+function HelpXContestId() {
+	return (
+		<div>
+			<div className="font-bold">Come fare?</div>
+			<div>
+				Vai su{" "}
+				<a href="https://www.xcontest.org/" className="underline">
+					xcontest.org
+				</a>{" "}
+				scegli un username e segui le istruzioni per registrarti.
+			</div>
+			<Image
+				src="/xcontest_example.png"
+				alt="xcontest example"
+				width={800}
+				height={400}
+				className="mt-4 rounded-md border"
+			/>
+		</div>
+	);
+}
+
+function HelpOgnFields() {
+	return (
+		<div>
+			<div className="font-bold">Come fare?</div>
+			<div className="flex items-center">
+				<span>Scarica la </span>
+				<Link
+					href="/docs/Guida registrazione Safesky su rete OGN.pdf"
+					download
+					className="flex items-center underline ml-1"
+				>
+					guida
+					<BookOpenText className="ml-1 size-4" />
+				</Link>
+			</div>
+		</div>
 	);
 }
