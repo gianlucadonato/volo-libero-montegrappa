@@ -12,6 +12,8 @@ import {
 	TileLayer,
 	useMap,
 } from "react-leaflet";
+import XcFlightChart from "@/components/xc/XcFlightChart";
+import type { IGCFix } from "@/lib/igc-parser";
 import type { TaskWaypoint } from "@/lib/tsk-parser";
 
 // Fix leaflet default icon paths broken by webpack/Next.js bundling
@@ -107,6 +109,8 @@ interface XcTaskMapProps {
 	selectedWaypointIndex?: number | null;
 	trackCoordinates?: [number, number][];
 	hoveredTrackPosition?: [number, number] | null;
+	trackFixes?: IGCFix[];
+	onChartHoverIndex?: (index: number | null) => void;
 }
 
 export default function XcTaskMap({
@@ -115,6 +119,8 @@ export default function XcTaskMap({
 	selectedWaypointIndex,
 	trackCoordinates,
 	hoveredTrackPosition,
+	trackFixes,
+	onChartHoverIndex,
 }: XcTaskMapProps) {
 	if (waypoints.length === 0) {
 		return (
@@ -264,92 +270,102 @@ export default function XcTaskMap({
 		});
 	};
 
+	const hasChart = Boolean(trackFixes && trackFixes.length > 0);
+
 	return (
-		<div
-			className={`overflow-hidden rounded-xl border border-border ${className ?? "h-120"}`}
-		>
-			<MapContainer
-				center={center}
-				zoom={10}
-				minZoom={7}
-				maxZoom={14}
-				className="relative z-0"
-				style={{ height: "100%", width: "100%" }}
-				zoomControl
-			>
-				<TileLayer
-					url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-					attribution="&copy; Esri World Imagery"
-				/>
+		<div className="overflow-hidden rounded-xl border border-border">
+			<div className={`relative ${className ?? "h-120"}`}>
+				<MapContainer
+					center={center}
+					zoom={10}
+					minZoom={7}
+					maxZoom={14}
+					className="relative z-0"
+					style={{ height: "100%", width: "100%" }}
+					zoomControl
+				>
+					<TileLayer
+						url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+						attribution="&copy; Esri World Imagery"
+					/>
 
-				<AutoFit waypoints={waypoints} />
-				<FocusSelectedWaypoint
-					waypoints={waypoints}
-					selectedWaypointIndex={selectedWaypointIndex}
-				/>
-				<FocusHoveredTrackPosition position={hoveredTrackPosition} />
+					<AutoFit waypoints={waypoints} />
+					<FocusSelectedWaypoint
+						waypoints={waypoints}
+						selectedWaypointIndex={selectedWaypointIndex}
+					/>
+					<FocusHoveredTrackPosition position={hoveredTrackPosition} />
 
-				{/* Route line */}
-				<Polyline
-					positions={routeLine}
-					pathOptions={{
-						color: "#00ffff",
-						weight: 2.5,
-						opacity: 0.75,
-						dashArray: "6 4",
-					}}
-				/>
-
-				{/* IGC flight track */}
-				{trackCoordinates && trackCoordinates.length > 0 && (
+					{/* Route line */}
 					<Polyline
-						positions={trackCoordinates}
+						positions={routeLine}
 						pathOptions={{
-							color: "#ff4444",
+							color: "#00ffff",
 							weight: 2.5,
-							opacity: 0.85,
+							opacity: 0.75,
+							dashArray: "6 4",
 						}}
 					/>
-				)}
 
-				{/* Hovered position marker */}
-				{hoveredTrackPosition && (
-					<CircleMarker
-						center={hoveredTrackPosition}
-						radius={6}
-						pathOptions={{
-							color: "#ffffff",
-							fillColor: "#ff4444",
-							fillOpacity: 1,
-							weight: 2,
-						}}
-					/>
-				)}
+					{/* IGC flight track */}
+					{trackCoordinates && trackCoordinates.length > 0 && (
+						<Polyline
+							positions={trackCoordinates}
+							pathOptions={{
+								color: "#ff4444",
+								weight: 2.5,
+								opacity: 0.85,
+							}}
+						/>
+					)}
 
-				{/* Cylinders + markers */}
-				{waypoints.map((wp, idx) => {
-					const color = waypointColor(wp);
-					const isSelected = idx === selectedWaypointIndex;
-					return (
-						<React.Fragment key={idx}>
-							<Circle
-								center={[wp.lat, wp.lon]}
-								radius={wp.radiusM}
-								pathOptions={{
-									color: isSelected ? "#22d3ee" : color,
-									fillColor: color,
-									fillOpacity: isSelected ? 0.22 : 0.12,
-									weight: isSelected ? 4 : 2,
-								}}
-							/>
-							<Marker
-								position={[wp.lat, wp.lon]}
-								icon={createWpIcon(wp, idx, isSelected)}
-							/>
-						</React.Fragment>
-					);
-				})}
-			</MapContainer>
+					{/* Hovered position marker */}
+					{hoveredTrackPosition && (
+						<CircleMarker
+							center={hoveredTrackPosition}
+							radius={6}
+							pathOptions={{
+								color: "#ffffff",
+								fillColor: "#ff4444",
+								fillOpacity: 1,
+								weight: 2,
+							}}
+						/>
+					)}
+
+					{/* Cylinders + markers */}
+					{waypoints.map((wp, idx) => {
+						const color = waypointColor(wp);
+						const isSelected = idx === selectedWaypointIndex;
+						return (
+							<React.Fragment key={idx}>
+								<Circle
+									center={[wp.lat, wp.lon]}
+									radius={wp.radiusM}
+									pathOptions={{
+										color: isSelected ? "#22d3ee" : color,
+										fillColor: color,
+										fillOpacity: isSelected ? 0.22 : 0.12,
+										weight: isSelected ? 4 : 2,
+									}}
+								/>
+								<Marker
+									position={[wp.lat, wp.lon]}
+									icon={createWpIcon(wp, idx, isSelected)}
+								/>
+							</React.Fragment>
+						);
+					})}
+				</MapContainer>
+			</div>
+
+			{hasChart && (
+				<XcFlightChart
+					fixes={trackFixes ?? []}
+					onHoverIndex={onChartHoverIndex}
+					variant="overlay"
+				/>
+			)}
 		</div>
 	);
 }

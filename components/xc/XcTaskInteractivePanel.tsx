@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import XcTaskMapLoader from "@/components/xc/XcTaskMapLoader";
+import type { IGCFix } from "@/lib/igc-parser";
 import type { TaskWaypoint } from "@/lib/tsk-parser";
 
 interface XcTaskInteractivePanelProps {
@@ -28,6 +29,8 @@ interface XcTaskInteractivePanelProps {
 	taskInfo?: string;
 	trackCoordinates?: [number, number][];
 	hoveredTrackPosition?: [number, number] | null;
+	trackFixes?: IGCFix[];
+	onChartHoverIndex?: (index: number | null) => void;
 }
 
 export default function XcTaskInteractivePanel({
@@ -43,6 +46,8 @@ export default function XcTaskInteractivePanel({
 	taskInfo,
 	trackCoordinates,
 	hoveredTrackPosition,
+	trackFixes,
+	onChartHoverIndex,
 }: XcTaskInteractivePanelProps) {
 	const [selectedWaypointIndex, setSelectedWaypointIndex] = useState<
 		number | null
@@ -163,6 +168,8 @@ export default function XcTaskInteractivePanel({
 					selectedWaypointIndex={selectedWaypointIndex}
 					trackCoordinates={trackCoordinates}
 					hoveredTrackPosition={hoveredTrackPosition}
+					trackFixes={trackFixes}
+					onChartHoverIndex={onChartHoverIndex}
 				/>
 			</div>
 		</>

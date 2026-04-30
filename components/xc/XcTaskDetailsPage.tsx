@@ -18,7 +18,6 @@ import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import EnrollButton from "@/components/xc/EnrollXcEditionButton";
-import XcFlightChart from "@/components/xc/XcFlightChart";
 import XcSubmissionHistory from "@/components/xc/XcSubmissionHistory";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
@@ -249,15 +248,9 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							taskInfo={parsedTask.info}
 							trackCoordinates={trackCoordinates}
 							hoveredTrackPosition={hoveredTrackPosition}
+							trackFixes={track?.fixes}
+							onChartHoverIndex={handleChartHover}
 						/>
-						{track?.fixes && track.fixes.length > 0 && (
-							<div className="mt-6">
-								<XcFlightChart
-									fixes={track.fixes}
-									onHoverIndex={handleChartHover}
-								/>
-							</div>
-						)}
 						{isViewingCurrentEdition && (
 							<div className="my-4">
 								<XcTaskActionButtons
