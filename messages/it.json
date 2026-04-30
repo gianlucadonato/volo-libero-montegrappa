@@ -265,17 +265,22 @@
 		"hang_gliding": "Deltaplano",
 		"paramotor": "Paramotore",
 		"nothing": "Nessuno",
-		"vds_license": "Attestato VDS / N° FIVL",
+		"vds_license": "Attestato VDS",
 		"vds_number": "Attestato VDS n°",
 		"vds_release_date": "Rilasciato il",
 		"medical_exam_valid_date": "Visita medica valida fino al",
 		"fivl_number": "Tessera FIVL n°",
+		"xcontest_id": "XContest ID",
+		"ogn_callsign": "OGN Callsign",
+		"ogn_hex": "OGN Hex",
 		"privacy_policy_description_1": "Dichiaro di aver preso visione delle",
 		"privacy_policy_description_2": "e di accettarne i",
 		"terms_and_conditions": "Termini e Condizioni",
 		"mog": "Modello Organizzativo Generale (MOG)",
 		"mog_description": "Dichiaro di aver preso visione del",
-		"mog_description_2": "e di accettarne i contenuti"
+		"mog_description_2": "e di accettarne i contenuti",
+		"optional": "opzionale",
+		"integrations": "Integrazioni"
 	},
 	"UpgradeCard": {
 		"become_member": "Diventa Socio!",
@@ -387,7 +392,10 @@
 		"vds_number": "Attestato VDS n°",
 		"vds_release_date": "Rilasciato il",
 		"medical_exam_valid_date": "Visita medica valida fino al",
-		"fivl_number": "Tessera FIVL n°"
+		"fivl_number": "Tessera FIVL n°",
+		"xcontest_id": "XContest ID",
+		"ogn_callsign": "OGN Callsign",
+		"ogn_hex": "OGN Hex"
 	},
 	"TelegramCard": {
 		"title": "Unisciti al nostro gruppo Telegram!",
@@ -500,7 +508,10 @@
 		"header": {
 			"name": "Nome",
 			"created_at": "Data Iscrizione",
-			"role": "Ruolo"
+			"role": "Ruolo",
+			"xcontest_id": "XContest ID",
+			"ogn_callsign": "OGN Callsign",
+			"ogn_hex": "OGN Hex"
 		},
 		"filter_by_email": "Filtra per email",
 		"filter_by_name": "Filtra per nome",

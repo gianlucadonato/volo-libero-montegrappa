@@ -59,6 +59,9 @@ export type UserMinAggregateOutputType = {
   vdsNumber: string | null
   vdsReleaseDate: string | null
   fivlNumber: string | null
+  xcontestId: string | null
+  ognCallsign: string | null
+  ognHex: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean | null
   isAdmin: boolean | null
@@ -93,6 +96,9 @@ export type UserMaxAggregateOutputType = {
   vdsNumber: string | null
   vdsReleaseDate: string | null
   fivlNumber: string | null
+  xcontestId: string | null
+  ognCallsign: string | null
+  ognHex: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean | null
   isAdmin: boolean | null
@@ -127,6 +133,9 @@ export type UserCountAggregateOutputType = {
   vdsNumber: number
   vdsReleaseDate: number
   fivlNumber: number
+  xcontestId: number
+  ognCallsign: number
+  ognHex: number
   medicalExamValidDate: number
   emailConsent: number
   isAdmin: number
@@ -171,6 +180,9 @@ export type UserMinAggregateInputType = {
   vdsNumber?: true
   vdsReleaseDate?: true
   fivlNumber?: true
+  xcontestId?: true
+  ognCallsign?: true
+  ognHex?: true
   medicalExamValidDate?: true
   emailConsent?: true
   isAdmin?: true
@@ -205,6 +217,9 @@ export type UserMaxAggregateInputType = {
   vdsNumber?: true
   vdsReleaseDate?: true
   fivlNumber?: true
+  xcontestId?: true
+  ognCallsign?: true
+  ognHex?: true
   medicalExamValidDate?: true
   emailConsent?: true
   isAdmin?: true
@@ -239,6 +254,9 @@ export type UserCountAggregateInputType = {
   vdsNumber?: true
   vdsReleaseDate?: true
   fivlNumber?: true
+  xcontestId?: true
+  ognCallsign?: true
+  ognHex?: true
   medicalExamValidDate?: true
   emailConsent?: true
   isAdmin?: true
@@ -360,6 +378,9 @@ export type UserGroupByOutputType = {
   vdsNumber: string | null
   vdsReleaseDate: string | null
   fivlNumber: string | null
+  xcontestId: string | null
+  ognCallsign: string | null
+  ognHex: string | null
   medicalExamValidDate: string | null
   emailConsent: boolean
   isAdmin: boolean
@@ -417,6 +438,9 @@ export type UserWhereInput = {
   vdsNumber?: Prisma.StringNullableFilter<"User"> | string | null
   vdsReleaseDate?: Prisma.StringNullableFilter<"User"> | string | null
   fivlNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  xcontestId?: Prisma.StringNullableFilter<"User"> | string | null
+  ognCallsign?: Prisma.StringNullableFilter<"User"> | string | null
+  ognHex?: Prisma.StringNullableFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableFilter<"User"> | string | null
   emailConsent?: Prisma.BoolFilter<"User"> | boolean
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
@@ -463,6 +487,9 @@ export type UserOrderByWithRelationInput = {
   vdsNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   vdsReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   fivlNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  xcontestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ognCallsign?: Prisma.SortOrderInput | Prisma.SortOrder
+  ognHex?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
@@ -512,6 +539,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   vdsNumber?: Prisma.StringNullableFilter<"User"> | string | null
   vdsReleaseDate?: Prisma.StringNullableFilter<"User"> | string | null
   fivlNumber?: Prisma.StringNullableFilter<"User"> | string | null
+  xcontestId?: Prisma.StringNullableFilter<"User"> | string | null
+  ognCallsign?: Prisma.StringNullableFilter<"User"> | string | null
+  ognHex?: Prisma.StringNullableFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableFilter<"User"> | string | null
   emailConsent?: Prisma.BoolFilter<"User"> | boolean
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
@@ -558,6 +588,9 @@ export type UserOrderByWithAggregationInput = {
   vdsNumber?: Prisma.SortOrderInput | Prisma.SortOrder
   vdsReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
   fivlNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  xcontestId?: Prisma.SortOrderInput | Prisma.SortOrder
+  ognCallsign?: Prisma.SortOrderInput | Prisma.SortOrder
+  ognHex?: Prisma.SortOrderInput | Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrderInput | Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
@@ -600,6 +633,9 @@ export type UserScalarWhereWithAggregatesInput = {
   vdsNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   vdsReleaseDate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   fivlNumber?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  xcontestId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  ognCallsign?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  ognHex?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   medicalExamValidDate?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   emailConsent?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -634,6 +670,9 @@ export type UserCreateInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -680,6 +719,9 @@ export type UserUncheckedCreateInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -725,6 +767,9 @@ export type UserUpdateInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -771,6 +816,9 @@ export type UserUncheckedUpdateInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -817,6 +865,9 @@ export type UserCreateManyInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -850,6 +901,9 @@ export type UserUpdateManyMutationInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -884,6 +938,9 @@ export type UserUncheckedUpdateManyInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -918,6 +975,9 @@ export type UserCountOrderByAggregateInput = {
   vdsNumber?: Prisma.SortOrder
   vdsReleaseDate?: Prisma.SortOrder
   fivlNumber?: Prisma.SortOrder
+  xcontestId?: Prisma.SortOrder
+  ognCallsign?: Prisma.SortOrder
+  ognHex?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
@@ -956,6 +1016,9 @@ export type UserMaxOrderByAggregateInput = {
   vdsNumber?: Prisma.SortOrder
   vdsReleaseDate?: Prisma.SortOrder
   fivlNumber?: Prisma.SortOrder
+  xcontestId?: Prisma.SortOrder
+  ognCallsign?: Prisma.SortOrder
+  ognHex?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
@@ -990,6 +1053,9 @@ export type UserMinOrderByAggregateInput = {
   vdsNumber?: Prisma.SortOrder
   vdsReleaseDate?: Prisma.SortOrder
   fivlNumber?: Prisma.SortOrder
+  xcontestId?: Prisma.SortOrder
+  ognCallsign?: Prisma.SortOrder
+  ognHex?: Prisma.SortOrder
   medicalExamValidDate?: Prisma.SortOrder
   emailConsent?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
@@ -1246,6 +1312,9 @@ export type UserCreateWithoutSessionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1291,6 +1360,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1351,6 +1423,9 @@ export type UserUpdateWithoutSessionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1396,6 +1471,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1441,6 +1519,9 @@ export type UserCreateWithoutAccountsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1486,6 +1567,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1546,6 +1630,9 @@ export type UserUpdateWithoutAccountsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1591,6 +1678,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1636,6 +1726,9 @@ export type UserCreateWithoutMembershipsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1681,6 +1774,9 @@ export type UserUncheckedCreateWithoutMembershipsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1741,6 +1837,9 @@ export type UserUpdateWithoutMembershipsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1786,6 +1885,9 @@ export type UserUncheckedUpdateWithoutMembershipsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1831,6 +1933,9 @@ export type UserCreateWithoutPaymentsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1876,6 +1981,9 @@ export type UserUncheckedCreateWithoutPaymentsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1926,6 +2034,9 @@ export type UserCreateWithoutPaymentsAddedInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -1971,6 +2082,9 @@ export type UserUncheckedCreateWithoutPaymentsAddedInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2031,6 +2145,9 @@ export type UserUpdateWithoutPaymentsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2076,6 +2193,9 @@ export type UserUncheckedUpdateWithoutPaymentsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2131,6 +2251,9 @@ export type UserUpdateWithoutPaymentsAddedInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2176,6 +2299,9 @@ export type UserUncheckedUpdateWithoutPaymentsAddedInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2221,6 +2347,9 @@ export type UserCreateWithoutEventsCreatedInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2266,6 +2395,9 @@ export type UserUncheckedCreateWithoutEventsCreatedInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2326,6 +2458,9 @@ export type UserUpdateWithoutEventsCreatedInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2371,6 +2506,9 @@ export type UserUncheckedUpdateWithoutEventsCreatedInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2416,6 +2554,9 @@ export type UserCreateWithoutRegistrationsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2461,6 +2602,9 @@ export type UserUncheckedCreateWithoutRegistrationsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2521,6 +2665,9 @@ export type UserUpdateWithoutRegistrationsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2566,6 +2713,9 @@ export type UserUncheckedUpdateWithoutRegistrationsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2611,6 +2761,9 @@ export type UserCreateWithoutCouponsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2656,6 +2809,9 @@ export type UserUncheckedCreateWithoutCouponsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2716,6 +2872,9 @@ export type UserUpdateWithoutCouponsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2761,6 +2920,9 @@ export type UserUncheckedUpdateWithoutCouponsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2806,6 +2968,9 @@ export type UserCreateWithoutXcEnrollmentsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2851,6 +3016,9 @@ export type UserUncheckedCreateWithoutXcEnrollmentsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -2911,6 +3079,9 @@ export type UserUpdateWithoutXcEnrollmentsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -2956,6 +3127,9 @@ export type UserUncheckedUpdateWithoutXcEnrollmentsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3001,6 +3175,9 @@ export type UserCreateWithoutXcSubmissionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3046,6 +3223,9 @@ export type UserUncheckedCreateWithoutXcSubmissionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3096,6 +3276,9 @@ export type UserCreateWithoutXcReviewedSubmissionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3141,6 +3324,9 @@ export type UserUncheckedCreateWithoutXcReviewedSubmissionsInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3201,6 +3387,9 @@ export type UserUpdateWithoutXcSubmissionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3246,6 +3435,9 @@ export type UserUncheckedUpdateWithoutXcSubmissionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3301,6 +3493,9 @@ export type UserUpdateWithoutXcReviewedSubmissionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3346,6 +3541,9 @@ export type UserUncheckedUpdateWithoutXcReviewedSubmissionsInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3391,6 +3589,9 @@ export type UserCreateWithoutXcProgressesInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3436,6 +3637,9 @@ export type UserUncheckedCreateWithoutXcProgressesInput = {
   vdsNumber?: string | null
   vdsReleaseDate?: string | null
   fivlNumber?: string | null
+  xcontestId?: string | null
+  ognCallsign?: string | null
+  ognHex?: string | null
   medicalExamValidDate?: string | null
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3496,6 +3700,9 @@ export type UserUpdateWithoutXcProgressesInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3541,6 +3748,9 @@ export type UserUncheckedUpdateWithoutXcProgressesInput = {
   vdsNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   vdsReleaseDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fivlNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  xcontestId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognCallsign?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ognHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   medicalExamValidDate?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   emailConsent?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -3716,6 +3926,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   vdsNumber?: boolean
   vdsReleaseDate?: boolean
   fivlNumber?: boolean
+  xcontestId?: boolean
+  ognCallsign?: boolean
+  ognHex?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3763,6 +3976,9 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   vdsNumber?: boolean
   vdsReleaseDate?: boolean
   fivlNumber?: boolean
+  xcontestId?: boolean
+  ognCallsign?: boolean
+  ognHex?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3797,6 +4013,9 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   vdsNumber?: boolean
   vdsReleaseDate?: boolean
   fivlNumber?: boolean
+  xcontestId?: boolean
+  ognCallsign?: boolean
+  ognHex?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3831,6 +4050,9 @@ export type UserSelectScalar = {
   vdsNumber?: boolean
   vdsReleaseDate?: boolean
   fivlNumber?: boolean
+  xcontestId?: boolean
+  ognCallsign?: boolean
+  ognHex?: boolean
   medicalExamValidDate?: boolean
   emailConsent?: boolean
   isAdmin?: boolean
@@ -3840,7 +4062,7 @@ export type UserSelectScalar = {
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "email" | "emailVerified" | "name" | "firstName" | "lastName" | "password" | "image" | "fiscalCode" | "dateOfBirth" | "placeOfBirth" | "streetAddress" | "city" | "zipCode" | "province" | "state" | "phone" | "gender" | "size" | "sport" | "vdsNumber" | "vdsReleaseDate" | "fivlNumber" | "medicalExamValidDate" | "emailConsent" | "isAdmin" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "memberId" | "email" | "emailVerified" | "name" | "firstName" | "lastName" | "password" | "image" | "fiscalCode" | "dateOfBirth" | "placeOfBirth" | "streetAddress" | "city" | "zipCode" | "province" | "state" | "phone" | "gender" | "size" | "sport" | "vdsNumber" | "vdsReleaseDate" | "fivlNumber" | "xcontestId" | "ognCallsign" | "ognHex" | "medicalExamValidDate" | "emailConsent" | "isAdmin" | "role" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
@@ -3900,6 +4122,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     vdsNumber: string | null
     vdsReleaseDate: string | null
     fivlNumber: string | null
+    xcontestId: string | null
+    ognCallsign: string | null
+    ognHex: string | null
     medicalExamValidDate: string | null
     emailConsent: boolean
     isAdmin: boolean
@@ -4366,6 +4591,9 @@ export interface UserFieldRefs {
   readonly vdsNumber: Prisma.FieldRef<"User", 'String'>
   readonly vdsReleaseDate: Prisma.FieldRef<"User", 'String'>
   readonly fivlNumber: Prisma.FieldRef<"User", 'String'>
+  readonly xcontestId: Prisma.FieldRef<"User", 'String'>
+  readonly ognCallsign: Prisma.FieldRef<"User", 'String'>
+  readonly ognHex: Prisma.FieldRef<"User", 'String'>
   readonly medicalExamValidDate: Prisma.FieldRef<"User", 'String'>
   readonly emailConsent: Prisma.FieldRef<"User", 'Boolean'>
   readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>

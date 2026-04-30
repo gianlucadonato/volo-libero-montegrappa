@@ -104,8 +104,11 @@ export const UserFormSchema = z.object({
 	sport: z.string().optional(),
 	vdsNumber: z.string().optional(),
 	vdsReleaseDate: z.string().optional(),
-	fivlNumber: z.string().optional(),
 	medicalExamValidDate: z.string().optional(),
+	fivlNumber: z.string().optional(),
+	xcontestId: z.string().optional(),
+	ognCallsign: z.string().optional(),
+	ognHex: z.string().optional(),
 });
 
 export const UserSchema = z.object({
@@ -128,6 +131,9 @@ export const UserSchema = z.object({
 	vdsNumber: z.string().nullish(),
 	vdsReleaseDate: z.string().nullish(),
 	fivlNumber: z.string().nullish(),
+	xcontestId: z.string().nullish(),
+	ognCallsign: z.string().nullish(),
+	ognHex: z.string().nullish(),
 	medicalExamValidDate: z.string().nullish(),
 	registeredAt: z.string(),
 });

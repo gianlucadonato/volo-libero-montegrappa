@@ -231,11 +231,14 @@
 		"hang_gliding": "Hang Gliding",
 		"paramotor": "Paramotor",
 		"nothing": "Nothing",
-		"vds_license": "VDS License / FIVL Number",
+		"vds_license": "VDS License",
 		"vds_number": "VDS License n°",
 		"vds_release_date": "Released on",
 		"medical_exam_valid_date": "Medical exam valid until",
 		"fivl_number": "FIVL Card n°",
+		"xcontest_id": "XContest Id",
+		"ogn_callsign": "OGN Callsign",
+		"ogn_hex": "OGN Hex",
 		"email_consent_description": "I agree to receive emails from the club",
 		"privacy_policy_description_1": "I have read the",
 		"privacy_policy_description_2": "and I accept the",
@@ -243,7 +246,9 @@
 		"email_consent": "Email consent",
 		"mog": "Modello Organizzativo Generale (MOG)",
 		"mog_description": "Dichiaro di aver preso visione del",
-		"mog_description_2": "e di accettarne i contenuti"
+		"mog_description_2": "e di accettarne i contenuti",
+		"optional": "optional",
+		"integrations": "Integrations"
 	},
 	"UpgradeCard": {
 		"become_member": "Become a member!",
@@ -355,7 +360,10 @@
 		"vds_number": "VDS License n°",
 		"vds_release_date": "Released on",
 		"medical_exam_valid_date": "Medical exam valid until",
-		"fivl_number": "FIVL Card n°"
+		"fivl_number": "FIVL Card n°",
+		"xcontest_id": "XContest Id",
+		"ogn_callsign": "OGN Callsign",
+		"ogn_hex": "OGN Hex"
 	},
 	"TelegramCard": {
 		"title": "Join our Telegram group!",
@@ -392,7 +400,10 @@
 		"header": {
 			"name": "Name",
 			"created_at": "Data Iscrizione",
-			"role": "Ruolo"
+			"role": "Ruolo",
+			"xcontest_id": "XContest Id",
+			"ogn_callsign": "OGN Callsign",
+			"ogn_hex": "OGN Hex"
 		},
 		"filter_by_email": "Filter by email",
 		"filter_by_name": "Filter by name",

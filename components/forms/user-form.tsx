@@ -44,7 +44,6 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
 import { countries } from "@/i18n/countries";
 import { cn } from "@/lib/utils";
 import type { User } from "@/prisma/generated/client";
@@ -85,6 +84,9 @@ function formatUser(user: Partial<User>) {
 		medicalExamValidDate: user.medicalExamValidDate
 			? new Date(user.medicalExamValidDate).toLocaleDateString("it-IT")
 			: "",
+		xcontestId: user.xcontestId ?? undefined,
+		ognCallsign: user.ognCallsign ?? undefined,
+		ognHex: user.ognHex ?? undefined,
 	};
 }
 
@@ -497,10 +499,12 @@ export function UserForm({
 						</div>
 					</div>
 					<div className="space-y-6">
-						<div>
+						<div className="flex items-center border-b-2">
 							<h3 className="text-lg font-medium">{t("vds_license")}</h3>
+							<span className="ml-2 text-muted-foreground text-xs">
+								({t("optional")})
+							</span>
 						</div>
-						<Separator />
 						<div className="grid grid-cols-1 gap-4 md:grid-cols-6">
 							<FormField
 								control={form.control}
@@ -551,14 +555,63 @@ export function UserForm({
 									</FormItem>
 								)}
 							/>
+						</div>
+					</div>
+					<div className="space-y-6">
+						<div className="flex items-center border-b-2">
+							<h3 className="text-lg font-medium">{t("integrations")}</h3>
+							<span className="ml-2 text-muted-foreground text-xs">
+								({t("optional")})
+							</span>
+						</div>
+						<div className="gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
 							<FormField
 								control={form.control}
 								name="fivlNumber"
 								render={({ field }) => (
-									<FormItem className="col-span-1 md:col-span-6">
+									<FormItem className="col-span-1">
 										<FormLabel>{t("fivl_number")}</FormLabel>
 										<FormControl>
 											<Input {...field} type="number" inputMode="numeric" />
+										</FormControl>
+										<FormMessageI18N />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="xcontestId"
+								render={({ field }) => (
+									<FormItem className="col-span-1">
+										<FormLabel>{t("xcontest_id")}</FormLabel>
+										<FormControl>
+											<Input {...field} type="text" />
+										</FormControl>
+										<FormMessageI18N />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="ognCallsign"
+								render={({ field }) => (
+									<FormItem className="col-span-1">
+										<FormLabel>{t("ogn_callsign")}</FormLabel>
+										<FormControl>
+											<Input {...field} type="text" />
+										</FormControl>
+										<FormMessageI18N />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="ognHex"
+								render={({ field }) => (
+									<FormItem className="col-span-1">
+										<FormLabel>{t("ogn_hex")}</FormLabel>
+										<FormControl>
+											<Input {...field} type="text" />
 										</FormControl>
 										<FormMessageI18N />
 									</FormItem>

@@ -10,6 +10,9 @@ const UsersSchema = z.object({
 	firstName: z.string().nullish(),
 	lastName: z.string().nullish(),
 	email: z.string(),
+	xcontestId: z.string().nullish(),
+	ognCallsign: z.string().nullish(),
+	ognHex: z.string().nullish(),
 	createdAt: z.coerce.date().transform((val) => val.toISOString()),
 	updatedAt: z.coerce.date().transform((val) => val.toISOString()),
 });

@@ -115,6 +115,24 @@ export default function ProfileDetails({ user }: { user: User }) {
 				</div>
 				<div>{user.fivlNumber}</div>
 			</div>
+			<div className="flex justify-between gap-2 border-b-2 p-2">
+				<div>
+					<strong>{t("xcontest_id")}:</strong>
+				</div>
+				<div>{user.xcontestId}</div>
+			</div>
+			<div className="flex justify-between gap-2 border-b-2 p-2">
+				<div>
+					<strong>{t("ogn_callsign")}:</strong>
+				</div>
+				<div>{user.ognCallsign}</div>
+			</div>
+			<div className="flex justify-between gap-2 border-b-2 p-2">
+				<div>
+					<strong>{t("ogn_hex")}:</strong>
+				</div>
+				<div>{user.ognHex}</div>
+			</div>
 		</div>
 	);
 }
