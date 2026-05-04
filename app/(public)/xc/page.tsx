@@ -76,7 +76,7 @@ export default function XcMontegrappaPage() {
 							</p>
 							<div className="mx-auto mt-6 max-w-3xl">
 								<a
-									href="/xc/REGOLAMENTO%20v.1.4.pdf"
+									href="/docs/REGOLAMENTO%20v.1.4.pdf"
 									target="_blank"
 									rel="noopener noreferrer"
 									className={buttonVariants({ variant: "outline" })}

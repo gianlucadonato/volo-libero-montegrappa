@@ -120,7 +120,7 @@ function EnrollXcEditionModal({
 							{t.rich("dialog.acceptRegolamento", {
 								link: (chunks) => (
 									<a
-										href="/xc/REGOLAMENTO%20v.1.4.pdf"
+										href="/docs/REGOLAMENTO%20v.1.4.pdf"
 										target="_blank"
 										rel="noopener noreferrer"
 										className="underline text-primary"
