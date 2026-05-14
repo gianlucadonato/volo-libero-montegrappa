@@ -88,13 +88,6 @@ export const navbarLinks = [
 				icon: FaRoute,
 			},
 			{
-				title: "canal_cup",
-				description: "Canal Cup",
-				url: "/canal-cup",
-				icon: Trophy,
-				hidden: true,
-			},
-			{
 				title: "all_events",
 				description: "Visualizza tutti gli eventi",
 				url: "/events",
@@ -154,7 +147,7 @@ export const sidebarLinks = {
 				{
 					title: "news",
 					icon: Newspaper,
-					url: "/keystatic/collection/news_it",
+					url: "/keystatic",
 				},
 			],
 		},

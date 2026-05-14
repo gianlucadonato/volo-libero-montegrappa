@@ -1,4 +1,5 @@
 import { collection, config, fields } from "@keystatic/core";
+import Image from "next/image";
 
 /**
  * Keystatic CMS configuration.
@@ -76,9 +77,22 @@ export default config({
 		project: "vlmg/news",
 	},
 	ui: {
-		brand: { name: "Volo Libero Montegrappa" },
+		brand: {
+			name: "Volo Libero Montegrappa",
+			mark: () => {
+				return (
+					<Image
+						alt="Volo Libero Montegrappa"
+						src={"/logo/LOGO_CLUB.png"}
+						height={24}
+						width={24}
+					/>
+				);
+			},
+		},
 		navigation: {
 			Content: ["news_it", "news_en"],
+			// Settings: ["site", "seo"],
 		},
 	},
 	collections: {
