@@ -11,6 +11,7 @@ import {
 	MapPinHouse,
 	MapPinned,
 	MountainSnow,
+	Newspaper,
 	PencilLine,
 	Settings,
 	SunSnow,
@@ -102,6 +103,11 @@ export const navbarLinks = [
 		],
 	},
 	{
+		title: "news",
+		url: "/news",
+		icon: Newspaper,
+	},
+	{
 		title: "contacts",
 		url: "/contatti",
 		icon: Mail,
@@ -144,6 +150,11 @@ export const sidebarLinks = {
 					title: "payments",
 					icon: CreditCard,
 					url: "/admin/payments",
+				},
+				{
+					title: "news",
+					icon: Newspaper,
+					url: "/keystatic/collection/news_it",
 				},
 			],
 		},
