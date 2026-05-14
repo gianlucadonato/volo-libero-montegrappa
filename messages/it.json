@@ -63,6 +63,7 @@
 		"signup": "Registrati",
 		"profile": "Profilo",
 		"events": "Eventi",
+		"news": "News",
 		"weather": "Meteo"
 	},
 	"NavMain": {
@@ -98,6 +99,7 @@
 		"xc_montegrappa": "XC Montegrappa",
 		"canal_cup": "Canal Cup",
 		"all_events": "Tutti gli eventi",
+		"news": "News",
 		"membership": "Tesseramento",
 		"cards": "Tessera socio",
 		"support": "Supporto",
@@ -146,6 +148,8 @@
 		"orders": "Ordini",
 		"weather": "Meteo",
 		"events": "Eventi",
+		"news": "News",
+		"contacts": "Contatti",
 		"membership": "Tesseramento",
 		"cards": "Tessera socio",
 		"settings": "Impostazioni",
@@ -661,6 +665,12 @@
 		"past_events": "Eventi Passati",
 		"create_event": "Crea Evento",
 		"no_events": "Nessun evento trovato"
+	},
+	"NewsPage": {
+		"header_title": "News",
+		"header_description": "Aggiornamenti e novità dal Volo Libero Montegrappa",
+		"no_news": "Nessuna news pubblicata",
+		"back_to_news": "Torna alle news"
 	},
 	"EventCard": {
 		"back_to_events": "Indietro",

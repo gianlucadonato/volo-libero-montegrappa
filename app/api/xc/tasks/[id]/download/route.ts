@@ -1,6 +1,6 @@
-import { readFileSync } from "fs";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { NextResponse } from "next/server";
-import { join } from "path";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 
 export async function GET(

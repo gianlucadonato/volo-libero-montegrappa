@@ -11,6 +11,7 @@ import {
 	MapPinHouse,
 	MapPinned,
 	MountainSnow,
+	Newspaper,
 	PencilLine,
 	Settings,
 	SunSnow,
@@ -100,6 +101,11 @@ export const navbarLinks = [
 				icon: CalendarFold,
 			},
 		],
+	},
+	{
+		title: "news",
+		url: "/news",
+		icon: Newspaper,
 	},
 	{
 		title: "contacts",

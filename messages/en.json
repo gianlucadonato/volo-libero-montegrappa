@@ -30,6 +30,7 @@
 		"signup": "Join the club",
 		"profile": "Profile",
 		"events": "Events",
+		"news": "News",
 		"weather": "Weather"
 	},
 	"NavMain": {
@@ -60,6 +61,7 @@
 		"orders": "Orders",
 		"weather": "Weather",
 		"events": "Events",
+		"news": "News",
 		"all_events": "All events",
 		"events_description": "View all events",
 		"trofeo_montegrappa": "Trofeo Montegrappa",
@@ -112,6 +114,7 @@
 		"orders": "Orders",
 		"weather": "Weather",
 		"events": "Events",
+		"news": "News",
 		"membership": "Membership",
 		"cards": "Your cards",
 		"settings": "Settings",
@@ -622,6 +625,12 @@
 		"past_events": "Past Events",
 		"create_event": "Create Event",
 		"no_events": "No events found"
+	},
+	"NewsPage": {
+		"header_title": "News",
+		"header_description": "Latest news and updates from Volo Libero Montegrappa",
+		"no_news": "No news published yet",
+		"back_to_news": "Back to news"
 	},
 	"EventCard": {
 		"back_to_events": "Back to events",
