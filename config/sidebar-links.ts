@@ -151,6 +151,11 @@ export const sidebarLinks = {
 					icon: CreditCard,
 					url: "/admin/payments",
 				},
+				{
+					title: "news",
+					icon: Newspaper,
+					url: "/keystatic/collection/news_it",
+				},
 			],
 		},
 		{
