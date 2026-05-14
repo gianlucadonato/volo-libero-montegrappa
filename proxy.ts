@@ -5,14 +5,6 @@ import { auth } from "@/auth";
 // An array of routes that are not accessible to the public
 export const adminRoutes = ["/admin", "/admin/*"];
 
-// Routes restricted to authenticated ADMIN users only (Keystatic CMS).
-// Covers both the UI page and its API handler.
-export const keystaticRoutes = [
-	"/keystatic",
-	"/keystatic/*",
-	"/api/keystatic/*",
-];
-
 export const protectedRoutes = ["/profile"];
 
 // An array of routes that are used for authentication
@@ -46,52 +38,17 @@ const checkAdminRoute = (pathname: string) => {
 	});
 };
 
-const checkKeystaticRoute = (pathname: string) => {
-	return keystaticRoutes.some((route) => {
-		if (route.endsWith("*")) {
-			return pathname.startsWith(route.slice(0, -1));
-		}
-		return pathname === route;
-	});
-};
-
 export async function proxy(request: NextRequest) {
 	const session = await auth.api.getSession({
 		headers: await headers(),
 	});
 	const { nextUrl } = request;
 	const isLoggedIn = !!session;
-	const isAdmin = session?.user?.role === "ADMIN";
 
 	const isApiRoute = nextUrl.pathname.startsWith(apiPrefix);
 	const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 	const isProtectedRoute = protectedRoutes.includes(nextUrl.pathname);
 	const isAdminRoute = checkAdminRoute(nextUrl.pathname);
-	const isKeystaticRoute = checkKeystaticRoute(nextUrl.pathname);
-
-	// Gate Keystatic UI + API behind ADMIN role (checked before the
-	// generic API short-circuit so /api/keystatic/* is also protected).
-	if (isKeystaticRoute) {
-		if (!isLoggedIn) {
-			if (isApiRoute) {
-				return new NextResponse("Unauthorized", { status: 401 });
-			}
-			const callbackUrl = encodeURIComponent(
-				nextUrl.pathname + (nextUrl.search ?? ""),
-			);
-			return Response.redirect(
-				new URL(`/login?callbackUrl=${callbackUrl}`, nextUrl),
-			);
-		}
-		if (!isAdmin) {
-			if (isApiRoute) {
-				return new NextResponse("Forbidden", { status: 403 });
-			}
-			return Response.redirect(new URL("/", nextUrl));
-		}
-		// Admin: allow through.
-		return;
-	}
 
 	if (isApiRoute) {
 		if (request.method === "OPTIONS") {
