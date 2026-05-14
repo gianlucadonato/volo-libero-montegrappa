@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 const poweredBy = [
 	{
@@ -24,11 +25,15 @@ const poweredBy = [
 	},
 ];
 
-export default function Powered() {
+export default async function Powered() {
+	const t = await getTranslations("Homepage.partners");
 	return (
 		<section className="py-14 text-muted-foreground">
 			<div className="container mx-auto max-w-6xl">
-				<div className="mt-10 grid grid-cols-2 place-items-center gap-8 md:grid-cols-4">
+				<h2 className="text-center font-heading text-xl uppercase">
+					{t("title")}
+				</h2>
+				<div className="mt-4 grid grid-cols-2 place-items-center gap-8 md:grid-cols-4">
 					{poweredBy.map((logo) => (
 						<Link
 							target="_blank"

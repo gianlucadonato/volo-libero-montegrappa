@@ -1,38 +1,15 @@
-"use client";
-
 import { BookOpenText, Search, SunSnow } from "lucide-react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import HeroVideo from "@/components/home/HeroVideo";
 import InfoCard, { type InfoCardType } from "@/components/home/InfoCard";
 import Powered from "@/components/home/Powered";
+import LatestNews from "@/components/news/LatestNews";
 import RegisterCTA from "@/components/RegisterCTA";
 
-export default function Home() {
-	const infos = getInfos();
-	return (
-		<div>
-			<HeroVideo />
-			<RegisterCTA />
-			<InfoCard data={infos[0]} reverse={true} />
-			<InfoCard data={infos[1]} />
-			<Powered />
-			<div className="hidden md:max-2xl:block 2xl:block">
-				<Image
-					className="h-[460px] w-full"
-					src="/Vista_del_Massiccio_del_Grappa.png"
-					alt="Vista_del_Massiccio_del_Grappa"
-					width={1368}
-					height={460}
-				/>
-			</div>
-		</div>
-	);
-}
-
-const getInfos = (): InfoCardType[] => {
-	const t = useTranslations("Homepage");
-	return [
+export default async function Home() {
+	const t = await getTranslations("Homepage");
+	const infos: InfoCardType[] = [
 		{
 			title: (
 				<span>
@@ -74,4 +51,24 @@ const getInfos = (): InfoCardType[] => {
 			],
 		},
 	];
-};
+
+	return (
+		<div>
+			<HeroVideo />
+			<InfoCard data={infos[0]} reverse={true} />
+			<InfoCard data={infos[1]} />
+			{/* <RegisterCTA /> */}
+			<LatestNews />
+			<Powered />
+			<div className="hidden md:max-2xl:block 2xl:block">
+				<Image
+					className="h-[460px] w-full"
+					src="/Vista_del_Massiccio_del_Grappa.png"
+					alt="Vista_del_Massiccio_del_Grappa"
+					width={1368}
+					height={460}
+				/>
+			</div>
+		</div>
+	);
+}

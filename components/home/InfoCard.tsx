@@ -21,7 +21,7 @@ interface InfoCardProps {
 
 export default function InfoCard({ data, reverse = false }: InfoCardProps) {
 	return (
-		<div className="py-10 sm:py-20">
+		<div className="py-10 sm:py-16">
 			<div className="container mx-auto max-w-6xl grid gap-10 px-2.5 lg:grid-cols-2 lg:items-center lg:px-7">
 				<div className={cn(reverse ? "lg:order-2" : "lg:order-1")}>
 					<h2 className="text-center font-heading text-2xl text-foreground md:text-3xl lg:text-4xl">

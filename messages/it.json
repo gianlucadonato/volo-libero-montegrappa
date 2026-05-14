@@ -136,6 +136,13 @@
 				"title": "Info pratiche",
 				"description": "Tutte le informazioni per i soci: iscrizioni, rinnovi, visite mediche…"
 			}
+		},
+		"latest_news": {
+			"title": "Ultime News",
+			"view_all": "Vedi tutte"
+		},
+		"partners": {
+			"title": "In collaborazione con"
 		}
 	},
 	"SidebarLinks": {

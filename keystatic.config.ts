@@ -8,7 +8,7 @@ import { collection, config, fields } from "@keystatic/core";
  * non-technical editors can publish via the Keystatic UI without
  * needing access to the codebase.
  */
-const isProd = process.env.NODE_ENV === "production";
+const isProd = process.env.VLM_ENV === "production";
 
 const newsCollection = (locale: "it" | "en") =>
 	collection({

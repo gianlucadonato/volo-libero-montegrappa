@@ -102,6 +102,13 @@
 				"title": "Practical information",
 				"description": "All the information for members: registrations, renewals, medical visits..."
 			}
+		},
+		"latest_news": {
+			"title": "Latest News",
+			"view_all": "View all"
+		},
+		"partners": {
+			"title": "In collaboration with"
 		}
 	},
 	"SidebarLinks": {
