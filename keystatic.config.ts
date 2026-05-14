@@ -7,8 +7,15 @@ import { collection, config, fields } from "@keystatic/core";
  * In production, switch `storage.kind` to "github" (or "cloud") so
  * non-technical editors can publish via the Keystatic UI without
  * needing access to the codebase.
+ *
+ * IMPORTANT: this file is imported by both the server route handler
+ * AND the client `makePage`, so the flag MUST be readable in the
+ * browser bundle. Next.js only inlines `NODE_ENV` and `NEXT_PUBLIC_*`
+ * into client code — server-only vars (e.g. VLM_ENV) are undefined
+ * in the browser and would silently fall back to "local", causing
+ * 404s on `/api/keystatic/tree` in production.
  */
-const isProd = process.env.VLM_ENV === "production";
+const isProd = process.env.NODE_ENV === "production";
 
 const newsCollection = (locale: "it" | "en") =>
 	collection({
@@ -62,11 +69,9 @@ const newsCollection = (locale: "it" | "en") =>
 	});
 
 export default config({
-	storage: isProd
-		? {
-				kind: "cloud",
-			}
-		: { kind: "local" },
+	storage: {
+		kind: isProd ? "cloud" : "local",
+	},
 	cloud: {
 		project: "vlmg/news",
 	},
