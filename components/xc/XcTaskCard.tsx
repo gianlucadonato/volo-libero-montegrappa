@@ -6,14 +6,23 @@ import {
 	Clock,
 	Download,
 	Eye,
+	QrCode,
 	Star,
 	XCircle,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { type MouseEvent, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import XcTaskQrDialog from "@/components/xc/XcTaskQrDialog";
+import { downloadXcTask, qrCodeUrlForTask } from "@/lib/xc-task";
 import type { XcSubmissionApi, XcTaskApi } from "@/types/api-schema";
 
 function StatusBadge({ submission }: { submission?: XcSubmissionApi }) {
@@ -64,27 +73,14 @@ export default function XcTaskCard({
 }) {
 	const t = useTranslations("XcTaskCard");
 	const [isDownloading, setIsDownloading] = useState(false);
+	const [qrOpen, setQrOpen] = useState(false);
+	const qrUrl = qrCodeUrlForTask(task.category, task.slug);
 
-	const handleDownload = async (e: MouseEvent) => {
-		e.preventDefault();
-		e.stopPropagation();
+	const handleDownload = async () => {
 		if (!task.taskFileUrl) return;
 		try {
 			setIsDownloading(true);
-			const response = await fetch(`/api/xc/tasks/${task.id}/download`);
-			if (!response.ok) throw new Error("Download failed");
-			const blob = await response.blob();
-			const url = window.URL.createObjectURL(blob);
-			const link = document.createElement("a");
-			link.href = url;
-			link.download = (task.taskFileUrl.split("/").pop() || "task.tsk").replace(
-				/\.tsk$/,
-				".xctsk",
-			);
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-			window.URL.revokeObjectURL(url);
+			await downloadXcTask(task.id, task.taskFileUrl);
 		} catch (error) {
 			console.error("Download error:", error);
 		} finally {
@@ -143,16 +139,43 @@ export default function XcTaskCard({
 					</div>
 					<div className="mt-auto flex items-center gap-2 pt-4">
 						{task.taskFileUrl && (
-							<Button
-								size="icon"
-								variant="outline"
-								className="shrink-0"
-								onClick={handleDownload}
-								disabled={isDownloading}
-								title={t("downloadTask")}
-							>
-								<Download className="size-4" />
-							</Button>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button
+										size="icon"
+										variant="outline"
+										className="shrink-0"
+										onClick={(e) => {
+											// Inside a <Link>: don't navigate when opening the menu.
+											e.preventDefault();
+											e.stopPropagation();
+										}}
+										disabled={isDownloading}
+										title={t("downloadTask")}
+									>
+										<Download className="size-4" />
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align="start"
+									// The menu is portalled, but React events still bubble through
+									// the React tree to the wrapping <Link> — stop them here so
+									// selecting an item never navigates to the task page.
+									onClick={(e) => e.stopPropagation()}
+								>
+									<DropdownMenuItem
+										onSelect={() => setQrOpen(true)}
+										disabled={!qrUrl}
+									>
+										<QrCode className="size-4" />
+										{t("showQrCode")}
+									</DropdownMenuItem>
+									<DropdownMenuItem onSelect={() => handleDownload()}>
+										<Download className="size-4" />
+										{t("downloadXctsk")}
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
 						)}
 						<Button variant="outline" className="flex-1">
 							<Eye className="size-4 mr-2" />
@@ -161,6 +184,17 @@ export default function XcTaskCard({
 					</div>
 				</div>
 			</Link>
+			<XcTaskQrDialog
+				open={qrOpen}
+				onOpenChange={setQrOpen}
+				qrUrl={qrUrl}
+				taskName={task.slug}
+				title={t("qrDialogTitle")}
+				description={t("qrDialogDescription")}
+				downloadLabel={t("qrDownload")}
+				unavailableLabel={t("qrUnavailable")}
+				alt={t("qrAlt")}
+			/>
 		</div>
 	);
 }

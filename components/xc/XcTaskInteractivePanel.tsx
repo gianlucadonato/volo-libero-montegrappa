@@ -1,6 +1,6 @@
 "use client";
 
-import { Download, Route, Star } from "lucide-react";
+import { Download, QrCode, Route, Star } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type React from "react";
 import { useState } from "react";
@@ -22,8 +22,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import XcTaskMapLoader from "@/components/xc/XcTaskMapLoader";
+import XcTaskQrDialog from "@/components/xc/XcTaskQrDialog";
 import type { IGCFix } from "@/lib/igc-parser";
 import type { TaskWaypoint } from "@/lib/tsk-parser";
+import { downloadXcTask, qrCodeUrlForTask } from "@/lib/xc-task";
 
 interface XcTaskInteractivePanelProps {
 	waypoints: TaskWaypoint[];
@@ -42,6 +44,7 @@ interface XcTaskInteractivePanelProps {
 	onChartHoverIndex?: (index: number | null) => void;
 	taskId?: string;
 	taskFileUrl?: string | null;
+	slug?: string | null;
 }
 
 export default function XcTaskInteractivePanel({
@@ -61,29 +64,19 @@ export default function XcTaskInteractivePanel({
 	onChartHoverIndex,
 	taskId,
 	taskFileUrl,
+	slug,
 }: XcTaskInteractivePanelProps) {
 	const t = useTranslations("TaskPage");
 	const [selectedWaypointIndex, setSelectedWaypointIndex] = useState<
 		number | null
 	>(null);
+	const [qrOpen, setQrOpen] = useState(false);
+	const qrUrl = qrCodeUrlForTask(category, slug);
 
 	const handleDownloadTask = async () => {
 		if (!taskId || !taskFileUrl) return;
 		try {
-			const response = await fetch(`/api/xc/tasks/${taskId}/download`);
-			if (!response.ok) throw new Error("Download failed");
-			const blob = await response.blob();
-			const url = window.URL.createObjectURL(blob);
-			const link = document.createElement("a");
-			link.href = url;
-			link.download = (taskFileUrl.split("/").pop() || "task.tsk").replace(
-				/\.tsk$/,
-				".xctsk",
-			);
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-			window.URL.revokeObjectURL(url);
+			await downloadXcTask(taskId, taskFileUrl);
 		} catch (error) {
 			console.error("Download error:", error);
 		}
@@ -157,6 +150,13 @@ export default function XcTaskInteractivePanel({
 									</Button>
 								</DropdownMenuTrigger>
 								<DropdownMenuContent align="end">
+									<DropdownMenuItem
+										onSelect={() => setQrOpen(true)}
+										disabled={!qrUrl}
+									>
+										<QrCode className="size-4" />
+										{t("show_qr_code")}
+									</DropdownMenuItem>
 									<DropdownMenuItem
 										onClick={handleDownloadTask}
 										disabled={!taskId || !taskFileUrl}
@@ -240,6 +240,17 @@ export default function XcTaskInteractivePanel({
 					onChartHoverIndex={onChartHoverIndex}
 				/>
 			</div>
+			<XcTaskQrDialog
+				open={qrOpen}
+				onOpenChange={setQrOpen}
+				qrUrl={qrUrl}
+				taskName={slug ?? dashboardTitle}
+				title={t("qr_dialog_title")}
+				description={t("qr_dialog_description")}
+				downloadLabel={t("qr_download")}
+				unavailableLabel={t("qr_unavailable")}
+				alt={t("qr_alt")}
+			/>
 		</>
 	);
 }

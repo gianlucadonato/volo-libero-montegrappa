@@ -1,12 +1,19 @@
 "use client";
 
-import { Download, Upload } from "lucide-react";
+import { Download, QrCode, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { type ChangeEvent, useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ModalContext } from "@/components/modals/providers";
 import { Button } from "@/components/ui/button";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import XcSubmissionStatus from "@/components/xc/XcSubmissionStatus";
+import XcTaskQrDialog from "@/components/xc/XcTaskQrDialog";
 import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import {
 	deleteSubmissionApi,
@@ -14,6 +21,7 @@ import {
 	validateSubmissionApi,
 } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
+import { downloadXcTask, qrCodeUrlForTask } from "@/lib/xc-task";
 import type { components } from "@/types/api-client";
 
 type XcSubmission = components["schemas"]["XcSubmissionSchema"];
@@ -21,6 +29,8 @@ type XcSubmission = components["schemas"]["XcSubmissionSchema"];
 interface XcTaskActionButtonsProps {
 	taskId: string;
 	taskFileUrl?: string | null;
+	slug?: string | null;
+	category?: string | null;
 	submission?: XcSubmission | null;
 	onUploadSuccess?: () => void;
 }
@@ -28,6 +38,8 @@ interface XcTaskActionButtonsProps {
 export default function XcTaskActionButtons({
 	taskId,
 	taskFileUrl,
+	slug,
+	category,
 	submission,
 	onUploadSuccess,
 }: XcTaskActionButtonsProps) {
@@ -35,8 +47,10 @@ export default function XcTaskActionButtons({
 	const [isUploading, setIsUploading] = useState(false);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [isValidating, setIsValidating] = useState(false);
+	const [qrOpen, setQrOpen] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
 	const t = useTranslations("XcTaskCard");
+	const qrUrl = qrCodeUrlForTask(category, slug);
 	const { isPending, data: session } = authClient.useSession();
 	const isLoggedIn = Boolean(session?.user);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
@@ -47,20 +61,7 @@ export default function XcTaskActionButtons({
 		if (!taskId || !taskFileUrl) return;
 		try {
 			setIsDownloading(true);
-			const response = await fetch(`/api/xc/tasks/${taskId}/download`);
-			if (!response.ok) throw new Error("Download failed");
-			const blob = await response.blob();
-			const url = window.URL.createObjectURL(blob);
-			const link = document.createElement("a");
-			link.href = url;
-			link.download = (taskFileUrl.split("/").pop() || "task.tsk").replace(
-				/\.tsk$/,
-				".xctsk",
-			);
-			document.body.appendChild(link);
-			link.click();
-			document.body.removeChild(link);
-			window.URL.revokeObjectURL(url);
+			await downloadXcTask(taskId, taskFileUrl);
 		} catch (error) {
 			console.error("Download error:", error);
 		} finally {
@@ -188,15 +189,31 @@ export default function XcTaskActionButtons({
 					</div>
 					<div className="flex shrink-0 flex-col gap-2 sm:flex-row">
 						{taskFileUrl && (
-							<Button
-								variant="outline"
-								onClick={handleDownload}
-								disabled={isDownloading}
-								className="gap-2 bg-white"
-							>
-								<Download className="size-4" />
-								{isDownloading ? "Downloading..." : t("downloadTask")}
-							</Button>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<Button
+										variant="outline"
+										disabled={isDownloading}
+										className="gap-2 bg-white"
+									>
+										<Download className="size-4" />
+										{isDownloading ? "Downloading..." : t("downloadTask")}
+									</Button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent align="start">
+									<DropdownMenuItem
+										onSelect={() => setQrOpen(true)}
+										disabled={!qrUrl}
+									>
+										<QrCode className="size-4" />
+										{t("showQrCode")}
+									</DropdownMenuItem>
+									<DropdownMenuItem onSelect={handleDownload}>
+										<Download className="size-4" />
+										{t("downloadXctsk")}
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
 						)}
 						<Button
 							onClick={handleUploadClick}
@@ -215,6 +232,17 @@ export default function XcTaskActionButtons({
 				accept=".igc"
 				onChange={handleFileSelect}
 				className="hidden"
+			/>
+			<XcTaskQrDialog
+				open={qrOpen}
+				onOpenChange={setQrOpen}
+				qrUrl={qrUrl}
+				taskName={slug ?? "task"}
+				title={t("qrDialogTitle")}
+				description={t("qrDialogDescription")}
+				downloadLabel={t("qrDownload")}
+				unavailableLabel={t("qrUnavailable")}
+				alt={t("qrAlt")}
 			/>
 		</div>
 	);

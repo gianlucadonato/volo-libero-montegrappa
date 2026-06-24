@@ -252,12 +252,15 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							onChartHoverIndex={handleChartHover}
 							taskId={taskId}
 							taskFileUrl={task.taskFileUrl}
+							slug={task.slug}
 						/>
 						{isViewingCurrentEdition && (
 							<div className="my-4">
 								<XcTaskActionButtons
 									taskId={taskId}
 									taskFileUrl={task.taskFileUrl}
+									slug={task.slug}
+									category={task.category}
 									submission={currentSubmission}
 									onUploadSuccess={handleUploadSuccess}
 								/>
