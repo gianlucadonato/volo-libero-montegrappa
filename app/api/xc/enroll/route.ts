@@ -3,7 +3,6 @@ import { headers } from "next/headers";
 import createXcEnrollment from "@/actions/xc/createXcEnrollment";
 import { auth } from "@/auth";
 import ApiErrorResponse from "@/helpers/APIErrorResponse";
-import { getSocio } from "@/store/user";
 import { getXcEnrollment } from "@/store/xc";
 
 /**
@@ -44,12 +43,9 @@ export async function POST() {
 	if (!session) {
 		return ApiErrorResponse(Boom.unauthorized());
 	}
-	const socio = await getSocio(session.user.id);
-	if (!socio) {
-		return ApiErrorResponse(Boom.forbidden("User is not a member"));
-	}
 	try {
-		const enrollment = await createXcEnrollment({ userId: socio.id });
+		// Any authenticated user can enroll — no club membership required.
+		const enrollment = await createXcEnrollment({ userId: session.user.id });
 		return Response.json(enrollment, { status: 201 });
 	} catch (error) {
 		return ApiErrorResponse(error, { endpoint: "POST /xc/enroll" });

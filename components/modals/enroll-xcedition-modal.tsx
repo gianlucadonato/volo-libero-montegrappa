@@ -4,7 +4,6 @@ import {
 	type Dispatch,
 	type SetStateAction,
 	useCallback,
-	useContext,
 	useMemo,
 	useState,
 } from "react";
@@ -22,7 +21,6 @@ import { NEXT_YEAR } from "@/config/constants";
 import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import { createXcEnrollmentApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
-import { ModalContext } from "./providers";
 
 function EnrollXcEditionModal({
 	showModal,
@@ -32,7 +30,6 @@ function EnrollXcEditionModal({
 	setShowModal: Dispatch<SetStateAction<boolean>>;
 }) {
 	const t = useTranslations("EnrollXcEditionModal");
-	const { setShowMemberOnlyModal } = useContext(ModalContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [acceptedLiability, setAcceptedLiability] = useState(false);
 	const [acceptedRegolamento, setAcceptedRegolamento] = useState(false);
@@ -51,10 +48,7 @@ function EnrollXcEditionModal({
 			toast.success(t("toast.success"));
 			setShowModal(false);
 		} else {
-			if (response.status === 403) {
-				setShowModal(false);
-				setShowMemberOnlyModal(true);
-			} else if (response.status === 409) {
+			if (response.status === 409) {
 				toast.error(t("toast.alreadyEnrolled"));
 			} else {
 				toast.error(t("toast.genericError"));
