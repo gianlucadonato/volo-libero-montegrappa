@@ -997,8 +997,6 @@
 			"title": "Track not valid",
 			"description": "The uploaded IGC file does not meet the requirements for this task.",
 			"badge": "Rejected",
-			"reupload": "Upload again",
-			"reuploading": "Uploading...",
 			"missedWaypoints": "Missed {count, plural, one {# waypoint} other {# waypoints}}:",
 			"waypointDistance": "(closest: {distance}m, radius: {radius}m)"
 		}

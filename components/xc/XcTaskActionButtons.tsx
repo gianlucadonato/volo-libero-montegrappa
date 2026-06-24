@@ -172,10 +172,8 @@ export default function XcTaskActionButtons({
 			{submission ? (
 				<XcSubmissionStatus
 					submission={submission}
-					onReupload={handleUploadClick}
 					onDelete={handleDelete}
 					onValidate={handleValidate}
-					isUploading={isUploading}
 					isDeleting={isDeleting}
 					isValidating={isValidating}
 				/>
