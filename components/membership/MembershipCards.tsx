@@ -50,7 +50,7 @@ export default function MembershipCards({
 
 	// NEXT_PUBLIC_* is inlined into the browser bundle at build time (see CLAUDE.md).
 	const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "";
-	const verifyUrl = `${baseUrl}/verifica/${userId}`;
+	const verifyUrl = `${baseUrl}/verify/${userId}`;
 
 	return (
 		<div className="mt-4">

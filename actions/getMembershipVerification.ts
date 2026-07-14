@@ -16,7 +16,7 @@ export interface MembershipVerification {
 
 /**
  * Public, minimal membership lookup used by the QR verification page
- * (`/verifica/[id]`). Exposes only non-sensitive data: name, member number,
+ * (`/verify/[id]`). Exposes only non-sensitive data: name, member number,
  * enrolment years and whether the current-year card is active. Soft-deleted
  * users are excluded.
  */

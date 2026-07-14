@@ -1036,7 +1036,8 @@
 		"nessuna_tessera": "You don't have a {year} membership card yet.",
 		"iscriviti_cta": "Join now",
 		"apri_tessera": "Open card fullscreen",
-		"stampa": "Print card"
+		"stampa": "Print card",
+		"verifica": "Verify"
 	},
 	"MembershipVerify": {
 		"title": "Membership verification",

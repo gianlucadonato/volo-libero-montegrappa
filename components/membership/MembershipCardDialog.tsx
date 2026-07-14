@@ -1,6 +1,7 @@
 "use client";
 
-import { Printer } from "lucide-react";
+import { Printer, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/extendui/button";
 import {
@@ -40,7 +41,19 @@ export default function MembershipCardDialog(props: MembershipCardProps) {
 				<div className="membership-print-area">
 					<MembershipCard {...props} qrSize={120} />
 				</div>
-				<div className="no-print flex justify-center">
+				<div className="no-print flex flex-wrap justify-center gap-2">
+					{props.verifyUrl && (
+						<Button variant="outline" asChild>
+							<Link
+								href={props.verifyUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<ShieldCheck className="mr-2 size-4" />
+								{t("verifica")}
+							</Link>
+						</Button>
+					)}
 					<Button variant="outline" onClick={() => window.print()}>
 						<Printer className="mr-2 size-4" />
 						{t("stampa")}

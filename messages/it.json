@@ -1081,7 +1081,8 @@
 		"nessuna_tessera": "Non hai ancora una tessera per il {year}.",
 		"iscriviti_cta": "Iscriviti ora",
 		"apri_tessera": "Apri la tessera a schermo intero",
-		"stampa": "Stampa tessera"
+		"stampa": "Stampa tessera",
+		"verifica": "Verifica"
 	},
 	"MembershipVerify": {
 		"title": "Verifica tessera socio",
