@@ -6,12 +6,16 @@ import {
 	SidebarProvider,
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { getSessionUser } from "@/lib/session";
+import type { UserRole } from "@/prisma/generated/enums";
 
 export default async function PublicLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
+	const sessionUser = await getSessionUser();
+
 	return (
 		<SidebarProvider defaultOpen={false}>
 			<SidebarInset className="relative w-full">
@@ -22,7 +26,11 @@ export default async function PublicLayout({
 				<main className="w-full pt-18">{children}</main>
 				<Footer />
 			</SidebarInset>
-			<AppSidebar side="right" />
+			<AppSidebar
+				side="right"
+				initialRole={sessionUser?.role as UserRole | undefined}
+				initialLoggedIn={Boolean(sessionUser)}
+			/>
 		</SidebarProvider>
 	);
 }
