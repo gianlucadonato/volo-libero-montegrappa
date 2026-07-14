@@ -1024,5 +1024,27 @@
 		"altitude": "Altitude",
 		"vario": "Vario",
 		"speed": "Speed"
+	},
+	"MembershipCard": {
+		"tessera_socio": "Member Card",
+		"la_mia_tessera": "My card",
+		"tessere_precedenti": "Previous cards",
+		"socio_dal": "Member since",
+		"numero": "No.",
+		"attiva": "Active",
+		"scaduta": "Expired",
+		"nessuna_tessera": "You don't have a {year} membership card yet.",
+		"iscriviti_cta": "Join now"
+	},
+	"MembershipVerify": {
+		"title": "Membership verification",
+		"subtitle": "Club Volo Libero Montegrappa",
+		"socio_dal": "Member since",
+		"numero": "Member no.",
+		"tessera_attiva": "{year} card: Active",
+		"tessera_non_attiva": "{year} card: Not active",
+		"non_trovata": "Card not found",
+		"non_trovata_desc": "No member matches this code.",
+		"anni_iscrizione": "Membership years"
 	}
 }

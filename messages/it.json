@@ -1069,5 +1069,27 @@
 	},
 	"XcTaskInteractivePanel": {
 		"turnpoints": "Boe"
+	},
+	"MembershipCard": {
+		"tessera_socio": "Tessera Socio",
+		"la_mia_tessera": "La mia tessera",
+		"tessere_precedenti": "Tessere precedenti",
+		"socio_dal": "Socio dal",
+		"numero": "N°",
+		"attiva": "Attiva",
+		"scaduta": "Scaduta",
+		"nessuna_tessera": "Non hai ancora una tessera per il {year}.",
+		"iscriviti_cta": "Iscriviti ora"
+	},
+	"MembershipVerify": {
+		"title": "Verifica tessera socio",
+		"subtitle": "Club Volo Libero Montegrappa",
+		"socio_dal": "Socio dal",
+		"numero": "N° socio",
+		"tessera_attiva": "Tessera {year}: Attiva",
+		"tessera_non_attiva": "Tessera {year}: Non attiva",
+		"non_trovata": "Tessera non trovata",
+		"non_trovata_desc": "Nessun socio corrisponde a questo codice.",
+		"anni_iscrizione": "Anni di iscrizione"
 	}
 }
