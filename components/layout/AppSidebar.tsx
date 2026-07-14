@@ -1,6 +1,6 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { NavAuth } from "@/components/layout/nav-auth";
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
@@ -15,10 +15,28 @@ import { authClient } from "@/lib/auth-client";
 import { UserRole } from "@/prisma/generated/enums";
 import type { NavMainItem } from "@/types";
 
-export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+	initialRole,
+	initialLoggedIn = false,
+	...props
+}: React.ComponentProps<typeof Sidebar> & {
+	/** Server-resolved session, used for the SSR + first client render so the
+	 * sidebar doesn't hydration-mismatch against the client-only session. */
+	initialRole?: UserRole;
+	initialLoggedIn?: boolean;
+}) {
 	const { data: session } = authClient.useSession();
+
+	// authClient.useSession() is empty on the server but reads the cached
+	// session synchronously on the client's first render — which would make the
+	// SSR HTML disagree with hydration. Fall back to the server-provided values
+	// until we've mounted, then switch to the live (reactive) client session.
+	const [mounted, setMounted] = React.useState(false);
+	React.useEffect(() => setMounted(true), []);
+
 	type SidebarSection = keyof typeof sidebarLinks;
-	const currentRole = session?.user?.role;
+	const currentRole = mounted ? session?.user?.role : initialRole;
+	const isLoggedIn = mounted ? Boolean(session?.user) : initialLoggedIn;
 
 	const filteredLinks = (Object.keys(sidebarLinks) as SidebarSection[]).reduce(
 		(acc, section) => {
@@ -41,9 +59,11 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 				{Boolean(filteredLinks.options?.length) && (
 					<NavMain items={filteredLinks.options} groupLabel={"Admin"} />
 				)}
-				{!session?.user && <NavAuth />}
+				{!isLoggedIn && <NavAuth />}
 			</SidebarContent>
-			<SidebarFooter>{session?.user && <NavUser />}</SidebarFooter>
+			{/* NavUser reads the session client-side, so only mount it after
+			    hydration to avoid rendering an empty user during SSR. */}
+			<SidebarFooter>{mounted && isLoggedIn && <NavUser />}</SidebarFooter>
 			<SidebarRail />
 		</Sidebar>
 	);

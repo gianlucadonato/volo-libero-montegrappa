@@ -13,7 +13,7 @@ import type {
 import CouponsTable from "./CouponsTable";
 import { DashboardHeader } from "./dashboard/header";
 import { UserForm } from "./forms/user-form";
-import MembershipsTable from "./MembershipsTable";
+import MembershipCards from "./membership/MembershipCards";
 import PaymentsTable from "./PaymentsTable";
 import ProfileDetails from "./ProfileDetails";
 
@@ -71,12 +71,19 @@ export default function ProfileView({ user }: { user: Member }) {
 				user.memberships.length || user.payments.length || user.coupons.length,
 			) && (
 				<div className="mt-10">
-					<div>
+					<div className="mb-10">
 						<DashboardHeader
 							heading={t("your_memberships")}
 							text={t("your_memberships_description")}
 						/>
-						<MembershipsTable title={null} memberships={user.memberships} />
+						<MembershipCards
+							userId={user.id}
+							firstName={user.firstName}
+							lastName={user.lastName}
+							memberId={user.memberId}
+							memberSince={new Date(user.createdAt).getFullYear()}
+							memberships={user.memberships}
+						/>
 					</div>
 					<PaymentsTable title={t("payments")} payments={user.payments} />
 					<CouponsTable coupons={user.coupons} />
