@@ -253,7 +253,7 @@ const Contact = () => {
 								</Link>
 							</div>
 						</div>
-						<div className="mb-3">
+						<div className="mb-6">
 							<h3 className="font-semibold uppercase">AIRSPORTS MONTEGRAPPA</h3>
 							<div className="mb-2 flex items-center text-muted-foreground">
 								<Phone className="mr-2 size-4" />
@@ -267,6 +267,25 @@ const Contact = () => {
 									className="font-semibold hover:underline"
 								>
 									airsportsmontegrappa.it
+								</Link>
+							</div>
+						</div>
+						<div className="mb-3">
+							<h3 className="font-semibold uppercase">
+								TANDEM FLY MONTEGRAPPA
+							</h3>
+							<div className="mb-2 flex items-center text-muted-foreground">
+								<Phone className="mr-2 size-4" />
+								<span>+(39) 333 1387759</span>
+							</div>
+							<div className="mb-2 flex items-center text-muted-foreground">
+								<Globe className="mr-2 size-4" />
+								<Link
+									href="https://www.tandemflymontegrappa.com/"
+									target="_blank"
+									className="font-semibold hover:underline"
+								>
+									tandemflymontegrappa.com
 								</Link>
 							</div>
 						</div>

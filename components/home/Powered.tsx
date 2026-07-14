@@ -23,6 +23,11 @@ const poweredBy = [
 		href: "https://www.airsportsmontegrappa.it/",
 		icon: "/sponsors/airsports-montegrappa-LOGO.png",
 	},
+	{
+		title: "TANDEM FLY MONTEGRAPPA",
+		href: "https://www.tandemflymontegrappa.com",
+		icon: "/sponsors/tandem-fly.webp",
+	},
 ];
 
 export default async function Powered() {
@@ -33,7 +38,7 @@ export default async function Powered() {
 				<h2 className="text-center font-heading text-xl uppercase">
 					{t("partners.title")}
 				</h2>
-				<div className="mt-4 grid grid-cols-2 place-items-center gap-8 md:grid-cols-4">
+				<div className="mt-4 grid grid-cols-2 place-items-center gap-8 sm:grid-cols-3 md:grid-cols-5">
 					{poweredBy.map((logo) => (
 						<Link
 							target="_blank"
