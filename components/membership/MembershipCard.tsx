@@ -17,6 +17,8 @@ export interface MembershipCardProps {
 	verifyUrl?: string;
 	variant?: "current" | "past";
 	className?: string;
+	/** QR code side length in px (larger in the fullscreen dialog). */
+	qrSize?: number;
 }
 
 const LIME = "#c2e71f";
@@ -31,6 +33,7 @@ export default function MembershipCard({
 	verifyUrl,
 	variant = "current",
 	className,
+	qrSize = 72,
 }: MembershipCardProps) {
 	const t = useTranslations("MembershipCard");
 	const isPast = variant === "past";
@@ -107,11 +110,11 @@ export default function MembershipCard({
 						<div className="shrink-0 rounded-lg bg-white p-1.5 shadow-sm">
 							<QRCode
 								value={verifyUrl}
-								size={72}
+								size={qrSize}
 								fgColor="#0f1830"
 								bgColor="#ffffff"
 								level="M"
-								style={{ height: "72px", width: "72px" }}
+								style={{ height: `${qrSize}px`, width: `${qrSize}px` }}
 							/>
 						</div>
 					)}

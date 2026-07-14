@@ -1034,7 +1034,9 @@
 		"attiva": "Active",
 		"scaduta": "Expired",
 		"nessuna_tessera": "You don't have a {year} membership card yet.",
-		"iscriviti_cta": "Join now"
+		"iscriviti_cta": "Join now",
+		"apri_tessera": "Open card fullscreen",
+		"stampa": "Print card"
 	},
 	"MembershipVerify": {
 		"title": "Membership verification",

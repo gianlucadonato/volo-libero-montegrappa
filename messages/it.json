@@ -1079,7 +1079,9 @@
 		"attiva": "Attiva",
 		"scaduta": "Scaduta",
 		"nessuna_tessera": "Non hai ancora una tessera per il {year}.",
-		"iscriviti_cta": "Iscriviti ora"
+		"iscriviti_cta": "Iscriviti ora",
+		"apri_tessera": "Apri la tessera a schermo intero",
+		"stampa": "Stampa tessera"
 	},
 	"MembershipVerify": {
 		"title": "Verifica tessera socio",

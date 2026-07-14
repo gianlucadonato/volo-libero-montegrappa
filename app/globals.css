@@ -209,3 +209,42 @@
 .btn-lime:hover {
 	background-color: #a3c21a;
 }
+
+/* Print only the membership card shown inside its fullscreen dialog.
+   These rules live outside any @layer, so they override Tailwind's layered
+   utilities (e.g. the dialog's fixed/translate centering) without !important. */
+@media print {
+	body * {
+		visibility: hidden;
+	}
+
+	/* The dialog centres itself with position:fixed + translate; reset it so the
+	   card prints flush at the top of the page instead of half-way down. */
+	[data-slot="dialog-content"] {
+		position: absolute;
+		inset: 0 auto auto 0;
+		translate: none;
+		transform: none;
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 12px;
+		box-shadow: none;
+		--tw-ring-shadow: 0 0 #0000;
+	}
+
+	.membership-print-area,
+	.membership-print-area * {
+		visibility: visible;
+	}
+
+	/* Force the navy gradient / lime accents to actually print. */
+	.membership-print-area {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	.no-print {
+		display: none;
+	}
+}

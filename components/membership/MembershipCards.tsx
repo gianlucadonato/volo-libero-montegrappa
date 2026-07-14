@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/extendui/button";
 import { NEXT_YEAR } from "@/config/constants";
 import type { UserMembership } from "@/prisma/generated/client";
-import MembershipCard from "./MembershipCard";
+import MembershipCardDialog from "./MembershipCardDialog";
 
 const FLYCARD_DESCRIPTION = "Flycard Vivere il Grappa 2025";
 
@@ -59,7 +59,7 @@ export default function MembershipCards({
 			</h3>
 			<div className="mt-3 max-w-md">
 				{current ? (
-					<MembershipCard
+					<MembershipCardDialog
 						firstName={firstName}
 						lastName={lastName}
 						memberId={memberId}
@@ -85,7 +85,7 @@ export default function MembershipCards({
 					</h3>
 					<div className="mt-3 grid max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						{past.map((m) => (
-							<MembershipCard
+							<MembershipCardDialog
 								key={m.id}
 								firstName={firstName}
 								lastName={lastName}
