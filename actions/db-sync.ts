@@ -1,6 +1,6 @@
 import { mkdtemp, rm, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import {
 	type ConnectionOptions,
 	FormatEnum,
@@ -8,19 +8,38 @@ import {
 	pgRestore,
 } from "pg-dump-restore";
 
+type SyncDatabaseOptions = {
+	/**
+	 * Keep the dump file in the current working directory instead of a temporary
+	 * folder that is deleted afterwards. Useful for inspecting or reusing the dump.
+	 */
+	saveDump?: boolean;
+};
+
 /**
  * Copies the full contents of one PostgreSQL database into another.
  *
  * Both `dbFrom` and `dbTo` are libpq connection URLs, e.g.
  * `postgresql://user:password@host:5432/database`.
  */
-export async function syncDatabase(dbFrom: string, dbTo: string) {
-	let syncTempDir: string | undefined;
+export async function syncDatabase(
+	dbFrom: string,
+	dbTo: string,
+	{ saveDump = false }: SyncDatabaseOptions = {},
+) {
+	let tempDir: string | undefined;
+	let restoreListPath: string | undefined;
 
 	try {
-		syncTempDir = await mkdtemp(join(tmpdir(), "db-sync-"));
-		const dumpPath = join(syncTempDir, "dump.pgdump");
-		const restoreListPath = join(syncTempDir, "dump.list");
+		let dumpDir: string;
+		if (saveDump) {
+			dumpDir = process.cwd();
+		} else {
+			tempDir = await mkdtemp(join(tmpdir(), "db-sync-"));
+			dumpDir = tempDir;
+		}
+		const dumpPath = join(dumpDir, "dump.pgdump");
+		restoreListPath = join(dumpDir, "dump.list");
 
 		const connectionOptionsFrom = getConnectionOptions(dbFrom);
 		const connectionOptionsTo = getConnectionOptions(dbTo);
@@ -29,6 +48,9 @@ export async function syncDatabase(dbFrom: string, dbTo: string) {
 			`Starting database dump from ${connectionOptionsFrom.host}/${connectionOptionsFrom.database}...`,
 		);
 		await dumpDb(connectionOptionsFrom, dumpPath);
+		if (saveDump) {
+			console.log(`Dump saved to ${dumpPath}`);
+		}
 
 		console.log(
 			`Starting database restore to ${connectionOptionsTo.host}/${connectionOptionsTo.database}...`,
@@ -47,8 +69,12 @@ export async function syncDatabase(dbFrom: string, dbTo: string) {
 			message: `Database sync failed: ${errorMessage}`,
 		};
 	} finally {
-		if (syncTempDir) {
-			await rm(syncTempDir, { recursive: true, force: true });
+		if (tempDir) {
+			// Temp mode: remove the whole scratch dir (dump + list file).
+			await rm(tempDir, { recursive: true, force: true });
+		} else if (restoreListPath) {
+			// saveDump mode: keep the dump, drop the intermediate restore list.
+			await rm(restoreListPath, { force: true });
 		}
 	}
 }
@@ -95,6 +121,83 @@ function getConnectionOptions(connectionUrl: string): ConnectionOptions {
 		// ssl mode ("require", "prefer", …) is accepted as-is.
 		sslMode: sslMode as ConnectionOptions["sslMode"],
 	};
+}
+
+/**
+ * Dumps a PostgreSQL database to `dump.pgdump` in the current working directory,
+ * without restoring it anywhere.
+ *
+ * `dbFrom` is a libpq connection URL, e.g.
+ * `postgresql://user:password@host:5432/database`.
+ */
+export async function dumpDatabase(dbFrom: string) {
+	try {
+		const dumpPath = join(process.cwd(), "dump.pgdump");
+		const connectionOptions = getConnectionOptions(dbFrom);
+
+		console.log(
+			`Starting database dump from ${connectionOptions.host}/${connectionOptions.database}...`,
+		);
+		await dumpDb(connectionOptions, dumpPath);
+
+		return {
+			success: true,
+			data: `Database dump from ${connectionOptions.database} saved to ${dumpPath}.`,
+		};
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		console.error("Error during database dump:", errorMessage);
+		return {
+			success: false,
+			message: `Database dump failed: ${errorMessage}`,
+		};
+	}
+}
+
+/**
+ * Restores a previously exported dump file into a PostgreSQL database, without
+ * dumping from a source first.
+ *
+ * `dbTo` is a libpq connection URL; `dumpFilePath` points at a custom-format
+ * dump produced by `dumpDatabase` or `syncDatabase` with `saveDump`.
+ */
+export async function restoreDatabase(dbTo: string, dumpFilePath: string) {
+	let tempDir: string | undefined;
+
+	try {
+		const dumpPath = resolve(dumpFilePath);
+		try {
+			await stat(dumpPath);
+		} catch {
+			throw new Error(`Dump file not found or not readable at ${dumpPath}`);
+		}
+
+		// The restore only needs a scratch location for the intermediate list file.
+		tempDir = await mkdtemp(join(tmpdir(), "db-sync-"));
+		const restoreListPath = join(tempDir, "dump.list");
+		const connectionOptions = getConnectionOptions(dbTo);
+
+		console.log(
+			`Starting database restore to ${connectionOptions.host}/${connectionOptions.database}...`,
+		);
+		await restoreDb(connectionOptions, dumpPath, restoreListPath);
+
+		return {
+			success: true,
+			data: `Database restore from ${dumpPath} to ${connectionOptions.database} completed successfully.`,
+		};
+	} catch (error) {
+		const errorMessage = error instanceof Error ? error.message : String(error);
+		console.error("Error during database restore:", errorMessage);
+		return {
+			success: false,
+			message: `Database restore failed: ${errorMessage}`,
+		};
+	} finally {
+		if (tempDir) {
+			await rm(tempDir, { recursive: true, force: true });
+		}
+	}
 }
 
 async function dumpDb(connectionOptions: ConnectionOptions, dumpPath: string) {

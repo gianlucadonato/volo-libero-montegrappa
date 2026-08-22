@@ -21,6 +21,8 @@
 		"db:seed:xc-tasks": "pnpm tsx scripts/seedXcTasks.ts",
 		"db:seed:xc-progress": "pnpm tsx scripts/seedXcProgress.ts",
 		"db:sync": "pnpm tsx scripts/db-sync.ts",
+		"infra:up": "docker compose -f docker/docker-compose.postgres.yml up -d",
+		"infra:down": "docker compose -f docker/docker-compose.postgres.yml down",
 		"tsx": "tsx --env-file=.env",
 		"openapi": "openapi-gen generate",
 		"gen:api-client": "pnpm openapi && openapi-typescript ./public/openapi.json -o ./types/api-client.d.ts",

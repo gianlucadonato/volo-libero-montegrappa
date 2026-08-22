@@ -147,3 +147,85 @@ export const XcEditionSummarySchema = z.object({
 	startsAt: z.coerce.date().transform((val) => val.toISOString()),
 	endsAt: z.coerce.date().transform((val) => val.toISOString()),
 });
+
+export const XcPilotSummarySchema = z.object({
+	id: z.string(),
+	firstName: z.string(),
+	lastName: z.string(),
+	image: z.string().nullish(),
+});
+
+export const XcPilotEditionSchema = z.object({
+	id: z.number(),
+	title: z.string(),
+	isActive: z.boolean(),
+});
+
+export const XcPilotCategoryStatsSchema = z.object({
+	category: z.enum(["BASIC", "INTERMEDIATE", "ADVANCED"]),
+	points: z.number(),
+	minPoints: z.number(),
+	maxPoints: z.number(),
+	rank: z.number().nullable(),
+	totalPilots: z.number(),
+	tasksCompleted: z.number(),
+	tasksTotal: z.number(),
+	totalDistanceKm: z.number(),
+	flightTimeHrs: z.number(),
+	maxAltM: z.number(),
+	completedAt: z.coerce
+		.date()
+		.transform((val) => val.toISOString())
+		.nullish(),
+});
+
+export const XcPilotFlightSchema = z.object({
+	id: z.string(),
+	editionId: z.number(),
+	pointsAwarded: z.number(),
+	createdAt: z.coerce.date().transform((val) => val.toISOString()),
+	task: z.object({
+		id: z.string(),
+		slug: z.string(),
+		name: z.string(),
+		category: z.enum(["BASIC", "INTERMEDIATE", "ADVANCED"]),
+		points: z.number(),
+		distanceKm: z.number().nullish(),
+		taskFileUrl: z.string().nullish(),
+	}),
+	stats: z
+		.object({
+			duration: z.string().nullish(),
+			durationSeconds: z.number().nullish(),
+			totalDistanceKm: z.number().nullish(),
+			maxAltitude: z.number().nullish(),
+			minAltitude: z.number().nullish(),
+			startTime: z.string().nullish(),
+			endTime: z.string().nullish(),
+		})
+		.nullish(),
+});
+
+export const XcPilotProfileSchema = z.object({
+	user: XcPilotSummarySchema,
+	editions: z.array(XcPilotEditionSchema),
+	edition: z
+		.object({
+			id: z.number(),
+			title: z.string(),
+			minPoints: z.number(),
+			maxPoints: z.number(),
+			isActive: z.boolean(),
+		})
+		.nullable(),
+	totals: z.object({
+		points: z.number(),
+		flights: z.number(),
+		totalDistanceKm: z.number(),
+		flightTimeHrs: z.number(),
+		maxAltM: z.number(),
+		levelsCompleted: z.number(),
+	}),
+	categories: z.array(XcPilotCategoryStatsSchema),
+	flights: z.array(XcPilotFlightSchema),
+});

@@ -203,24 +203,26 @@ export default function CategoryLeaderboardPage() {
 							)}
 							<ul className="space-y-2">
 								{rest.map((entry) => (
-									<li
-										key={entry.userId}
-										className="flex items-center gap-3 rounded-full bg-indigo-50 px-3 py-2 sm:px-4 sm:py-3"
-									>
-										<span className="w-10 shrink-0 text-sm font-bold text-indigo-700 sm:text-base">
-											#{entry.rank}
-										</span>
-										<DiceBearAvatar
-											seed={`${entry.firstName} ${entry.lastName}`}
-											alt={`${entry.firstName} ${entry.lastName}`}
-											className="size-9 shrink-0 sm:size-10"
-										/>
-										<span className="flex-1 truncate text-sm font-semibold uppercase tracking-wide text-indigo-900 sm:text-base">
-											{entry.firstName} {entry.lastName}
-										</span>
-										<span className="shrink-0 text-sm font-bold text-indigo-700 sm:text-base">
-											{entry.points.toLocaleString()}
-										</span>
+									<li key={entry.userId}>
+										<Link
+											href={`/xc/users/${entry.userId}`}
+											className="flex items-center gap-3 rounded-full bg-indigo-50 px-3 py-2 transition-colors hover:bg-indigo-100 sm:px-4 sm:py-3"
+										>
+											<span className="w-10 shrink-0 text-sm font-bold text-indigo-700 sm:text-base">
+												#{entry.rank}
+											</span>
+											<DiceBearAvatar
+												seed={`${entry.firstName} ${entry.lastName}`}
+												alt={`${entry.firstName} ${entry.lastName}`}
+												className="size-9 shrink-0 sm:size-10"
+											/>
+											<span className="flex-1 truncate text-sm font-semibold uppercase tracking-wide text-indigo-900 sm:text-base">
+												{entry.firstName} {entry.lastName}
+											</span>
+											<span className="shrink-0 text-sm font-bold text-indigo-700 sm:text-base">
+												{entry.points.toLocaleString()}
+											</span>
+										</Link>
 									</li>
 								))}
 							</ul>
@@ -245,9 +247,8 @@ function PodiumSlot({
 	labelColor: string;
 	highlight?: boolean;
 }) {
-	return (
-		<div className="flex flex-col items-center">
-			<span className={cn("mb-2 text-sm font-bold", labelColor)}>#{rank}</span>
+	const content = (
+		<>
 			<div
 				className={cn(
 					"relative flex items-center justify-center rounded-full bg-white/10 ring-2 backdrop-blur-sm",
@@ -273,6 +274,22 @@ function PodiumSlot({
 			<p className={cn("text-xs font-bold sm:text-sm", labelColor)}>
 				{entry ? entry.points.toLocaleString() : "—"}
 			</p>
+		</>
+	);
+
+	return (
+		<div className="flex flex-col items-center">
+			<span className={cn("mb-2 text-sm font-bold", labelColor)}>#{rank}</span>
+			{entry ? (
+				<Link
+					href={`/xc/users/${entry.userId}`}
+					className="flex flex-col items-center transition-opacity hover:opacity-80"
+				>
+					{content}
+				</Link>
+			) : (
+				content
+			)}
 		</div>
 	);
 }

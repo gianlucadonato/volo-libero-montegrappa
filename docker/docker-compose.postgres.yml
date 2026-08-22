@@ -1,0 +1,41 @@
+# Local development PostgreSQL.
+#
+# Start with:  pnpm infra:up
+# Stop with:   pnpm infra:down   (data is preserved in the named volume)
+# Wipe data:   pnpm infra:down && docker volume rm vlm-postgres-data
+#
+# Connect your app to it by setting in .env:
+#   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vlm-db"
+#
+# Credentials/port can be overridden via the environment (or root .env):
+#   POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT
+
+services:
+  postgres:
+    image: postgres:18-alpine
+    container_name: vlm-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-vlm-db}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Postgres 18 moved PGDATA under a version dir; mount the parent so the
+      # named volume holds /var/lib/postgresql/18/docker (not .../data as in <=17).
+      - vlm-postgres-data:/var/lib/postgresql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-vlm-db}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  vlm-postgres-data:
+    name: vlm-postgres-data

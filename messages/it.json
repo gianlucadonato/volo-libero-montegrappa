@@ -960,6 +960,40 @@
 			"failedToLoad": "Errore nel caricamento della classifica. Riprova."
 		}
 	},
+	"XcPilotProfilePage": {
+		"subtitle": "Profilo pilota",
+		"backToLeaderboard": "Classifica",
+		"selectEdition": "Edizione",
+		"noData": "Questo pilota non ha ancora dati XC Montegrappa.",
+		"totals": {
+			"levelsCompleted": "{count, plural, =1 {# brevetto conseguito} other {# brevetti conseguiti}}",
+			"flights": "Voli",
+			"distance": "Distanza",
+			"flightTime": "Ore di volo",
+			"maxAlt": "Quota max"
+		},
+		"categories": {
+			"rank": "Pos.",
+			"completed": "Brevetto completato",
+			"noData": "Nessun dato per questa categoria"
+		},
+		"flights": {
+			"title": "Voli",
+			"all": "Tutti",
+			"empty": "Nessun volo approvato per questa edizione.",
+			"points": "pt",
+			"view": "Vedi",
+			"trackUnavailable": "Traccia non disponibile."
+		},
+		"errors": {
+			"failedToLoad": "Errore nel caricamento del profilo. Riprova."
+		}
+	},
+	"XcFlightPage": {
+		"back": "Profilo pilota",
+		"pilot": "Pilota",
+		"viewTask": "Vedi la task"
+	},
 	"XcTaskCard": {
 		"distance": "Distanza",
 		"difficulty": "Difficoltà",
