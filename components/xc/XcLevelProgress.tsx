@@ -1,5 +1,7 @@
 "use client";
 
+import { cn } from "@/lib/utils";
+
 interface XcLevelProgressProps {
 	level: string;
 	levelLabel: string;
@@ -8,6 +10,8 @@ interface XcLevelProgressProps {
 	maxPoints: number;
 	completedTasks: number;
 	totalTasks: number;
+	/** "dark" for panels over a dark photo/fill, "light" for pale backgrounds. */
+	variant?: "dark" | "light";
 }
 
 export default function XcLevelProgress({
@@ -16,7 +20,14 @@ export default function XcLevelProgress({
 	points,
 	minPoints,
 	maxPoints,
+	variant = "dark",
 }: XcLevelProgressProps) {
+	const isLight = variant === "light";
+	const gradientId = isLight ? "xc-progress-light" : "xc-progress-dark";
+	const trackClass = isLight ? "text-slate-400" : "text-gray-700";
+	const markerColor = isLight ? "#b45309" : "#fbbf24";
+	const mutedClass = isLight ? "text-slate-500" : "text-gray-300";
+	const valueClass = isLight ? "text-slate-900" : "text-white";
 	const effectiveMax = maxPoints > 0 ? maxPoints : minPoints;
 	const progressPct = Math.min((points / effectiveMax) * 100, 100);
 	const circumference = 2 * Math.PI * 52;
@@ -29,15 +40,17 @@ export default function XcLevelProgress({
 	// SVG circle starts at 3 o'clock; we rotate -90° so 0% = top
 	const thresholdAngle = thresholdPct !== null ? (thresholdPct / 100) * 360 : 0;
 	const thresholdRad = (thresholdAngle * Math.PI) / 180;
-	// tick mark positions on the circle (radius 52, center 60,60)
-	const tickInner = 44;
-	const tickOuter = 60;
+	// The tick must straddle the ring itself (r 52, stroke 7 -> 48.5..55.5),
+	// not poke into the centre where the score is printed.
+	const tickInner = 46.5;
+	const tickOuter = 57.5;
 	const tickX1 = 60 + tickInner * Math.cos(thresholdRad - Math.PI / 2);
 	const tickY1 = 60 + tickInner * Math.sin(thresholdRad - Math.PI / 2);
 	const tickX2 = 60 + tickOuter * Math.cos(thresholdRad - Math.PI / 2);
 	const tickY2 = 60 + tickOuter * Math.sin(thresholdRad - Math.PI / 2);
-	// label position (slightly outside the ring)
-	const labelR = 66;
+	// Label sits just outside the ring; the svg is overflow-visible because
+	// this radius falls outside the 120x120 viewBox.
+	const labelR = 65;
 	const labelX = 60 + labelR * Math.cos(thresholdRad - Math.PI / 2);
 	const labelY = 60 + labelR * Math.sin(thresholdRad - Math.PI / 2);
 
@@ -47,7 +60,7 @@ export default function XcLevelProgress({
 			<div className="relative size-48">
 				<svg
 					viewBox="0 0 120 120"
-					className="size-full"
+					className="size-full overflow-visible"
 					role="img"
 					aria-label="Progress"
 				>
@@ -59,7 +72,7 @@ export default function XcLevelProgress({
 						fill="none"
 						stroke="currentColor"
 						strokeWidth="7"
-						className="text-gray-700"
+						className={trackClass}
 						transform="rotate(-90 60 60)"
 					/>
 					{/* Progress arc */}
@@ -68,7 +81,7 @@ export default function XcLevelProgress({
 						cy="60"
 						r="52"
 						fill="none"
-						stroke="url(#progress-gradient)"
+						stroke={`url(#${gradientId})`}
 						strokeWidth="7"
 						strokeLinecap="round"
 						strokeDasharray={`${Math.min((progressPct / 100) * circumference, circumference)} ${circumference}`}
@@ -82,8 +95,8 @@ export default function XcLevelProgress({
 								y1={tickY1}
 								x2={tickX2}
 								y2={tickY2}
-								stroke="#d97706"
-								strokeWidth="1.5"
+								stroke={markerColor}
+								strokeWidth="2"
 								strokeLinecap="round"
 							/>
 							<text
@@ -91,41 +104,52 @@ export default function XcLevelProgress({
 								y={labelY}
 								textAnchor="middle"
 								dominantBaseline="central"
-								fill="#d97706"
-								fontSize="6"
-								fontWeight="600"
+								fill={markerColor}
+								fontSize="7"
+								fontWeight="700"
 							>
 								{minPoints}
 							</text>
 						</>
 					)}
 					<defs>
-						<linearGradient
-							id="progress-gradient"
-							x1="0%"
-							y1="0%"
-							x2="100%"
-							y2="100%"
-						>
-							<stop offset="0%" stopColor="#22d3ee" />
-							<stop offset="50%" stopColor="#a3e635" />
-							<stop offset="100%" stopColor="#4ade80" />
+						<linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+							{isLight ? (
+								<>
+									<stop offset="0%" stopColor="#0891b2" />
+									<stop offset="50%" stopColor="#65a30d" />
+									<stop offset="100%" stopColor="#16a34a" />
+								</>
+							) : (
+								<>
+									<stop offset="0%" stopColor="#22d3ee" />
+									<stop offset="50%" stopColor="#a3e635" />
+									<stop offset="100%" stopColor="#4ade80" />
+								</>
+							)}
 						</linearGradient>
 					</defs>
 				</svg>
 				<div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-					<span className="text-[10px] uppercase tracking-widest text-gray-300">
+					<span
+						className={cn("text-[10px] uppercase tracking-widest", mutedClass)}
+					>
 						{levelLabel}
 					</span>
-					<span className="text-xl font-extrabold uppercase text-white">
+					<span className={cn("text-xl font-extrabold uppercase", valueClass)}>
 						{level}
 					</span>
-					<span className="text-base font-bold text-white">
+					<span className={cn("text-base font-bold", valueClass)}>
 						{points}
-						<span className="text-gray-300">/{maxPoints}</span>{" "}
-						<span className="text-sm font-semibold text-gray-200">
-							XC Points
-						</span>
+						<span className={mutedClass}>/{maxPoints}</span>
+					</span>
+					<span
+						className={cn(
+							"text-[10px] font-semibold uppercase tracking-widest",
+							mutedClass,
+						)}
+					>
+						XC Points
 					</span>
 				</div>
 			</div>

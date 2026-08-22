@@ -177,7 +177,7 @@ export interface paths {
 		};
 		/**
 		 * /xc/submissions/[id]
-		 * @description Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user
+		 * @description Get parsed IGC track data (header, stats, fixes) for a submission. Approved tracks are public; pending or rejected ones are readable only by their owner.
 		 */
 		get: operations["get-xc-submissions-{id}"];
 		put?: never;
@@ -204,6 +204,26 @@ export interface paths {
 		 * @description Fetch XC Task details (includes the current user's submissions when authenticated)
 		 */
 		get: operations["get-xc-tasks-{id}"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/xc/users/{id}": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /xc/users/[id]
+		 * @description Public XC profile of a pilot: per-category progress for one edition and the approved flights of that edition
+		 */
+		get: operations["get-xc-users-{id}"];
 		put?: never;
 		post?: never;
 		delete?: never;
@@ -261,6 +281,9 @@ export interface components {
 			firstName?: string | null;
 			lastName?: string | null;
 			email: string;
+			xcontestId?: string | null;
+			ognCallsign?: string | null;
+			ognHex?: string | null;
 			/** Format: date-time */
 			createdAt: string;
 			/** Format: date-time */
@@ -401,6 +424,27 @@ export interface components {
 			objectKey: string;
 			submissionId: string;
 		};
+		XcPilotProfileSchema: {
+			user: components["schemas"]["XcPilotSummarySchema"];
+			editions: components["schemas"]["XcPilotEditionSchema"][];
+			edition: {
+				id: number;
+				title: string;
+				minPoints: number;
+				maxPoints: number;
+				isActive: boolean;
+			} | null;
+			totals: {
+				points: number;
+				flights: number;
+				totalDistanceKm: number;
+				flightTimeHrs: number;
+				maxAltM: number;
+				levelsCompleted: number;
+			};
+			categories: components["schemas"]["XcPilotCategoryStatsSchema"][];
+			flights: components["schemas"]["XcPilotFlightSchema"][];
+		};
 		IGCFixSchema: {
 			timestamp: number;
 			time: string;
@@ -426,6 +470,59 @@ export interface components {
 			startTime: string | null;
 			endTime: string | null;
 			fixCount: number;
+		};
+		XcPilotSummarySchema: {
+			id: string;
+			firstName: string;
+			lastName: string;
+			image?: string | null;
+		};
+		XcPilotEditionSchema: {
+			id: number;
+			title: string;
+			isActive: boolean;
+		};
+		XcPilotCategoryStatsSchema: {
+			/** @enum {string} */
+			category: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+			points: number;
+			minPoints: number;
+			maxPoints: number;
+			rank: number | null;
+			totalPilots: number;
+			tasksCompleted: number;
+			tasksTotal: number;
+			totalDistanceKm: number;
+			flightTimeHrs: number;
+			maxAltM: number;
+			/** Format: date-time */
+			completedAt?: string | null;
+		};
+		XcPilotFlightSchema: {
+			id: string;
+			editionId: number;
+			pointsAwarded: number;
+			/** Format: date-time */
+			createdAt: string;
+			task: {
+				id: string;
+				slug: string;
+				name: string;
+				/** @enum {string} */
+				category: "BASIC" | "INTERMEDIATE" | "ADVANCED";
+				points: number;
+				distanceKm?: number | null;
+				taskFileUrl?: string | null;
+			};
+			stats?: {
+				duration?: string | null;
+				durationSeconds?: number | null;
+				totalDistanceKm?: number | null;
+				maxAltitude?: number | null;
+				minAltitude?: number | null;
+				startTime?: string | null;
+				endTime?: string | null;
+			} | null;
 		};
 		LoginSchema: {
 			/** Format: email */
@@ -469,8 +566,11 @@ export interface components {
 			sport?: string;
 			vdsNumber?: string;
 			vdsReleaseDate?: string;
-			fivlNumber?: string;
 			medicalExamValidDate?: string;
+			fivlNumber?: string;
+			xcontestId?: string;
+			ognCallsign?: string;
+			ognHex?: string;
 		};
 		UserSchema: {
 			id: string;
@@ -492,6 +592,9 @@ export interface components {
 			vdsNumber?: string | null;
 			vdsReleaseDate?: string | null;
 			fivlNumber?: string | null;
+			xcontestId?: string | null;
+			ognCallsign?: string | null;
+			ognHex?: string | null;
 			medicalExamValidDate?: string | null;
 			registeredAt: string;
 		};
@@ -923,6 +1026,33 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["XcTaskSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-xc-users-{id}": {
+		parameters: {
+			query?: {
+				edition?: number;
+			};
+			header?: never;
+			path: {
+				/** @example 123 */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["XcPilotProfileSchema"];
 				};
 			};
 			400: components["responses"]["400"];

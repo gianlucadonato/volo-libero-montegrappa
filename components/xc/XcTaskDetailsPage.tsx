@@ -1,18 +1,9 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
-import {
-	ArrowLeft,
-	Flag,
-	MapPinIcon,
-	MountainSnow,
-	Navigation,
-	Route,
-	Target,
-} from "lucide-react";
+import { ArrowLeft, MapPinIcon } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import type React from "react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DashboardHeader } from "@/components/dashboard/header";
 import { Button } from "@/components/ui/button";
@@ -22,61 +13,18 @@ import XcSubmissionHistory from "@/components/xc/XcSubmissionHistory";
 import XcTaskActionButtons from "@/components/xc/XcTaskActionButtons";
 import XcTaskInteractivePanel from "@/components/xc/XcTaskInteractivePanel";
 import XcTrackSubmission from "@/components/xc/XcTrackSubmission";
+import {
+	WAYPOINT_TYPE_COLOR,
+	WAYPOINT_TYPE_ICON,
+} from "@/components/xc/xc-waypoint-styles";
 import { NEXT_YEAR } from "@/config/constants";
 import {
 	useGetXcEnrollment,
 	useGetXcSubmissionTrack,
 	useGetXcTask,
 } from "@/hooks/use-query-api";
+import { useXcTaskWaypoints } from "@/hooks/use-xc-task-waypoints";
 import { authClient } from "@/lib/auth-client";
-import {
-	type ParsedTask,
-	parseTskXml,
-	type TaskWaypoint,
-} from "@/lib/tsk-parser";
-
-const WAYPOINT_TYPE_ICON: Record<string, React.ReactNode> = {
-	takeoff: <MountainSnow className="size-4 text-amber-500" />,
-	sss: <Navigation className="size-4 text-green-500" />,
-	ess: <Flag className="size-4 text-blue-500" />,
-	goal: <Target className="size-4 text-red-500" />,
-	turnpoint: <Route className="size-4 text-purple-500" />,
-};
-
-const WAYPOINT_TYPE_COLOR: Record<string, string> = {
-	takeoff: "bg-amber-500/10 text-amber-600 border-amber-500/30",
-	sss: "bg-green-500/10 text-green-600 border-green-500/30",
-	ess: "bg-blue-500/10 text-blue-600 border-blue-500/30",
-	goal: "bg-red-500/10 text-red-600 border-red-500/30",
-	turnpoint: "bg-purple-500/10 text-purple-600 border-purple-500/30",
-};
-
-function haversineKm(a: TaskWaypoint, b: TaskWaypoint): number {
-	const toRad = (deg: number) => (deg * Math.PI) / 180;
-	const earthRadiusKm = 6371;
-
-	const dLat = toRad(b.lat - a.lat);
-	const dLon = toRad(b.lon - a.lon);
-	const lat1 = toRad(a.lat);
-	const lat2 = toRad(b.lat);
-
-	const h =
-		Math.sin(dLat / 2) ** 2 +
-		Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-
-	return 2 * earthRadiusKm * Math.asin(Math.sqrt(h));
-}
-
-function legDistanceBetweenBuoysKm(
-	prev: TaskWaypoint | undefined,
-	curr: TaskWaypoint,
-): number {
-	if (!prev) return 0;
-	const centerDistanceKm = haversineKm(prev, curr);
-	const prevRadiusKm = (prev.radiusM || 0) / 1000;
-	const currRadiusKm = (curr.radiusM || 0) / 1000;
-	return Math.max(0, centerDistanceKm - prevRadiusKm - currRadiusKm);
-}
 
 interface XcTaskDetailsPageProps {
 	taskId: string;
@@ -158,32 +106,12 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 		});
 	}, [queryClient, taskId]);
 
-	const [parsedTask, setParsedTask] = useState<ParsedTask>({
-		waypoints: [],
-	});
-	const [isTskLoading, setIsTskLoading] = useState(false);
-
-	useEffect(() => {
-		if (!task?.taskFileUrl) return;
-
-		setIsTskLoading(true);
-		fetch(task.taskFileUrl)
-			.then((res) => res.text())
-			.then((xml) => {
-				setParsedTask(parseTskXml(xml));
-			})
-			.catch(console.error)
-			.finally(() => setIsTskLoading(false));
-	}, [task?.taskFileUrl]);
-
-	const waypoints = parsedTask.waypoints;
-	const legDistancesKm = useMemo(
-		() =>
-			waypoints.map((wp, idx) =>
-				legDistanceBetweenBuoysKm(waypoints[idx - 1], wp),
-			),
-		[waypoints],
-	);
+	const {
+		waypoints,
+		legDistancesKm,
+		taskInfo,
+		isLoading: isTskLoading,
+	} = useXcTaskWaypoints(task?.taskFileUrl);
 
 	if (isLoading || isTskLoading) {
 		return (
@@ -245,7 +173,7 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 							points={task.points}
 							distanceKm={task.distanceKm}
 							description={task.description}
-							taskInfo={parsedTask.info}
+							taskInfo={taskInfo}
 							trackCoordinates={trackCoordinates}
 							hoveredTrackPosition={hoveredTrackPosition}
 							trackFixes={track?.fixes}

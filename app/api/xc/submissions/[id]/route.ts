@@ -9,19 +9,15 @@ import { deleteObject, downloadObject } from "@/lib/r2";
 
 /**
  * /xc/submissions/[id]
- * @description Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user
+ * @description Get parsed IGC track data (header, stats, fixes) for a submission. Approved tracks are public; pending or rejected ones are readable only by their owner.
  * @pathParams IdParamsSchema
  * @response XcTrackResponseSchema
- * @auth
  * @openapi
  */
 export async function GET(
 	_request: Request,
 	context: { params: Promise<{ id: string }> },
 ) {
-	const session = await auth.api.getSession({ headers: await headers() });
-	if (!session) return APIErrorResponse(Boom.unauthorized());
-
 	const { id } = await context.params;
 
 	try {
@@ -31,8 +27,16 @@ export async function GET(
 		if (!submission) {
 			return APIErrorResponse(Boom.notFound("Submission not found"));
 		}
-		if (submission.userId !== session.user.id) {
-			return APIErrorResponse(Boom.forbidden());
+
+		// Approved tracks are shown on the public pilot profile (/xc/users/[id]).
+		// Anything still pending or rejected stays private to its owner.
+		const isPublic = submission.status === "APPROVED";
+		if (!isPublic) {
+			const session = await auth.api.getSession({ headers: await headers() });
+			if (!session) return APIErrorResponse(Boom.unauthorized());
+			if (submission.userId !== session.user.id) {
+				return APIErrorResponse(Boom.forbidden());
+			}
 		}
 
 		const igcContent = await downloadObject(submission.fileName);
@@ -43,13 +47,20 @@ export async function GET(
 			stats: typeof parsed.stats;
 		} | null;
 
-		return Response.json({
-			submissionId: submission.id,
-			status: submission.status,
-			header: flightData?.header ?? parsed.header,
-			stats: flightData?.stats ?? parsed.stats,
-			fixes: parsed.fixes,
-		});
+		return Response.json(
+			{
+				submissionId: submission.id,
+				status: submission.status,
+				header: flightData?.header ?? parsed.header,
+				stats: flightData?.stats ?? parsed.stats,
+				fixes: parsed.fixes,
+			},
+			// Parsing an approved track means downloading and re-parsing the IGC
+			// from R2 on every view; it never changes once approved.
+			isPublic
+				? { headers: { "Cache-Control": "public, max-age=300" } }
+				: undefined,
+		);
 	} catch (error) {
 		return APIErrorResponse(error, {
 			endpoint: "GET /xc/submissions/[id]",

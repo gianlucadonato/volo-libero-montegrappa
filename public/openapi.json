@@ -41,6 +41,18 @@
 					"email": {
 						"type": "string"
 					},
+					"xcontestId": {
+						"type": "string",
+						"nullable": true
+					},
+					"ognCallsign": {
+						"type": "string",
+						"nullable": true
+					},
+					"ognHex": {
+						"type": "string",
+						"nullable": true
+					},
 					"createdAt": {
 						"type": "string",
 						"format": "date-time"
@@ -485,6 +497,93 @@
 				},
 				"required": ["success", "filename", "objectKey", "submissionId"]
 			},
+			"XcPilotProfileSchema": {
+				"type": "object",
+				"properties": {
+					"user": {
+						"$ref": "#/components/schemas/XcPilotSummarySchema"
+					},
+					"editions": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcPilotEditionSchema"
+						}
+					},
+					"edition": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "number"
+							},
+							"title": {
+								"type": "string"
+							},
+							"minPoints": {
+								"type": "number"
+							},
+							"maxPoints": {
+								"type": "number"
+							},
+							"isActive": {
+								"type": "boolean"
+							}
+						},
+						"required": ["id", "title", "minPoints", "maxPoints", "isActive"],
+						"nullable": true
+					},
+					"totals": {
+						"type": "object",
+						"properties": {
+							"points": {
+								"type": "number"
+							},
+							"flights": {
+								"type": "number"
+							},
+							"totalDistanceKm": {
+								"type": "number"
+							},
+							"flightTimeHrs": {
+								"type": "number"
+							},
+							"maxAltM": {
+								"type": "number"
+							},
+							"levelsCompleted": {
+								"type": "number"
+							}
+						},
+						"required": [
+							"points",
+							"flights",
+							"totalDistanceKm",
+							"flightTimeHrs",
+							"maxAltM",
+							"levelsCompleted"
+						]
+					},
+					"categories": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcPilotCategoryStatsSchema"
+						}
+					},
+					"flights": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/XcPilotFlightSchema"
+						}
+					}
+				},
+				"required": [
+					"user",
+					"editions",
+					"edition",
+					"totals",
+					"categories",
+					"flights"
+				]
+			},
 			"IGCFixSchema": {
 				"type": "object",
 				"properties": {
@@ -588,6 +687,181 @@
 					"endTime",
 					"fixCount"
 				]
+			},
+			"XcPilotSummarySchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"image": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": ["id", "firstName", "lastName"]
+			},
+			"XcPilotEditionSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "number"
+					},
+					"title": {
+						"type": "string"
+					},
+					"isActive": {
+						"type": "boolean"
+					}
+				},
+				"required": ["id", "title", "isActive"]
+			},
+			"XcPilotCategoryStatsSchema": {
+				"type": "object",
+				"properties": {
+					"category": {
+						"type": "string",
+						"enum": ["BASIC", "INTERMEDIATE", "ADVANCED"]
+					},
+					"points": {
+						"type": "number"
+					},
+					"minPoints": {
+						"type": "number"
+					},
+					"maxPoints": {
+						"type": "number"
+					},
+					"rank": {
+						"type": "number",
+						"nullable": true
+					},
+					"totalPilots": {
+						"type": "number"
+					},
+					"tasksCompleted": {
+						"type": "number"
+					},
+					"tasksTotal": {
+						"type": "number"
+					},
+					"totalDistanceKm": {
+						"type": "number"
+					},
+					"flightTimeHrs": {
+						"type": "number"
+					},
+					"maxAltM": {
+						"type": "number"
+					},
+					"completedAt": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					}
+				},
+				"required": [
+					"category",
+					"points",
+					"minPoints",
+					"maxPoints",
+					"rank",
+					"totalPilots",
+					"tasksCompleted",
+					"tasksTotal",
+					"totalDistanceKm",
+					"flightTimeHrs",
+					"maxAltM"
+				]
+			},
+			"XcPilotFlightSchema": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "string"
+					},
+					"editionId": {
+						"type": "number"
+					},
+					"pointsAwarded": {
+						"type": "number"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"task": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string"
+							},
+							"slug": {
+								"type": "string"
+							},
+							"name": {
+								"type": "string"
+							},
+							"category": {
+								"type": "string",
+								"enum": ["BASIC", "INTERMEDIATE", "ADVANCED"]
+							},
+							"points": {
+								"type": "number"
+							},
+							"distanceKm": {
+								"type": "number",
+								"nullable": true
+							},
+							"taskFileUrl": {
+								"type": "string",
+								"nullable": true
+							}
+						},
+						"required": ["id", "slug", "name", "category", "points"]
+					},
+					"stats": {
+						"type": "object",
+						"properties": {
+							"duration": {
+								"type": "string",
+								"nullable": true
+							},
+							"durationSeconds": {
+								"type": "number",
+								"nullable": true
+							},
+							"totalDistanceKm": {
+								"type": "number",
+								"nullable": true
+							},
+							"maxAltitude": {
+								"type": "number",
+								"nullable": true
+							},
+							"minAltitude": {
+								"type": "number",
+								"nullable": true
+							},
+							"startTime": {
+								"type": "string",
+								"nullable": true
+							},
+							"endTime": {
+								"type": "string",
+								"nullable": true
+							}
+						},
+						"nullable": true
+					}
+				},
+				"required": ["id", "editionId", "pointsAwarded", "createdAt", "task"]
 			},
 			"LoginSchema": {
 				"type": "object",
@@ -737,10 +1011,19 @@
 					"vdsReleaseDate": {
 						"type": "string"
 					},
+					"medicalExamValidDate": {
+						"type": "string"
+					},
 					"fivlNumber": {
 						"type": "string"
 					},
-					"medicalExamValidDate": {
+					"xcontestId": {
+						"type": "string"
+					},
+					"ognCallsign": {
+						"type": "string"
+					},
+					"ognHex": {
 						"type": "string"
 					}
 				},
@@ -823,6 +1106,18 @@
 						"nullable": true
 					},
 					"fivlNumber": {
+						"type": "string",
+						"nullable": true
+					},
+					"xcontestId": {
+						"type": "string",
+						"nullable": true
+					},
+					"ognCallsign": {
+						"type": "string",
+						"nullable": true
+					},
+					"ognHex": {
 						"type": "string",
 						"nullable": true
 					},
@@ -1492,7 +1787,7 @@
 			"get": {
 				"operationId": "get-xc-submissions-{id}",
 				"summary": "/xc/submissions/[id]",
-				"description": "Get parsed IGC track data (header, stats, fixes) for a submission owned by the current user",
+				"description": "Get parsed IGC track data (header, stats, fixes) for a submission. Approved tracks are public; pending or rejected ones are readable only by their owner.",
 				"tags": ["Xc"],
 				"parameters": [
 					{
@@ -1503,11 +1798,6 @@
 							"type": "string"
 						},
 						"example": "123"
-					}
-				],
-				"security": [
-					{
-						"@openapi": []
 					}
 				],
 				"responses": {
@@ -1594,6 +1884,51 @@
 							"application/json": {
 								"schema": {
 									"$ref": "#/components/schemas/XcTaskSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/xc/users/{id}": {
+			"get": {
+				"operationId": "get-xc-users-{id}",
+				"summary": "/xc/users/[id]",
+				"description": "Public XC profile of a pilot: per-category progress for one edition and the approved flights of that edition",
+				"tags": ["Xc"],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "edition",
+						"required": false,
+						"schema": {
+							"type": "integer"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"example": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/XcPilotProfileSchema"
 								}
 							}
 						}

@@ -918,6 +918,40 @@
 			"failedToLoad": "Failed to load leaderboard. Please try again."
 		}
 	},
+	"XcPilotProfilePage": {
+		"subtitle": "Pilot profile",
+		"backToLeaderboard": "Leaderboard",
+		"selectEdition": "Edition",
+		"noData": "This pilot has no XC Montegrappa data yet.",
+		"totals": {
+			"levelsCompleted": "{count, plural, =1 {# certificate earned} other {# certificates earned}}",
+			"flights": "Flights",
+			"distance": "Distance",
+			"flightTime": "Flight time",
+			"maxAlt": "Max altitude"
+		},
+		"categories": {
+			"rank": "Rank",
+			"completed": "Certificate completed",
+			"noData": "No data for this category"
+		},
+		"flights": {
+			"title": "Flights",
+			"all": "All",
+			"empty": "No approved flights for this edition.",
+			"points": "pts",
+			"view": "View",
+			"trackUnavailable": "Track unavailable."
+		},
+		"errors": {
+			"failedToLoad": "Failed to load profile. Please try again."
+		}
+	},
+	"XcFlightPage": {
+		"back": "Pilot profile",
+		"pilot": "Pilot",
+		"viewTask": "View task"
+	},
 	"XcTaskCard": {
 		"distance": "Distance",
 		"difficulty": "Difficulty",

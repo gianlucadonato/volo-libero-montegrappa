@@ -111,6 +111,22 @@ export const useGetXcEditions = () => {
 	return $api.useQuery("get", "/xc/editions", {});
 };
 
+export const useGetXcPilotProfile = (userId: string, edition?: number) => {
+	return $api.useQuery(
+		"get",
+		"/xc/users/{id}",
+		{
+			params: {
+				path: { id: userId },
+				query: edition ? { edition } : undefined,
+			},
+		},
+		{
+			enabled: !!userId,
+		},
+	);
+};
+
 interface TrackData extends ParsedIGC {
 	submissionId: string;
 	status: string;
