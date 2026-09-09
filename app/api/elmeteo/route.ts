@@ -2,7 +2,7 @@ import { timingSafeEqual } from "node:crypto";
 import { headers } from "next/headers";
 import { after } from "next/server";
 import { env } from "@/env";
-import { cleanupElmeteoBucket } from "@/lib/elmeteo";
+import { cleanupElmeteoBucket, cleanupElmeteoReports } from "@/lib/elmeteo";
 import { pruneElmeteoCache } from "@/lib/elmeteo-images";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
@@ -73,9 +73,18 @@ export const POST = async (req: Request) => {
 		"ElMeteo report saved",
 	);
 
-	// Prune the S3 bucket after the response is sent: the retention cleanup must
-	// never delay the uploader nor fail its report.
+	// Prune the report rows, the bucket and the frame cache after the response is
+	// sent: retention work must never delay the uploader nor fail its report.
 	after(async () => {
+		// Report rows are dated by the same clock as the bucket, so this needs no
+		// folder listing and runs first: it must not be skipped when S3 fails.
+		try {
+			const { deletedReports } = await cleanupElmeteoReports();
+			logger.info({ deletedReports }, "ElMeteo reports cleanup completed");
+		} catch (error) {
+			logger.error({ error }, "ElMeteo reports cleanup failed");
+		}
+
 		let keptFolders: string[];
 
 		try {
