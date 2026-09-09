@@ -29,6 +29,13 @@ const runHourUTC = new Intl.DateTimeFormat("it-IT", {
 
 const updateTimes = "6:50, 9:50, 18:50 e 21:50";
 
+// The window is configured in days, but pilots think in weeks like the bucket
+// retention does, so the caption spells out both. Rounded, so a window that is
+// not a whole number of weeks still reads as a sentence.
+const historyHours = elmeteoHistoryDays * 24;
+const historyWeeks = Math.round(elmeteoHistoryDays / 7);
+const historyWeeksLabel = `${historyWeeks} settiman${historyWeeks === 1 ? "a" : "e"}`;
+
 export default async function MeteoPage() {
 	const [elmeteo, user, t] = await Promise.all([
 		getElmeteoRuns(),
@@ -79,7 +86,7 @@ export default async function MeteoPage() {
 								Modello elaborato alle{" "}
 								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},
 								previsione oraria fino a 48 ore. Navigabili anche le{" "}
-								{elmeteoHistoryDays * 24} ore precedenti.
+								{historyHours} ore precedenti ({historyWeeksLabel}).
 							</p>
 						</div>
 					</div>
