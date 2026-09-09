@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
 	defaultQuadrantMaps,
 	elmeteoMaps,
+	elmeteoSiteLegend,
 	getElmeteoMap,
 	isElmeteoMapId,
 	quadrantCount,
@@ -30,6 +31,25 @@ describe("elmeteo map catalogue", () => {
 		for (const map of defaultQuadrantMaps) {
 			expect(isElmeteoMapId(map)).toBe(true);
 		}
+	});
+
+	it("gives every transcribed map at least one paragraph to show", () => {
+		// A `details` object with nothing to render would leave the dialog with an
+		// empty block under the image.
+		for (const map of elmeteoMaps) {
+			if (!("details" in map) || !map.details) continue;
+			expect(map.details.paragraphs.length).toBeGreaterThan(0);
+			for (const paragraph of map.details.paragraphs) {
+				expect(paragraph.trim()).not.toBe("");
+			}
+		}
+	});
+
+	it("keeps the site legend on the maps that print it", () => {
+		expect(elmeteoSiteLegend).toHaveLength(7);
+		// hbas_sc introduces the legend with its red note, so it must carry it.
+		expect(getElmeteoMap("hbas_sc").details?.sites).toBe(true);
+		expect(getElmeteoMap("turb").details?.sites).toBeUndefined();
 	});
 
 	it("rejects unknown ids, including path traversal attempts", () => {

@@ -12,7 +12,45 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { type ElmeteoMapId, getElmeteoMap } from "@/lib/elmeteo-maps";
+import {
+	type ElmeteoMapDetails,
+	type ElmeteoMapId,
+	elmeteoSiteLegend,
+	getElmeteoMap,
+} from "@/lib/elmeteo-maps";
+
+/**
+ * The elmeteo.it explanation of a map, as it appears on the source page: the
+ * red note first, then the site legend it introduces, then the prose and the
+ * legend of the layers.
+ */
+function MapDetails({ details }: { details: ElmeteoMapDetails }) {
+	return (
+		<div className="space-y-3 text-muted-foreground text-sm">
+			{details.warning && <p className="text-destructive">{details.warning}</p>}
+
+			{details.sites && (
+				<ul className="list-disc space-y-1 pl-5 text-destructive">
+					{elmeteoSiteLegend.map((site) => (
+						<li key={site}>{site}</li>
+					))}
+				</ul>
+			)}
+
+			{details.paragraphs.map((paragraph) => (
+				<p key={paragraph}>{paragraph}</p>
+			))}
+
+			{details.bullets && (
+				<ul className="list-disc space-y-1 pl-5">
+					{details.bullets.map((bullet) => (
+						<li key={bullet}>{bullet}</li>
+					))}
+				</ul>
+			)}
+		</div>
+	);
+}
 
 type MapQuadrantProps = {
 	map: ElmeteoMapId;
@@ -71,7 +109,9 @@ export function MapQuadrant({
 								<Maximize2 className="size-4" />
 							</Button>
 						</DialogTrigger>
-						<DialogContent className="sm:max-w-4xl">
+						{/* The explanation can be several paragraphs long, so the dialog
+						    scrolls rather than growing past the viewport. */}
+						<DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-4xl">
 							<DialogHeader>
 								<DialogTitle>{definition.label}</DialogTitle>
 							</DialogHeader>
@@ -81,6 +121,13 @@ export function MapQuadrant({
 								alt={definition.description}
 								className="w-full rounded-lg"
 							/>
+							{definition.details ? (
+								<MapDetails details={definition.details} />
+							) : (
+								<p className="text-muted-foreground text-sm">
+									{definition.description}
+								</p>
+							)}
 						</DialogContent>
 					</Dialog>
 
