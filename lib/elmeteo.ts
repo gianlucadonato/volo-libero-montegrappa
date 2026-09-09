@@ -54,6 +54,7 @@ export async function cleanupElmeteoBucket(now = new Date()) {
 	const bucket = getElmeteoBucket();
 	const folders = await listTopLevelPrefixes(bucket);
 	const expiredFolders = selectExpiredFolders(folders, now);
+	const expired = new Set(expiredFolders);
 
 	let deletedObjects = 0;
 	for (const folder of expiredFolders) {
@@ -67,6 +68,9 @@ export async function cleanupElmeteoBucket(now = new Date()) {
 		bucket,
 		totalFolders: folders.length,
 		deletedFolders: expiredFolders,
+		// What survived the prune, so callers can drop anything they cache for the
+		// runs that are gone.
+		keptFolders: folders.filter((folder) => !expired.has(folder)),
 		deletedObjects,
 	};
 }

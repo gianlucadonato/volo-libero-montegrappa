@@ -21,6 +21,12 @@ export const env = createEnv({
 		AWS_SECRET_ACCESS_KEY: z.string().optional(),
 		AWS_S3_XC_BUCKET: z.string().optional(),
 		AWS_S3_ELMETEO_BUCKET: z.string().optional(),
+		// Bearer token the ElMeteo uploader authenticates with; it also gates the
+		// S3 retention cleanup triggered by that endpoint.
+		ELMETEO_API_TOKEN: z.string().min(1),
+		// Where converted map frames are cached. Defaults to the OS temp dir, which
+		// is wiped on reboot: point it at a persistent path in production.
+		ELMETEO_CACHE_DIR: z.string().optional(),
 		R2_ACCOUNT_ID: z.string().optional(),
 		R2_ACCESS_KEY_ID: z.string().optional(),
 		R2_SECRET_ACCESS_KEY: z.string().optional(),
@@ -49,6 +55,8 @@ export const env = createEnv({
 		AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
 		AWS_S3_XC_BUCKET: process.env.AWS_S3_XC_BUCKET,
 		AWS_S3_ELMETEO_BUCKET: process.env.AWS_S3_ELMETEO_BUCKET,
+		ELMETEO_API_TOKEN: process.env.ELMETEO_API_TOKEN,
+		ELMETEO_CACHE_DIR: process.env.ELMETEO_CACHE_DIR,
 		R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
 		R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
 		R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,

@@ -740,7 +740,11 @@
 		"no_data": "Nessun dato",
 		"today": "Oggi",
 		"tomorrow": "Domani",
-		"after_tomorrow": "Dopo domani"
+		"after_tomorrow": "Dopo domani",
+		"maps_locked_title": "Le mappe sono riservate ai soci",
+		"maps_locked_description": "Accedi per confrontare fino a sei mappe alla volta e navigare ora per ora nelle 48 ore di previsione.",
+		"no_run_title": "Previsioni non disponibili",
+		"no_run_description": "L'ultimo aggiornamento non è andato a buon fine. Riprova più tardi."
 	},
 	"TaskPage": {
 		"back": "Indietro",

@@ -91,6 +91,7 @@ describe("cleanupElmeteoBucket", () => {
 			bucket: "elmeteo",
 			totalFolders: 3,
 			deletedFolders: ["2026-08-18T06:00:00.000", "2026-07-01T12:00:00.000"],
+			keptFolders: ["2026-09-09T16:37:34.686"],
 			deletedObjects: 200,
 		});
 	});
@@ -103,5 +104,22 @@ describe("cleanupElmeteoBucket", () => {
 		expect(mockDeletePrefix).not.toHaveBeenCalled();
 		expect(result.deletedFolders).toEqual([]);
 		expect(result.deletedObjects).toBe(0);
+	});
+
+	it("reports the folders that survived, so callers can prune their caches", async () => {
+		const kept = "2026-09-09T16:37:34.686";
+		const expired = "2026-07-01T04:36:12.001";
+		vi.mocked(listTopLevelPrefixes).mockResolvedValue([expired, kept, "tasks"]);
+		vi.mocked(deletePrefix).mockResolvedValue(833);
+
+		const result = await cleanupElmeteoBucket(NOW);
+
+		expect(result.deletedFolders).toEqual([expired]);
+		// "tasks" is not an uploader folder: it is never deleted, so it stays kept.
+		expect(result.keptFolders).toEqual([kept, "tasks"]);
+		// Every listed folder is either deleted or kept, never both, never neither.
+		expect([...result.deletedFolders, ...result.keptFolders].sort()).toEqual(
+			[expired, kept, "tasks"].sort(),
+		);
 	});
 });

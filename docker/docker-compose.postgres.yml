@@ -5,9 +5,10 @@
 # Wipe data:   pnpm infra:down && docker volume rm vlm-postgres-data
 #
 # Connect your app to it by setting in .env:
-#   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/vlm-db"
+#   DATABASE_URL="postgresql://postgres:postgres@localhost:5433/vlm-db"
 #
-# Credentials/port can be overridden via the environment (or root .env):
+# Credentials/port can be overridden via the environment (or docker/.env --
+# note: compose does NOT read the repo-root .env, its project dir is docker/):
 #   POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_PORT
 
 services:
@@ -20,7 +21,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-vlm-db}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - "${POSTGRES_PORT:-5433}:5432"
     volumes:
       # Postgres 18 moved PGDATA under a version dir; mount the parent so the
       # named volume holds /var/lib/postgresql/18/docker (not .../data as in <=17).

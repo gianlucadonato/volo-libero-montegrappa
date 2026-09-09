@@ -698,7 +698,11 @@
 		"no_data": "No data",
 		"today": "Today",
 		"tomorrow": "Tomorrow",
-		"after_tomorrow": "After tomorrow"
+		"after_tomorrow": "After tomorrow",
+		"maps_locked_title": "Maps are reserved for members",
+		"maps_locked_description": "Sign in to compare up to six maps at once and step hour by hour through the 48-hour forecast.",
+		"no_run_title": "Forecast unavailable",
+		"no_run_description": "The latest update did not complete. Please try again later."
 	},
 	"TaskPage": {
 		"back": "Back",

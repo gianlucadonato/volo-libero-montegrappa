@@ -1,17 +1,21 @@
-import { getTranslations } from "next-intl/server";
-import { DashboardHeader } from "@/components/dashboard/header";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default async function Loading() {
-	const t = await getTranslations("MeteoPage");
+export default function Loading() {
 	return (
-		<div className="flex flex-col gap-5">
-			<Skeleton className="h-[200px] w-full rounded-lg" />
-			<DashboardHeader
-				heading={t("header_title")}
-				text={t("header_description")}
-			/>
-			<Skeleton className="h-[500px] w-full rounded-lg" />
+		<div>
+			<Skeleton className="h-[20vh] w-full rounded-none" />
+			<div className="container mb-16">
+				<Skeleton className="mt-8 h-20 w-full rounded-xl" />
+				<Skeleton className="mt-6 h-24 w-full rounded-xl" />
+				<div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+					{["a", "b", "c", "d", "e", "f"].map((slot) => (
+						<Skeleton
+							key={slot}
+							className="aspect-[844/700] w-full rounded-xl"
+						/>
+					))}
+				</div>
+			</div>
 		</div>
 	);
 }

@@ -1,14 +1,36 @@
+import { format } from "date-fns";
+import { it } from "date-fns/locale";
+import { Clock, Lock, RefreshCw } from "lucide-react";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import ComingSoon from "@/components/ComingSoon";
+import getLatestElmeteoRun from "@/actions/getLatestElmeteoRun";
+import { MeteoMaps } from "@/components/meteo/MeteoMaps";
+import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
+import { getStepForDate } from "@/lib/elmeteo-run";
+import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
-	title: `Weather - ${siteConfig.name}`,
-	description: "Weather forecast",
+	title: `Meteo - ${siteConfig.name}`,
+	description:
+		"Previsioni meteo per l'area del Montegrappa: termiche, vento, base delle nuvole e precipitazioni, aggiornate 4 volte al giorno.",
 });
 
+// The page reads the latest report, so it must not be cached at build time.
+export const dynamic = "force-dynamic";
+
+const updateTimes = "6:50, 9:50, 18:50 e 21:50";
+
 export default async function MeteoPage() {
-	const t = await getTranslations("MeteoPage");
+	const [run, user, t] = await Promise.all([
+		getLatestElmeteoRun(),
+		getSessionUser(),
+		getTranslations("MeteoPage"),
+	]);
+
+	// Open on the hour closest to now, so the first thing shown is the present.
+	const initialStep = run ? getStepForDate(run.runStart, new Date()) : 0;
+
 	return (
 		<div>
 			<div className="overflow-hidden rounded font-mono">
@@ -17,21 +39,112 @@ export default async function MeteoPage() {
 						style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
 						className="flex h-full flex-col items-center justify-center px-2"
 					>
-						<h1 className="text-2xl font-bold text-white">
+						<h1 className="font-bold text-2xl text-white">
 							{t("header_title")}
 						</h1>
 						<h3 className="pt-2 text-center text-sm text-white">
-							{t("header_description")}
+							{t("dashboard_description")}
 						</h3>
 					</div>
 				</div>
 			</div>
 
-			<div className="mb-12 min-h-[470px]">
-				<div className="pt-12">
-					<ComingSoon />
+			<div className="container mb-16">
+				<div className="mt-8 flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
+					<div className="flex items-start gap-3">
+						<RefreshCw className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+						<div>
+							<p className="font-medium text-sm">
+								{run?.updatedAt ? (
+									<>
+										Ultimo aggiornamento:{" "}
+										<span className="tabular-nums">
+											{format(run.updatedAt, "dd/MM/yyyy HH:mm:ss", {
+												locale: it,
+											})}
+										</span>
+									</>
+								) : (
+									"Nessun aggiornamento disponibile"
+								)}
+							</p>
+							<p className="text-muted-foreground text-xs">
+								Modello elaborato alle{" "}
+								{run
+									? `${format(run.runStart, "HH:mm", { locale: it })} UTC`
+									: "—"}
+								, previsione oraria fino a 48 ore.
+							</p>
+						</div>
+					</div>
+
+					<div className="flex items-start gap-3 sm:max-w-sm">
+						<Clock className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+						<p className="text-muted-foreground text-xs leading-snug">
+							Ci sono 4 aggiornamenti al giorno. Fine aggiornamento di tutte le
+							mappe circa alle ore: {updateTimes}.
+						</p>
+					</div>
+				</div>
+
+				<div className="mt-6">
+					{!run ? (
+						<EmptyState
+							title={t("no_run_title")}
+							description={t("no_run_description")}
+						/>
+					) : user ? (
+						<MeteoMaps
+							folder={run.folder}
+							runStartIso={run.runStart.toISOString()}
+							initialStep={initialStep}
+						/>
+					) : (
+						<LoginGate
+							title={t("maps_locked_title")}
+							description={t("maps_locked_description")}
+						/>
+					)}
 				</div>
 			</div>
+		</div>
+	);
+}
+
+function LoginGate({
+	title,
+	description,
+}: {
+	title: string;
+	description: string;
+}) {
+	return (
+		<div className="flex flex-col items-center gap-4 rounded-xl border border-dashed px-6 py-16 text-center">
+			<div className="rounded-full bg-muted p-3">
+				<Lock className="size-5 text-muted-foreground" />
+			</div>
+			<div className="max-w-md space-y-1">
+				<p className="font-medium">{title}</p>
+				<p className="text-muted-foreground text-sm">{description}</p>
+			</div>
+			<Link href="/login" className={buttonVariants()}>
+				Accedi
+			</Link>
+		</div>
+	);
+}
+
+function EmptyState({
+	title,
+	description,
+}: {
+	title: string;
+	description: string;
+}) {
+	return (
+		<div className="rounded-xl border border-dashed px-6 py-16 text-center">
+			<p className="font-medium">{title}</p>
+			<p className="mt-1 text-muted-foreground text-sm">{description}</p>
 		</div>
 	);
 }

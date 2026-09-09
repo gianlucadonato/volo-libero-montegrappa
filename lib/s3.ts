@@ -1,5 +1,6 @@
 import {
 	DeleteObjectsCommand,
+	GetObjectCommand,
 	ListObjectsV2Command,
 	PutObjectCommand,
 	S3Client,
@@ -121,4 +122,33 @@ export async function deletePrefix(params: { bucket: string; prefix: string }) {
 	} while (continuationToken);
 
 	return deletedCount;
+}
+
+/**
+ * Downloads an object into memory. Returns undefined when the key is missing so
+ * callers can answer 404 instead of throwing.
+ */
+export async function getObjectBytes(params: {
+	bucket: string;
+	objectKey: string;
+}) {
+	try {
+		const result = await getS3Client().send(
+			new GetObjectCommand({
+				Bucket: params.bucket,
+				Key: params.objectKey,
+			}),
+		);
+
+		const bytes = await result.Body?.transformToByteArray();
+		return bytes ? Buffer.from(bytes) : undefined;
+	} catch (error) {
+		if (
+			error instanceof Error &&
+			(error.name === "NoSuchKey" || error.name === "NotFound")
+		) {
+			return undefined;
+		}
+		throw error;
+	}
 }
