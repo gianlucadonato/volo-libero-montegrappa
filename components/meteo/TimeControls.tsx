@@ -8,13 +8,15 @@ import { cn } from "@/lib/utils";
 const hourJumps = [1, 3, 6, 12] as const;
 
 /**
- * Mobile puts the jumps on two rows, and the forward one is mirrored so every
- * column holds a single magnitude: -12h sits above +12h, -1h above +1h. The
- * backward buttons keep the default order (0), so ordering the forward ones
- * from 5 upwards is enough to both reverse them and keep them on the second
- * row. Reset at `sm`, where everything is one flex row in DOM order.
+ * Mobile puts the jumps on two rows, one magnitude per column, with the finest
+ * step on the left: -1h above +1h, -12h above +12h. That means mirroring the
+ * backward row, which sits in the DOM as -12h…-1h. Both rows are ordered
+ * explicitly, since leaving one at the default 0 would float it above the other
+ * (positive `order` always comes after 0). Reset at `sm`, where the jumps sit on
+ * a single flex row running from -12h to +12h in DOM order.
  */
-const forwardMobileOrder = ["order-8", "order-7", "order-6", "order-5"];
+const backwardMobileOrder = ["order-4", "order-3", "order-2", "order-1"];
+const forwardMobileOrder = ["order-5", "order-6", "order-7", "order-8"];
 
 type TimeControlsProps = {
 	step: number;
@@ -110,13 +112,14 @@ export function TimeControls({
 				</div>
 
 				<div className="grid grid-cols-4 gap-1.5 sm:flex sm:items-center">
-					{[...hourJumps].reverse().map((hours) => (
+					{[...hourJumps].reverse().map((hours, index) => (
 						<JumpButton
 							key={`back-${hours}`}
 							label={`-${hours}h`}
 							// The single-hour step is the one reached for most, so it reads
-							// as the filled anchor at the centre of the ladder.
+							// as the filled anchor at the centre of the desktop ladder.
 							variant={hours === 1 ? "secondary" : "outline"}
+							className={backwardMobileOrder[index]}
 							disabled={step - hours < 0}
 							onClick={() => onStepChange(step - hours)}
 						/>
