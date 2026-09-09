@@ -32,13 +32,23 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 		[runs],
 	);
 
-	// The selection is an instant, not an index: a refresh rebuilds the timeline
-	// with a new run appended and the expired ones dropped from the front, which
-	// shifts every index. Resolving the hour again keeps the user on the hour
-	// they were looking at.
+	// The selection is an instant, not an index: a rebuilt timeline drops the
+	// expired hours from the front, which shifts every index.
 	const [selectedAt, setSelectedAt] = useState(() =>
 		new Date(initialAtIso).getTime(),
 	);
+
+	// A fresh `initialAtIso` means the server re-rendered — a refresh, or a fresh
+	// visit. Both should land on the present, exactly like reloading the page, so
+	// the selection follows it back instead of staying where the user had
+	// browsed. Adjusting during render rather than in an effect keeps the maps
+	// from painting the old hour first.
+	const [syncedAt, setSyncedAt] = useState(initialAtIso);
+	if (syncedAt !== initialAtIso) {
+		setSyncedAt(initialAtIso);
+		setSelectedAt(new Date(initialAtIso).getTime());
+	}
+
 	const { maps, setQuadrantMap, resetQuadrants } = useElmeteoQuadrants();
 
 	const index = findSlotIndex(slots, new Date(selectedAt));

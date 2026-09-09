@@ -5,7 +5,10 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import getElmeteoRuns from "@/actions/getElmeteoRuns";
 import { MeteoMaps } from "@/components/meteo/MeteoMaps";
-import { RefreshStatus } from "@/components/meteo/RefreshStatus";
+import {
+	RefreshButton,
+	UploadStatusDot,
+} from "@/components/meteo/RefreshStatus";
 import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
 import { elmeteoHistoryDays } from "@/lib/elmeteo-run";
@@ -67,9 +70,12 @@ export default async function MeteoPage() {
 			<div className="container mb-16">
 				<div className="mt-8 flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
 					<div className="flex items-start gap-3">
-						{/* No report at all is not a success: the dot stays red rather
-						    than claiming a healthy uploader on an empty page. */}
-						<RefreshStatus error={elmeteo?.lastAttempt.error ?? true} />
+						{/* Aligned to the first line of the block rather than to the box:
+						    the icon belongs to the timestamp, not to the paragraphs under
+						    it. */}
+						<div className="flex h-5 shrink-0 items-center">
+							<RefreshButton />
+						</div>
 						<div>
 							<p className="font-medium text-sm">
 								{run?.updatedAt ? (
@@ -84,6 +90,9 @@ export default async function MeteoPage() {
 								) : (
 									"Nessun aggiornamento disponibile"
 								)}
+								{/* No report at all is not a success: the dot stays red
+								    rather than claiming a healthy uploader. */}
+								<UploadStatusDot error={elmeteo?.lastAttempt.error ?? true} />
 							</p>
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
