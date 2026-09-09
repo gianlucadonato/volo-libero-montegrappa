@@ -63,7 +63,15 @@ export const POST = async (req: Request) => {
 		},
 	});
 
-	console.log("🐞 > Report saved!", body);
+	logger.info(
+		{
+			folder: body.destFolder,
+			totalUploadedFiles: body.totalUploadedFiles,
+			totalFiles: body.totalFiles,
+			error: Boolean(body.error),
+		},
+		"ElMeteo report saved",
+	);
 
 	// Prune the S3 bucket after the response is sent: the retention cleanup must
 	// never delay the uploader nor fail its report.
