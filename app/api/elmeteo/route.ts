@@ -1,4 +1,7 @@
 import { headers } from "next/headers";
+import { after } from "next/server";
+import { cleanupElmeteoBucket } from "@/lib/elmeteo";
+import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
 
 export const GET = async () => {
@@ -45,6 +48,25 @@ export const POST = async (req: Request) => {
 	});
 
 	console.log("🐞 > Report saved!", body);
+
+	// Prune the S3 bucket after the response is sent: the retention cleanup must
+	// never delay the uploader nor fail its report.
+	after(async () => {
+		try {
+			const result = await cleanupElmeteoBucket();
+			logger.info(
+				{
+					bucket: result.bucket,
+					totalFolders: result.totalFolders,
+					deletedFolders: result.deletedFolders,
+					deletedObjects: result.deletedObjects,
+				},
+				"ElMeteo bucket cleanup completed",
+			);
+		} catch (error) {
+			logger.error({ error }, "ElMeteo bucket cleanup failed");
+		}
+	});
 
 	return Response.json({ message: "Report saved!" });
 };
