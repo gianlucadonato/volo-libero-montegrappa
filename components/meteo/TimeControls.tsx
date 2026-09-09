@@ -7,6 +7,15 @@ import { cn } from "@/lib/utils";
 
 const hourJumps = [1, 3, 6, 12] as const;
 
+/**
+ * Mobile puts the jumps on two rows, and the forward one is mirrored so every
+ * column holds a single magnitude: -12h sits above +12h, -1h above +1h. The
+ * backward buttons keep the default order (0), so ordering the forward ones
+ * from 5 upwards is enough to both reverse them and keep them on the second
+ * row. Reset at `sm`, where everything is one flex row in DOM order.
+ */
+const forwardMobileOrder = ["order-8", "order-7", "order-6", "order-5"];
+
 type TimeControlsProps = {
 	step: number;
 	runStart: Date;
@@ -113,12 +122,15 @@ export function TimeControls({
 						/>
 					))}
 
-					{hourJumps.map((hours) => (
+					{hourJumps.map((hours, index) => (
 						<JumpButton
 							key={`forward-${hours}`}
 							label={`+${hours}h`}
 							variant={hours === 1 ? "secondary" : "outline"}
-							className={hours === 1 ? "sm:ml-1" : undefined}
+							className={cn(
+								forwardMobileOrder[index],
+								hours === 1 && "sm:ml-1",
+							)}
 							disabled={step + hours > elmeteoMaxStep}
 							onClick={() => onStepChange(step + hours)}
 						/>
@@ -166,7 +178,7 @@ function JumpButton({
 			className={cn(
 				// Buttons stretch to their grid cell on mobile so the two rows line up
 				// column by column, and shrink back to their label on desktop.
-				"w-full px-2 font-mono text-xs tabular-nums sm:w-auto",
+				"w-full px-2 font-mono text-xs tabular-nums sm:w-auto sm:order-none",
 				className,
 			)}
 		>
