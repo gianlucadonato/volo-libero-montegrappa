@@ -69,7 +69,10 @@ export function getStepDate(runStart: Date, step: number) {
 export function getStepForDate(runStart: Date, target: Date) {
 	const offsetHours =
 		(target.getTime() - runStart.getTime()) / millisecondsPerHour;
-	return clampStep(offsetHours);
+	// Floor, not round: at 23:32 rounding would land on the 00:00 frame, showing
+	// a forecast for an hour that has not happened yet. The step whose hour is
+	// under way is the one that describes the current weather.
+	return clampStep(Math.floor(offsetHours));
 }
 
 /** S3 object key of one frame. */

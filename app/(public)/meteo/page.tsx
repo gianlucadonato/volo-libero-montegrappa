@@ -19,6 +19,14 @@ export const metadata = constructMetadata({
 // The page reads the latest report, so it must not be cached at build time.
 export const dynamic = "force-dynamic";
 
+// date-fns formats in the server's local zone, so the run hour has to be built
+// explicitly in UTC to match the "Run ... UTC" caption burned into the maps.
+const runHourUTC = new Intl.DateTimeFormat("it-IT", {
+	timeZone: "UTC",
+	hour: "2-digit",
+	minute: "2-digit",
+});
+
 const updateTimes = "6:50, 9:50, 18:50 e 21:50";
 
 export default async function MeteoPage() {
@@ -70,10 +78,8 @@ export default async function MeteoPage() {
 							</p>
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
-								{run
-									? `${format(run.runStart, "HH:mm", { locale: it })} UTC`
-									: "—"}
-								, previsione oraria fino a 48 ore.
+								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},
+								previsione oraria fino a 48 ore.
 							</p>
 						</div>
 					</div>

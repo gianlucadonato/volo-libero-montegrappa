@@ -77,9 +77,13 @@ describe("getStepDate", () => {
 describe("getStepForDate", () => {
 	const runStart = new Date("2026-09-09T12:00:00.000Z");
 
-	it("finds the step closest to a target instant", () => {
+	it("finds the step whose hour is under way, never the next one", () => {
+		expect(getStepForDate(runStart, new Date("2026-09-09T17:00:00Z"))).toBe(5);
 		expect(getStepForDate(runStart, new Date("2026-09-09T17:10:00Z"))).toBe(5);
-		expect(getStepForDate(runStart, new Date("2026-09-09T17:40:00Z"))).toBe(6);
+		// Rounding up here would show a forecast for an hour that has not started.
+		expect(getStepForDate(runStart, new Date("2026-09-09T17:40:00Z"))).toBe(5);
+		expect(getStepForDate(runStart, new Date("2026-09-09T17:59:59Z"))).toBe(5);
+		expect(getStepForDate(runStart, new Date("2026-09-09T18:00:00Z"))).toBe(6);
 	});
 
 	it("clamps targets outside the run window", () => {

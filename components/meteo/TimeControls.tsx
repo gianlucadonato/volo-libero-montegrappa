@@ -1,11 +1,6 @@
 "use client";
 
-import {
-	ChevronLeft,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
-} from "lucide-react";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { elmeteoMaxStep } from "@/lib/elmeteo-run";
 import { cn } from "@/lib/utils";
@@ -72,7 +67,7 @@ export function TimeControls({
 	return (
 		<div className="rounded-xl border bg-card p-3 sm:p-4">
 			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-				<div className="flex items-center gap-2">
+				<div className="flex items-center justify-between gap-2 sm:justify-start">
 					<Button
 						variant="outline"
 						size="icon"
@@ -85,7 +80,7 @@ export function TimeControls({
 						<ChevronsLeft className="size-4" />
 					</Button>
 
-					<div className="min-w-[13rem] text-center">
+					<div className="flex-1 text-center sm:min-w-[13rem] sm:flex-none">
 						<p className="font-semibold text-lg leading-tight tabular-nums">
 							{romeTime.format(current)}
 						</p>
@@ -105,41 +100,25 @@ export function TimeControls({
 					</Button>
 				</div>
 
-				<div className="flex flex-wrap items-center justify-center gap-1.5">
+				<div className="grid grid-cols-4 gap-1.5 sm:flex sm:items-center">
 					{[...hourJumps].reverse().map((hours) => (
 						<JumpButton
 							key={`back-${hours}`}
 							label={`-${hours}h`}
+							// The single-hour step is the one reached for most, so it reads
+							// as the filled anchor at the centre of the ladder.
+							variant={hours === 1 ? "secondary" : "outline"}
 							disabled={step - hours < 0}
 							onClick={() => onStepChange(step - hours)}
 						/>
 					))}
 
-					<div className="mx-1 flex items-center gap-1">
-						<Button
-							variant="secondary"
-							size="icon"
-							aria-label="Un'ora indietro"
-							disabled={step <= 0}
-							onClick={() => onStepChange(step - 1)}
-						>
-							<ChevronLeft className="size-4" />
-						</Button>
-						<Button
-							variant="secondary"
-							size="icon"
-							aria-label="Un'ora avanti"
-							disabled={step >= elmeteoMaxStep}
-							onClick={() => onStepChange(step + 1)}
-						>
-							<ChevronRight className="size-4" />
-						</Button>
-					</div>
-
 					{hourJumps.map((hours) => (
 						<JumpButton
 							key={`forward-${hours}`}
 							label={`+${hours}h`}
+							variant={hours === 1 ? "secondary" : "outline"}
+							className={hours === 1 ? "sm:ml-1" : undefined}
 							disabled={step + hours > elmeteoMaxStep}
 							onClick={() => onStepChange(step + hours)}
 						/>
@@ -167,20 +146,29 @@ export function TimeControls({
 
 function JumpButton({
 	label,
+	variant,
+	className,
 	disabled,
 	onClick,
 }: {
 	label: string;
+	variant: "outline" | "secondary";
+	className?: string;
 	disabled: boolean;
 	onClick: () => void;
 }) {
 	return (
 		<Button
-			variant="outline"
+			variant={variant}
 			size="sm"
 			disabled={disabled}
 			onClick={onClick}
-			className={cn("px-2 font-mono text-xs tabular-nums")}
+			className={cn(
+				// Buttons stretch to their grid cell on mobile so the two rows line up
+				// column by column, and shrink back to their label on desktop.
+				"w-full px-2 font-mono text-xs tabular-nums sm:w-auto",
+				className,
+			)}
 		>
 			{label}
 		</Button>

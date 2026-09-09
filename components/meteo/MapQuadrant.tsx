@@ -45,6 +45,9 @@ export function MapQuadrant({
 }: MapQuadrantProps) {
 	const definition = getElmeteoMap(map);
 	const [loaded, setLoaded] = useState(false);
+	// Controlled so both the header button and the frame itself can open it, while
+	// focus still returns to the header button on close.
+	const [zoomed, setZoomed] = useState(false);
 	const currentUrl = frameUrl(folder, map, step);
 
 	return (
@@ -58,7 +61,7 @@ export function MapQuadrant({
 				</div>
 
 				<div className="flex shrink-0 items-center gap-1">
-					<Dialog>
+					<Dialog open={zoomed} onOpenChange={setZoomed}>
 						<DialogTrigger asChild>
 							<Button
 								variant="ghost"
@@ -93,7 +96,12 @@ export function MapQuadrant({
 				</div>
 			</div>
 
-			<div className="relative aspect-[844/766] bg-muted/40">
+			<button
+				type="button"
+				onClick={() => setZoomed(true)}
+				aria-label={`Ingrandisci ${definition.label}`}
+				className="relative block w-full cursor-zoom-in aspect-[844/766] bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+			>
 				{!loaded && <Skeleton className="absolute inset-0 rounded-none" />}
 				{/* biome-ignore lint/performance/noImgElement: the frame route already serves an optimised WebP */}
 				<img
@@ -108,7 +116,7 @@ export function MapQuadrant({
 					onError={() => setLoaded(true)}
 					className="absolute inset-0 size-full object-contain"
 				/>
-			</div>
+			</button>
 
 			{/* Neighbouring hours are fetched at low priority so the ± buttons paint
 			    from the browser cache instead of waiting on S3. */}
