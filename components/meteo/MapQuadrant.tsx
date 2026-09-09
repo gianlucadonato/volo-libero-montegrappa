@@ -121,13 +121,7 @@ export function MapQuadrant({
 								alt={definition.description}
 								className="w-full rounded-lg"
 							/>
-							{definition.details ? (
-								<MapDetails details={definition.details} />
-							) : (
-								<p className="text-muted-foreground text-sm">
-									{definition.description}
-								</p>
-							)}
+							<MapDetails details={definition.details} />
 						</DialogContent>
 					</Dialog>
 

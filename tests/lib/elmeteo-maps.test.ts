@@ -33,11 +33,10 @@ describe("elmeteo map catalogue", () => {
 		}
 	});
 
-	it("gives every transcribed map at least one paragraph to show", () => {
-		// A `details` object with nothing to render would leave the dialog with an
-		// empty block under the image.
+	it("gives every map something to show under the enlarged image", () => {
+		// The dialog renders `details` unconditionally: a map with no paragraph
+		// would leave an empty block under the image.
 		for (const map of elmeteoMaps) {
-			if (!("details" in map) || !map.details) continue;
 			expect(map.details.paragraphs.length).toBeGreaterThan(0);
 			for (const paragraph of map.details.paragraphs) {
 				expect(paragraph.trim()).not.toBe("");
@@ -48,8 +47,8 @@ describe("elmeteo map catalogue", () => {
 	it("keeps the site legend on the maps that print it", () => {
 		expect(elmeteoSiteLegend).toHaveLength(7);
 		// hbas_sc introduces the legend with its red note, so it must carry it.
-		expect(getElmeteoMap("hbas_sc").details?.sites).toBe(true);
-		expect(getElmeteoMap("turb").details?.sites).toBeUndefined();
+		expect(getElmeteoMap("hbas_sc").details.sites).toBe(true);
+		expect(getElmeteoMap("turb").details.sites).toBeUndefined();
 	});
 
 	it("rejects unknown ids, including path traversal attempts", () => {

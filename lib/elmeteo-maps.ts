@@ -37,8 +37,7 @@ export type ElmeteoMap = {
 	/** Full caption, matching the one printed in the image. */
 	description: string;
 	group: ElmeteoMapGroup;
-	/** Missing for the maps whose source page has not been transcribed yet. */
-	details?: ElmeteoMapDetails;
+	details: ElmeteoMapDetails;
 };
 
 /**
@@ -58,6 +57,9 @@ export const elmeteoSiteLegend = [
 /** Repeated verbatim on both updraft maps, apart from the middle sentence. */
 const arrowsBullet =
 	"Frecce: in nero sulla mappa indicano la direzione del vento (la punta della freccia indica la direzione verso cui va il vento, mentre il gambo della freccia ne indica la provenienza): più è lunga la freccia, maggiore è la frequenza della raffica.";
+
+const geopotential850Bullet =
+	"Geopotenziale a 850 hpa: la lettera H è posta sul punto di maggior geopotenziale con il valore (altezza in metri dove la pressione è di 850 hPa); la lettera L invece identifica il punto di minor geopotenziale.";
 
 const updraftDangerParagraph =
 	"E’ molto utile per chi pratica Volo Libero. Valori molto alti possono creare pericolo.";
@@ -94,7 +96,7 @@ export const elmeteoMaps = [
 			],
 			bullets: [
 				"Updraft a 850 hPa (1500m circa): è definito dalla scala di colori in basso: valori di colore azzurro solitamente non destano preoccupazioni. L’unità di misura di salita è espressa in metri al secondo (m/s).",
-				"Geopotenziale a 850 hpa: la lettera H è posta sul punto di maggior geopotenziale con il valore (altezza in metri dove la pressione è di 850 hPa); la lettera L invece identifica il punto di minor geopotenziale.",
+				geopotential850Bullet,
 			],
 		},
 	},
@@ -118,6 +120,16 @@ export const elmeteoMaps = [
 		description:
 			"CAPE e CIN (dove ci sono i punti prevale l'inibizione), direzione delle nubi",
 		group: "termica",
+		details: {
+			paragraphs: [
+				"Queste mappe sono utili per capire se ci sarà o meno lo sviluppo di nubi convettive (cumuli e cumulonembi) e quindi lo sviluppo di temporali. L’indice CAPE indica l’energia potenziale a disposizione per lo sviluppo delle nubi, l’indice CIN indica l’inibizione, ovvero se l’energia (CAPE) può essere sfruttata o meno per lo sviluppo.",
+			],
+			bullets: [
+				"CAPE: è definito dalla scala di colori in basso: verde = debole, giallo = moderato, rosso = forte. L’unità di misura è espressa in Joule per kg d’aria (circa 1 metro cubo d’aria); già a partire dal colore verde la formazione di temporali non è esclusa, se di colore rosso la formazione di temporali è probabile. Questo indice va sempre rapportato all’indice CIN in quanto non sempre l’energia a disposizione può essere usata (usando una metafora, il CAPE è come la benzina, se non c’è una scintilla o una fiamma ad innescarla resta innocua)",
+				"CIN: è definito dai punti sulla mappa; se i punti sono presenti significa che l’inibizione prevale e quindi l’energia (CAPE) non riesce ad essere sfruttata per lo sviluppo delle nubi convettive. Se sulla mappa sono presenti zone senza punti, ma anche senza i colori del CAPE, significa che in quella zona non ci saranno nubi convettive o al massimo possono formarsi dei cumuli “umili”, cioè senza possibilità di sviluppo importante.",
+				"FRECCE DEL VENTO: in bianco sulla mappa indicano la direzione di spostamento delle eventuali nubi.",
+			],
+		},
 	},
 	{
 		id: "turb",
@@ -214,12 +226,31 @@ export const elmeteoMaps = [
 		label: "Nuvole e precipitazioni",
 		description: "Nuvole, pioggia, neve e pressione al livello del mare",
 		group: "precipitazioni",
+		details: {
+			paragraphs: [
+				"Queste mappe sono utili per capire come saranno le condizioni del tempo in un solo sguardo: infatti, raggruppando 4 parametri in un’unica mappa, si può capire immediatamente se si potranno svolgere attività all’aperto, se pioverà, nevicherà o se sarà nuvoloso.",
+			],
+			bullets: [
+				"PIOGGIA: è definita dalla scala di colori in basso a destra; verde = debole, giallo = moderata, rosso = forte o molto forte. L’unità di misura è espressa in millimetri/ora (1 mm = 1 litro d’acqua per metro quadro)",
+				"NEVE: è definita dalla scala di colori in basso a sinistra; rosa chiaro = nevischio o neve debole, rosa più scuro = neve moderata o forte. L’unità di misura è espressa in millimetri/ora (1 mm = 1 cm di neve circa)",
+				"NUBI: sono definite dalla scala di colori grigi; grigio scuro = nubi basse, grigio medio = nubi medie, grigio chiaro = nubi alte. In caso di precipitazioni i colori grigi vengono coperti dagli altri colori (pioggia o neve)",
+				"MSLP: è la pressione atmosferica ridotta al livello del mare espressa in ettopascal (hPa); con la lettera H si definisce il punto della mappa di maggior pressione e al di sotto di essa è espresso il valore, con la lettera L si definisce il punto di minor pressione",
+			],
+		},
 	},
 	{
 		id: "precip_acc",
 		label: "Precipitazioni cumulate",
 		description: "Precipitazioni accumulate dall'inizio del run",
 		group: "precipitazioni",
+		details: {
+			paragraphs: [
+				"Queste mappe mostrano la somma delle precipitazioni accumulate a partire dalla data di emissione del run (in alto a sinistra).",
+			],
+			bullets: [
+				"PRECIPITAZIONI ACCUMULATE: sono la somma di tutte le precipitazioni (pioggia, neve, grandine, ecc.)",
+			],
+		},
 	},
 	{
 		id: "hsnow",
@@ -227,18 +258,44 @@ export const elmeteoMaps = [
 		description:
 			"Variazione dello spessore della neve [cm] dall'inizio del run e quota neve [m]",
 		group: "precipitazioni",
+		details: {
+			paragraphs: [
+				"Queste mappe sono utili specie per chi frequenta la montagna d’inverno: mostrano lo stato della neve, in particolare il cambiamento dell’altezza del manto nevoso a partire dalla data e l’ora del run (in alto a sinistra) e mostrano la quota delle nevicate. Per avere la situazione della neve prevista si rimanda alle mappe Pioggia-Neve-Nuvole.",
+			],
+			bullets: [
+				"Altezza neve: è definita dalla scala in basso al centro, con i colori rossi si definisce la neve in fusione, mentre con quelli blu si definisce la neve in accumulo",
+				"Altitudine delle nevicate: è definita da righe bianche che indicano la quota in metri fin dove si spingeranno le nevicate",
+			],
+		},
 	},
 	{
 		id: "t_2m",
 		label: "Temperatura a 2 m",
 		description: "Temperatura dell'aria a 2 m dal suolo",
 		group: "quota",
+		details: {
+			paragraphs: [
+				"Queste mappe mostrano la temperatura prevista a 2 metri dal suolo. Può essere utile per chi deve svolgere attività all’aperto.",
+			],
+			bullets: [
+				"Temperatura a 2m: è definita dalla scala di colori in basso: azzurro = freddo, rosso = caldo. L’unità di misura è espressa in gradi centigradi (°C).",
+			],
+		},
 	},
 	{
 		id: "temp850",
 		label: "Temperatura a 850 hPa",
 		description: "Geopotenziale [m] e temperatura [°C] a 850 hPa",
 		group: "quota",
+		details: {
+			paragraphs: [
+				"Queste mappe mostrano la temperatura prevista a 850 hPa (circa 1500 metri). Può essere utile per sapere la temperatura in montagna e per prevedere la neve d’Inverno. Es. vicino alla zona di nostro interesse c’è la lettera (H o L indifferente) con al di sotto la scritta “1530” = vuol dire che la temperatura che leggiamo sul punto di nostro interesse è quella a 1530m di altitudine.",
+			],
+			bullets: [
+				"Temperatura a 850 hPa (1500m circa): è definita dalla scala di colori in basso: azzurro>viola>grigio = freddo>molto freddo, giallo>rosso>nero = caldo>molto caldo. L’unità di misura è espressa in gradi centigradi (°C).",
+				geopotential850Bullet,
+			],
+		},
 	},
 	{
 		id: "thetae850",
