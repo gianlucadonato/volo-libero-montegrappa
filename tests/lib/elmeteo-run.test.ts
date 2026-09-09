@@ -1,10 +1,15 @@
 import { describe, expect, it } from "vitest";
 import {
+	buildElmeteoTimeline,
 	buildFrameKey,
 	clampStep,
+	elmeteoHistoryDays,
 	elmeteoMaxStep,
+	elmeteoStepCount,
+	findSlotIndex,
 	getStepDate,
 	getStepForDate,
+	getTimelineStart,
 	parseRunStart,
 } from "@/lib/elmeteo-run";
 
@@ -113,5 +118,140 @@ describe("buildFrameKey", () => {
 				step: 99,
 			}),
 		).toBe(`2026-09-09T16:37:34.686/nord/t_2m_${elmeteoMaxStep}.png`);
+	});
+});
+
+describe("buildElmeteoTimeline", () => {
+	// Four runs a day, exactly as the uploader publishes them.
+	const run = (iso: string) => ({
+		folder: `${iso.replace("Z", "")}-upload`,
+		runStart: new Date(iso),
+	});
+
+	it("prefers the newest run that covers an hour", () => {
+		const older = {
+			folder: "older",
+			runStart: new Date("2026-09-09T00:00:00Z"),
+		};
+		const newer = {
+			folder: "newer",
+			runStart: new Date("2026-09-09T12:00:00Z"),
+		};
+		const slots = buildElmeteoTimeline([older, newer]);
+
+		const at = (iso: string) =>
+			slots.find((slot) => slot.at.toISOString() === iso);
+
+		// 06:00 is only reachable from the older run.
+		expect(at("2026-09-09T06:00:00.000Z")).toMatchObject({
+			folder: "older",
+			step: 6,
+		});
+		// 18:00 is covered by both: the newer run has the shorter lead time.
+		expect(at("2026-09-09T18:00:00.000Z")).toMatchObject({
+			folder: "newer",
+			step: 6,
+		});
+	});
+
+	it("is hourly, sorted and free of duplicates", () => {
+		const slots = buildElmeteoTimeline([
+			run("2026-09-09T00:00:00Z"),
+			run("2026-09-09T12:00:00Z"),
+			run("2026-09-08T12:00:00Z"),
+		]);
+
+		// Two runs 12h apart plus one 24h earlier: 48h of coverage from the newest,
+		// extended backwards by the 24h the older ones add.
+		expect(slots).toHaveLength(48 + 24 + 1);
+		for (let i = 1; i < slots.length; i++) {
+			expect(slots[i].at.getTime() - slots[i - 1].at.getTime()).toBe(3600_000);
+		}
+		expect(slots[0].at.toISOString()).toBe("2026-09-08T12:00:00.000Z");
+		expect(slots[slots.length - 1].at.toISOString()).toBe(
+			"2026-09-11T12:00:00.000Z",
+		);
+	});
+
+	it("drops the hours older than the history window", () => {
+		const slots = buildElmeteoTimeline(
+			[run("2026-08-01T00:00:00Z"), run("2026-09-09T12:00:00Z")],
+			2,
+		);
+
+		// The August run is entirely outside a 2-day window: nothing of it survives,
+		// so the timeline starts at the September run rather than at the window.
+		expect(
+			slots.every((slot) => slot.folder !== "2026-08-01T00:00:00-upload"),
+		).toBe(true);
+		expect(slots[0].at.toISOString()).toBe("2026-09-09T12:00:00.000Z");
+		expect(slots).toHaveLength(elmeteoStepCount);
+	});
+
+	it("keeps the tail of a run that reaches into the window", () => {
+		// This run starts before the window but its later steps fall inside it.
+		const slots = buildElmeteoTimeline(
+			[run("2026-09-08T00:00:00Z"), run("2026-09-09T12:00:00Z")],
+			2,
+		);
+
+		expect(slots[0]).toMatchObject({
+			folder: "2026-09-08T00:00:00-upload",
+			// 2026-09-07T12:00Z is before this run, so the window opens at its start.
+			step: 0,
+		});
+		expect(slots[0].at.toISOString()).toBe("2026-09-08T00:00:00.000Z");
+	});
+
+	it("returns nothing when there are no runs", () => {
+		expect(buildElmeteoTimeline([])).toEqual([]);
+	});
+});
+
+describe("findSlotIndex", () => {
+	const slots = buildElmeteoTimeline([
+		{ folder: "run", runStart: new Date("2026-09-09T12:00:00Z") },
+	]);
+
+	it("finds the slot whose hour is under way, never the next one", () => {
+		expect(
+			slots[
+				findSlotIndex(slots, new Date("2026-09-09T17:00:00Z"))
+			].at.toISOString(),
+		).toBe("2026-09-09T17:00:00.000Z");
+		expect(
+			slots[
+				findSlotIndex(slots, new Date("2026-09-09T17:59:59Z"))
+			].at.toISOString(),
+		).toBe("2026-09-09T17:00:00.000Z");
+		expect(
+			slots[
+				findSlotIndex(slots, new Date("2026-09-09T18:00:00Z"))
+			].at.toISOString(),
+		).toBe("2026-09-09T18:00:00.000Z");
+	});
+
+	it("clamps outside the timeline", () => {
+		// Before the first slot: the timeline opens on its earliest hour.
+		expect(findSlotIndex(slots, new Date("2026-01-01T00:00:00Z"))).toBe(0);
+		// After the last: the newest forecast available.
+		expect(findSlotIndex(slots, new Date("2026-12-01T00:00:00Z"))).toBe(
+			slots.length - 1,
+		);
+	});
+});
+
+describe("getTimelineStart", () => {
+	it("counts the window back from the newest run", () => {
+		expect(
+			getTimelineStart(new Date("2026-09-09T15:00:00Z"), 14).toISOString(),
+		).toBe("2026-08-26T15:00:00.000Z");
+	});
+
+	it("defaults to the configured history window", () => {
+		const latest = new Date("2026-09-09T15:00:00Z");
+		expect(getTimelineStart(latest).getTime()).toBe(
+			latest.getTime() - elmeteoHistoryDays * 24 * 3600_000,
+		);
 	});
 });

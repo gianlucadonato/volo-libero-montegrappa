@@ -83,3 +83,99 @@ export function buildFrameKey(params: {
 }) {
 	return `${params.folder}/nord/${params.map}_${clampStep(params.step)}.png`;
 }
+
+/**
+ * How far back the /meteo timeline can go, counted from the newest run.
+ *
+ * Deliberately shorter than the bucket's 3-week retention: the Report table
+ * keeps rows long after `cleanupElmeteoBucket` has pruned their folders, so the
+ * margin guarantees that every run the UI offers still has its frames in S3.
+ */
+export const elmeteoHistoryDays = 14;
+
+const millisecondsPerDay = 24 * millisecondsPerHour;
+
+export type ElmeteoRun = {
+	folder: string;
+	/** UTC instant of step 0, from `parseRunStart`. */
+	runStart: Date;
+};
+
+/** One navigable hour: which run shows it, and at which step of that run. */
+export type ElmeteoSlot = {
+	at: Date;
+	folder: string;
+	step: number;
+};
+
+/** First instant the timeline covers, given the newest run available. */
+export function getTimelineStart(
+	latestRunStart: Date,
+	historyDays = elmeteoHistoryDays,
+) {
+	return new Date(latestRunStart.getTime() - historyDays * millisecondsPerDay);
+}
+
+/**
+ * Flattens the runs into one continuous hourly timeline.
+ *
+ * Runs overlap heavily — a new one is published every few hours and each covers
+ * 48 — so most hours are described by several of them. The newest run that
+ * reaches an hour wins, because it is the one with the shortest lead time and
+ * therefore the best forecast for it.
+ */
+export function buildElmeteoTimeline(
+	runs: readonly ElmeteoRun[],
+	historyDays = elmeteoHistoryDays,
+): ElmeteoSlot[] {
+	const sorted = [...runs].sort(
+		(a, b) => a.runStart.getTime() - b.runStart.getTime(),
+	);
+	const latest = sorted[sorted.length - 1];
+	if (!latest) {
+		return [];
+	}
+
+	const from = getTimelineStart(latest.runStart, historyDays).getTime();
+	const frames = new Map<number, { folder: string; step: number }>();
+
+	for (const run of sorted) {
+		for (let step = 0; step <= elmeteoMaxStep; step++) {
+			const at = run.runStart.getTime() + step * millisecondsPerHour;
+			if (at < from) {
+				continue;
+			}
+			// Ascending run order means the last write wins, which is exactly the
+			// newest run that covers this hour.
+			frames.set(at, { folder: run.folder, step });
+		}
+	}
+
+	return [...frames.entries()]
+		.sort(([a], [b]) => a - b)
+		.map(([at, frame]) => ({ at: new Date(at), ...frame }));
+}
+
+/**
+ * Index of the last slot at or before `target`, or 0 when `target` precedes the
+ * timeline. Floors rather than rounds, for the same reason as `getStepForDate`:
+ * at 23:32 the hour under way is 23:00, and 00:00 is still a forecast.
+ */
+export function findSlotIndex(slots: readonly ElmeteoSlot[], target: Date) {
+	const time = target.getTime();
+	let low = 0;
+	let high = slots.length - 1;
+	let result = 0;
+
+	while (low <= high) {
+		const mid = (low + high) >> 1;
+		if (slots[mid].at.getTime() <= time) {
+			result = mid;
+			low = mid + 1;
+		} else {
+			high = mid - 1;
+		}
+	}
+
+	return result;
+}

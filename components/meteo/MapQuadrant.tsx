@@ -57,8 +57,8 @@ type MapQuadrantProps = {
 	usedMaps: readonly ElmeteoMapId[];
 	folder: string;
 	step: number;
-	/** Steps kept mounted around the current one, so a jump feels instant. */
-	preloadSteps: number[];
+	/** Frames kept mounted around the current one, so a jump feels instant. */
+	preloadFrames: { folder: string; step: number }[];
 	priority: boolean;
 	onSelect: (map: ElmeteoMapId) => void;
 };
@@ -77,7 +77,7 @@ export function MapQuadrant({
 	usedMaps,
 	folder,
 	step,
-	preloadSteps,
+	preloadFrames,
 	priority,
 	onSelect,
 }: MapQuadrantProps) {
@@ -162,11 +162,11 @@ export function MapQuadrant({
 			{/* Neighbouring hours are fetched at low priority so the ± buttons paint
 			    from the browser cache instead of waiting on S3. */}
 			<div aria-hidden className="hidden">
-				{preloadSteps.map((preloadStep) => (
+				{preloadFrames.map((frame) => (
 					// biome-ignore lint/performance/noImgElement: preload only, never painted
 					<img
-						key={preloadStep}
-						src={frameUrl(folder, map, preloadStep)}
+						key={`${frame.folder}_${frame.step}`}
+						src={frameUrl(frame.folder, map, frame.step)}
 						alt=""
 						loading="lazy"
 						decoding="async"

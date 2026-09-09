@@ -3,11 +3,11 @@ import { it } from "date-fns/locale";
 import { Clock, Lock, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import getLatestElmeteoRun from "@/actions/getLatestElmeteoRun";
+import getElmeteoRuns from "@/actions/getElmeteoRuns";
 import { MeteoMaps } from "@/components/meteo/MeteoMaps";
 import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
-import { getStepForDate } from "@/lib/elmeteo-run";
+import { elmeteoHistoryDays } from "@/lib/elmeteo-run";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
@@ -30,14 +30,13 @@ const runHourUTC = new Intl.DateTimeFormat("it-IT", {
 const updateTimes = "6:50, 9:50, 18:50 e 21:50";
 
 export default async function MeteoPage() {
-	const [run, user, t] = await Promise.all([
-		getLatestElmeteoRun(),
+	const [elmeteo, user, t] = await Promise.all([
+		getElmeteoRuns(),
 		getSessionUser(),
 		getTranslations("MeteoPage"),
 	]);
 
-	// Open on the hour closest to now, so the first thing shown is the present.
-	const initialStep = run ? getStepForDate(run.runStart, new Date()) : 0;
+	const run = elmeteo?.latest;
 
 	return (
 		<div>
@@ -79,7 +78,8 @@ export default async function MeteoPage() {
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
 								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},
-								previsione oraria fino a 48 ore.
+								previsione oraria fino a 48 ore. Navigabili anche le{" "}
+								{elmeteoHistoryDays * 24} ore precedenti.
 							</p>
 						</div>
 					</div>
@@ -94,16 +94,20 @@ export default async function MeteoPage() {
 				</div>
 
 				<div className="mt-6">
-					{!run ? (
+					{!elmeteo ? (
 						<EmptyState
 							title={t("no_run_title")}
 							description={t("no_run_description")}
 						/>
 					) : user ? (
 						<MeteoMaps
-							folder={run.folder}
-							runStartIso={run.runStart.toISOString()}
-							initialStep={initialStep}
+							runs={elmeteo.runs.map(({ folder, runStart }) => ({
+								folder,
+								runStartIso: runStart.toISOString(),
+							}))}
+							// Open on the hour closest to now, so the first thing shown is
+							// the present.
+							initialAtIso={new Date().toISOString()}
 						/>
 					) : (
 						<LoginGate
