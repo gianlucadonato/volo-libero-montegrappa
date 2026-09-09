@@ -32,14 +32,16 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 		[runs],
 	);
 
-	const [selected, setSelected] = useState(() =>
-		findSlotIndex(slots, new Date(initialAtIso)),
+	// The selection is an instant, not an index: a refresh rebuilds the timeline
+	// with a new run appended and the expired ones dropped from the front, which
+	// shifts every index. Resolving the hour again keeps the user on the hour
+	// they were looking at.
+	const [selectedAt, setSelectedAt] = useState(() =>
+		new Date(initialAtIso).getTime(),
 	);
 	const { maps, setQuadrantMap, resetQuadrants } = useElmeteoQuadrants();
 
-	// Clamped rather than trusted: the page re-renders with fresher runs on every
-	// visit, and the rebuilt timeline can be shorter than the one selected in.
-	const index = Math.min(selected, slots.length - 1);
+	const index = findSlotIndex(slots, new Date(selectedAt));
 	const current = slots[index];
 
 	const preloadFrames = useMemo(() => {
@@ -64,7 +66,11 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 
 	return (
 		<div className="space-y-4">
-			<TimeControls slots={slots} index={index} onIndexChange={setSelected} />
+			<TimeControls
+				slots={slots}
+				index={index}
+				onIndexChange={(next) => setSelectedAt(slots[next].at.getTime())}
+			/>
 
 			<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 				{maps.map((map, position) => (
