@@ -85,8 +85,11 @@ export default async function MeteoPage() {
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
 								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},
-								previsione oraria fino a 48 ore. Navigabili anche le{" "}
-								{historyHours} ore precedenti ({historyWeeksLabel}).
+								previsione oraria fino a 48 ore.
+							</p>
+							<p className="text-muted-foreground text-xs">
+								Navigabili anche le {historyHours} ore precedenti (
+								{historyWeeksLabel}).
 							</p>
 						</div>
 					</div>
