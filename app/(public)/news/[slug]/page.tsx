@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
-import NewsContent from "@/components/news/NewsContent";
+import MarkdocContent from "@/components/content/MarkdocContent";
 import { constructMetadata, siteConfig } from "@/config/site";
 import { getNewsEntry, type NewsLocale } from "@/lib/news";
 
@@ -72,7 +72,7 @@ export default async function NewsDetailPage({ params }: { params: Params }) {
 			)}
 
 			<div className="prose prose-slate max-w-none prose-img:rounded-lg prose-headings:font-heading">
-				<NewsContent node={entry.content.node} />
+				<MarkdocContent node={entry.content.node} />
 			</div>
 		</article>
 	);
