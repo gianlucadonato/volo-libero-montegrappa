@@ -1,5 +1,3 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import Boom from "@hapi/boom";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
@@ -7,8 +5,10 @@ import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { parseIGC } from "@/lib/igc-parser";
 import { prisma } from "@/lib/prisma";
 import { downloadObject } from "@/lib/r2";
+import { getObjectBytes } from "@/lib/s3";
 import { validateTrack } from "@/lib/track-validator";
 import { parseTskXml } from "@/lib/tsk-parser";
+import { getXcPublicBucket, xcAssetObjectKey } from "@/lib/xc-assets";
 
 /**
  * /xc/submissions/[id]/validate
@@ -52,10 +52,19 @@ export async function POST(
 			);
 		}
 
-		// Parse the .tsk file from the public folder
-		const tskPath = join(process.cwd(), "public", task.taskFileUrl);
-		const tskContent = readFileSync(tskPath, "utf-8");
-		const parsedTask = parseTskXml(tskContent);
+		// Parse the .tsk file from the public assets bucket
+		const tskKey = xcAssetObjectKey(task.taskFileUrl);
+		if (!tskKey) {
+			return APIErrorResponse(Boom.badRequest("Task file URL is not valid"));
+		}
+		const tskBytes = await getObjectBytes({
+			bucket: getXcPublicBucket(),
+			objectKey: tskKey,
+		});
+		if (!tskBytes) {
+			return APIErrorResponse(Boom.notFound("Task file not found"));
+		}
+		const parsedTask = parseTskXml(tskBytes.toString("utf-8"));
 
 		if (parsedTask.waypoints.length === 0) {
 			return APIErrorResponse(

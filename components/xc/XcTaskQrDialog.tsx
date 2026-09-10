@@ -2,7 +2,7 @@
 
 import { Download } from "lucide-react";
 import { useState } from "react";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
 	Dialog,
 	DialogContent,
@@ -10,6 +10,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from "@/components/ui/dialog";
+import { downloadBlobFromUrl } from "@/lib/xc-task";
 
 interface XcTaskQrDialogProps {
 	open: boolean;
@@ -35,6 +36,7 @@ export default function XcTaskQrDialog({
 	alt,
 }: XcTaskQrDialogProps) {
 	const [imgError, setImgError] = useState(false);
+	const [isDownloading, setIsDownloading] = useState(false);
 
 	// Clear any prior load error when the dialog (re)opens so a retry re-fetches.
 	const handleOpenChange = (next: boolean) => {
@@ -43,6 +45,18 @@ export default function XcTaskQrDialog({
 	};
 
 	const showImage = Boolean(qrUrl) && !imgError;
+
+	const handleDownload = async () => {
+		if (!qrUrl) return;
+		try {
+			setIsDownloading(true);
+			await downloadBlobFromUrl(qrUrl, `${taskName}-qr.jpg`);
+		} catch (error) {
+			console.error("QR download error:", error);
+		} finally {
+			setIsDownloading(false);
+		}
+	};
 
 	return (
 		<Dialog open={open} onOpenChange={handleOpenChange}>
@@ -53,7 +67,7 @@ export default function XcTaskQrDialog({
 				</DialogHeader>
 				{showImage && qrUrl ? (
 					<div className="flex flex-col items-center gap-4">
-						{/* biome-ignore lint/performance/noImgElement: QR is a tiny static jpg whose public path contains a space (%20); next/image's optimizer is brittle with the encoded path and adds no value here. */}
+						{/* biome-ignore lint/performance/noImgElement: QR is a tiny static jpg served straight from the public assets bucket; next/image's optimizer adds no value here. */}
 						<img
 							src={qrUrl}
 							alt={alt}
@@ -62,14 +76,16 @@ export default function XcTaskQrDialog({
 							className="size-64 rounded-md bg-white object-contain p-2 ring-1 ring-foreground/10"
 							onError={() => setImgError(true)}
 						/>
-						<a
-							href={qrUrl}
-							download={`${taskName}-qr.jpg`}
-							className={buttonVariants({ variant: "outline" })}
+						{/* Not an <a download>: the bucket is a different origin, where
+						    the download attribute is ignored. */}
+						<Button
+							variant="outline"
+							onClick={handleDownload}
+							disabled={isDownloading}
 						>
 							<Download className="mr-2 size-4" />
 							{downloadLabel}
-						</a>
+						</Button>
 					</div>
 				) : (
 					<p className="py-6 text-center text-sm text-muted-foreground">

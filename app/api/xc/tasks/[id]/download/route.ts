@@ -1,7 +1,7 @@
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import { NextResponse } from "next/server";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
+import { getObjectBytes } from "@/lib/s3";
+import { getXcPublicBucket, xcAssetObjectKey } from "@/lib/xc-assets";
 
 export async function GET(
 	_request: Request,
@@ -18,15 +18,26 @@ export async function GET(
 			);
 		}
 
-		// Read the .xctsk file from the public folder
+		// Rows store the .tsk; the file pilots import into XCTrack is the .xctsk
+		// sitting next to it in the bucket.
 		const xctskUrl = task.taskFileUrl.replace(/\.tsk$/, ".xctsk");
-		const filePath = join(process.cwd(), "public", xctskUrl);
-		const fileContent = readFileSync(filePath);
+		const objectKey = xcAssetObjectKey(xctskUrl);
+		if (!objectKey) {
+			return NextResponse.json({ error: "File not found" }, { status: 404 });
+		}
 
-		// Extract filename from path (e.g., 'g30.xctsk' from '/events/g30.xctsk')
-		const filename = xctskUrl.split("/").pop() || "task.xctsk";
+		const fileContent = await getObjectBytes({
+			bucket: getXcPublicBucket(),
+			objectKey,
+		});
+		if (!fileContent) {
+			return NextResponse.json({ error: "File not found" }, { status: 404 });
+		}
 
-		return new NextResponse(fileContent, {
+		// Extract filename from the key (e.g. 'g30.xctsk').
+		const filename = objectKey.split("/").pop() || "task.xctsk";
+
+		return new NextResponse(new Uint8Array(fileContent), {
 			headers: {
 				"Content-Type": "application/octet-stream",
 				"Content-Disposition": `attachment; filename="${filename}"`,

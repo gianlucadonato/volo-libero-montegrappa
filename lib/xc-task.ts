@@ -1,7 +1,6 @@
-// The QR-code folder name on disk contains a space ("QR Code"); keep it
-// pre-encoded as %20 so the value is usable directly as an <img src> / href.
-// Do NOT run encodeURIComponent on the whole path — it would encode the slashes.
-const QR_BASE = "/xcmontegrappa/QR%20Code";
+import { XC_PUBLIC_ASSETS_BASE_URL } from "@/config/constants";
+
+const QR_BASE = `${XC_PUBLIC_ASSETS_BASE_URL}/xcmontegrappa/qr-codes`;
 
 const CATEGORY_LETTER: Record<string, string> = {
 	BASIC: "B",
@@ -31,26 +30,42 @@ export function qrCodeUrlForTask(
 }
 
 /**
- * Download a task as a .xctsk file. Centralizes the fetch->blob->anchor logic
- * previously duplicated across the XC task components.
+ * Fetch a URL and save the response as a file.
+ *
+ * The assets are served from a different origin than the app, and <a download>
+ * is ignored cross-origin unless the response carries Content-Disposition — so
+ * the bytes have to go through a blob to get a real "save as".
+ */
+export async function downloadBlobFromUrl(
+	url: string,
+	fileName: string,
+): Promise<void> {
+	const res = await fetch(url);
+	if (!res.ok) throw new Error("Download failed");
+	const blob = await res.blob();
+	const objectUrl = window.URL.createObjectURL(blob);
+	const link = document.createElement("a");
+	link.href = objectUrl;
+	link.download = fileName;
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+	window.URL.revokeObjectURL(objectUrl);
+}
+
+/**
+ * Download a task as a .xctsk file. Goes through the app's download route
+ * rather than the bucket directly, which resolves the .tsk -> .xctsk mapping
+ * server-side.
  */
 export async function downloadXcTask(
 	taskId: string,
 	taskFileUrl?: string | null,
 ): Promise<void> {
 	if (!taskId || !taskFileUrl) return;
-	const res = await fetch(`/api/xc/tasks/${taskId}/download`);
-	if (!res.ok) throw new Error("Download failed");
-	const blob = await res.blob();
-	const url = window.URL.createObjectURL(blob);
-	const link = document.createElement("a");
-	link.href = url;
-	link.download = (taskFileUrl.split("/").pop() || "task.tsk").replace(
+	const fileName = (taskFileUrl.split("/").pop() || "task.tsk").replace(
 		/\.tsk$/,
 		".xctsk",
 	);
-	document.body.appendChild(link);
-	link.click();
-	document.body.removeChild(link);
-	window.URL.revokeObjectURL(url);
+	await downloadBlobFromUrl(`/api/xc/tasks/${taskId}/download`, fileName);
 }

@@ -54,6 +54,28 @@ export async function createUploadUrl(params: {
 }
 
 /**
+ * Uploads an object. `cacheControl` is worth setting for public assets whose
+ * filenames are content-stable, so browsers and the CDN can keep them forever.
+ */
+export async function putObject(params: {
+	bucket: string;
+	objectKey: string;
+	body: Uint8Array;
+	contentType: string;
+	cacheControl?: string;
+}) {
+	return getS3Client().send(
+		new PutObjectCommand({
+			Bucket: params.bucket,
+			Key: params.objectKey,
+			Body: params.body,
+			ContentType: params.contentType,
+			CacheControl: params.cacheControl,
+		}),
+	);
+}
+
+/**
  * Lists the top-level "folders" of a bucket, i.e. the common prefixes before
  * the first "/". Returns them without the trailing slash.
  */

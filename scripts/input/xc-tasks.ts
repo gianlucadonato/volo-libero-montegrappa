@@ -17,8 +17,10 @@ export const XcTasks: XcTask[] = [
 		name: "W Maria",
 		description: "01 W Maria 11.3km",
 		distanceKm: 11.3,
-		imageUrl: "/xcmontegrappa/basic/01/b01.png",
-		taskFileUrl: "/xcmontegrappa/basic/01/b01.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/01/b01.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/01/b01.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 47,
 	},
@@ -27,8 +29,10 @@ export const XcTasks: XcTask[] = [
 		name: "W Maria - Romano",
 		description: "02 W Maria Romano, 14.6km",
 		distanceKm: 14.6,
-		imageUrl: "/xcmontegrappa/basic/02/b02.png",
-		taskFileUrl: "/xcmontegrappa/basic/02/b02.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/02/b02.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/02/b02.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 60,
 	},
@@ -37,8 +41,10 @@ export const XcTasks: XcTask[] = [
 		name: "Vedetta",
 		description: "03 Vedetta, 15.6km",
 		distanceKm: 15.6,
-		imageUrl: "/xcmontegrappa/basic/03/b03.png",
-		taskFileUrl: "/xcmontegrappa/basic/03/b03.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/03/b03.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/03/b03.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 71,
 	},
@@ -47,8 +53,10 @@ export const XcTasks: XcTask[] = [
 		name: "Vedetta - Romano",
 		description: "04 Vedetta Romano, 18.9km",
 		distanceKm: 18.9,
-		imageUrl: "/xcmontegrappa/basic/04/b04.png",
-		taskFileUrl: "/xcmontegrappa/basic/04/b04.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/04/b04.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/04/b04.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 86,
 	},
@@ -57,8 +65,10 @@ export const XcTasks: XcTask[] = [
 		name: "Palon - Garden",
 		description: "05 Palon Garden, 19.5km",
 		distanceKm: 19.5,
-		imageUrl: "/xcmontegrappa/basic/05/b05.png",
-		taskFileUrl: "/xcmontegrappa/basic/05/b05.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/05/b05.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/05/b05.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 89,
 	},
@@ -67,8 +77,10 @@ export const XcTasks: XcTask[] = [
 		name: "Vedetta - Mussolente",
 		description: "06 Vedetta Mussolente, 18.0km",
 		distanceKm: 18.0,
-		imageUrl: "/xcmontegrappa/basic/06/b06.png",
-		taskFileUrl: "/xcmontegrappa/basic/06/b06.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/06/b06.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/06/b06.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 89,
 	},
@@ -77,8 +89,10 @@ export const XcTasks: XcTask[] = [
 		name: "Palon - Antenne",
 		description: "07 Palon Antenne, 25.5km",
 		distanceKm: 25.5,
-		imageUrl: "/xcmontegrappa/basic/07/b07.png",
-		taskFileUrl: "/xcmontegrappa/basic/07/b07.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/07/b07.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/07/b07.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 126,
 	},
@@ -87,8 +101,10 @@ export const XcTasks: XcTask[] = [
 		name: "Antenne - Palon",
 		description: "08 Antenne Palon, 27.8km",
 		distanceKm: 27.8,
-		imageUrl: "/xcmontegrappa/basic/08/b08.png",
-		taskFileUrl: "/xcmontegrappa/basic/08/b08.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/08/b08.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/08/b08.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 138,
 	},
@@ -97,8 +113,10 @@ export const XcTasks: XcTask[] = [
 		name: "Palon - Antenne - Mussolente",
 		description: "09 Palon Antenne Mussolente, 29.4km",
 		distanceKm: 29.4,
-		imageUrl: "/xcmontegrappa/basic/09/b09.png",
-		taskFileUrl: "/xcmontegrappa/basic/09/b09.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/09/b09.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/09/b09.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 136,
 	},
@@ -107,8 +125,10 @@ export const XcTasks: XcTask[] = [
 		name: "Palon - Antenne - Mussolente",
 		description: "10 Palon Antenne Mussolente, 30.0km",
 		distanceKm: 30.0,
-		imageUrl: "/xcmontegrappa/basic/10/b10.png",
-		taskFileUrl: "/xcmontegrappa/basic/10/b10.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/10/b10.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/basic/10/b10.tsk",
 		category: XcCategoryLevel.BASIC,
 		points: 158,
 	},
@@ -118,8 +138,10 @@ export const XcTasks: XcTask[] = [
 		name: "Boscherai",
 		description: "11 Boscherai 24km",
 		distanceKm: 24,
-		imageUrl: "/xcmontegrappa/intermediate/11/s11.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/11/s11.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/11/s11.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/11/s11.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 63,
 	},
@@ -128,8 +150,10 @@ export const XcTasks: XcTask[] = [
 		name: "Palon - Caina",
 		description: "12 Palon Caina 31km",
 		distanceKm: 31,
-		imageUrl: "/xcmontegrappa/intermediate/12/s12.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/12/s12.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/12/s12.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/12/s12.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 63,
 	},
@@ -138,8 +162,10 @@ export const XcTasks: XcTask[] = [
 		name: "Vedetta - Rubbio",
 		description: "13 Vedetta Rubbio 35km",
 		distanceKm: 35,
-		imageUrl: "/xcmontegrappa/intermediate/13/s13.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/13/s13.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/13/s13.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/13/s13.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 78,
 	},
@@ -148,8 +174,10 @@ export const XcTasks: XcTask[] = [
 		name: "Revine",
 		description: "14 Revine 37km",
 		distanceKm: 37,
-		imageUrl: "/xcmontegrappa/intermediate/14/s14.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/14/s14.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/14/s14.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/14/s14.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 90,
 	},
@@ -158,8 +186,10 @@ export const XcTasks: XcTask[] = [
 		name: "Cesen",
 		description: "15 Cesen, 40km",
 		distanceKm: 40,
-		imageUrl: "/xcmontegrappa/intermediate/15/s15.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/15/s15.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/15/s15.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/15/s15.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 106,
 	},
@@ -168,8 +198,10 @@ export const XcTasks: XcTask[] = [
 		name: "Tomba - Asolo - Caina",
 		description: "16 Tomba Asolo Caina, 40km",
 		distanceKm: 40,
-		imageUrl: "/xcmontegrappa/intermediate/16/s16.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/16/s16.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/16/s16.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/16/s16.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 106,
 	},
@@ -178,8 +210,10 @@ export const XcTasks: XcTask[] = [
 		name: "WMaria - Rubbio - Cassola - WMaria",
 		description: "17 WMaria Rubbio Cassola WMaria, 43km",
 		distanceKm: 43,
-		imageUrl: "/xcmontegrappa/intermediate/17/s17.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/17/s17.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/17/s17.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/17/s17.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 122,
 	},
@@ -188,8 +222,10 @@ export const XcTasks: XcTask[] = [
 		name: "Tomba - Tortima",
 		description: "18 Tomba Tortima, 46km",
 		distanceKm: 46,
-		imageUrl: "/xcmontegrappa/intermediate/18/s18.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/18/s18.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/18/s18.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/18/s18.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 102,
 	},
@@ -198,8 +234,10 @@ export const XcTasks: XcTask[] = [
 		name: "Piave - Lusiana",
 		description: "19 Piave Lusiana, 55km",
 		distanceKm: 55,
-		imageUrl: "/xcmontegrappa/intermediate/19/s19.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/19/s19.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/19/s19.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/19/s19.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 133,
 	},
@@ -208,8 +246,10 @@ export const XcTasks: XcTask[] = [
 		name: "Vedetta - Rivit",
 		description: "20 Vedetta Rivit, 57km",
 		distanceKm: 57,
-		imageUrl: "/xcmontegrappa/intermediate/20/s20.png",
-		taskFileUrl: "/xcmontegrappa/intermediate/20/s20.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/20/s20.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/intermediate/20/s20.tsk",
 		category: XcCategoryLevel.INTERMEDIATE,
 		points: 138,
 	},
@@ -219,8 +259,10 @@ export const XcTasks: XcTask[] = [
 		name: "Mis - Boscherai",
 		description: "21 Mis Boscherai, 63km",
 		distanceKm: 63,
-		imageUrl: "/xcmontegrappa/advanced/21/g21.png",
-		taskFileUrl: "/xcmontegrappa/advanced/21/g21.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/21/g21.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/21/g21.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 91,
 	},
@@ -229,8 +271,10 @@ export const XcTasks: XcTask[] = [
 		name: "Tomba - Caltrano",
 		description: "22 Tomba Caltrano, 64km",
 		distanceKm: 64,
-		imageUrl: "/xcmontegrappa/advanced/22/g22.png",
-		taskFileUrl: "/xcmontegrappa/advanced/22/g22.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/22/g22.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/22/g22.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 66,
 	},
@@ -239,8 +283,10 @@ export const XcTasks: XcTask[] = [
 		name: "Piave - Caltrano",
 		description: "23 Piave Caltrano, 72km",
 		distanceKm: 72,
-		imageUrl: "/xcmontegrappa/advanced/23/g23.png",
-		taskFileUrl: "/xcmontegrappa/advanced/23/g23.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/23/g23.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/23/g23.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 82,
 	},
@@ -249,8 +295,10 @@ export const XcTasks: XcTask[] = [
 		name: "Revine - Semonzo",
 		description: "24 Revine Semonzo, 73km",
 		distanceKm: 73,
-		imageUrl: "/xcmontegrappa/advanced/24/g24.png",
-		taskFileUrl: "/xcmontegrappa/advanced/24/g24.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/24/g24.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/24/g24.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 91,
 	},
@@ -259,8 +307,10 @@ export const XcTasks: XcTask[] = [
 		name: "Tomba - Summano",
 		description: "25 Tomba Summano, 80km",
 		distanceKm: 80,
-		imageUrl: "/xcmontegrappa/advanced/25/g25.png",
-		taskFileUrl: "/xcmontegrappa/advanced/25/g25.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/25/g25.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/25/g25.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 83,
 	},
@@ -269,8 +319,10 @@ export const XcTasks: XcTask[] = [
 		name: "Valli del Pasubio",
 		description: "26 Valli del Pasubio, 81km",
 		distanceKm: 81,
-		imageUrl: "/xcmontegrappa/advanced/26/g26.png",
-		taskFileUrl: "/xcmontegrappa/advanced/26/g26.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/26/g26.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/26/g26.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 101,
 	},
@@ -279,8 +331,10 @@ export const XcTasks: XcTask[] = [
 		name: "Summano - Tomba",
 		description: "27 Summano Tomba, 84km",
 		distanceKm: 84,
-		imageUrl: "/xcmontegrappa/advanced/27/g27.png",
-		taskFileUrl: "/xcmontegrappa/advanced/27/g27.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/27/g27.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/27/g27.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 96,
 	},
@@ -289,8 +343,10 @@ export const XcTasks: XcTask[] = [
 		name: "Tomba - Novegno",
 		description: "28 Tomba Novegno, 92km",
 		distanceKm: 92,
-		imageUrl: "/xcmontegrappa/advanced/28/g28.png",
-		taskFileUrl: "/xcmontegrappa/advanced/28/g28.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/28/g28.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/28/g28.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 108,
 	},
@@ -299,8 +355,10 @@ export const XcTasks: XcTask[] = [
 		name: "Col Visentin",
 		description: "29 Col Visentin, 87km",
 		distanceKm: 87,
-		imageUrl: "/xcmontegrappa/advanced/29/g29.png",
-		taskFileUrl: "/xcmontegrappa/advanced/29/g29.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/29/g29.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/29/g29.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 124,
 	},
@@ -309,8 +367,10 @@ export const XcTasks: XcTask[] = [
 		name: "Cesen - Novegno",
 		description: "30 Cesen Novegno, 110km",
 		distanceKm: 110,
-		imageUrl: "/xcmontegrappa/advanced/30/g30.png",
-		taskFileUrl: "/xcmontegrappa/advanced/30/g30.tsk",
+		imageUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/30/g30.png",
+		taskFileUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/xcmontegrappa/advanced/30/g30.tsk",
 		category: XcCategoryLevel.ADVANCED,
 		points: 159,
 	},

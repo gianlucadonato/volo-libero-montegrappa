@@ -19,7 +19,7 @@ export const env = createEnv({
 		AWS_REGION: z.string().optional(),
 		AWS_ACCESS_KEY_ID: z.string().optional(),
 		AWS_SECRET_ACCESS_KEY: z.string().optional(),
-		AWS_S3_XC_BUCKET: z.string().optional(),
+		AWS_S3_XC_PUBLIC_BUCKET: z.string().optional(),
 		AWS_S3_ELMETEO_BUCKET: z.string().optional(),
 		// Bearer token the ElMeteo uploader authenticates with; it also gates the
 		// S3 retention cleanup triggered by that endpoint.
@@ -53,7 +53,7 @@ export const env = createEnv({
 		AWS_REGION: process.env.AWS_REGION,
 		AWS_ACCESS_KEY_ID: process.env.AWS_ACCESS_KEY_ID,
 		AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
-		AWS_S3_XC_BUCKET: process.env.AWS_S3_XC_BUCKET,
+		AWS_S3_XC_PUBLIC_BUCKET: process.env.AWS_S3_XC_PUBLIC_BUCKET,
 		AWS_S3_ELMETEO_BUCKET: process.env.AWS_S3_ELMETEO_BUCKET,
 		ELMETEO_API_TOKEN: process.env.ELMETEO_API_TOKEN,
 		ELMETEO_CACHE_DIR: process.env.ELMETEO_CACHE_DIR,

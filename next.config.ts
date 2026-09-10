@@ -23,6 +23,10 @@ const nextConfig: NextConfig = {
 				protocol: "https",
 				hostname: "www.elmeteo.it",
 			},
+			{
+				protocol: "https",
+				hostname: "vlm-xc-public.s3.eu-central-1.amazonaws.com",
+			},
 		],
 	},
 	allowedDevOrigins: [
