@@ -74,7 +74,7 @@ Cross-country competition domain spanning `app/api/xc/*`, `actions/xc/*`, `compo
 ### Storage, payments, observability
 - Object storage: AWS **S3** (`lib/s3.ts`, presigned upload URLs, XC bucket) and Cloudflare **R2** (`lib/r2.ts`). Both lazily construct their client and throw if credentials are absent.
 - **Stripe** checkout + webhooks under `app/api/stripe/*`; drives `Membership`/`Payment`/`Coupon` models. Membership year/price constants in `config/constants.ts` (`NEXT_YEAR`, `MEMBERSHIP_PRICE`).
-- Observability: pino logger (`lib/logger.ts`, ships to Loki via `pino-loki`), Prometheus metrics (`lib/metrics.ts`, exposed at `/api/metrics` behind `METRICS_TOKEN`), OpenTelemetry (`instrumentation.ts`). Local stack in `docker/docker-compose.observability.yml` (Grafana/Loki/Prometheus).
+- Observability: pino logger (`lib/logger.ts`, JSON to stdout plus an OpenTelemetry bridge to PostHog Logs when `OTEL_EXPORTER_ENABLED=true`), Prometheus metrics (`lib/metrics.ts`, exposed at `/api/metrics` behind `METRICS_TOKEN`), OpenTelemetry (`instrumentation.ts`). Local stack in `docker/docker-compose.observability.yml` (Grafana/Loki/Prometheus).
 
 ### UI
 shadcn components in `components/ui` (style `radix-nova`, base color neutral, lucide icons); `components/extendui` holds customized variants. Tailwind v4 via PostCSS (`app/globals.css`). Forms use react-hook-form + Zod resolvers; tables/queries use TanStack Table/Query; charts use Recharts; maps use Leaflet/react-leaflet; rich text uses Lexical.

@@ -6,9 +6,14 @@
 #        docker network create dokploy-network
 #   2. Set the following env vars on this Dokploy service:
 #        GRAFANA_ADMIN_PASSWORD  (required)
-#   3. After deploying, set LOKI_URL=http://loki:3100 on your Next.js app service.
-#   4. Point your app's NEXT_PUBLIC_APP_URL domain in configs/prometheus.yml
+#   3. Point your app's NEXT_PUBLIC_APP_URL domain in configs/prometheus.yml
 #      under scrape_configs → vlm-nextjs → targets.
+#
+# NOTE: the app no longer ships logs to Loki — pino writes JSON to stdout and
+# instrumentation.ts forwards records to PostHog Logs over OTLP. Loki stays here
+# for the Prometheus/Grafana metrics dashboards; the Grafana log panels in
+# configs/grafana/provisioning/dashboards will be empty unless you point another
+# collector at it.
 #
 # Grafana will be accessible via Dokploy's reverse proxy on the domain you configure.
 

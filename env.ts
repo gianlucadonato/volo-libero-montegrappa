@@ -27,6 +27,14 @@ export const env = createEnv({
 		// Where converted map frames are cached. Defaults to the OS temp dir, which
 		// is wiped on reboot: point it at a persistent path in production.
 		ELMETEO_CACHE_DIR: z.string().optional(),
+		// Observability: logs and traces are exported to PostHog over OTLP. Both
+		// are optional so the app still boots with the exporters disabled.
+		OTEL_EXPORTER_ENABLED: z
+			.enum(["true", "false"])
+			.optional()
+			.transform((v) => v === "true"),
+		LOG_APP_NAME: z.string().optional(),
+		LOG_LEVEL: z.string().optional(),
 		R2_ACCOUNT_ID: z.string().optional(),
 		R2_ACCESS_KEY_ID: z.string().optional(),
 		R2_SECRET_ACCESS_KEY: z.string().optional(),
@@ -59,6 +67,9 @@ export const env = createEnv({
 		AWS_S3_ELMETEO_BUCKET: process.env.AWS_S3_ELMETEO_BUCKET,
 		ELMETEO_API_TOKEN: process.env.ELMETEO_API_TOKEN,
 		ELMETEO_CACHE_DIR: process.env.ELMETEO_CACHE_DIR,
+		OTEL_EXPORTER_ENABLED: process.env.OTEL_EXPORTER_ENABLED,
+		LOG_APP_NAME: process.env.LOG_APP_NAME,
+		LOG_LEVEL: process.env.LOG_LEVEL,
 		R2_ACCOUNT_ID: process.env.R2_ACCOUNT_ID,
 		R2_ACCESS_KEY_ID: process.env.R2_ACCESS_KEY_ID,
 		R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
