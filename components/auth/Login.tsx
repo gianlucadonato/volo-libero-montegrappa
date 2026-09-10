@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { AuthLink } from "@/components/auth/AuthLink";
 import { LoginForm } from "@/components/forms/login-form";
 
 export default function Login({ onClick }: { onClick?: () => void }) {
@@ -27,13 +27,15 @@ export default function Login({ onClick }: { onClick?: () => void }) {
 				<LoginForm onClick={onClick} />
 			</Suspense>
 			<p className="px-8 text-center text-sm text-muted-foreground">
-				<Link
-					href="/signup"
-					onClick={onClick}
-					className="hover:text-brand underline underline-offset-4"
-				>
-					{t("dont_have_account")}
-				</Link>
+				<Suspense>
+					<AuthLink
+						href="/signup"
+						onClick={onClick}
+						className="hover:text-brand underline underline-offset-4"
+					>
+						{t("dont_have_account")}
+					</AuthLink>
+				</Suspense>
 			</p>
 		</div>
 	);

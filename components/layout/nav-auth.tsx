@@ -11,6 +11,7 @@ import {
 	SidebarMenuItem,
 	useSidebar,
 } from "@/components/ui/sidebar";
+import { useAuthHref } from "@/hooks/use-auth-href";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import type { NavMainItem } from "@/types";
@@ -19,16 +20,18 @@ export function NavAuth() {
 	const t = useTranslations("NavAuth");
 	const { isMobile } = useMediaQuery();
 	const { setOpenMobile } = useSidebar();
+	// Both entries come back to the page the user was reading.
+	const { loginHref, signupHref } = useAuthHref();
 
 	const items: NavMainItem[] = [
 		{
 			title: "login",
-			url: "/login",
+			url: loginHref,
 			icon: LogIn,
 		},
 		{
 			title: "signup",
-			url: "/signup",
+			url: signupHref,
 			icon: NotebookPen,
 		},
 	];

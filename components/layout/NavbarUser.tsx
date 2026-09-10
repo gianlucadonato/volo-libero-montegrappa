@@ -20,6 +20,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { navUserLinks } from "@/config/sidebar-links";
+import { useAuthHref } from "@/hooks/use-auth-href";
 import { authClient } from "@/lib/auth-client";
 
 export function NavbarUser() {
@@ -115,6 +116,8 @@ export function NavbarUser() {
 
 function NavbarUnlogged() {
 	const t = useTranslations("NavMobile");
+	// Both links come back to the page the user was reading.
+	const { loginHref, signupHref } = useAuthHref();
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -128,13 +131,13 @@ function NavbarUnlogged() {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="z-200 w-56" align="end" forceMount>
 				<DropdownMenuGroup>
-					<Link href="/login" className="w-full">
+					<Link href={loginHref} className="w-full">
 						<DropdownMenuItem className="flex w-full items-center">
 							<LogIn className="mr-2 size-4" />
 							<span>Login</span>
 						</DropdownMenuItem>
 					</Link>
-					<Link href="/signup" className="w-full">
+					<Link href={signupHref} className="w-full">
 						<DropdownMenuItem className="flex w-full items-center">
 							<NotebookPen className="mr-2 size-4" />
 							<span>{t("signup")}</span>

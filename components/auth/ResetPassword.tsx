@@ -2,9 +2,9 @@
 
 import { ArrowLeftIcon } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { AuthLink } from "@/components/auth/AuthLink";
 import { ResetPasswordForm } from "@/components/forms/reset-password-form";
 
 export default function ResetPassword() {
@@ -26,13 +26,15 @@ export default function ResetPassword() {
 				<ResetPasswordForm />
 			</Suspense>
 			<div className="px-8 text-center text-sm text-muted-foreground">
-				<Link
-					href="/login"
-					className="hover:text-brand flex items-center justify-center underline underline-offset-4"
-				>
-					<ArrowLeftIcon className="mr-2 size-4" />
-					{t("back_to_login")}
-				</Link>
+				<Suspense>
+					<AuthLink
+						href="/login"
+						className="hover:text-brand flex items-center justify-center underline underline-offset-4"
+					>
+						<ArrowLeftIcon className="mr-2 size-4" />
+						{t("back_to_login")}
+					</AuthLink>
+				</Suspense>
 			</div>
 		</div>
 	);

@@ -18,6 +18,7 @@ import {
 	FormItem,
 	FormLabel,
 } from "@/components/ui/form";
+import { isSafeCallbackUrl, withCallbackUrl } from "@/helpers/authRedirect";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { LoginSchema } from "@/schemas";
@@ -49,8 +50,14 @@ export function LoginForm({
 			{
 				onSuccess: () => {
 					if (onClick) return onClick();
+					// Validated, never trusted as-is: the value comes from the query
+					// string, so an off-site URL would make this an open redirect.
 					const callbackURL = searchParams.get("callbackUrl");
-					router.push(callbackURL || "/profile");
+					router.push(
+						callbackURL && isSafeCallbackUrl(callbackURL)
+							? callbackURL
+							: "/profile",
+					);
 				},
 				onError: (ctx) => {
 					toast.error(t("errors.message"), {
@@ -139,7 +146,10 @@ export function LoginForm({
 						</div>
 						<div className="mb-4 flex items-center justify-end">
 							<Link
-								href="/reset-password"
+								href={withCallbackUrl(
+									"/reset-password",
+									searchParams.get("callbackUrl"),
+								)}
 								onClick={onClick}
 								className="text-sm underline"
 							>

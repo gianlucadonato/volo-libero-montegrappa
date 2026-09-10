@@ -1,13 +1,17 @@
 import { headers } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
+import { isSafeCallbackUrl } from "@/helpers/authRedirect";
 
 // An array of routes that are not accessible to the public
 export const adminRoutes = ["/admin", "/admin/*"];
 
 export const protectedRoutes = ["/profile"];
 
-// An array of routes that are used for authentication
+// An array of routes that are used for authentication. `/signup` is handled by
+// the `(auth)` layout instead, which routes admins to their own landing page.
+// The client-side `authFlowRoutes` in `helpers/authRedirect.ts` covers the same
+// ground plus `/signup`, since none of them may be a login callback target.
 export const authRoutes = [
 	"/login",
 	"/reset-password",
@@ -64,7 +68,15 @@ export async function proxy(request: NextRequest) {
 
 	if (isAuthRoute) {
 		if (isLoggedIn) {
-			return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+			// Already logged in on an auth page — usually a back navigation after
+			// signing in. Honour the callback so the user still ends up where they
+			// were headed, rather than on the default landing page.
+			const callbackUrl = nextUrl.searchParams.get("callbackUrl");
+			const target =
+				callbackUrl && isSafeCallbackUrl(callbackUrl)
+					? callbackUrl
+					: DEFAULT_LOGIN_REDIRECT;
+			return Response.redirect(new URL(target, nextUrl));
 		}
 		return;
 	}

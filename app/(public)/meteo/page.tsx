@@ -11,6 +11,7 @@ import {
 } from "@/components/meteo/RefreshStatus";
 import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
+import { withCallbackUrl } from "@/helpers/authRedirect";
 import { elmeteoHistoryDays } from "@/lib/elmeteo-run";
 import { getSessionUser } from "@/lib/session";
 
@@ -180,7 +181,12 @@ function LoginGate({
 				<p className="font-medium">{title}</p>
 				<p className="text-muted-foreground text-sm">{description}</p>
 			</div>
-			<Link href="/login" className={buttonVariants()}>
+			{/* Carry the callback so logging in from here comes back to the maps
+			    instead of landing on the profile. */}
+			<Link
+				href={withCallbackUrl("/login", "/meteo")}
+				className={buttonVariants()}
+			>
 				Accedi
 			</Link>
 		</div>

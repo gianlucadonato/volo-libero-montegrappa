@@ -16,6 +16,7 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 import { MEMBERSHIP_PRICE, NEXT_YEAR } from "@/config/constants";
+import { useAuthHref } from "@/hooks/use-auth-href";
 import type { UserMembership } from "@/prisma/generated/client";
 
 import type { SessionUser } from "@/types";
@@ -30,6 +31,9 @@ export default function PurchaseMembershipCard({
 	membership: UserMembership | null;
 }) {
 	const t = useTranslations("PurchaseMembershipCard");
+	// Signing up or logging in from here returns to the membership page, where
+	// the purchase the user came for is waiting.
+	const { loginHref, signupHref } = useAuthHref();
 
 	const features = [
 		{ title: t("membership_club", { NEXT_YEAR }) },
@@ -62,12 +66,12 @@ export default function PurchaseMembershipCard({
 							strong: (chunks) => <strong>{chunks}</strong>,
 							br: () => <br />,
 							link1: (chunks) => (
-								<Link href="/signup" className="underline">
+								<Link href={signupHref} className="underline">
 									{chunks}
 								</Link>
 							),
 							link2: (chunks) => (
-								<Link href="/login" className="underline">
+								<Link href={loginHref} className="underline">
 									{chunks}
 								</Link>
 							),

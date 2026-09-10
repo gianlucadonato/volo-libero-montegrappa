@@ -18,6 +18,7 @@ import {
 	FormItem,
 	FormLabel,
 } from "@/components/ui/form";
+import { isSafeCallbackUrl } from "@/helpers/authRedirect";
 import { authClient } from "@/lib/auth-client";
 import { SignupSchema } from "@/schemas";
 
@@ -65,7 +66,11 @@ export function SignupForm({ callbackUrl }: { callbackUrl?: string }) {
 			},
 			{
 				onSuccess: () => {
-					const callbackURL = searchParams.get("callbackUrl") || callbackUrl;
+					// The query value is validated before use; the prop is ours, so it
+					// is trusted as-is.
+					const fromQuery = searchParams.get("callbackUrl");
+					const callbackURL =
+						fromQuery && isSafeCallbackUrl(fromQuery) ? fromQuery : callbackUrl;
 					callbackURL && router.push(callbackURL);
 				},
 				onError: (ctx) => {

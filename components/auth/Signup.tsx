@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { AuthLink } from "@/components/auth/AuthLink";
 import { SignupForm } from "@/components/forms/signup-form";
 
 export default function SignupPage() {
@@ -32,12 +32,14 @@ export default function SignupPage() {
 				</div>
 			</Suspense>
 			<p className="px-8 text-center text-sm text-muted-foreground">
-				<Link
-					href="/login"
-					className="hover:text-brand underline underline-offset-4"
-				>
-					{t("already_have_account")}
-				</Link>
+				<Suspense>
+					<AuthLink
+						href="/login"
+						className="hover:text-brand underline underline-offset-4"
+					>
+						{t("already_have_account")}
+					</AuthLink>
+				</Suspense>
 			</p>
 		</div>
 	);
