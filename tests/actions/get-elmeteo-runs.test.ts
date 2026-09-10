@@ -124,6 +124,49 @@ describe("getElmeteoRuns", () => {
 		expect(result?.latest.error).toBe(true);
 	});
 
+	it("flags the failed uploads that came after the maps on screen", async () => {
+		const failed = report("2026-09-09T22:37:00.000", s3Failure);
+		mockFindMany.mockResolvedValue([failed, today, earlier]);
+
+		const result = await getElmeteoRuns();
+
+		// The header shows `today`, which succeeded, so without this the page would
+		// look healthy while the uploader has stopped publishing.
+		expect(result?.latest.folder).toBe(today.folder);
+		expect(result?.failedUpload).toEqual({ at: failed.endTime, count: 1 });
+	});
+
+	it("counts every failed upload since the last usable run", async () => {
+		const first = report("2026-09-09T22:37:00.000", s3Failure);
+		const second = report("2026-09-10T01:37:00.000", s3Failure);
+		mockFindMany.mockResolvedValue([second, first, today]);
+
+		const result = await getElmeteoRuns();
+
+		// Newest first: the timestamp shown is the most recent attempt.
+		expect(result?.failedUpload).toEqual({ at: second.endTime, count: 2 });
+	});
+
+	it("reports no failed upload when the newest run is the usable one", async () => {
+		// An older S3 failure is water under the bridge: the uploader recovered.
+		const old = report("2026-09-09T13:37:00.000", s3Failure);
+		mockFindMany.mockResolvedValue([today, earlier, old]);
+
+		expect((await getElmeteoRuns())?.failedUpload).toBeUndefined();
+	});
+
+	it("does not count an FTP-only failure as a failed upload", async () => {
+		const ftpOnly = report("2026-09-09T22:37:00.000", ftpFailure);
+		mockFindMany.mockResolvedValue([ftpOnly, today]);
+
+		const result = await getElmeteoRuns();
+
+		// Its frames are on S3 and it *is* the run on screen, so the dot already
+		// covers it through `latest.error`.
+		expect(result?.failedUpload).toBeUndefined();
+		expect(result?.latest.error).toBe(true);
+	});
+
 	it("drops the runs whose 48 hours no longer reach the window", async () => {
 		const old = report("2026-08-01T04:38:00.000");
 		mockFindMany.mockResolvedValue([today, old]);

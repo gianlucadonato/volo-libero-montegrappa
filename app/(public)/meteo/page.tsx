@@ -48,6 +48,9 @@ export default async function MeteoPage() {
 	]);
 
 	const run = elmeteo?.latest;
+	// A failing uploader is the only case where the maps on screen are older than
+	// the last thing that happened, so it outranks the run's own legs.
+	const failedUpload = elmeteo?.failedUpload;
 
 	return (
 		<div>
@@ -93,8 +96,25 @@ export default async function MeteoPage() {
 								{/* Same row as the timestamp above: the dot reports whether
 								    that upload had any failing leg, and no report at all is
 								    not a success either. */}
-								<UploadStatusDot error={run?.error ?? true} />
+								<UploadStatusDot
+									error={failedUpload !== undefined || (run?.error ?? true)}
+								/>
 							</p>
+							{failedUpload && (
+								<p className="text-destructive text-xs">
+									{failedUpload.count === 1
+										? "L'ultimo caricamento è fallito"
+										: `Gli ultimi ${failedUpload.count} caricamenti sono falliti`}{" "}
+									(
+									<span className="tabular-nums">
+										{format(failedUpload.at, "dd/MM/yyyy HH:mm", {
+											locale: it,
+										})}
+									</span>
+									): le mappe mostrate sono quelle dell'aggiornamento
+									precedente.
+								</p>
+							)}
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
 								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},

@@ -43,7 +43,9 @@ function hasFramesOnS3(report: {
  * A run enters the timeline when its files reached S3, whatever the FTP leg did:
  * the frames are there to be drawn, and dropping them would blank out hours the
  * bucket can serve. `latest` is that same newest usable run, so the timestamp in
- * the header, the status dot and the maps all describe one row.
+ * the header, the status dot and the maps all describe one row — except while a
+ * newer upload is failing, which `failedUpload` reports separately rather than
+ * letting the page look healthy on stale maps.
  *
  * Reports whose folder does not follow the uploader naming are skipped so a
  * single bad upload does not blank out the page.
@@ -63,16 +65,25 @@ export default async function getElmeteoRuns() {
 		},
 	});
 
-	const usable = reports.flatMap((report) => {
-		if (!hasFramesOnS3(report)) return [];
+	const parsed = reports.flatMap((report) => {
 		const runStart = parseRunStart(report.folder);
 		return runStart ? [{ ...report, runStart }] : [];
 	});
 
+	const usable = parsed.filter(hasFramesOnS3);
 	const latest = usable[0];
 	if (!latest) {
 		return undefined;
 	}
+
+	// Uploads newer than the maps on screen that never made it to the bucket.
+	// Normally none: the newest row is the newest usable one. When there are, the
+	// timestamp above the maps is legitimately older than the last thing the
+	// uploader tried, and saying so is the whole point of the status dot.
+	const failedSinceLatest = parsed.filter(
+		(report) => report.runStart > latest.runStart && !hasFramesOnS3(report),
+	);
+	const lastFailure = failedSinceLatest[0];
 
 	// The window is anchored to the newest run, not to now: if the uploader
 	// stops, the page keeps offering the last fortnight it did publish instead of
@@ -96,6 +107,12 @@ export default async function getElmeteoRuns() {
 			// The maps are there, but the run may still have failed its other leg:
 			// the dot reports the health of the very row shown above it.
 			error: latest.error,
+		},
+		// Set only while the uploader is failing to publish: the header turns the
+		// dot red and explains why its timestamp has stopped advancing.
+		failedUpload: lastFailure && {
+			at: lastFailure.endTime ?? lastFailure.startTime,
+			count: failedSinceLatest.length,
 		},
 	};
 }
