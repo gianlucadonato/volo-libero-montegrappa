@@ -1,6 +1,9 @@
+import { timingSafeEqual } from "node:crypto";
 import { headers } from "next/headers";
 import { after } from "next/server";
-import { cleanupElmeteoBucket } from "@/lib/elmeteo";
+import { env } from "@/env";
+import { cleanupElmeteoBucket, cleanupElmeteoReports } from "@/lib/elmeteo";
+import { pruneElmeteoCache } from "@/lib/elmeteo-images";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
 
@@ -13,14 +16,27 @@ export const GET = async () => {
 	return Response.json(report);
 };
 
+/**
+ * Compares the bearer token in constant time. This endpoint also triggers the
+ * S3 retention cleanup, so a leaked token means data loss, not just a bogus
+ * report row.
+ */
+function isValidToken(token: string) {
+	const expected = Buffer.from(env.ELMETEO_API_TOKEN);
+	const received = Buffer.from(token);
+	if (expected.length !== received.length) {
+		return false;
+	}
+	return timingSafeEqual(expected, received);
+}
+
 export const POST = async (req: Request) => {
 	const authorization = (await headers()).get("authorization");
 	if (!authorization) {
 		return Response.json({ error: "Not authenticated" }, { status: 401 });
 	}
 	const token = authorization.split(" ")[1];
-	const authToken = "c2c52177-92e0-4852-a425-e9f521e51d5a";
-	if (!token || token !== authToken) {
+	if (!token || !isValidToken(token)) {
 		return Response.json({ error: "Not authenticated" }, { status: 401 });
 	}
 
@@ -47,13 +63,33 @@ export const POST = async (req: Request) => {
 		},
 	});
 
-	console.log("🐞 > Report saved!", body);
+	logger.info(
+		{
+			folder: body.destFolder,
+			totalUploadedFiles: body.totalUploadedFiles,
+			totalFiles: body.totalFiles,
+			error: Boolean(body.error),
+		},
+		"ElMeteo report saved",
+	);
 
-	// Prune the S3 bucket after the response is sent: the retention cleanup must
-	// never delay the uploader nor fail its report.
+	// Prune the report rows, the bucket and the frame cache after the response is
+	// sent: retention work must never delay the uploader nor fail its report.
 	after(async () => {
+		// Report rows are dated by the same clock as the bucket, so this needs no
+		// folder listing and runs first: it must not be skipped when S3 fails.
+		try {
+			const { deletedReports } = await cleanupElmeteoReports();
+			logger.info({ deletedReports }, "ElMeteo reports cleanup completed");
+		} catch (error) {
+			logger.error({ error }, "ElMeteo reports cleanup failed");
+		}
+
+		let keptFolders: string[];
+
 		try {
 			const result = await cleanupElmeteoBucket();
+			keptFolders = result.keptFolders;
 			logger.info(
 				{
 					bucket: result.bucket,
@@ -65,6 +101,24 @@ export const POST = async (req: Request) => {
 			);
 		} catch (error) {
 			logger.error({ error }, "ElMeteo bucket cleanup failed");
+			// Without a trustworthy folder listing the prune cannot tell a stale
+			// cache entry from a live one, so it is skipped until the next report.
+			return;
+		}
+
+		// Drop the cached frames of the runs that are now gone: they can no longer
+		// be re-fetched, so they would just sit on disk forever.
+		try {
+			const pruned = await pruneElmeteoCache(keptFolders);
+			logger.info(
+				{
+					cacheRoot: pruned.cacheRoot,
+					removedDirs: pruned.removedDirs.length,
+				},
+				"ElMeteo cache prune completed",
+			);
+		} catch (error) {
+			logger.error({ error }, "ElMeteo cache prune failed");
 		}
 	});
 
