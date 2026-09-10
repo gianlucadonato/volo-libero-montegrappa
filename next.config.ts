@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+	// Emit a self-contained server bundle (.next/standalone) so the production
+	// image ships only traced runtime deps instead of the full node_modules.
+	output: "standalone",
 	images: {
 		remotePatterns: [
 			{

@@ -38,6 +38,9 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
       - "--storage.tsdb.retention.time=30d"
+      # Hard ceiling: retention.time alone bounds age, not volume. If series
+      # count ever grows again this caps the volume regardless.
+      - "--storage.tsdb.retention.size=3GB"
       - "--web.enable-lifecycle"
     volumes:
       - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml:ro
