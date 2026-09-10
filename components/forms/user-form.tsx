@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { useState } from "react";
 import type { ControllerRenderProps } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -174,6 +175,7 @@ export function UserForm({
 			});
 		}
 		setIsLoading(false);
+		posthog.capture("profile_updated");
 		callbackUrl && router.push(callbackUrl);
 		onSave?.(data);
 	}

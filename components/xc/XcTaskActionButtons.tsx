@@ -2,6 +2,7 @@
 
 import { Download, QrCode, Upload } from "lucide-react";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { type ChangeEvent, useContext, useRef, useState } from "react";
 import { toast } from "sonner";
 import { ModalContext } from "@/components/modals/providers";
@@ -99,6 +100,10 @@ export default function XcTaskActionButtons({
 				return;
 			}
 
+			posthog.capture("xc_track_uploaded", {
+				task_id: taskId,
+				task_category: category,
+			});
 			toast.success(t("toast.uploadSuccess"));
 			onUploadSuccess?.();
 
@@ -110,6 +115,10 @@ export default function XcTaskActionButtons({
 						if (error || !validation) {
 							toast.error(t("toast.validationFailed"));
 						} else {
+							posthog.capture("xc_submission_validated", {
+								task_id: taskId,
+								task_category: category,
+							});
 							toast.success(t("toast.validationSuccess"));
 						}
 						onUploadSuccess?.();
@@ -136,6 +145,10 @@ export default function XcTaskActionButtons({
 				toast.error(t("toast.deleteError"));
 				return;
 			}
+			posthog.capture("xc_submission_deleted", {
+				task_id: taskId,
+				task_category: category,
+			});
 			toast.success(t("toast.deleteSuccess"));
 			onUploadSuccess?.();
 		} catch (error) {
@@ -156,6 +169,10 @@ export default function XcTaskActionButtons({
 			if (error || !validation) {
 				toast.error(t("toast.validationFailed"));
 			} else {
+				posthog.capture("xc_submission_validated", {
+					task_id: taskId,
+					task_category: category,
+				});
 				toast.success(t("toast.validationSuccess"));
 			}
 			onUploadSuccess?.();

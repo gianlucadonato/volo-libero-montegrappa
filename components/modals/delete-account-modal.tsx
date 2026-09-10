@@ -1,6 +1,7 @@
 import { User } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -36,6 +37,7 @@ function DeleteAccountModal({
 			},
 		}).then(async (res) => {
 			if (res.status === 200) {
+				posthog.capture("account_deleted");
 				// delay to allow for the route change to complete
 				await new Promise((resolve) =>
 					setTimeout(() => {

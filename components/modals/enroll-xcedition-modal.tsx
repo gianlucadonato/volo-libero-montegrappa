@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import {
 	type Dispatch,
 	type SetStateAction,
@@ -44,6 +45,9 @@ function EnrollXcEditionModal({
 		if (response.ok) {
 			await queryClient.invalidateQueries({
 				queryKey: ["get", "/xc/enroll"],
+			});
+			posthog.capture("xc_enrollment_created", {
+				edition_year: NEXT_YEAR,
 			});
 			toast.success(t("toast.success"));
 			setShowModal(false);

@@ -5,6 +5,7 @@ import { EuroIcon, Loader2, X } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -93,6 +94,11 @@ export function EventForm({
 		setIsLoading(true);
 		try {
 			const res = await upsertEvent({ ...data, id: event?.id });
+			posthog.capture(event ? "event_updated" : "event_created", {
+				event_id: res.id,
+				is_member_only: data.isMemberOnly,
+				has_cover_image: Boolean(data.imageUrl),
+			});
 			onSubmit?.();
 			toast.success("OK!", {
 				description: t(event ? "edit_success" : "create_success"),

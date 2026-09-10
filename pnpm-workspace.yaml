@@ -1,0 +1,18 @@
+# pnpm blocks dependency install scripts by default and fails while any are
+# undecided, so every package that ships one is listed explicitly.
+#
+# true: fetches or builds a native binary, so the script has to run.
+# false: a no-op for us — core-js only prints a funding notice, protobufjs and
+# vue-demi self-configure for a runtime we don't use, and msw would install a
+# browser service worker we don't ship.
+allowBuilds:
+  '@parcel/watcher': true
+  '@prisma/engines': true
+  '@swc/core': true
+  core-js: false
+  esbuild: true
+  msw: false
+  prisma: true
+  protobufjs: false
+  sharp: true
+  vue-demi: false

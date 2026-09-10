@@ -5,7 +5,6 @@ import HeroVideo from "@/components/home/HeroVideo";
 import InfoCard, { type InfoCardType } from "@/components/home/InfoCard";
 import Powered from "@/components/home/Powered";
 import LatestNews from "@/components/news/LatestNews";
-import RegisterCTA from "@/components/RegisterCTA";
 
 export default async function Home() {
 	const t = await getTranslations("Homepage");

@@ -35,6 +35,8 @@ export const env = createEnv({
 	client: {
 		// 🌐 Client-side vars (browser safe)
 		NEXT_PUBLIC_APP_URL: z.string().min(1),
+		NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN: z.string().optional(),
+		NEXT_PUBLIC_POSTHOG_HOST: z.string().url().optional(),
 	},
 	runtimeEnv: {
 		// 🔄 Runtime values (don't change!)
@@ -62,5 +64,8 @@ export const env = createEnv({
 		R2_SECRET_ACCESS_KEY: process.env.R2_SECRET_ACCESS_KEY,
 		R2_BUCKET_NAME: process.env.R2_BUCKET_NAME,
 		NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+		NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN:
+			process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN,
+		NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
 	},
 });

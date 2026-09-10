@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 import { CreditCardIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
+import posthog from "posthog-js";
 import { useState } from "react";
 import Login from "@/components/auth/Login";
 import { Button } from "@/components/ui/button";
@@ -39,6 +40,9 @@ export default function PurchaseButton({
 				locale: locale as "it" | "en",
 			});
 			if (!data.ok) throw new Error("Something went wrong");
+			posthog.capture("membership_checkout_started", {
+				locale,
+			});
 			// await stripe.redirectToCheckout({
 			// 	sessionId: data.result.id,
 			// });

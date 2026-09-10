@@ -1,6 +1,7 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader, StarIcon } from "lucide-react";
+import posthog from "posthog-js";
 import { forwardRef, useContext, useEffect, useState } from "react";
 import { registerToEvent } from "@/actions/registerToEvent";
 import { Button, type ButtonProps } from "@/components/extendui/button";
@@ -73,6 +74,12 @@ export const SubscribeButton = forwardRef<
 				console.error(res.message);
 				return;
 			}
+			posthog.capture("event_registration_updated", {
+				event_id: event.id,
+				registration_status:
+					status === "subscribe" ? "registered" : "cancelled",
+				is_member_only: event.isMemberOnly,
+			});
 			if (status === "subscribe") {
 				onSubscribe && (await onSubscribe());
 				setStatus("subscribed");
