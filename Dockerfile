@@ -97,11 +97,13 @@ RUN groupadd --system --gid 1001 nodejs \
 # standalone/ carries server.js plus the traced node_modules (pnpm symlinks and
 # their .pnpm targets are all inside it, so it is self-contained).
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-# Not included in standalone by Next — must be copied explicitly.
-# public/ is NOT listed here on purpose: Next already copies it into
-# .next/standalone/public, so copying it again would duplicate ~250MB
-# into a second layer (layers are additive, the image pays for both).
+# Neither of these is included in standalone by Next — both must be copied
+# explicitly. public/ in particular: standalone only carries the handful of
+# files module tracing happened to pull in (4 of 238 here), NOT the directory,
+# so without this line every static asset 404s — favicon, site.webmanifest,
+# backgrounds, openapi.json.
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 # lib/news.ts calls createReader(process.cwd()) and reads these Markdoc files at
 # request time. Without this, /news renders no articles and /news/[slug] 404s.
 COPY --from=builder --chown=nextjs:nodejs /app/content ./content
