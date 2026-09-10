@@ -90,9 +90,10 @@ export default async function MeteoPage() {
 								) : (
 									"Nessun aggiornamento disponibile"
 								)}
-								{/* No report at all is not a success: the dot stays red
-								    rather than claiming a healthy uploader. */}
-								<UploadStatusDot error={elmeteo?.lastAttempt.error ?? true} />
+								{/* Same row as the timestamp above: the dot reports whether
+								    that upload had any failing leg, and no report at all is
+								    not a success either. */}
+								<UploadStatusDot error={run?.error ?? true} />
 							</p>
 							<p className="text-muted-foreground text-xs">
 								Modello elaborato alle{" "}
