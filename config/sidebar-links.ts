@@ -65,7 +65,6 @@ export const navbarLinks = [
 		title: "weather",
 		url: "/meteo",
 		icon: SunSnow,
-		hidden: true,
 	},
 	{
 		title: "events",

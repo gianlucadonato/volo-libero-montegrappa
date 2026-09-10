@@ -1,6 +1,11 @@
 "use client";
 
-import { Maximize2, SlidersHorizontal } from "lucide-react";
+import {
+	ExternalLink,
+	Loader2,
+	Maximize2,
+	SlidersHorizontal,
+} from "lucide-react";
 import { useState } from "react";
 import { MapPicker } from "@/components/meteo/MapPicker";
 import { Button } from "@/components/ui/button";
@@ -11,22 +16,28 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
 	type ElmeteoMapDetails,
 	type ElmeteoMapId,
 	elmeteoSiteLegend,
 	getElmeteoMap,
 } from "@/lib/elmeteo-maps";
+import { cn } from "@/lib/utils";
 
 /**
  * The elmeteo.it explanation of a map, as it appears on the source page: the
  * red note first, then the site legend it introduces, then the prose and the
  * legend of the layers.
  */
-function MapDetails({ details }: { details: ElmeteoMapDetails }) {
+function MapDetails({
+	details,
+	className,
+}: {
+	details: ElmeteoMapDetails;
+	className?: string;
+}) {
 	return (
-		<div className="space-y-3 text-muted-foreground text-sm">
+		<div className={cn("space-y-3 text-muted-foreground text-sm", className)}>
 			{details.warning && <p className="text-destructive">{details.warning}</p>}
 
 			{details.sites && (
@@ -82,11 +93,15 @@ export function MapQuadrant({
 	onSelect,
 }: MapQuadrantProps) {
 	const definition = getElmeteoMap(map);
-	const [loaded, setLoaded] = useState(false);
+	// Tracking which URL finished loading rather than a boolean: changing the
+	// hour or the map swaps the frame, and the spinner has to come back for the
+	// new one instead of staying dismissed after the first load.
+	const [loadedUrl, setLoadedUrl] = useState<string | null>(null);
 	// Controlled so both the header button and the frame itself can open it, while
 	// focus still returns to the header button on close.
 	const [zoomed, setZoomed] = useState(false);
 	const currentUrl = frameUrl(folder, map, step);
+	const loaded = loadedUrl === currentUrl;
 
 	return (
 		<div className="group overflow-hidden rounded-xl border bg-card">
@@ -109,19 +124,44 @@ export function MapQuadrant({
 								<Maximize2 className="size-4" />
 							</Button>
 						</DialogTrigger>
-						{/* The explanation can be several paragraphs long, so the dialog
-						    scrolls rather than growing past the viewport. */}
-						<DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-4xl">
-							<DialogHeader>
+						{/* The layout's header is fixed and stacks above the dialog, so on
+						    phones the dialog starts below it, with the same 1rem gap it
+						    leaves at the bottom; when centred it is clamped so the close
+						    button can never end up behind the header either. */}
+						<DialogContent className="top-22 grid max-h-[calc(100dvh-6.5rem)] grid-rows-[auto_minmax(0,1fr)] translate-y-0 overflow-hidden sm:top-1/2 sm:max-h-[calc(100dvh-10rem)] sm:max-w-4xl sm:-translate-y-1/2">
+							{/* Padded on the end so a long title never runs under the close
+							    button, which sits in the same row. */}
+							<DialogHeader className="pe-10">
 								<DialogTitle>{definition.label}</DialogTitle>
 							</DialogHeader>
-							{/* biome-ignore lint/performance/noImgElement: the frame route already serves an optimised WebP */}
-							<img
-								src={currentUrl}
-								alt={definition.description}
-								className="w-full rounded-lg"
-							/>
-							<MapDetails details={definition.details} />
+							{/* The explanation can be several paragraphs long, so the body
+							    scrolls on its own — the dialog frame stays put and keeps the
+							    close button reachable at the top right. */}
+							<div className="-mx-4 overflow-y-auto px-4">
+								{/* The dialog still shrinks the map to fit, so opening the raw
+								    frame in a tab is the way to read it at full size and pinch
+								    to zoom. The route is same-origin and cookie-authenticated,
+								    so a plain navigation carries the session. */}
+								<a
+									href={currentUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									title="Apri la mappa a schermo intero in una nuova scheda"
+									className="group/frame relative block cursor-zoom-in rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+								>
+									{/* biome-ignore lint/performance/noImgElement: the frame route already serves an optimised WebP */}
+									<img
+										src={currentUrl}
+										alt={definition.description}
+										className="w-full rounded-lg"
+									/>
+									<span className="pointer-events-none absolute top-2 right-2 flex items-center gap-1 rounded-md bg-background/85 px-2 py-1 text-xs shadow-sm ring-1 ring-foreground/10 transition-opacity group-hover/frame:opacity-100 sm:opacity-0">
+										<ExternalLink className="size-3.5" />
+										Apri a schermo intero
+									</span>
+								</a>
+								<MapDetails details={definition.details} className="mt-4" />
+							</div>
 						</DialogContent>
 					</Dialog>
 
@@ -143,19 +183,32 @@ export function MapQuadrant({
 				aria-label={`Ingrandisci ${definition.label}`}
 				className="relative block w-full cursor-zoom-in aspect-[844/766] bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
 			>
-				{!loaded && <Skeleton className="absolute inset-0 rounded-none" />}
+				{!loaded && (
+					<div className="absolute inset-0 flex items-center justify-center">
+						<Loader2 className="size-6 animate-spin text-muted-foreground" />
+					</div>
+				)}
 				{/* biome-ignore lint/performance/noImgElement: the frame route already serves an optimised WebP */}
 				<img
-					// Remounting on map/step change keeps the skeleton honest: without a
+					// Remounting on map/step change keeps the spinner honest: without a
 					// key the old frame would linger while the new one downloads.
 					key={currentUrl}
+					// Preloaded hours are served from the cache, where the load event can
+					// fire before React attaches onLoad — ask the element directly, or the
+					// spinner would never clear.
+					ref={(node) => {
+						if (node?.complete) setLoadedUrl(currentUrl);
+					}}
 					src={currentUrl}
 					alt={`${definition.label} — ${definition.description}`}
 					loading={priority ? "eager" : "lazy"}
 					decoding="async"
-					onLoad={() => setLoaded(true)}
-					onError={() => setLoaded(true)}
-					className="absolute inset-0 size-full object-contain"
+					onLoad={() => setLoadedUrl(currentUrl)}
+					onError={() => setLoadedUrl(currentUrl)}
+					className={cn(
+						"absolute inset-0 size-full object-contain transition-opacity",
+						!loaded && "opacity-0",
+					)}
 				/>
 			</button>
 

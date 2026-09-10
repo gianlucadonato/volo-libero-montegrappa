@@ -49,15 +49,21 @@ export function MapPicker({
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{children}</DialogTrigger>
-			<DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
-				<DialogHeader>
+			{/* Offset below the layout's fixed header, which stacks above the
+			    dialog — see the same treatment in MapQuadrant. */}
+			<DialogContent className="top-22 grid max-h-[calc(100dvh-6.5rem)] grid-rows-[auto_minmax(0,1fr)_auto] translate-y-0 overflow-hidden sm:top-1/2 sm:max-h-[calc(100dvh-10rem)] sm:max-w-2xl sm:-translate-y-1/2">
+				{/* Padded on the end so the header never runs under the close button,
+				    which sits in the same row. */}
+				<DialogHeader className="pe-10">
 					<DialogTitle>Scegli la mappa</DialogTitle>
 					<DialogDescription>
 						La scelta resta salvata su questo dispositivo.
 					</DialogDescription>
 				</DialogHeader>
 
-				<div className="space-y-5">
+				{/* Only the list scrolls, so the close button stays reachable at the
+				    top right and "Annulla" stays visible at the bottom. */}
+				<div className="-mx-4 space-y-5 overflow-y-auto px-4">
 					{groupOrder.map((group) => (
 						<div key={group}>
 							<p className="mb-2 font-medium text-muted-foreground text-xs uppercase tracking-wide">
