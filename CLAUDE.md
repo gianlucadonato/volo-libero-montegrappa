@@ -41,6 +41,7 @@ Husky enforces quality gates: **pre-commit** runs lint-staged (Biome), **pre-pus
 - Path alias `@/*` maps to the repo root.
 - **Env vars**: import the validated `env` from `@/env` (typed via `@t3-oss/env-nextjs` + Zod), not `process.env` directly. `VLM_ENV` is the app environment flag, **not** `NODE_ENV`. Exception: code that runs in the browser bundle (e.g. `keystatic.config.tsx`) must use `NODE_ENV`/`NEXT_PUBLIC_*` since server-only vars are undefined client-side.
 - Modules marked `import "server-only"` (`lib/logger.ts`, `lib/session.ts`) must never be imported into client components.
+- **English everywhere in the repo**, without exception: commit messages, code comments, identifiers, docs, PR descriptions, log and error messages. This holds even when the conversation with the author is in Italian, and even though older commits in the log are Italian — do not match them. The only Italian in the repo is user-facing content: UI strings in `messages/it.json`, Markdoc under `content/news/it/`, and the Italian public route segments.
 
 ## Architecture
 
