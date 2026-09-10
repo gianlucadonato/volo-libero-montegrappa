@@ -61,8 +61,11 @@ ENV NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
 # during the build, so the build needs values present. These placeholders are
 # scoped to this RUN only (never persisted into an image layer); Dokploy injects
 # the real values at runtime.
-# The webpack build needs more than V8's default heap on this codebase.
-RUN NODE_OPTIONS="--max-old-space-size=4096" \
+# The webpack build needs more than V8's default heap on this codebase, but the
+# Dokploy server has ~7.5GB total with ~3.5GB already used by the other
+# services, so 4096 got the build OOM-killed. 2560 leaves room for the rest of
+# the Node process, webpack workers and buildkit itself.
+RUN NODE_OPTIONS="--max-old-space-size=2560" \
 	VLM_ENV=production \
 	BETTER_AUTH_SECRET=build-placeholder \
 	GOOGLE_CLIENT_ID=build-placeholder \
