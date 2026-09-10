@@ -22,14 +22,19 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends libatomic1 ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
+# The pnpm version comes from the "packageManager" field in package.json, so it
+# is pinned in one place and cannot drift from what developers run locally.
+RUN corepack enable
 
-COPY package.json pnpm-lock.yaml ./
+# pnpm-workspace.yaml is required: it carries the allowBuilds decisions, and
+# pnpm 10+ fails the install while any dependency build script is undecided.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 # HUSKY=0 skips the "prepare" git-hook install: there is no .git in the image.
 ENV HUSKY=0
+# --store-dir must be a flag, not `pnpm config set`: on pnpm 12 that subcommand
+# writes to the *global* config rather than the project, so it would not apply.
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm-store \
-	pnpm config set store-dir /pnpm-store \
-	&& pnpm install --frozen-lockfile --prefer-offline
+	pnpm install --frozen-lockfile --prefer-offline --store-dir /pnpm-store
 
 # ---- builder: generate the Prisma client and build the app ----
 FROM node:${NODE_VERSION}-slim AS builder
@@ -39,7 +44,7 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends libatomic1 ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN corepack enable && corepack prepare pnpm@9.15.9 --activate
+RUN corepack enable
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

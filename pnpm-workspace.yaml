@@ -1,5 +1,13 @@
-# pnpm blocks dependency install scripts by default and fails while any are
-# undecided, so every package that ships one is listed explicitly.
+# Not a monorepo: an empty `packages` list declares this repo a single-package
+# root. The key is optional on pnpm 12, but pnpm 9 and older abort with
+# "packages field missing or empty" on any command — including `pnpm exec` —
+# when this file exists without it. Cheap insurance for older local installs.
+packages: []
+
+# pnpm blocks dependency install scripts by default and fails the install while
+# any are undecided, so every package that ships one is listed explicitly. The
+# Docker build runs the same pnpm version as local (see "packageManager" in
+# package.json), so these decisions apply there too.
 #
 # true: fetches or builds a native binary, so the script has to run.
 # false: a no-op for us — core-js only prints a funding notice, protobufjs and
