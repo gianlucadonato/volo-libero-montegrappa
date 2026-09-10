@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import LocationCard, { type LocationType } from "@/components/LocationCard";
 import { Button } from "@/components/ui/button";
+import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
 const locations: LocationType[] = [
 	{
@@ -34,7 +35,7 @@ const locations: LocationType[] = [
 				</div>
 			</div>
 		),
-		image: "/locations/atterraggi-garden-vento-sud-est-ovest.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/atterraggi-garden-vento-sud-est-ovest.jpg`,
 		table: {
 			location: "Semonzo",
 			altitude: "130 m",
@@ -70,7 +71,7 @@ const locations: LocationType[] = [
 				</div>
 			</div>
 		),
-		image: "/locations/atterraggi-paradiso-vento-sud-est-ovest.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/atterraggi-paradiso-vento-sud-est-ovest.jpg`,
 		table: {
 			location: "Semonzo del Grappa",
 			altitude: "190 m",

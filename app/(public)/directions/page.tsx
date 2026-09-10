@@ -9,6 +9,7 @@ import {
 	TableHead,
 	TableRow,
 } from "@/components/ui/table";
+import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
 type CentroOperativoType = {
 	id: string;
@@ -35,7 +36,7 @@ const location: CentroOperativoType = {
 			Relais.
 		</div>
 	),
-	image: "/locations/sede.png",
+	image: `${PUBLIC_MEDIA_BASE_URL}/locations/sede.png`,
 	table: {
 		location: "“Casetta del club” presso Atterraggio Garden Relais",
 		url: "https://maps.app.goo.gl/mhgq6irVcyurLzqA8",

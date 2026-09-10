@@ -9,10 +9,11 @@ import { GrTarget } from "react-icons/gr";
 import { LuRadioTower } from "react-icons/lu";
 import { MdFlight } from "react-icons/md";
 import { TiWeatherPartlySunny } from "react-icons/ti";
+import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
 export default function AreadiVolo() {
 	const downloadFile = (file: string) => {
-		const url = `/waypoints/${file}.zip`;
+		const url = `${PUBLIC_MEDIA_BASE_URL}/waypoints/${file}.zip`;
 		window.open(url, "_blank");
 	};
 

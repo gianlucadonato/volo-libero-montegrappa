@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
 export default function HeroVideo() {
@@ -19,7 +20,10 @@ export default function HeroVideo() {
 					muted
 					loop
 				>
-					<source src="/videos/bg-video.mp4" type="video/mp4" />
+					<source
+						src={`${PUBLIC_MEDIA_BASE_URL}/videos/bg-video.mp4`}
+						type="video/mp4"
+					/>
 				</video>
 			</div>
 			<div className="video-content z-10 flex flex-col items-center justify-center space-y-2 px-2 text-white">

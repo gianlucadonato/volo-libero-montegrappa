@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import LocationCard, { type LocationType } from "@/components/LocationCard";
 import { Button } from "@/components/ui/button";
+import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
 const locations: LocationType[] = [
 	{
@@ -21,7 +22,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-stella-alpina.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-stella-alpina.jpg`,
 		table: {
 			location: "Prai di Semonzo",
 			altitude: "702 m",
@@ -56,7 +57,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-tappeti.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-tappeti.jpg`,
 		table: {
 			location: "Col del Puppolo",
 			altitude: "830 m",
@@ -92,7 +93,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-pedana.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-pedana.jpg`,
 		table: {
 			location: "Col del Puppolo",
 			altitude: "866 m",
@@ -127,7 +128,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-casette.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-casette.jpg`,
 		table: {
 			location: "Col Serai",
 			altitude: "1000 m",
@@ -156,7 +157,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-baita-camol.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-baita-camol.jpg`,
 		table: {
 			location: "Camol",
 			altitude: "1230 m",
@@ -190,7 +191,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-panettone.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-panettone.jpg`,
 		table: {
 			location: "Monte Meda - Cima Grappa",
 			altitude: "1550 m",
@@ -226,7 +227,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-col-campeggia.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-col-campeggia.jpg`,
 		table: {
 			location: "Col Campeggia",
 			altitude: "1080 m",
@@ -257,7 +258,7 @@ const locations: LocationType[] = [
 				</p>
 			</div>
 		),
-		image: "/locations/decollo-antenne.jpg",
+		image: `${PUBLIC_MEDIA_BASE_URL}/locations/decollo-antenne.jpg`,
 		table: {
 			location: "Costalunga",
 			altitude: "750 m",

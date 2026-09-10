@@ -9,3 +9,8 @@ export const MEMBERSHIP_PRICE = 40;
 // the server-side SDK paths (upload script, download/validate routes).
 export const XC_PUBLIC_ASSETS_BASE_URL =
 	"https://vlm-xc-public.s3.eu-central-1.amazonaws.com";
+
+// The same bucket also serves the heavy static media that used to sit in
+// public/ — the hero video, the airspace archives and the site photos — under a
+// "media/" prefix that keeps them clear of the XC task assets.
+export const PUBLIC_MEDIA_BASE_URL = `${XC_PUBLIC_ASSETS_BASE_URL}/media`;
