@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { type ElmeteoSlot, findSlotIndex } from "@/lib/elmeteo-run";
 import { cn } from "@/lib/utils";
@@ -25,19 +26,31 @@ type TimeControlsProps = {
 	onIndexChange: (index: number) => void;
 };
 
-const romeTime = new Intl.DateTimeFormat("it-IT", {
-	timeZone: "Europe/Rome",
-	hour: "2-digit",
-	minute: "2-digit",
-});
+/**
+ * The clock and the date as the user reads them, in the flying zone's timezone.
+ *
+ * Built per locale rather than pinned to it-IT: the maps are captioned in
+ * 24-hour time, so the clock stays h23 in both languages, but the weekday and
+ * the month have to be words the reader knows.
+ */
+function romeFormatters(locale: string) {
+	return {
+		time: new Intl.DateTimeFormat(locale, {
+			timeZone: "Europe/Rome",
+			hourCycle: "h23",
+			hour: "2-digit",
+			minute: "2-digit",
+		}),
+		day: new Intl.DateTimeFormat(locale, {
+			timeZone: "Europe/Rome",
+			weekday: "long",
+			day: "2-digit",
+			month: "long",
+		}),
+	};
+}
 
-const romeDay = new Intl.DateTimeFormat("it-IT", {
-	timeZone: "Europe/Rome",
-	weekday: "long",
-	day: "2-digit",
-	month: "long",
-});
-
+/** Machine key for "same local day", so this one stays pinned to ISO. */
 const romeDayKey = new Intl.DateTimeFormat("en-CA", {
 	timeZone: "Europe/Rome",
 	year: "numeric",
@@ -93,6 +106,9 @@ export function TimeControls({
 	index,
 	onIndexChange,
 }: TimeControlsProps) {
+	const t = useTranslations("MeteoPage.Maps");
+	const locale = useLocale();
+	const rome = romeFormatters(locale);
 	const current = slots[index];
 	const previousDay = findDayIndex(slots, index, -1);
 	const nextDay = findDayIndex(slots, index, 1);
@@ -104,7 +120,7 @@ export function TimeControls({
 					<Button
 						variant="outline"
 						size="icon"
-						aria-label="Giorno precedente"
+						aria-label={t("previous_day")}
 						disabled={previousDay === undefined}
 						onClick={() =>
 							previousDay !== undefined && onIndexChange(previousDay)
@@ -115,17 +131,17 @@ export function TimeControls({
 
 					<div className="flex-1 text-center sm:min-w-[13rem] sm:flex-none">
 						<p className="font-semibold text-lg leading-tight tabular-nums">
-							{romeTime.format(current.at)}
+							{rome.time.format(current.at)}
 						</p>
 						<p className="text-muted-foreground text-xs capitalize">
-							{romeDay.format(current.at)}
+							{rome.day.format(current.at)}
 						</p>
 					</div>
 
 					<Button
 						variant="outline"
 						size="icon"
-						aria-label="Giorno successivo"
+						aria-label={t("next_day")}
 						disabled={nextDay === undefined}
 						onClick={() => nextDay !== undefined && onIndexChange(nextDay)}
 					>
@@ -175,7 +191,7 @@ export function TimeControls({
 					min={0}
 					max={slots.length - 1}
 					value={index}
-					aria-label="Ora della previsione"
+					aria-label={t("forecast_hour")}
 					onChange={(event) => onIndexChange(Number(event.target.value))}
 					className="h-1.5 w-full cursor-pointer appearance-none rounded-full bg-muted accent-primary"
 				/>

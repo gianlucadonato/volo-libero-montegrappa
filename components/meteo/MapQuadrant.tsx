@@ -6,6 +6,7 @@ import {
 	Maximize2,
 	SlidersHorizontal,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { MapPicker } from "@/components/meteo/MapPicker";
 import { Button } from "@/components/ui/button";
@@ -92,6 +93,7 @@ export function MapQuadrant({
 	priority,
 	onSelect,
 }: MapQuadrantProps) {
+	const t = useTranslations("MeteoPage.Maps");
 	const definition = getElmeteoMap(map);
 	// Tracking which URL finished loading rather than a boolean: changing the
 	// hour or the map swaps the frame, and the spinner has to come back for the
@@ -119,7 +121,7 @@ export function MapQuadrant({
 							<Button
 								variant="ghost"
 								size="icon"
-								aria-label={`Ingrandisci ${definition.label}`}
+								aria-label={t("zoom", { map: definition.label })}
 							>
 								<Maximize2 className="size-4" />
 							</Button>
@@ -146,7 +148,7 @@ export function MapQuadrant({
 									href={currentUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									title="Apri la mappa a schermo intero in una nuova scheda"
+									title={t("open_fullscreen_title")}
 									className="group/frame relative block cursor-zoom-in rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 								>
 									{/* biome-ignore lint/performance/noImgElement: the frame route already serves an optimised WebP */}
@@ -157,7 +159,7 @@ export function MapQuadrant({
 									/>
 									<span className="pointer-events-none absolute top-2 right-2 flex items-center gap-1 rounded-md bg-background/85 px-2 py-1 text-xs shadow-sm ring-1 ring-foreground/10 transition-opacity group-hover/frame:opacity-100 sm:opacity-0">
 										<ExternalLink className="size-3.5" />
-										Apri a schermo intero
+										{t("open_fullscreen")}
 									</span>
 								</a>
 								<MapDetails details={definition.details} className="mt-4" />
@@ -169,7 +171,7 @@ export function MapQuadrant({
 						<Button
 							variant="ghost"
 							size="icon"
-							aria-label={`Cambia mappa nel riquadro ${definition.label}`}
+							aria-label={t("change_map", { map: definition.label })}
 						>
 							<SlidersHorizontal className="size-4" />
 						</Button>
@@ -180,7 +182,7 @@ export function MapQuadrant({
 			<button
 				type="button"
 				onClick={() => setZoomed(true)}
-				aria-label={`Ingrandisci ${definition.label}`}
+				aria-label={t("zoom", { map: definition.label })}
 				className="relative block w-full cursor-zoom-in aspect-[844/766] bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
 			>
 				{!loaded && (

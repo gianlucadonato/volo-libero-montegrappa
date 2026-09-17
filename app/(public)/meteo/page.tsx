@@ -1,57 +1,50 @@
-import { format } from "date-fns";
-import { it } from "date-fns/locale";
-import { Clock, Lock } from "lucide-react";
+import { ArrowRight, Lock, MapIcon, Table2 } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import getElmeteoRuns from "@/actions/getElmeteoRuns";
-import { MeteoMaps } from "@/components/meteo/MeteoMaps";
-import {
-	RefreshButton,
-	UploadStatusDot,
-} from "@/components/meteo/RefreshStatus";
-import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
-import { withCallbackUrl } from "@/helpers/authRedirect";
-import { elmeteoHistoryDays } from "@/lib/elmeteo-run";
 import { getSessionUser } from "@/lib/session";
+import { cn } from "@/lib/utils";
 
 export const metadata = constructMetadata({
 	title: `Meteo - ${siteConfig.name}`,
 	description:
-		"Previsioni meteo per l'area del Montegrappa: termiche, vento, base delle nuvole e precipitazioni, aggiornate 4 volte al giorno.",
+		"Previsioni meteo per l'area del Montegrappa: mappe orarie navigabili e tabelle di previsione per i sei decolli.",
 });
 
-// The page reads the latest report, so it must not be cached at build time.
+// Only the session is read, and just to label the cards: the hub itself holds
+// no forecast data, so it can be rendered statically per request.
 export const dynamic = "force-dynamic";
 
-// date-fns formats in the server's local zone, so the run hour has to be built
-// explicitly in UTC to match the "Run ... UTC" caption burned into the maps.
-const runHourUTC = new Intl.DateTimeFormat("it-IT", {
-	timeZone: "UTC",
-	hour: "2-digit",
-	minute: "2-digit",
-});
-
-const updateTimes = "6:50, 9:50, 18:50 e 21:50";
-
-// The window is configured in days, but pilots think in weeks like the bucket
-// retention does, so the caption spells out both. Rounded, so a window that is
-// not a whole number of weeks still reads as a sentence.
-const historyHours = elmeteoHistoryDays * 24;
-const historyWeeks = Math.round(elmeteoHistoryDays / 7);
-const historyWeeksLabel = `${historyWeeks} settiman${historyWeeks === 1 ? "a" : "e"}`;
+type MeteoSection = {
+	href: string;
+	icon: typeof MapIcon;
+	title: string;
+	description: string;
+	cta: string;
+};
 
 export default async function MeteoPage() {
-	const [elmeteo, user, t] = await Promise.all([
-		getElmeteoRuns(),
+	const [user, t] = await Promise.all([
 		getSessionUser(),
 		getTranslations("MeteoPage"),
 	]);
 
-	const run = elmeteo?.latest;
-	// A failing uploader is the only case where the maps on screen are older than
-	// the last thing that happened, so it outranks the run's own legs.
-	const failedUpload = elmeteo?.failedUpload;
+	const sections: MeteoSection[] = [
+		{
+			href: "/meteo/maps",
+			icon: MapIcon,
+			title: t("maps_card_title"),
+			description: t("maps_card_description"),
+			cta: t("maps_card_cta"),
+		},
+		{
+			href: "/meteo/tables",
+			icon: Table2,
+			title: t("tables_card_title"),
+			description: t("tables_card_description"),
+			cta: t("tables_card_cta"),
+		},
+	];
 
 	return (
 		<div>
@@ -72,138 +65,65 @@ export default async function MeteoPage() {
 			</div>
 
 			<div className="container mb-16">
-				<div className="mt-8 flex flex-col gap-3 rounded-xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between">
-					<div className="flex items-start gap-3">
-						{/* Aligned to the first line of the block rather than to the box:
-						    the icon belongs to the timestamp, not to the paragraphs under
-						    it. */}
-						<div className="flex h-5 shrink-0 items-center">
-							<RefreshButton />
-						</div>
-						<div>
-							<p className="font-medium text-sm">
-								{run?.updatedAt ? (
-									<>
-										Ultimo aggiornamento:{" "}
-										<span className="tabular-nums">
-											{format(run.updatedAt, "dd/MM/yyyy HH:mm:ss", {
-												locale: it,
-											})}
-										</span>
-									</>
-								) : (
-									"Nessun aggiornamento disponibile"
-								)}
-								{/* Same row as the timestamp above: the dot reports whether
-								    that upload had any failing leg, and no report at all is
-								    not a success either. */}
-								<UploadStatusDot
-									error={failedUpload !== undefined || (run?.error ?? true)}
-								/>
-							</p>
-							{failedUpload && (
-								<p className="text-destructive text-xs">
-									{failedUpload.count === 1
-										? "L'ultimo caricamento è fallito"
-										: `Gli ultimi ${failedUpload.count} caricamenti sono falliti`}{" "}
-									(
-									<span className="tabular-nums">
-										{format(failedUpload.at, "dd/MM/yyyy HH:mm", {
-											locale: it,
-										})}
-									</span>
-									): le mappe mostrate sono quelle dell'aggiornamento
-									precedente.
-								</p>
-							)}
-							<p className="text-muted-foreground text-xs">
-								Modello elaborato alle{" "}
-								{run ? `${runHourUTC.format(run.runStart)} UTC` : "—"},
-								previsione oraria fino a 48 ore.
-							</p>
-							<p className="text-muted-foreground text-xs">
-								Navigabili anche le {historyHours} ore precedenti (
-								{historyWeeksLabel}).
-							</p>
-						</div>
-					</div>
-
-					<div className="flex items-start gap-3 sm:max-w-sm">
-						<Clock className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-						<p className="text-muted-foreground text-xs leading-snug">
-							Ci sono 4 aggiornamenti al giorno. Fine aggiornamento di tutte le
-							mappe circa alle ore: {updateTimes}.
-						</p>
-					</div>
-				</div>
-
-				<div className="mt-6">
-					{!elmeteo ? (
-						<EmptyState
-							title={t("no_run_title")}
-							description={t("no_run_description")}
+				<div className="mt-8 grid gap-4 sm:grid-cols-2">
+					{sections.map((section) => (
+						<MeteoSectionCard
+							key={section.href}
+							section={section}
+							// The cards themselves stay public so the hub can advertise what
+							// the club offers; the gate lives on the two pages behind them.
+							// This only labels them, so a visitor knows before clicking.
+							locked={!user}
+							lockedLabel={t("members_only")}
 						/>
-					) : user ? (
-						<MeteoMaps
-							runs={elmeteo.runs.map(({ folder, runStart }) => ({
-								folder,
-								runStartIso: runStart.toISOString(),
-							}))}
-							// Open on the hour closest to now, so the first thing shown is
-							// the present.
-							initialAtIso={new Date().toISOString()}
-						/>
-					) : (
-						<LoginGate
-							title={t("maps_locked_title")}
-							description={t("maps_locked_description")}
-						/>
-					)}
+					))}
 				</div>
 			</div>
 		</div>
 	);
 }
 
-function LoginGate({
-	title,
-	description,
+function MeteoSectionCard({
+	section,
+	locked,
+	lockedLabel,
 }: {
-	title: string;
-	description: string;
+	section: MeteoSection;
+	locked: boolean;
+	lockedLabel: string;
 }) {
-	return (
-		<div className="flex flex-col items-center gap-4 rounded-xl border border-dashed px-6 py-16 text-center">
-			<div className="rounded-full bg-muted p-3">
-				<Lock className="size-5 text-muted-foreground" />
-			</div>
-			<div className="max-w-md space-y-1">
-				<p className="font-medium">{title}</p>
-				<p className="text-muted-foreground text-sm">{description}</p>
-			</div>
-			{/* Carry the callback so logging in from here comes back to the maps
-			    instead of landing on the profile. */}
-			<Link
-				href={withCallbackUrl("/login", "/meteo")}
-				className={buttonVariants()}
-			>
-				Accedi
-			</Link>
-		</div>
-	);
-}
+	const Icon = section.icon;
 
-function EmptyState({
-	title,
-	description,
-}: {
-	title: string;
-	description: string;
-}) {
 	return (
-		<div className="rounded-xl border border-dashed px-6 py-16 text-center">
-			<p className="font-medium">{title}</p>
-			<p className="mt-1 text-muted-foreground text-sm">{description}</p>
-		</div>
+		<Link
+			href={section.href}
+			className={cn(
+				"group flex flex-col gap-3 rounded-xl border bg-card p-6 transition-colors",
+				"hover:border-foreground/20 hover:bg-accent/50",
+				"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+			)}
+		>
+			<div className="flex items-center gap-3">
+				<div className="rounded-full bg-muted p-2.5">
+					<Icon className="size-5 text-foreground" />
+				</div>
+				<h2 className="font-semibold text-lg">{section.title}</h2>
+				{locked && (
+					<span className="ml-auto flex items-center gap-1 text-muted-foreground text-xs">
+						<Lock className="size-3" />
+						{lockedLabel}
+					</span>
+				)}
+			</div>
+
+			<p className="text-muted-foreground text-sm leading-relaxed">
+				{section.description}
+			</p>
+
+			<span className="mt-auto flex items-center gap-1.5 pt-1 font-medium text-sm">
+				{section.cta}
+				<ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+			</span>
+		</Link>
 	);
 }

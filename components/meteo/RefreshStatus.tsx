@@ -2,6 +2,7 @@
 
 import { RefreshCw } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { cn } from "@/lib/utils";
 
@@ -13,9 +14,8 @@ import { cn } from "@/lib/utils";
  * broken uploader behind a page that looks healthy.
  */
 export function UploadStatusDot({ error }: { error: boolean }) {
-	const label = error
-		? "Ultimo aggiornamento fallito"
-		: "Ultimo aggiornamento riuscito";
+	const t = useTranslations("MeteoPage.Maps");
+	const label = error ? t("update_failed") : t("update_ok");
 
 	return (
 		<span
@@ -38,6 +38,7 @@ export function UploadStatusDot({ error }: { error: boolean }) {
 
 /** Reloads the server component, and with it the runs behind the timeline. */
 export function RefreshButton() {
+	const t = useTranslations("MeteoPage.Maps");
 	const router = useRouter();
 	const [isPending, startTransition] = useTransition();
 
@@ -46,8 +47,8 @@ export function RefreshButton() {
 			type="button"
 			onClick={() => startTransition(() => router.refresh())}
 			disabled={isPending}
-			aria-label="Aggiorna i dati del meteo"
-			title="Ricarica i dati del meteo"
+			aria-label={t("refresh")}
+			title={t("refresh")}
 			className="shrink-0 rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-progress"
 		>
 			<RefreshCw className={cn("size-4", isPending && "animate-spin")} />

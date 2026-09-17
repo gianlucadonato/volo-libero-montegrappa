@@ -1,6 +1,7 @@
 "use client";
 
 import { RotateCcw } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { MapQuadrant } from "@/components/meteo/MapQuadrant";
 import { TimeControls } from "@/components/meteo/TimeControls";
@@ -19,6 +20,7 @@ type MeteoMapsProps = {
 const preloadOffsets = [-12, -6, -3, -1, 1, 3, 6, 12];
 
 export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
+	const t = useTranslations("MeteoPage.Maps");
 	// The timeline is derived on the client rather than serialised: ~60 runs
 	// travel over the wire instead of the ~380 hourly slots they expand into.
 	const slots = useMemo(
@@ -102,7 +104,7 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 			<div className="flex justify-end">
 				<Button variant="ghost" size="sm" onClick={resetQuadrants}>
 					<RotateCcw className="size-3.5" />
-					Ripristina mappe predefinite
+					{t("reset_maps")}
 				</Button>
 			</div>
 		</div>

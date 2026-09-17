@@ -1,6 +1,7 @@
 "use client";
 
 import { Check } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +40,7 @@ export function MapPicker({
 	onSelect,
 	children,
 }: MapPickerProps) {
+	const t = useTranslations("MeteoPage.Maps");
 	const [open, setOpen] = useState(false);
 
 	function handleSelect(map: ElmeteoMapId) {
@@ -55,14 +57,12 @@ export function MapPicker({
 				{/* Padded on the end so the header never runs under the close button,
 				    which sits in the same row. */}
 				<DialogHeader className="pe-10">
-					<DialogTitle>Scegli la mappa</DialogTitle>
-					<DialogDescription>
-						La scelta resta salvata su questo dispositivo.
-					</DialogDescription>
+					<DialogTitle>{t("picker_title")}</DialogTitle>
+					<DialogDescription>{t("picker_description")}</DialogDescription>
 				</DialogHeader>
 
 				{/* Only the list scrolls, so the close button stays reachable at the
-				    top right and "Annulla" stays visible at the bottom. */}
+				    top right and the cancel button stays visible at the bottom. */}
 				<div className="-mx-4 space-y-5 overflow-y-auto px-4">
 					{groupOrder.map((group) => (
 						<div key={group}>
@@ -104,7 +104,7 @@ export function MapPicker({
 												</span>
 												{isUsedElsewhere && (
 													<span className="mt-1 block text-[11px] text-muted-foreground/70 italic">
-														Già visibile in un altro riquadro
+														{t("already_used")}
 													</span>
 												)}
 											</button>
@@ -117,7 +117,7 @@ export function MapPicker({
 
 				<div className="flex justify-end">
 					<Button variant="ghost" size="sm" onClick={() => setOpen(false)}>
-						Annulla
+						{t("cancel")}
 					</Button>
 				</div>
 			</DialogContent>
