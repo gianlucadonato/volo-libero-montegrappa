@@ -126,3 +126,12 @@ export type XcTrackSubmission = Prisma.XcTrackSubmissionModel
  * 
  */
 export type XcProgress = Prisma.XcProgressModel
+/**
+ * Model ElmeteoForecast
+ * One hourly row of an elmeteo.it take-off forecast.
+ * 
+ * Keyed by (site, day, hour) so a re-run of the same day overwrites its rows
+ * in place: the source republishes a corrected forecast about four times a
+ * day, and only the latest reading for an hour is of interest.
+ */
+export type ElmeteoForecast = Prisma.ElmeteoForecastModel

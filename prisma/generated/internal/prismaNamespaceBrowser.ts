@@ -67,7 +67,8 @@ export const ModelName = {
   XcEditionTasks: 'XcEditionTasks',
   XcEnrollment: 'XcEnrollment',
   XcTrackSubmission: 'XcTrackSubmission',
-  XcProgress: 'XcProgress'
+  XcProgress: 'XcProgress',
+  ElmeteoForecast: 'ElmeteoForecast'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -392,6 +393,34 @@ export const XcProgressScalarFieldEnum = {
 export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
 
 
+export const ElmeteoForecastScalarFieldEnum = {
+  id: 'id',
+  site: 'site',
+  day: 'day',
+  hour: 'hour',
+  cloudsHigh: 'cloudsHigh',
+  cloudsMedium: 'cloudsMedium',
+  cloudsLow: 'cloudsLow',
+  risk: 'risk',
+  temperatureC: 'temperatureC',
+  precipitationMm: 'precipitationMm',
+  maxFlightAltitude: 'maxFlightAltitude',
+  cloudBaseMinM: 'cloudBaseMinM',
+  cloudBaseMaxM: 'cloudBaseMaxM',
+  thermalUpdraftsM: 'thermalUpdraftsM',
+  stableLayerM: 'stableLayerM',
+  winds: 'winds',
+  altitudeM: 'altitudeM',
+  maxDailyCloudBaseM: 'maxDailyCloudBaseM',
+  sourceUpdatedAt: 'sourceUpdatedAt',
+  scrapedAt: 'scrapedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElmeteoForecastScalarFieldEnum = (typeof ElmeteoForecastScalarFieldEnum)[keyof typeof ElmeteoForecastScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -406,6 +435,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {

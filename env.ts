@@ -27,6 +27,15 @@ export const env = createEnv({
 		// Where converted map frames are cached. Defaults to the OS temp dir, which
 		// is wiped on reboot: point it at a persistent path in production.
 		ELMETEO_CACHE_DIR: z.string().optional(),
+		// elmeteo.it credentials. Four of the six take-off pages redirect to a
+		// login wall when unauthenticated; without these the scraper still
+		// collects the two public ones.
+		ELMETEO_USERNAME: z.string().optional(),
+		ELMETEO_PASSWORD: z.string().optional(),
+		// Bearer token the forecast scrape trigger authenticates with. Kept
+		// separate from ELMETEO_API_TOKEN so the cron cannot also drive the S3
+		// retention cleanup that token gates.
+		ELMETEO_SCRAPE_TOKEN: z.string().min(1).optional(),
 		// Observability: logs and traces are exported to PostHog over OTLP. Both
 		// are optional so the app still boots with the exporters disabled.
 		OTEL_EXPORTER_ENABLED: z
@@ -67,6 +76,9 @@ export const env = createEnv({
 		AWS_S3_ELMETEO_BUCKET: process.env.AWS_S3_ELMETEO_BUCKET,
 		ELMETEO_API_TOKEN: process.env.ELMETEO_API_TOKEN,
 		ELMETEO_CACHE_DIR: process.env.ELMETEO_CACHE_DIR,
+		ELMETEO_USERNAME: process.env.ELMETEO_USERNAME,
+		ELMETEO_PASSWORD: process.env.ELMETEO_PASSWORD,
+		ELMETEO_SCRAPE_TOKEN: process.env.ELMETEO_SCRAPE_TOKEN,
 		OTEL_EXPORTER_ENABLED: process.env.OTEL_EXPORTER_ENABLED,
 		LOG_APP_NAME: process.env.LOG_APP_NAME,
 		LOG_LEVEL: process.env.LOG_LEVEL,

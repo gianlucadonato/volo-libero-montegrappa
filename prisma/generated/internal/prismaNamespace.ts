@@ -400,7 +400,8 @@ export const ModelName = {
   XcEditionTasks: 'XcEditionTasks',
   XcEnrollment: 'XcEnrollment',
   XcTrackSubmission: 'XcTrackSubmission',
-  XcProgress: 'XcProgress'
+  XcProgress: 'XcProgress',
+  ElmeteoForecast: 'ElmeteoForecast'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -416,7 +417,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon" | "xcEdition" | "xcTask" | "xcEditionTasks" | "xcEnrollment" | "xcTrackSubmission" | "xcProgress"
+    modelProps: "user" | "session" | "account" | "verification" | "userMembership" | "membership" | "payment" | "event" | "eventRegistration" | "report" | "coupon" | "xcEdition" | "xcTask" | "xcEditionTasks" | "xcEnrollment" | "xcTrackSubmission" | "xcProgress" | "elmeteoForecast"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1678,6 +1679,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ElmeteoForecast: {
+      payload: Prisma.$ElmeteoForecastPayload<ExtArgs>
+      fields: Prisma.ElmeteoForecastFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ElmeteoForecastFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ElmeteoForecastFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        findFirst: {
+          args: Prisma.ElmeteoForecastFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ElmeteoForecastFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        findMany: {
+          args: Prisma.ElmeteoForecastFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>[]
+        }
+        create: {
+          args: Prisma.ElmeteoForecastCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        createMany: {
+          args: Prisma.ElmeteoForecastCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ElmeteoForecastCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>[]
+        }
+        delete: {
+          args: Prisma.ElmeteoForecastDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        update: {
+          args: Prisma.ElmeteoForecastUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        deleteMany: {
+          args: Prisma.ElmeteoForecastDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ElmeteoForecastUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ElmeteoForecastUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>[]
+        }
+        upsert: {
+          args: Prisma.ElmeteoForecastUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ElmeteoForecastPayload>
+        }
+        aggregate: {
+          args: Prisma.ElmeteoForecastAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateElmeteoForecast>
+        }
+        groupBy: {
+          args: Prisma.ElmeteoForecastGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElmeteoForecastGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ElmeteoForecastCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ElmeteoForecastCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2027,6 +2102,34 @@ export const XcProgressScalarFieldEnum = {
 export type XcProgressScalarFieldEnum = (typeof XcProgressScalarFieldEnum)[keyof typeof XcProgressScalarFieldEnum]
 
 
+export const ElmeteoForecastScalarFieldEnum = {
+  id: 'id',
+  site: 'site',
+  day: 'day',
+  hour: 'hour',
+  cloudsHigh: 'cloudsHigh',
+  cloudsMedium: 'cloudsMedium',
+  cloudsLow: 'cloudsLow',
+  risk: 'risk',
+  temperatureC: 'temperatureC',
+  precipitationMm: 'precipitationMm',
+  maxFlightAltitude: 'maxFlightAltitude',
+  cloudBaseMinM: 'cloudBaseMinM',
+  cloudBaseMaxM: 'cloudBaseMaxM',
+  thermalUpdraftsM: 'thermalUpdraftsM',
+  stableLayerM: 'stableLayerM',
+  winds: 'winds',
+  altitudeM: 'altitudeM',
+  maxDailyCloudBaseM: 'maxDailyCloudBaseM',
+  sourceUpdatedAt: 'sourceUpdatedAt',
+  scrapedAt: 'scrapedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ElmeteoForecastScalarFieldEnum = (typeof ElmeteoForecastScalarFieldEnum)[keyof typeof ElmeteoForecastScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2041,6 +2144,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -2318,6 +2428,7 @@ export type GlobalOmitConfig = {
   xcEnrollment?: Prisma.XcEnrollmentOmit
   xcTrackSubmission?: Prisma.XcTrackSubmissionOmit
   xcProgress?: Prisma.XcProgressOmit
+  elmeteoForecast?: Prisma.ElmeteoForecastOmit
 }
 
 /* Types for Logging */

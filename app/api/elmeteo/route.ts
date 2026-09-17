@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { after } from "next/server";
 import { env } from "@/env";
 import { cleanupElmeteoBucket, cleanupElmeteoReports } from "@/lib/elmeteo";
+import { refreshForecasts } from "@/lib/elmeteo-forecast-refresh";
 import { pruneElmeteoCache } from "@/lib/elmeteo-images";
 import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
@@ -73,9 +74,25 @@ export const POST = async (req: Request) => {
 		"ElMeteo report saved",
 	);
 
-	// Prune the report rows, the bucket and the frame cache after the response is
-	// sent: retention work must never delay the uploader nor fail its report.
+	// Scrape the forecasts and run retention after the response is sent: neither
+	// must delay the uploader nor fail its report.
 	after(async () => {
+		// The report is the uploader telling us it has finished publishing a run,
+		// which is also when the take-off tables have been recomputed — so this is
+		// the moment to collect them, and no schedule has to guess at it.
+		//
+		// It runs before the retention work because that is the part that can
+		// throw: a failing S3 cleanup returns early below, and the forecasts must
+		// not be collateral damage of an unrelated bucket problem.
+		try {
+			await refreshForecasts("report");
+		} catch (error) {
+			logger.error(
+				{ reason: error instanceof Error ? error.message : String(error) },
+				"ElMeteo forecast scrape failed",
+			);
+		}
+
 		// Report rows are dated by the same clock as the bucket, so this needs no
 		// folder listing and runs first: it must not be skipped when S3 fails.
 		try {

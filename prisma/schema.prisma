@@ -393,3 +393,47 @@ model XcProgress {
   @@index([userId, editionId, category])
   @@map(name: "xc_progress")
 }
+
+/// One hourly row of an elmeteo.it take-off forecast.
+///
+/// Keyed by (site, day, hour) so a re-run of the same day overwrites its rows
+/// in place: the source republishes a corrected forecast about four times a
+/// day, and only the latest reading for an hour is of interest.
+model ElmeteoForecast {
+  id                 String   @id @default(cuid())
+  /// Site slug from lib/elmeteo-sites.ts, e.g. "tappeti".
+  site               String
+  /// Forecast day as YYYY-MM-DD in Europe/Rome, the source's own timezone.
+  day                String
+  /// Hour the row is valid until, 0-23.
+  hour               Int
+  cloudsHigh         Int?
+  cloudsMedium       Int?
+  cloudsLow          Int?
+  risk               String?
+  temperatureC       Float?
+  precipitationMm    Float?
+  maxFlightAltitude  String?
+  cloudBaseMinM      Int?
+  cloudBaseMaxM      Int?
+  /// Updraft ceilings in metres, highest first; empty when no thermal activity.
+  thermalUpdraftsM   Int[]
+  stableLayerM       Int?
+  /// Wind readings per altitude, as [{ label, direction, speedKmh, gustKmh }].
+  /// Stored as JSON because the set of altitude columns differs per site.
+  winds              Json
+  /// Take-off altitude printed on the page, in metres.
+  altitudeM          Int?
+  /// "Maximum Daily Cloud Base Altitude" for the day.
+  maxDailyCloudBaseM Int?
+  /// When the source last refreshed its model, as printed on the page.
+  sourceUpdatedAt    DateTime?
+  /// When this row was last written by the scraper.
+  scrapedAt          DateTime @default(now())
+  createdAt          DateTime @default(now()) @map(name: "created_at")
+  updatedAt          DateTime @updatedAt @map(name: "updated_at")
+
+  @@unique([site, day, hour])
+  @@index([site, day])
+  @@map(name: "elmeteo_forecasts")
+}
