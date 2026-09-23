@@ -17,6 +17,7 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from "@/components/ui/chart";
+import { formatPaymentDay, type PaymentsPerDay } from "@/lib/payments";
 
 const chartConfig = {
 	desktop: {
@@ -25,12 +26,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-type PaymentByDay = {
-	day: string;
-	count: number;
-};
-
-export function PaymentsByDay({ payments }: { payments: PaymentByDay[] }) {
+export function PaymentsByDay({ payments }: { payments: PaymentsPerDay[] }) {
 	const total = useMemo(
 		() => payments.reduce((acc, curr) => acc + curr.count, 0),
 		[payments],
@@ -71,13 +67,7 @@ export function PaymentsByDay({ payments }: { payments: PaymentByDay[] }) {
 							tickLine={false}
 							tickMargin={10}
 							axisLine={false}
-							tickFormatter={(value) => {
-								const date = new Date(value);
-								return date.toLocaleDateString("en-US", {
-									month: "short",
-									day: "numeric",
-								});
-							}}
+							tickFormatter={(value) => formatPaymentDay(value)}
 						/>
 						<ChartTooltip
 							cursor={false}
@@ -88,11 +78,7 @@ export function PaymentsByDay({ payments }: { payments: PaymentByDay[] }) {
 								// is always one hover away from being resolved.
 								<ChartTooltipContent
 									labelFormatter={(value) =>
-										new Date(String(value)).toLocaleDateString("en-US", {
-											day: "numeric",
-											month: "long",
-											year: "numeric",
-										})
+										formatPaymentDay(String(value), true)
 									}
 								/>
 							}

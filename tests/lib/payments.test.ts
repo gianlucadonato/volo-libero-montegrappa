@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { groupPaymentsByDay } from "@/lib/payments";
+import { formatPaymentDay, groupPaymentsByDay } from "@/lib/payments";
 
 const at = (iso: string) => ({ createdAt: new Date(iso) });
 
@@ -46,5 +46,31 @@ describe("groupPaymentsByDay", () => {
 		expect(groupPaymentsByDay([at("2026-01-01T23:59:59.999Z")])[0].day).toBe(
 			"2026-01-01",
 		);
+	});
+});
+
+describe("formatPaymentDay", () => {
+	it("labels a bar with the day its payments were grouped under", () => {
+		expect(formatPaymentDay("2026-01-15")).toBe("Jan 15");
+	});
+
+	it("does not slip a day west of UTC", () => {
+		// A date with no time parses as UTC midnight, so rendering it in the
+		// viewer's own zone moved the label back a day anywhere behind UTC: the
+		// bar built from 15 January's payments would have read "Jan 14". Invisible
+		// to the club's Italian admins, wrong for anyone in the Americas.
+		const previous = process.env.TZ;
+		process.env.TZ = "America/New_York";
+		try {
+			expect(formatPaymentDay("2026-01-15")).toBe("Jan 15");
+		} finally {
+			process.env.TZ = previous;
+		}
+	});
+
+	it("carries the year for the tooltip, which the axis drops", () => {
+		// A season straddles December and January, so the two sit side by side.
+		expect(formatPaymentDay("2025-12-29", true)).toBe("December 29, 2025");
+		expect(formatPaymentDay("2026-01-02", true)).toBe("January 2, 2026");
 	});
 });

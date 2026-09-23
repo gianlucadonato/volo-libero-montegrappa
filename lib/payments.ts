@@ -35,3 +35,25 @@ export function groupPaymentsByDay(
 		.map(([day, count]) => ({ day, count }))
 		.sort((a, b) => a.day.localeCompare(b.day));
 }
+
+/**
+ * Renders a `day` key from {@link groupPaymentsByDay} for the chart.
+ *
+ * Built from the string's own parts rather than by parsing it into a `Date`:
+ * a date with no time parses as UTC midnight, which renders as the day before
+ * anywhere behind UTC, so a bar would be labelled with a day other than the one
+ * its payments were grouped under. `timeZone` is pinned for the same reason.
+ *
+ * `withYear` is for the tooltip: the axis drops the year to stay legible, but a
+ * season straddles December and January, so adjacent bars are otherwise
+ * ambiguous.
+ */
+export function formatPaymentDay(day: string, withYear = false): string {
+	const [year, month, date] = day.split("-").map(Number);
+	return new Date(Date.UTC(year, month - 1, date)).toLocaleDateString("en-US", {
+		day: "numeric",
+		month: withYear ? "long" : "short",
+		...(withYear && { year: "numeric" }),
+		timeZone: "UTC",
+	});
+}
