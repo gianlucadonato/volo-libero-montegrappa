@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-import { enUS, it as itLocale } from "date-fns/locale";
 import { ArrowLeft, Lock } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -8,6 +6,7 @@ import { ForecastTables } from "@/components/meteo/ForecastTables";
 import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
 import { withCallbackUrl } from "@/helpers/authRedirect";
+import { formatRomeDateTime } from "@/lib/meteo-time";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
@@ -31,7 +30,6 @@ export default async function MeteoTablesPage() {
 	// republish paywalled data. Fetching after the check also keeps a logged-out
 	// hit off the database entirely.
 	const forecasts = user ? await getElmeteoForecasts() : null;
-	const dateLocale = locale === "en" ? enUS : itLocale;
 
 	return (
 		<div>
@@ -73,11 +71,7 @@ export default async function MeteoTablesPage() {
 					{forecasts?.scrapedAt && (
 						<p className="text-muted-foreground text-xs tabular-nums">
 							{t("scraped_at", {
-								date: format(
-									new Date(forecasts.scrapedAt),
-									"dd/MM/yyyy HH:mm",
-									{ locale: dateLocale },
-								),
+								date: formatRomeDateTime(locale, forecasts.scrapedAt),
 							})}
 						</p>
 					)}

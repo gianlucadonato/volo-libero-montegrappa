@@ -1,5 +1,3 @@
-import { format } from "date-fns";
-import { enUS, it as itLocale } from "date-fns/locale";
 import { ArrowLeft, Clock, Lock } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
@@ -13,6 +11,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
 import { withCallbackUrl } from "@/helpers/authRedirect";
 import { elmeteoHistoryDays } from "@/lib/elmeteo-run";
+import { formatRomeDateTime } from "@/lib/meteo-time";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
@@ -62,11 +61,6 @@ export default async function MeteoPage() {
 		getLocale(),
 	]);
 
-	// The timestamps below carry a date, and 17/09 and 09/17 are both readable
-	// dates: the order has to follow the UI language rather than stay pinned to
-	// the Italian one. The clock stays 24-hour, like the maps' own captions.
-	const dateLocale = locale === "en" ? enUS : itLocale;
-
 	const run = elmeteo?.latest;
 	// A failing uploader is the only case where the maps on screen are older than
 	// the last thing that happened, so it outranks the run's own legs.
@@ -115,8 +109,8 @@ export default async function MeteoPage() {
 									<>
 										{tMaps("last_update")}{" "}
 										<span className="tabular-nums">
-											{format(run.updatedAt, "P HH:mm:ss", {
-												locale: dateLocale,
+											{formatRomeDateTime(locale, run.updatedAt, {
+												seconds: true,
 											})}
 										</span>
 									</>
@@ -134,9 +128,7 @@ export default async function MeteoPage() {
 								<p className="text-destructive text-xs">
 									{tMaps.rich("upload_failed", {
 										count: failedUpload.count,
-										date: format(failedUpload.at, "P HH:mm", {
-											locale: dateLocale,
-										}),
+										date: formatRomeDateTime(locale, failedUpload.at),
 										time: (chunks) => (
 											<span className="tabular-nums">{chunks}</span>
 										),
