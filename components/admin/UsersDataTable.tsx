@@ -92,8 +92,14 @@ export default function UsersDataTable({
 		try {
 			const date = format(new Date(), "ddMMyyyy");
 
+			// The sorted row model is the table as it reads on screen: every filter
+			// applied, in the order the columns are sorted. Pagination is the one
+			// thing it leaves out, on purpose — the export should carry the whole
+			// result, not whichever 50 rows the current page happens to show.
+			const rows = table.getSortedRowModel().rows.map((row) => row.original);
+
 			await exportJsonAsXlsx(
-				data.map((user) => ({
+				rows.map((user) => ({
 					Nome: user.firstName,
 					Cognome: user.lastName,
 					Email: user.email,

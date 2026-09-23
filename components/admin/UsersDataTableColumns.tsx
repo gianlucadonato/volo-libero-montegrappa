@@ -99,7 +99,15 @@ export default function UsersDataTableColumns({
 			),
 		},
 		{
-			accessorKey: "role",
+			// Filtered on what the badge says rather than on `user.role`. The role
+			// column is a current-state flag that has drifted from the memberships
+			// it is supposed to track, so filtering on it selected users the table
+			// itself renders as non-members, and dropped the admins it renders as
+			// members. Keyed on `isSocio` instead, the filter, the badge and the
+			// Excel export all agree on who is a member.
+			id: "role",
+			accessorFn: (row) => (isSocio(row) ? "MEMBER" : "USER"),
+			filterFn: "equalsString",
 			header: () => <div>{t("header.role")}</div>,
 			cell: ({ row }) => {
 				const isMember = isSocio(row.original);
