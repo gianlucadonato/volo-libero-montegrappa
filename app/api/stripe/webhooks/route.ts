@@ -155,12 +155,11 @@ async function createMembership(
 	});
 	log.info({ couponId: cp.id, userId }, "coupon assigned to user");
 
-	// Update user role to MEMBER.
-	const user = await prisma.user.update({
-		where: { id: userId },
-		data: { role: "MEMBER" },
-	});
-	log.info({ userId: user.id }, "user role updated to MEMBER");
+	// Deliberately does not touch `user.role`. The membership written above
+	// carries the year and is what `isSocio` reads; the role carries none, so
+	// setting it here only left a flag that claimed "member" for good once a
+	// user had paid once.
+	const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
 
 	// Send Confirmation email.
 	await sendPaymentConfirmationEmail({

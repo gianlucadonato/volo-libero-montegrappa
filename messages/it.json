@@ -453,6 +453,7 @@
 		"delete_user": "Elimina Utente"
 	},
 	"AdminUserView": {
+		"ADMIN": "AMMINISTRATORE",
 		"MEMBER": "SOCIO",
 		"USER": "UTENTE",
 		"back": "Indietro",

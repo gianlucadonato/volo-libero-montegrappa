@@ -11,6 +11,7 @@ import MembershipsTable from "@/components/MembershipsTable";
 import PaymentsTable from "@/components/PaymentsTable";
 import ProfileDetails from "@/components/ProfileDetails";
 import { Button } from "@/components/ui/button";
+import { isSocio } from "@/helpers/isSocio";
 import type {
 	Coupon,
 	Payment,
@@ -57,7 +58,17 @@ export default function AdminUserView({ user }: { user: Member }) {
 			</div>
 			<DashboardHeader
 				heading={`${user.firstName} ${user.lastName}`}
-				text={t(user.role)}
+				// Reads the memberships rather than the role, so this agrees with the
+				// badge in the users table. The role only survives here for admins,
+				// where it is the thing being reported; it said "SOCIO" for anyone who
+				// had ever paid, whether or not they renewed.
+				text={
+					user.role === "ADMIN"
+						? t("ADMIN")
+						: isSocio(user)
+							? t("MEMBER")
+							: t("USER")
+				}
 			>
 				<div>
 					{editMode ? (

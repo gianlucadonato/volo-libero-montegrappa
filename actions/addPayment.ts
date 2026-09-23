@@ -26,18 +26,16 @@ export default async function addPayment(data: FormData) {
 		return undefined;
 	}
 	try {
-		const user = await prisma.user.update({
-			where: { id: data.userId },
-			data: { role: "MEMBER" },
-		});
+		// Deliberately does not touch `user.role`. Membership is the
+		// `user_membership` row written below, which carries the year; the role
+		// has none, so setting it here only produced a flag that said "member"
+		// forever once someone had paid once. Whether a user is a socio is read
+		// from the rows, by `isSocio`.
+		const user = await prisma.user.findUnique({ where: { id: data.userId } });
 
 		if (!user) {
 			return { error: true, message: "User not found" };
 		}
-		log.info(
-			{ userId: user.id, role: user.role },
-			"user role updated to MEMBER",
-		);
 
 		const payment = await prisma.payment.create({
 			data: {

@@ -454,6 +454,7 @@
 		"delete_user": "Elimina Utente"
 	},
 	"AdminUserView": {
+		"ADMIN": "ADMIN",
 		"MEMBER": "MEMBER",
 		"USER": "USER",
 		"back": "Back",

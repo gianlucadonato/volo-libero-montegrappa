@@ -21,7 +21,10 @@ export async function registerToEvent(
 		if (!event) {
 			return { status: "error", message: "Event not found!", code: 404 };
 		}
-		if (event.isMemberOnly) {
+		// Admins get in regardless: they run the events. `isSocio` used to let them
+		// through itself, but it answers "does this user hold a membership", and
+		// folding a permission into that made every caller inherit the exception.
+		if (event.isMemberOnly && user.role !== "ADMIN") {
 			const socio = await prisma.user.findFirst({
 				where: { id: user.id },
 				include: { memberships: true },
