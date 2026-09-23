@@ -21,8 +21,6 @@ export type UserField = {
 	label: string;
 	/** The cell's text. Empty for a field the user never filled in. */
 	value: (user: UserWithMemberships) => string;
-	/** Shown without the admin asking for it. Everything else starts hidden. */
-	visible?: boolean;
 };
 
 const text = (value: string | null | undefined) => value ?? "";
@@ -45,25 +43,21 @@ export const USER_FIELDS: UserField[] = [
 		id: "phone",
 		label: "header.phone",
 		value: (user) => text(user.phone),
-		visible: true,
 	},
 	{
 		id: "city",
 		label: "header.city",
 		value: (user) => text(user.city),
-		visible: true,
 	},
 	{
 		id: "sport",
 		label: "header.sport",
 		value: (user) => text(user.sport),
-		visible: true,
 	},
 	{
 		id: "vdsNumber",
 		label: "header.vds_number",
 		value: (user) => text(user.vdsNumber),
-		visible: true,
 	},
 	{
 		id: "fiscalCode",
@@ -143,14 +137,14 @@ export const USER_FIELDS: UserField[] = [
 ];
 
 /**
- * Where the column menu starts. All twenty-odd fields at once would make the
- * table unreadable, so most arrive hidden and the admin turns on what the job
- * at hand needs.
+ * Where the column menu starts. Every registry field is off, so the table
+ * opens on the columns it always had — id, name, email, membership, signup
+ * date and the actions menu — and the admin turns on what the job at hand
+ * needs. Spelling the `false`s out is what keeps them hidden: a column the
+ * visibility state says nothing about is one the table shows.
  */
 export const DEFAULT_FIELD_VISIBILITY: Record<string, boolean> =
-	Object.fromEntries(
-		USER_FIELDS.map((field) => [field.id, field.visible ?? false]),
-	);
+	Object.fromEntries(USER_FIELDS.map((field) => [field.id, false]));
 
 /**
  * Projects the table onto a spreadsheet: one row per row left by the filters,
@@ -189,9 +183,6 @@ export function exportableColumns(
 			typeof meta?.exportValue === "function",
 	);
 }
-
-/** The ids the column menu and the per-column filter row cover. */
-export const USER_FIELD_IDS = new Set(USER_FIELDS.map((field) => field.id));
 
 declare module "@tanstack/react-table" {
 	// Carries a column's Excel identity alongside its on-screen one, so the

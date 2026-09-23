@@ -83,20 +83,29 @@ describe("the exported sheet follows the table", () => {
 
 	it("carries only the rows a filter left behind", () => {
 		// The whole point of the feature: filter the table, get that filtered set
-		// in the spreadsheet — not every user in the club.
-		const rows = sheetFor(buildTable(data, [{ id: "city", value: "Treviso" }]));
+		// in the spreadsheet — not every user in the club. The page filters on
+		// name, email and membership, which are written out by hand in
+		// `UsersDataTableColumns`; a registry column stands in for them here
+		// because the row model treats the two the same.
+		const rows = sheetFor(
+			buildTable(data, [{ id: "city", value: "Treviso" }], {
+				...DEFAULT_FIELD_VISIBILITY,
+				city: true,
+			}),
+		);
 		expect(rows).toHaveLength(1);
 		expect(rows[0].city).toBe("Treviso");
 	});
 
 	it("carries only the columns the admin switched on", () => {
-		const rows = sheetFor(buildTable(data));
-		expect(Object.keys(rows[0])).toEqual([
-			"phone",
-			"city",
-			"sport",
-			"vdsNumber",
-		]);
+		// None, to begin with: the table opens on its fixed columns, and the
+		// optional fields are each a checkbox away.
+		expect(sheetFor(buildTable(data))).toEqual([{}, {}]);
+
+		const rows = sheetFor(
+			buildTable(data, [], { ...DEFAULT_FIELD_VISIBILITY, city: true }),
+		);
+		expect(Object.keys(rows[0])).toEqual(["city"]);
 	});
 
 	it("picks up a column the moment it is added to the table", () => {
@@ -107,24 +116,13 @@ describe("the exported sheet follows the table", () => {
 	});
 
 	it("drops a column the moment it is hidden", () => {
-		const rows = sheetFor(
-			buildTable(data, [], { ...DEFAULT_FIELD_VISIBILITY, city: false }),
+		const shown = { ...DEFAULT_FIELD_VISIBILITY, city: true };
+		expect(Object.keys(sheetFor(buildTable(data, [], shown))[0])).toContain(
+			"city",
 		);
-		expect(Object.keys(rows[0])).not.toContain("city");
-	});
 
-	it("filters on a column the admin has just added", () => {
-		// A newly shown field is not decoration: it gets its own filter box, and
-		// narrowing by it must reach the spreadsheet like any other filter.
-		const rows = sheetFor(
-			buildTable(
-				[user({ id: "1", province: "VI" }), user({ id: "2", province: "TV" })],
-				[{ id: "province", value: "VI" }],
-				{ ...DEFAULT_FIELD_VISIBILITY, province: true },
-			),
-		);
-		expect(rows).toHaveLength(1);
-		expect(rows[0].province).toBe("VI");
+		const rows = sheetFor(buildTable(data, [], { ...shown, city: false }));
+		expect(Object.keys(rows[0])).not.toContain("city");
 	});
 });
 
@@ -153,10 +151,16 @@ describe("the field registry", () => {
 		expect(fiscalCode?.value(user({ fiscalCode: null }))).toBe("");
 	});
 
-	it("starts narrow enough to read", () => {
-		// Twenty-odd columns at once is not a table anyone can use; the rest are a
-		// checkbox away in the column menu.
-		const shown = Object.values(DEFAULT_FIELD_VISIBILITY).filter(Boolean);
-		expect(shown.length).toBeLessThan(6);
+	it("opens on the columns the table always had", () => {
+		// Twenty-odd columns at once is not a table anyone can use. The optional
+		// fields all start off, leaving id, name, email, membership, signup date
+		// and the actions menu — the table as it read before the column menu
+		// existed.
+		expect(Object.values(DEFAULT_FIELD_VISIBILITY).filter(Boolean)).toEqual([]);
+		// And every field is listed, because a field the state omits is a field
+		// the table would show.
+		expect(Object.keys(DEFAULT_FIELD_VISIBILITY).sort()).toEqual(
+			USER_FIELDS.map((field) => field.id).sort(),
+		);
 	});
 });

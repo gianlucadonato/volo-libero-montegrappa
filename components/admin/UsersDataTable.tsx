@@ -61,7 +61,6 @@ import {
 	DEFAULT_FIELD_VISIBILITY,
 	exportableColumns,
 	toExportRows,
-	USER_FIELD_IDS,
 } from "./user-table-fields";
 
 export default function UsersDataTable({
@@ -108,12 +107,6 @@ export default function UsersDataTable({
 			},
 		},
 	});
-
-	// A box for each field the admin has switched on, and none for the fields
-	// they have not.
-	const fieldFilters = table
-		.getVisibleFlatColumns()
-		.filter((column) => USER_FIELD_IDS.has(column.id));
 
 	const downloadExcel = async () => {
 		setIsDownloading(true);
@@ -266,17 +259,9 @@ export default function UsersDataTable({
 												// Kept open so the admin can tick several fields in
 												// one go rather than reopening the menu each time.
 												onSelect={(event) => event.preventDefault()}
-												onCheckedChange={(value) => {
-													// A field switched off loses its filter with it: its
-													// box goes away, and one left behind would keep
-													// narrowing the table, and the export, from out of
-													// sight. Name, email and membership keep their boxes
-													// whatever the table shows, so theirs survive.
-													if (!value && USER_FIELD_IDS.has(column.id)) {
-														column.setFilterValue(undefined);
-													}
-													column.toggleVisibility(!!value);
-												}}
+												onCheckedChange={(value) =>
+													column.toggleVisibility(!!value)
+												}
 											>
 												{column.columnDef.meta?.exportLabel ?? column.id}
 											</DropdownMenuCheckboxItem>
@@ -296,23 +281,6 @@ export default function UsersDataTable({
 					</div>
 				</div>
 			</div>
-			{fieldFilters.length > 0 && (
-				// One box per switched-on field. Adding a column to the table is what
-				// makes it filterable, which is what the Excel export then reflects.
-				<div className="grid grid-cols-2 gap-4 pb-4 md:grid-cols-5">
-					{fieldFilters.map((column) => (
-						<Input
-							key={column.id}
-							placeholder={String(
-								column.columnDef.meta?.exportLabel ?? column.id,
-							)}
-							value={(column.getFilterValue() as string) ?? ""}
-							onChange={(event) => column.setFilterValue(event.target.value)}
-							className="w-full"
-						/>
-					))}
-				</div>
-			)}
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>
