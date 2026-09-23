@@ -51,8 +51,17 @@ export default async function MeteoTablesPage() {
 				</div>
 			</div>
 
-			<div className="container mb-16">
-				<div className="mt-6 flex flex-wrap items-center justify-between gap-3">
+			{/* The forecasts are a pane rather than a block that grows with the
+			    table: a table header can only pin to the box that scrolls it, so the
+			    hours scroll inside the card while the take-off, the day and the
+			    column headings hold still around them. The pane is `100dvh` less the
+			    layout's fixed header (4.5rem) and the room kept below it, on the
+			    dynamic viewport unit so a phone's retracting address bar does not
+			    crop the last rows. `min-h-0` lets the card inside shrink past the
+			    table's natural height, which is what hands the overflow to it. The
+			    hero above and the footer below stay on the page's own scroll. */}
+			<div className="container mb-16 flex h-[calc(100dvh-9rem)] min-h-96 flex-col">
+				<div className="mt-6 flex shrink-0 flex-wrap items-center justify-between gap-3">
 					<Link
 						href="/meteo"
 						className={buttonVariants({ variant: "ghost", size: "sm" })}
@@ -74,7 +83,7 @@ export default async function MeteoTablesPage() {
 					)}
 				</div>
 
-				<div className="mt-4">
+				<div className="mt-4 flex min-h-0 flex-auto flex-col">
 					{!forecasts ? (
 						<LoginGate
 							title={t("locked_title")}

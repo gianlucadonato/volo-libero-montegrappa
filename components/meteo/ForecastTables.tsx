@@ -34,6 +34,12 @@ const dayLabelKeys = ["today", "tomorrow", "after_tomorrow"] as const;
  * All three days of the chosen take-off are held in state rather than fetched
  * per tab: the whole payload is ~45 kB and it is already on the page, so
  * switching a tab should not cost a round trip.
+ *
+ * Fills the pane the route gives it rather than growing with the table: the
+ * take-off, the day and the column headings all have to stay in view while the
+ * hours are scrolled, and a table header can only pin to the box that scrolls
+ * it. So the rows scroll inside the card and everything around them holds
+ * still.
  */
 export function ForecastTables({ forecasts }: ForecastTablesProps) {
 	const t = useTranslations("MeteoPage.Tables");
@@ -62,8 +68,11 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 	const table = selected?.days.find((entry) => entry.day === day);
 
 	return (
-		<div className="space-y-4">
-			<div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+		// Takes the height the page gives it — see the pane comment on the route —
+		// and passes what is left down to the table, which is the only part that
+		// scrolls.
+		<div className="flex min-h-0 flex-auto flex-col gap-4">
+			<div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 				<Select value={siteSlug} onValueChange={setSiteSlug}>
 					<SelectTrigger className="w-full sm:w-64">
 						<Mountain className="size-4 text-muted-foreground" />
@@ -120,8 +129,10 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 			</div>
 
 			{table ? (
-				<div className="rounded-xl border">
-					<div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b px-4 py-3">
+				// `min-h-0` lets this shrink below the table's natural height, which is
+				// what hands the overflow to the scroll box inside it.
+				<div className="flex min-h-0 flex-auto flex-col rounded-xl border">
+					<div className="flex shrink-0 flex-wrap items-baseline gap-x-3 gap-y-1 border-b px-4 py-3">
 						<h2 className="font-semibold">{selected?.site.name}</h2>
 						{table.altitudeM !== null && (
 							<span className="text-muted-foreground text-xs tabular-nums">
