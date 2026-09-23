@@ -15,7 +15,7 @@
 		"lint:fix": "biome check . --write --unsafe",
 		"format": "biome format . --write",
 		"typecheck": "tsc --noEmit",
-		"db:generate": "prisma generate --sql",
+		"db:generate": "prisma generate",
 		"db:migrate": "prisma migrate dev --name",
 		"db:deploy": "prisma migrate deploy",
 		"db:studio": "prisma studio",

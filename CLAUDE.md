@@ -21,7 +21,7 @@ pnpm exec vitest run -t "test name"                      # single test by name
 
 # Database (Prisma)
 pnpm db:migrate <name> # prisma migrate dev --name <name>
-pnpm db:generate       # prisma generate --sql (regenerate client + typedSql)
+pnpm db:generate       # prisma generate (regenerate the client)
 pnpm db:deploy         # apply migrations (prod)
 pnpm db:studio
 pnpm db:seed           # seed XC tasks; db:seed:xc-progress for progress
@@ -54,7 +54,7 @@ Husky enforces quality gates: **pre-commit** runs lint-staged (Biome), **pre-pus
 - Server: `getSessionUser()` from `lib/session.ts` (wrapped in React `cache`). Client: `authClient` from `lib/auth-client.ts`. Roles enum is `USER | ADMIN | MEMBER`; "is this user a current member" logic lives in `helpers/isSocio.ts` (ADMIN, or a membership for `NEXT_YEAR`).
 
 ### Data layer
-- **`prisma/schema.prisma`** uses the new `prisma-client` generator with `output = ./generated`. Import the client/enums from `@/prisma/generated/...` (e.g. `@/prisma/generated/enums`), **not** `@prisma/client`. Connection uses the `PrismaPg` (pg) adapter — see `lib/prisma.ts`. Soft deletes via `deletedAt`. Raw SQL lives in `prisma/sql/*.sql` and is exposed through typedSql (`db:generate --sql`).
+- **`prisma/schema.prisma`** uses the new `prisma-client` generator with `output = ./generated`. Import the client/enums from `@/prisma/generated/...` (e.g. `@/prisma/generated/enums`), **not** `@prisma/client`. Connection uses the `PrismaPg` (pg) adapter — see `lib/prisma.ts`. Soft deletes via `deletedAt`.
 - **`actions/`** — server-side data functions: query Prisma, then parse/shape with Zod schemas from `@/schemas`. **`store/`** — lower-level Prisma query helpers (e.g. XC edition/enrollment lookups). Components and routes call these rather than touching Prisma inline.
 
 ### API routes & OpenAPI

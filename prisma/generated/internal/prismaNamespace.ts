@@ -1774,10 +1774,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         args: [query: string, ...values: any[]],
         result: any
       }
-      $queryRawTyped: {
-        args: runtime.UnknownTypedSql,
-        result: JsonObject
-      }
     }
   }
 }
