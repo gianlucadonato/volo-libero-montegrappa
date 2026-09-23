@@ -28,7 +28,8 @@ const groupOrder: ElmeteoMapGroup[] = [
 ];
 
 type MapPickerProps = {
-	value: ElmeteoMapId;
+	/** Map currently in the quadrant, or nothing when picking one for a new one. */
+	value?: ElmeteoMapId;
 	usedMaps: readonly ElmeteoMapId[];
 	onSelect: (map: ElmeteoMapId) => void;
 	children: React.ReactNode;
@@ -42,6 +43,7 @@ export function MapPicker({
 }: MapPickerProps) {
 	const t = useTranslations("MeteoPage.Maps");
 	const [open, setOpen] = useState(false);
+	const adding = value === undefined;
 
 	function handleSelect(map: ElmeteoMapId) {
 		onSelect(map);
@@ -57,7 +59,9 @@ export function MapPicker({
 				{/* Padded on the end so the header never runs under the close button,
 				    which sits in the same row. */}
 				<DialogHeader className="pe-10">
-					<DialogTitle>{t("picker_title")}</DialogTitle>
+					<DialogTitle>
+						{adding ? t("add_picker_title") : t("picker_title")}
+					</DialogTitle>
 					<DialogDescription>{t("picker_description")}</DialogDescription>
 				</DialogHeader>
 
@@ -74,8 +78,9 @@ export function MapPicker({
 									.filter((map) => map.group === group)
 									.map((map) => {
 										const isSelected = map.id === value;
-										// Already shown in another quadrant: still selectable, but
-										// worth flagging so the user does not duplicate by mistake.
+										// Every quadrant shows the same hour, so the same map twice
+										// would be the same image twice: already on the page means
+										// out of bounds, not merely discouraged.
 										const isUsedElsewhere =
 											!isSelected && usedMaps.includes(map.id);
 
@@ -83,12 +88,16 @@ export function MapPicker({
 											<button
 												key={map.id}
 												type="button"
+												disabled={isUsedElsewhere}
 												onClick={() => handleSelect(map.id)}
 												className={cn(
-													"rounded-lg border p-3 text-left transition-colors hover:bg-muted",
+													"rounded-lg border p-3 text-left transition-colors",
 													isSelected
 														? "border-primary bg-primary/5"
 														: "border-border",
+													isUsedElsewhere
+														? "cursor-not-allowed opacity-50"
+														: "hover:bg-muted",
 												)}
 											>
 												<span className="flex items-start justify-between gap-2">

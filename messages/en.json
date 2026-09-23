@@ -728,9 +728,12 @@
 			"reset_maps": "Restore the default maps",
 			"zoom": "Enlarge {map}",
 			"change_map": "Change the map in the {map} panel",
+			"add_map": "Add a map",
+			"remove_map": "Remove the {map} panel",
 			"open_fullscreen": "Open full screen",
 			"open_fullscreen_title": "Open the map full screen in a new tab",
 			"picker_title": "Choose the map",
+			"add_picker_title": "Add a map",
 			"picker_description": "The choice stays saved on this device.",
 			"already_used": "Already shown in another panel",
 			"cancel": "Cancel"

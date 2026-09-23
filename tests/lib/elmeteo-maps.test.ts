@@ -5,7 +5,8 @@ import {
 	elmeteoSiteLegend,
 	getElmeteoMap,
 	isElmeteoMapId,
-	quadrantCount,
+	maxQuadrants,
+	parseQuadrantMaps,
 } from "@/lib/elmeteo-maps";
 
 describe("elmeteo map catalogue", () => {
@@ -26,11 +27,47 @@ describe("elmeteo map catalogue", () => {
 		expect(getElmeteoMap("thetae850").description).toContain("THETA_E");
 	});
 
-	it("fills every quadrant with a known map", () => {
-		expect(defaultQuadrantMaps).toHaveLength(quadrantCount);
+	it("fills every quadrant with a known map, none of them repeated", () => {
+		expect(defaultQuadrantMaps.length).toBeLessThanOrEqual(maxQuadrants);
+		expect(new Set(defaultQuadrantMaps).size).toBe(defaultQuadrantMaps.length);
 		for (const map of defaultQuadrantMaps) {
 			expect(isElmeteoMapId(map)).toBe(true);
 		}
+	});
+
+	describe("parseQuadrantMaps", () => {
+		it("keeps a stored selection of any length, in order", () => {
+			expect(parseQuadrantMaps(["term950"])).toEqual(["term950"]);
+			expect(parseQuadrantMaps(["prec", "turb"])).toEqual(["prec", "turb"]);
+		});
+
+		it("drops entries that are no longer in the catalogue", () => {
+			expect(parseQuadrantMaps(["term950", "nubi", 42, null])).toEqual([
+				"term950",
+			]);
+		});
+
+		it("shows a map at most once, keeping its first position", () => {
+			// Every quadrant shows the same hour, so a repeat is the same image twice.
+			expect(parseQuadrantMaps(["prec", "turb", "prec"])).toEqual([
+				"prec",
+				"turb",
+			]);
+		});
+
+		it("falls back to the defaults when nothing usable is left", () => {
+			expect(parseQuadrantMaps([])).toBeUndefined();
+			expect(parseQuadrantMaps(["nubi"])).toBeUndefined();
+			expect(parseQuadrantMaps("term950")).toBeUndefined();
+			expect(parseQuadrantMaps(null)).toBeUndefined();
+		});
+
+		it("cannot exceed the grid cap, since every map is unique", () => {
+			const everyMap = elmeteoMaps.map((map) => map.id);
+			expect(parseQuadrantMaps([...everyMap, ...everyMap])).toHaveLength(
+				maxQuadrants,
+			);
+		});
 	});
 
 	it("gives every map something to show under the enlarged image", () => {

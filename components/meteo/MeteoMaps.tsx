@@ -1,12 +1,14 @@
 "use client";
 
-import { RotateCcw } from "lucide-react";
+import { Plus, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
+import { MapPicker } from "@/components/meteo/MapPicker";
 import { MapQuadrant } from "@/components/meteo/MapQuadrant";
 import { TimeControls } from "@/components/meteo/TimeControls";
 import { Button } from "@/components/ui/button";
 import { useElmeteoQuadrants } from "@/hooks/use-elmeteo-quadrants";
+import { maxQuadrants } from "@/lib/elmeteo-maps";
 import { buildElmeteoTimeline, findSlotIndex } from "@/lib/elmeteo-run";
 
 type MeteoMapsProps = {
@@ -51,7 +53,8 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 		setSelectedAt(new Date(initialAtIso).getTime());
 	}
 
-	const { maps, setQuadrantMap, resetQuadrants } = useElmeteoQuadrants();
+	const { maps, setQuadrantMap, addQuadrant, removeQuadrant, resetQuadrants } =
+		useElmeteoQuadrants();
 
 	const index = findSlotIndex(slots, new Date(selectedAt));
 	const current = slots[index];
@@ -78,18 +81,27 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 
 	return (
 		<div className="space-y-4">
-			<TimeControls
-				slots={slots}
-				index={index}
-				onIndexChange={(next) => setSelectedAt(slots[next].at.getTime())}
-			/>
+			{/* The grid runs several screens deep, and the hour is what the whole
+			    page is about — so the controls follow the scroll instead of being
+			    left at the top. `top-18` clears the layout's fixed header, and the
+			    band is opaque and full-bleed across the container's padding so the
+			    maps pass behind it rather than through the gap above the card.
+			    Below the header's own z-100, so the two never fight. */}
+			<div className="-mx-4 sticky top-18 z-30 bg-background px-4 pt-2 pb-2">
+				<TimeControls
+					slots={slots}
+					index={index}
+					onIndexChange={(next) => setSelectedAt(slots[next].at.getTime())}
+				/>
+			</div>
 
 			<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 				{maps.map((map, position) => (
 					<MapQuadrant
-						// The position is the identity here: the same map may legitimately
-						// appear in two quadrants.
-						key={`quadrant-${position + 1}`}
+						// A map appears at most once, so it identifies its quadrant: closing
+						// one in the middle leaves the others mounted, with their frames
+						// already loaded, instead of remounting every quadrant after it.
+						key={map}
 						map={map}
 						usedMaps={maps}
 						folder={current.folder}
@@ -97,8 +109,29 @@ export function MeteoMaps({ runs, initialAtIso }: MeteoMapsProps) {
 						preloadFrames={preloadFrames}
 						priority={position < 2}
 						onSelect={(next) => setQuadrantMap(position, next)}
+						// The grid always keeps one quadrant, so the last one cannot be
+						// closed.
+						onRemove={
+							maps.length > 1 ? () => removeQuadrant(position) : undefined
+						}
 					/>
 				))}
+
+				{/* Uniqueness makes this exactly "some map is still unused": the tile
+				    goes away rather than opening a picker with nothing left to pick. */}
+				{maps.length < maxQuadrants && (
+					<MapPicker usedMaps={maps} onSelect={addQuadrant}>
+						<button
+							type="button"
+							className="flex min-h-40 w-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed p-6 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+						>
+							<span className="rounded-full border border-dashed p-2">
+								<Plus className="size-5" />
+							</span>
+							<span className="font-medium text-sm">{t("add_map")}</span>
+						</button>
+					</MapPicker>
+				)}
 			</div>
 
 			<div className="flex justify-end">

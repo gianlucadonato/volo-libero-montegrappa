@@ -5,6 +5,7 @@ import {
 	Loader2,
 	Maximize2,
 	SlidersHorizontal,
+	X,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -73,6 +74,8 @@ type MapQuadrantProps = {
 	preloadFrames: { folder: string; step: number }[];
 	priority: boolean;
 	onSelect: (map: ElmeteoMapId) => void;
+	/** Left out for the last quadrant, which the grid always keeps. */
+	onRemove?: () => void;
 };
 
 function frameUrl(folder: string, map: string, step: number) {
@@ -92,6 +95,7 @@ export function MapQuadrant({
 	preloadFrames,
 	priority,
 	onSelect,
+	onRemove,
 }: MapQuadrantProps) {
 	const t = useTranslations("MeteoPage.Maps");
 	const definition = getElmeteoMap(map);
@@ -176,6 +180,17 @@ export function MapQuadrant({
 							<SlidersHorizontal className="size-4" />
 						</Button>
 					</MapPicker>
+
+					{onRemove && (
+						<Button
+							variant="ghost"
+							size="icon"
+							onClick={onRemove}
+							aria-label={t("remove_map", { map: definition.label })}
+						>
+							<X className="size-4" />
+						</Button>
+					)}
 				</div>
 			</div>
 

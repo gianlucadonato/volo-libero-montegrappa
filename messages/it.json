@@ -770,9 +770,12 @@
 			"reset_maps": "Ripristina mappe predefinite",
 			"zoom": "Ingrandisci {map}",
 			"change_map": "Cambia mappa nel riquadro {map}",
+			"add_map": "Aggiungi una mappa",
+			"remove_map": "Rimuovi il riquadro {map}",
 			"open_fullscreen": "Apri a schermo intero",
 			"open_fullscreen_title": "Apri la mappa a schermo intero in una nuova scheda",
 			"picker_title": "Scegli la mappa",
+			"add_picker_title": "Aggiungi una mappa",
 			"picker_description": "La scelta resta salvata su questo dispositivo.",
 			"already_used": "Già visibile in un altro riquadro",
 			"cancel": "Annulla"

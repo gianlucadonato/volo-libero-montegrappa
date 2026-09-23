@@ -336,7 +336,7 @@ export function getElmeteoMap(id: ElmeteoMapId) {
 	return mapsById.get(id) as ElmeteoMap;
 }
 
-/** Default map shown in each of the six quadrants on a first visit. */
+/** Maps shown on a first visit, one per quadrant. */
 export const defaultQuadrantMaps = [
 	"term950",
 	"term850",
@@ -346,4 +346,34 @@ export const defaultQuadrantMaps = [
 	"prec",
 ] as const satisfies readonly ElmeteoMapId[];
 
-export const quadrantCount = defaultQuadrantMaps.length;
+/**
+ * A map can only be on the page once, so the whole catalogue on screen is the
+ * largest the grid can get. That also bounds the frames in flight: every
+ * quadrant loads the current hour plus the preloaded neighbouring ones.
+ */
+export const maxQuadrants = elmeteoMaps.length;
+
+/**
+ * Read back a stored quadrant selection.
+ *
+ * Unknown ids are dropped rather than repaired: the selection is a free-length
+ * list now, so a map retired from the catalogue simply leaves the grid instead
+ * of being replaced by an unrelated default. Duplicates are dropped too — every
+ * quadrant shows the same hour, so a repeated map would be the same image
+ * twice. A selection left with nothing at all falls back to the defaults, like
+ * a first visit.
+ */
+export function parseQuadrantMaps(value: unknown): ElmeteoMapId[] | undefined {
+	if (!Array.isArray(value)) {
+		return undefined;
+	}
+	const maps = [
+		...new Set(
+			value.filter(
+				(entry): entry is ElmeteoMapId =>
+					typeof entry === "string" && isElmeteoMapId(entry),
+			),
+		),
+	];
+	return maps.length > 0 ? maps : undefined;
+}
