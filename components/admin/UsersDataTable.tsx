@@ -12,7 +12,13 @@ import {
 	type VisibilityState,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { Download, Mail, Smile, User as UserIcon } from "lucide-react";
+import {
+	Download,
+	Mail,
+	Settings2,
+	Smile,
+	User as UserIcon,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/extendui/button";
@@ -32,6 +38,15 @@ import {
 	DialogTitle,
 } from "@/components/ui/dialog";
 import {
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
 	Table,
 	TableBody,
 	TableCell,
@@ -39,10 +54,15 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import { isSocio } from "@/helpers/isSocio";
 import { exportJsonAsXlsx } from "@/lib/export-xlsx";
 import type { UserWithMemberships } from "@/types";
 import UsersDataTableColumns from "./UsersDataTableColumns";
+import {
+	DEFAULT_FIELD_VISIBILITY,
+	exportableColumns,
+	toExportRows,
+	USER_FIELD_IDS,
+} from "./user-table-fields";
 
 export default function UsersDataTable({
 	data,
@@ -51,7 +71,9 @@ export default function UsersDataTable({
 }) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+		DEFAULT_FIELD_VISIBILITY,
+	);
 	const [rowSelection, setRowSelection] = useState({});
 	const t = useTranslations("UsersDataTable");
 	const [isDownloading, setIsDownloading] = useState(false);
@@ -87,6 +109,12 @@ export default function UsersDataTable({
 		},
 	});
 
+	// A box for each field the admin has switched on, and none for the fields
+	// they have not.
+	const fieldFilters = table
+		.getVisibleFlatColumns()
+		.filter((column) => USER_FIELD_IDS.has(column.id));
+
 	const downloadExcel = async () => {
 		setIsDownloading(true);
 		try {
@@ -96,27 +124,20 @@ export default function UsersDataTable({
 			// applied, in the order the columns are sorted. Pagination is the one
 			// thing it leaves out, on purpose — the export should carry the whole
 			// result, not whichever 50 rows the current page happens to show.
-			const rows = table.getSortedRowModel().rows.map((row) => row.original);
+			const rows = table.getSortedRowModel().rows;
+
+			// Columns, likewise: the spreadsheet gets the fields the admin switched
+			// on, in the order they sit in the table. The row checkbox and the
+			// actions menu carry no `exportValue` and so drop out on their own.
+			const columns = exportableColumns(
+				table.getVisibleFlatColumns().map((column) => column.columnDef.meta),
+			);
 
 			await exportJsonAsXlsx(
-				rows.map((user) => ({
-					Nome: user.firstName,
-					Cognome: user.lastName,
-					Email: user.email,
-					Socio: isSocio(user) ? "Sì" : "No",
-					CodiceFiscale: user.fiscalCode,
-					"Data di Nascita": user.dateOfBirth,
-					"Luogo di Nascita": user.placeOfBirth,
-					Indirizzo: user.streetAddress,
-					Città: user.city,
-					CAP: user.zipCode,
-					Provincia: user.province,
-					Stato: user.state,
-					Telefono: user.phone,
-					Sesso: user.gender,
-					Taglia: user.size,
-					"Data Iscrizione": format(user.createdAt, "dd/MM/yyyy HH:mm"),
-				})),
+				toExportRows(
+					columns,
+					rows.map((row) => row.original),
+				),
 				`vml_soci_${date}.xlsx`,
 			);
 		} finally {
@@ -223,19 +244,75 @@ export default function UsersDataTable({
 							</SelectContent>
 						</Select>
 					</div>
-					<div className="col-span-1 flex justify-end md:col-span-2">
+					<div className="col-span-1 flex flex-col justify-end gap-2 sm:flex-row md:col-span-2">
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<Button className="w-full sm:w-auto" variant="outline">
+									<Settings2 className="mr-2 size-4" />
+									<span>{t("columns")}</span>
+								</Button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end" className="w-56">
+								<DropdownMenuLabel>{t("columns_hint")}</DropdownMenuLabel>
+								<DropdownMenuSeparator />
+								<ScrollArea className="h-72">
+									{table
+										.getAllColumns()
+										.filter((column) => column.getCanHide())
+										.map((column) => (
+											<DropdownMenuCheckboxItem
+												key={column.id}
+												checked={column.getIsVisible()}
+												// Kept open so the admin can tick several fields in
+												// one go rather than reopening the menu each time.
+												onSelect={(event) => event.preventDefault()}
+												onCheckedChange={(value) => {
+													// A field switched off loses its filter with it: its
+													// box goes away, and one left behind would keep
+													// narrowing the table, and the export, from out of
+													// sight. Name, email and membership keep their boxes
+													// whatever the table shows, so theirs survive.
+													if (!value && USER_FIELD_IDS.has(column.id)) {
+														column.setFilterValue(undefined);
+													}
+													column.toggleVisibility(!!value);
+												}}
+											>
+												{column.columnDef.meta?.exportLabel ?? column.id}
+											</DropdownMenuCheckboxItem>
+										))}
+								</ScrollArea>
+							</DropdownMenuContent>
+						</DropdownMenu>
 						<Button
 							loading={isDownloading}
-							className="w-full md:w-auto"
+							className="w-full sm:w-auto"
 							variant="outline"
 							onClick={downloadExcel}
 						>
 							<Download className="mr-2 size-4" />
-							<span>Download Excel</span>
+							<span>{t("download_excel")}</span>
 						</Button>
 					</div>
 				</div>
 			</div>
+			{fieldFilters.length > 0 && (
+				// One box per switched-on field. Adding a column to the table is what
+				// makes it filterable, which is what the Excel export then reflects.
+				<div className="grid grid-cols-2 gap-4 pb-4 md:grid-cols-5">
+					{fieldFilters.map((column) => (
+						<Input
+							key={column.id}
+							placeholder={String(
+								column.columnDef.meta?.exportLabel ?? column.id,
+							)}
+							value={(column.getFilterValue() as string) ?? ""}
+							onChange={(event) => column.setFilterValue(event.target.value)}
+							className="w-full"
+						/>
+					))}
+				</div>
+			)}
 			<div className="rounded-md border">
 				<Table>
 					<TableHeader>

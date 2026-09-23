@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { isSocio } from "@/helpers/isSocio";
 import type { UserWithMemberships } from "@/types";
+import { USER_FIELDS } from "./user-table-fields";
 
 export default function UsersDataTableColumns({
 	setOpen,
@@ -53,6 +54,10 @@ export default function UsersDataTableColumns({
 		},
 		{
 			accessorKey: "memberId",
+			meta: {
+				exportLabel: "ID",
+				exportValue: (user) => String(user.memberId),
+			},
 			header: ({ column }) => {
 				return (
 					<Button
@@ -71,6 +76,10 @@ export default function UsersDataTableColumns({
 		},
 		{
 			accessorKey: "fullName",
+			meta: {
+				exportLabel: t("header.name"),
+				exportValue: (user) => `${user.firstName} ${user.lastName}`,
+			},
 			header: t("header.name"),
 			accessorFn: (row) => `${row.firstName} ${row.lastName}`,
 			cell: ({ row }) => {
@@ -83,6 +92,10 @@ export default function UsersDataTableColumns({
 		},
 		{
 			accessorKey: "email",
+			meta: {
+				exportLabel: "Email",
+				exportValue: (user) => user.email,
+			},
 			header: ({ column }) => {
 				return (
 					<Button
@@ -105,6 +118,11 @@ export default function UsersDataTableColumns({
 			id: "role",
 			accessorFn: (row) => (isSocio(row) ? "MEMBER" : "USER"),
 			filterFn: "equalsString",
+			meta: {
+				exportLabel: t("header.role"),
+				exportValue: (user) =>
+					isSocio(user) ? t("role.member") : t("role.user"),
+			},
 			header: () => <div>{t("header.role")}</div>,
 			cell: ({ row }) => {
 				const isMember = isSocio(row.original);
@@ -117,12 +135,40 @@ export default function UsersDataTableColumns({
 		},
 		{
 			accessorKey: "createdAt",
-			header: () => <div className="text-right">{t("header.created_at")}</div>,
+			meta: {
+				exportLabel: t("header.created_at"),
+				exportValue: (user) => format(user.createdAt, "dd/MM/yyyy HH:mm"),
+			},
+			header: () => <div>{t("header.created_at")}</div>,
 			cell: ({ row }) => {
 				const date = format(row.getValue("createdAt"), "dd/MM/yyyy");
-				return <div className="text-right font-medium">{date}</div>;
+				return <div className="font-medium">{date}</div>;
 			},
 		},
+		// Everything the admin can switch on from the column menu. Generated from
+		// one registry so a field cannot appear in the table without also being
+		// filterable and exportable.
+		...USER_FIELDS.map<ColumnDef<UserWithMemberships>>((field) => ({
+			id: field.id,
+			accessorFn: field.value,
+			meta: {
+				exportLabel: t(field.label),
+				exportValue: field.value,
+			},
+			header: ({ column }) => (
+				<Button
+					variant="ghost"
+					className="m-0 p-0"
+					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+				>
+					{t(field.label)}
+					<ArrowUpDown className="ml-2 size-4" />
+				</Button>
+			),
+			cell: ({ row }) => (
+				<div className="whitespace-nowrap">{field.value(row.original)}</div>
+			),
+		})),
 		{
 			id: "actions",
 			enableHiding: false,
