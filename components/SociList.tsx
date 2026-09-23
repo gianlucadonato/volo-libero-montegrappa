@@ -79,8 +79,14 @@ export default function SociList({
 		try {
 			const date = format(new Date(), "ddMMyyyy");
 
+			// The sorted row model is the table as it reads on screen, search box
+			// included; the `data` prop this used to export ignored it. Pagination
+			// is left out on purpose — the download should carry the whole result,
+			// not whichever 50 rows the current page happens to show.
+			const rows = table.getSortedRowModel().rows.map((row) => row.original);
+
 			await exportJsonAsXlsx(
-				data.map((x) => ({
+				rows.map((x) => ({
 					Cognome: x.lastName,
 					Nome: x.firstName,
 					Email: x.email,
