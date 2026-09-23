@@ -533,6 +533,7 @@
 			"city": "Città",
 			"sport": "Sport",
 			"vds_number": "Numero VDS",
+			"renewed_at": "Data rinnovo",
 			"fiscal_code": "Codice Fiscale",
 			"date_of_birth": "Data di Nascita",
 			"place_of_birth": "Luogo di Nascita",

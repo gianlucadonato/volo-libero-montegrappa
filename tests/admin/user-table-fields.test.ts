@@ -15,6 +15,7 @@ import {
 	USER_FIELDS,
 	type UserField,
 } from "@/components/admin/user-table-fields";
+import { NEXT_YEAR } from "@/config/constants";
 import type { UserWithMemberships } from "@/types";
 
 const user = (over: Partial<UserWithMemberships>) =>
@@ -142,6 +143,28 @@ describe("the field registry", () => {
 			expect(field.label, field.id).toMatch(/^header\./);
 			expect(typeof field.value, field.id).toBe("function");
 		}
+	});
+
+	it("dates the renewal from the row, not from when it says it runs", () => {
+		// `validFrom` is the moment of payment for a Stripe membership but a
+		// nominal 1 January for one an admin enters by hand, so only `createdAt`
+		// carries the real date down both paths.
+		const renewedAt = USER_FIELDS.find((field) => field.id === "renewedAt");
+		const member = user({
+			memberships: [
+				{
+					year: NEXT_YEAR,
+					createdAt: new Date("2026-03-04T17:30:00.000Z"),
+					validFrom: new Date("2026-01-01T00:00:00.000Z"),
+				},
+			],
+		} as Partial<UserWithMemberships>);
+		expect(renewedAt?.value(member)).toBe("04/03/2026");
+	});
+
+	it("leaves the renewal date blank for a user who has not renewed", () => {
+		const renewedAt = USER_FIELDS.find((field) => field.id === "renewedAt");
+		expect(renewedAt?.value(user({ memberships: [] }))).toBe("");
 	});
 
 	it("renders a field the user never filled in as an empty cell", () => {

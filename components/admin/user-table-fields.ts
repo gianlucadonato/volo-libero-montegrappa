@@ -1,5 +1,7 @@
 import type { RowData } from "@tanstack/react-table";
+import { format } from "date-fns";
 
+import { NEXT_YEAR } from "@/config/constants";
 import type { UserWithMemberships } from "@/types";
 
 /**
@@ -24,6 +26,23 @@ export type UserField = {
 };
 
 const text = (value: string | null | undefined) => value ?? "";
+
+/**
+ * The day this year's membership was taken out.
+ *
+ * `createdAt` on the `user_membership` row, not its `validFrom`: Stripe stamps
+ * `validFrom` with the moment of payment, but a membership an admin enters by
+ * hand gets a nominal 1 January instead, so `validFrom` only carries the real
+ * date for the two thirds of members who paid online. `createdAt` is written
+ * the same way down both paths.
+ *
+ * Empty for a user who has not renewed — the rows are loaded filtered to the
+ * current year, so a lapsed member simply has none.
+ */
+const renewedOn = (user: UserWithMemberships) => {
+	const membership = user.memberships.find((entry) => entry.year === NEXT_YEAR);
+	return membership ? format(membership.createdAt, "dd/MM/yyyy") : "";
+};
 
 export const USER_FIELDS: UserField[] = [
 	// The table shows one "Nome" column, but the spreadsheet used to carry the
@@ -58,6 +77,11 @@ export const USER_FIELDS: UserField[] = [
 		id: "vdsNumber",
 		label: "header.vds_number",
 		value: (user) => text(user.vdsNumber),
+	},
+	{
+		id: "renewedAt",
+		label: "header.renewed_at",
+		value: renewedOn,
 	},
 	{
 		id: "fiscalCode",
