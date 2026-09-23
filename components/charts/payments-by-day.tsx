@@ -81,7 +81,21 @@ export function PaymentsByDay({ payments }: { payments: PaymentByDay[] }) {
 						/>
 						<ChartTooltip
 							cursor={false}
-							content={<ChartTooltipContent hideLabel />}
+							content={
+								// The axis ticks drop the year to stay legible, but a season
+								// spans two of them — December bars sit right beside the next
+								// January's. The tooltip carries the full date so the ambiguity
+								// is always one hover away from being resolved.
+								<ChartTooltipContent
+									labelFormatter={(value) =>
+										new Date(String(value)).toLocaleDateString("en-US", {
+											day: "numeric",
+											month: "long",
+											year: "numeric",
+										})
+									}
+								/>
+							}
 						/>
 						<Bar dataKey="count" fill="var(--color-desktop)" radius={8}>
 							<LabelList

@@ -426,7 +426,9 @@
 		"members": "Soci",
 		"not_members": "Non iscritti",
 		"male": "Uomini",
-		"female": "Donne"
+		"female": "Donne",
+		"select_year": "Anno",
+		"season": "Stagione {year}"
 	},
 	"UsersList": {
 		"name": "Nome",

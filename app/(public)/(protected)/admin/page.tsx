@@ -1,15 +1,19 @@
 import { UserCheck, UserX } from "lucide-react";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { z } from "zod";
+import getAdminYearStats from "@/actions/getAdminYearStats";
+import getAdminYears from "@/actions/getAdminYears";
 import getPayments from "@/actions/getPayments";
-import getPaymentsByDay from "@/actions/getPaymentsByDay";
-import getUsers from "@/actions/getUsers";
 import { PaymentMethodsPieChart } from "@/components/charts/payment-methods-pie-chart";
 import { PaymentsByDay } from "@/components/charts/payments-by-day";
 import GenderCard from "@/components/dashboard/gender-card";
 import { DashboardHeader } from "@/components/dashboard/header";
 import InfoCard from "@/components/dashboard/info-card";
+import { YearSelect } from "@/components/dashboard/year-select";
 import { constructMetadata, siteConfig } from "@/config/site";
+import { groupPaymentsByDay } from "@/lib/payments";
+import { currentSeason, seasonRange } from "@/lib/season";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
@@ -17,20 +21,33 @@ export const metadata = constructMetadata({
 	description: "Admin page for only admin management.",
 });
 
-export default async function AdminPage() {
+const YearSchema = z.coerce.number().int();
+
+export default async function AdminPage({
+	searchParams,
+}: {
+	searchParams: Promise<{ year?: string }>;
+}) {
 	const t = await getTranslations("AdminPage");
 	const user = await getSessionUser();
 	if (!user || user.role !== "ADMIN") redirect("/login");
 
-	const allUsers = await getUsers();
-	const members = allUsers.filter((user) => user.role === "MEMBER");
-	const users = allUsers.filter((user) => user.role === "USER");
+	const years = await getAdminYears();
+	// A missing, malformed or unknown year falls back to the season in progress
+	// rather than failing: a dashboard reached from a stale link should still
+	// show something true.
+	const requested = YearSchema.safeParse((await searchParams).year);
+	const year =
+		requested.success && years.includes(requested.data)
+			? requested.data
+			: currentSeason();
 
-	const male = allUsers.filter((user) => user.gender === "M");
-	const female = allUsers.filter((user) => user.gender === "F");
+	const { start, end } = seasonRange(year);
+	const [stats, payments] = await Promise.all([
+		getAdminYearStats(year),
+		getPayments({ start, end }),
+	]);
 
-	const payments = await getPayments({ from: "2025-12-30 00:00:00" });
-	const groupedPayments = await getPaymentsByDay();
 	const paymentsByType = payments.reduce<Record<string, number>>(
 		(acc, payment) => {
 			const paymentMethod = payment.paymentMethod ?? "unknown";
@@ -45,31 +62,37 @@ export default async function AdminPage() {
 		{},
 	);
 
+	const season = t("season", { year });
+
 	return (
 		<div className="container mt-10">
 			<DashboardHeader
 				heading={t("header_title")}
 				text={t("header_description")}
-			/>
+			>
+				<YearSelect year={year} years={years} />
+			</DashboardHeader>
 			<div className="mt-6 flex flex-col gap-5">
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-					<InfoCard title={t("users")} value={allUsers.length} />
+					<InfoCard title={t("users")} value={stats.users} text={season} />
 					<InfoCard
 						title={t("members")}
-						value={members.length}
+						value={stats.members}
 						icon={UserCheck}
+						text={season}
 					/>
 					<InfoCard
 						title={t("not_members")}
-						value={users.length}
+						value={stats.nonMembers}
 						icon={UserX}
+						text={season}
 					/>
-					<GenderCard maleCount={male.length} femaleCount={female.length} />
+					<GenderCard maleCount={stats.male} femaleCount={stats.female} />
 				</div>
 				<div className="flex flex-col gap-5">
 					<div className="grid grid-cols-1 gap-4">
 						<div className="col-span-1">
-							<PaymentsByDay payments={groupedPayments} />
+							<PaymentsByDay payments={groupPaymentsByDay(payments)} />
 						</div>
 						<div className="col-span-1">
 							<PaymentMethodsPieChart payments={paymentsByType} />

@@ -393,7 +393,9 @@
 		"members": "Members",
 		"not_members": "Not registered",
 		"male": "Male",
-		"female": "Female"
+		"female": "Female",
+		"select_year": "Year",
+		"season": "Season {year}"
 	},
 	"UsersList": {
 		"name": "Name",

@@ -9,9 +9,13 @@ export default async function AdminPanelLoading() {
 			<DashboardHeader
 				heading={t("header_title")}
 				text={t("header_description")}
-			/>
-			<div className="flex flex-col gap-5">
-				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			>
+				{/* Shaped like the year selector: the header is real here, so leaving
+				    this out makes the row jump once the page resolves. */}
+				<Skeleton className="h-10 w-32 rounded-md" />
+			</DashboardHeader>
+			<div className="mt-6 flex flex-col gap-5">
+				<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
 					<Skeleton className="h-32 w-full rounded-lg" />
 					<Skeleton className="h-32 w-full rounded-lg" />
 					<Skeleton className="h-32 w-full rounded-lg" />
