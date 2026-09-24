@@ -72,7 +72,14 @@ export function ForecastTable({ table }: { table: ForecastTableView }) {
 		// to the page, the header would sit still at the top of the table and slide
 		// away with it. `flex-auto min-h-0` takes the height the surrounding pane
 		// has left over, which is what gives the rows somewhere to scroll.
-		<div className="min-h-0 flex-auto overflow-auto overscroll-contain rounded-b-xl">
+		//
+		// Containment is on the horizontal axis only. Applied to both, reaching the
+		// last row trapped the gesture here and the page would not scroll on past
+		// the table — the pane is nearly the whole viewport, so there was no
+		// comfortable margin left to grab instead. Vertically the scroll now chains
+		// to the page the way an inner box normally does; horizontally it stays
+		// contained, because there a chained scroll is the browser's back-swipe.
+		<div className="min-h-0 flex-auto overflow-auto overscroll-x-contain rounded-b-xl">
 			<table className="w-full caption-bottom text-xs sm:text-sm">
 				{/* Pinned per cell rather than on the `thead`: sticky on a table
 				    section is only recently supported in Safari, while a sticky `th`

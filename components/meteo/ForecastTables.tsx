@@ -105,7 +105,13 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 							onClick={() => setDay(value)}
 							aria-pressed={value === day}
 							className={cn(
-								"flex-1 text-xs sm:text-sm",
+								// Equal shares of the row rather than each tab sized to its
+								// own text: "Dopo domani" is twice the width of "Oggi", and
+								// left to themselves the three tabs came out lopsided with the
+								// longest one wrapping onto a second line. `basis-0` makes
+								// `flex-1` divide the row evenly instead of handing out the
+								// leftover space on top of each tab's natural width.
+								"h-auto flex-1 basis-0 px-2 py-1.5 text-xs sm:text-sm",
 								value === day && "bg-secondary text-secondary-foreground",
 							)}
 						>
@@ -118,7 +124,10 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 									})}
 								</span>
 								{index < dayLabelKeys.length && (
-									<span className="font-normal text-[0.625rem] text-muted-foreground">
+									// Kept on one line: wrapped, it pushed the tab taller than
+									// its neighbours and the date above it lost the baseline it
+									// shares with them.
+									<span className="whitespace-nowrap font-normal text-[0.625rem] text-muted-foreground">
 										{tDays(dayLabelKeys[index])}
 									</span>
 								)}
