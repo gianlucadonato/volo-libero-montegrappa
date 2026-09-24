@@ -157,6 +157,24 @@ export function weatherIconName(hour: ForecastHourView) {
 }
 
 /**
+ * Glyphs that draw all the way to the bottom of their canvas.
+ *
+ * The icons carry no `viewBox` and most of them leave the lower ~29% of the
+ * 56x48 canvas empty, which the table closes with a negative margin so the
+ * cloud figures sit under the artwork rather than under the blank band. The
+ * ones listed here do use that space — `severe-thunderstorm`'s bolt reaches
+ * 97% of the height — so the same pull would run the text through them.
+ *
+ * Measured by rasterising each file and reading its opaque bounds, not by eye.
+ */
+const fullHeightWeatherIcons = new Set(["severe-thunderstorm"]);
+
+/** Whether the glyph needs its full canvas height left alone. */
+export function weatherIconDrawsFullHeight(icon: string) {
+	return fullHeightWeatherIcons.has(icon);
+}
+
+/**
  * Whether the row carries a risk note the source considered worth printing.
  *
  * The note is empty on every low hour and on some graded ones, so it is only

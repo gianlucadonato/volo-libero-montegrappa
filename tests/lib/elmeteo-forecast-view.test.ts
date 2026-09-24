@@ -18,6 +18,7 @@ import {
 	shortWindLabel,
 	topThermalM,
 	updraftList,
+	weatherIconDrawsFullHeight,
 	weatherIconName,
 	windBands,
 } from "@/lib/elmeteo-forecast-view";
@@ -457,5 +458,17 @@ describe("weather icons", () => {
 	it("returns null for a name it has not seen", () => {
 		expect(weatherIconName(hour({ weatherIcon: "nevischio" }))).toBeNull();
 		expect(weatherIconName(hour({ weatherIcon: null }))).toBeNull();
+	});
+
+	/**
+	 * The table pulls the cloud figures up under the artwork to close the empty
+	 * band most of these glyphs leave at the bottom of their canvas. The ones
+	 * that draw into that band have to be left alone or the figures land on top
+	 * of them — `severe-thunderstorm`'s bolt reaches 97% of the height.
+	 */
+	it("exempts only the glyphs that draw to the bottom of their canvas", () => {
+		expect(weatherIconDrawsFullHeight("severe-thunderstorm")).toBe(true);
+		expect(weatherIconDrawsFullHeight("cloudy-1-day")).toBe(false);
+		expect(weatherIconDrawsFullHeight("clear-day")).toBe(false);
 	});
 });

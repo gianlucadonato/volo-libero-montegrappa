@@ -35,6 +35,7 @@ import {
 	shortWindLabel,
 	topThermalM,
 	updraftList,
+	weatherIconDrawsFullHeight,
 	weatherIconName,
 } from "@/lib/elmeteo-forecast-view";
 import { cn } from "@/lib/utils";
@@ -352,21 +353,39 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 		// Stacked: the glyph reads at a glance down the column, and the three
 		// figures keep their own line underneath rather than being squeezed
 		// beside it.
-		<span className="inline-flex flex-col items-center gap-1 leading-tight">
+		<span className="inline-flex flex-col items-center leading-tight">
 			{icon !== null && (
 				// Decorative: the figures below it carry the reading, and the
 				// glyph's own vocabulary is the source's, not a label a pilot needs
 				// read out. An unmapped name renders nothing rather than a gap.
 				// The animation is CSS keyframes inside the SVG, which run in an
 				// `img` without the file being inlined into the bundle.
+				//
+				// Sized 56x48 to the icons' own canvas rather than to a square: they
+				// carry no `viewBox`, so a square box letterboxes them and adds dead
+				// height on top of the dead space already inside the artwork.
+				//
+				// The negative bottom margin closes that inner gap rather than the
+				// canvas being cropped per glyph: keeping every canvas whole is what
+				// holds the artwork on one baseline down the column, so the figures
+				// are pulled up over the empty band instead. Six of the seven draw
+				// their lowest cloud at ~71% of the canvas, leaving ~14px of an
+				// unscaled 48 below them; 10px of that is taken back, which leaves
+				// the gap reading as spacing rather than as a collision.
+				//
+				// `severe-thunderstorm` is exempt: its bolt reaches 97% of the
+				// canvas, so the same pull would run the figures through the tip.
 				// biome-ignore lint/performance/noImgElement: a ~5 kB animated SVG from the public assets; next/image cannot optimise an SVG and would strip nothing useful
 				<img
 					src={`/weather-icons/${icon}.svg`}
 					alt=""
 					aria-hidden
-					width={44}
-					height={44}
-					className="size-11 shrink-0"
+					width={56}
+					height={48}
+					className={cn(
+						"h-12 w-14 shrink-0",
+						!weatherIconDrawsFullHeight(icon) && "-mb-2.5",
+					)}
 				/>
 			)}
 			<span className="inline-flex gap-1.5">
