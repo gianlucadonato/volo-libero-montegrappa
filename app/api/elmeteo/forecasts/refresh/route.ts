@@ -12,8 +12,8 @@ import { logger } from "@/lib/logger";
  * The only trigger for the ElMeteo forecast scrape.
  *
  * The source recomputes its take-off tables twice a day and publishes them at
- * 10:15 and 22:15 Rome time, so a scheduled ping a few minutes later collects
- * each publish once. See `docs/elmeteo-scraper.md` for the cron to configure.
+ * 10:15 and 22:15 Rome time, so a scheduled ping a minute later collects each
+ * publish once. See `docs/elmeteo-scraper.md` for the cron to configure.
  *
  * The same endpoint serves a human running a backfill or checking a deploy;
  * `?trigger=schedule` is what tells the two apart in the logs, and nothing else

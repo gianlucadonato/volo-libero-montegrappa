@@ -66,15 +66,21 @@ store carries that stamp as `sourceUpdatedAt`, and across all six sites it reads
 at 22:15 Rome. Two runs a day is the whole of it; a third would re-fetch
 unchanged pages.
 
-The schedule pings the trigger endpoint 15 minutes after each publish. The
-margin is for the source's own edge cache, which holds a page for an hour: a
-request that arrives in the same minute as the publish can still be served the
-previous version.
+The schedule pings the trigger endpoint one minute after each publish. The
+margin exists because the source finishes writing a few seconds past the minute
+(`10:15:04` to `10:15:09` across the saved fixtures) and because its proxy sends
+`cache-control: max-age=3600, public` — so a page pulled into that cache just
+before the publish can be served stale afterwards.
 
 | | Rome | UTC (summer) | UTC (winter) |
 | --- | --- | --- | --- |
 | Source publishes | 10:15 / 22:15 | 08:15 / 20:15 | 09:15 / 21:15 |
-| Schedule fires | 10:30 / 22:30 | 08:30 / 20:30 | 09:30 / 21:30 |
+| Schedule fires | 10:16 / 22:16 | 08:16 / 20:16 | 09:16 / 21:16 |
+
+A minute clears the write, not the cache. The hour-long `max-age` is longer than
+any margin worth waiting, so the check below — does `sourceUpdatedAt` advance
+between runs — is what actually tells you the scrape is landing on fresh pages.
+Push the cron later only if that value starts repeating.
 
 ### Configuring the schedule
 
@@ -84,30 +90,43 @@ In Dokploy, **the app → Schedules → Create**:
 | --- | --- |
 | Name | `ElMeteo forecast scrape` |
 | Type | Application |
-| Cron | `30 10,22 * * *` |
+| Cron | `16 10,22 * * *` |
 | Timezone | `Europe/Rome` |
 | Shell | `bash` |
 
-Command:
+Command — substitute the real token and keep it on one line:
 
 ```bash
-node -e 'fetch("http://localhost:3000/api/elmeteo/forecasts/refresh?trigger=schedule",{method:"POST",headers:{authorization:`Bearer ${process.env.ELMETEO_SCRAPE_TOKEN}`}}).then(async(r)=>{console.log(r.status,await r.text());process.exit(r.ok?0:1)}).catch((e)=>{console.error(e.message);process.exit(1)})'
+node -e 'fetch("https://www.vololiberomontegrappa.it/api/elmeteo/forecasts/refresh?trigger=schedule",{method:"POST",headers:{authorization:"Bearer PASTE_TOKEN_HERE"}}).then(async(r)=>{console.log(r.status,await r.text());process.exit(r.ok?0:1)}).catch((e)=>{console.error(e.message);process.exit(1)})'
 ```
 
-Three details that are easy to get wrong:
+Four details that are easy to get wrong:
 
 - **Set the timezone field.** Dokploy defaults a schedule to UTC when it is
   left empty, and the runtime image sets no `TZ` either, so the container clock
-  is UTC as well. Naming `Europe/Rome` is what keeps the run 15 minutes after
+  is UTC as well. Naming `Europe/Rome` is what keeps the run one minute after
   the publish through the DST changeover instead of drifting an hour twice a
   year.
 - **`node -e`, not `curl`.** The runtime image is `node:24-slim`, which ships
   neither `curl` nor `wget`. Node's global `fetch` is always there.
+- **No `$` and no backticks in the command.** Dokploy runs an Application
+  schedule as `docker exec <container> <command>`, and a scheduler that puts
+  that command inside double quotes hands `${...}` and `` `...` `` to the shell
+  before node ever sees them: `${process.env.TOKEN}` comes back as
+  `bad substitution`. Reading the token from the environment is the tidier form
+  and is what this file used to recommend, but it only survives one of the two
+  quoting styles. A literal token in a plain `"Bearer ..."` string has nothing
+  left for a shell to expand.
 - **`?trigger=schedule`** only labels the log line. Leaving it off still runs
   the scrape, it just records it as `manual`.
 
-The token is read from the app's own environment, so it is never written into
-the schedule.
+The public URL is used rather than `http://localhost:3000` so the ping does not
+depend on the schedule running in the app's own container — if Dokploy ever
+executes it elsewhere, or the container's port mapping changes, a loopback call
+fails with `ECONNREFUSED` while a public one keeps working. The cost is that the
+request goes out through the proxy and back, and that the token sits in the
+schedule definition rather than only in the app's environment. Rotate it there
+too if it is ever rotated.
 
 ### Verifying it and watching the publish time
 
@@ -147,7 +166,10 @@ running, skipped` and returns.
 3. Create the schedule described above.
 4. Trigger a run by hand and check the `ElMeteo forecast scrape completed` log
    line: `tables` should be 18 and `failures` 0.
-5. After the next slot, check the same line appears with `trigger: "schedule"`.
+5. Run the schedule once with Dokploy's **Run manually** button and read its
+   output: `202 {"message":"Scrape started"}` means the command, the URL and
+   the token are all right. A `401` is the token, a network error is the URL.
+6. After the next slot, check the same line appears with `trigger: "schedule"`.
 
 ## Design notes
 
