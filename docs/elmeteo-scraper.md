@@ -26,7 +26,7 @@ Verified against the live site: the four marked `yes` answer `302` to
 | --- | --- | --- |
 | `ELMETEO_USERNAME` | for the 4 private sites | elmeteo.it account |
 | `ELMETEO_PASSWORD` | for the 4 private sites | elmeteo.it password |
-| `ELMETEO_SCRAPE_TOKEN` | for manual runs | bearer token the manual trigger authenticates with |
+| `ELMETEO_SCRAPE_TOKEN` | yes | bearer token the trigger endpoint authenticates with |
 
 Without credentials the run still collects the two public take-offs and reports
 the rest as failures, so a password change degrades the feature instead of
@@ -35,8 +35,8 @@ breaking the job.
 Generate the token with `openssl rand -hex 32`. It is deliberately separate from
 `ELMETEO_API_TOKEN`, which gates the uploader endpoint and its S3 retention
 cleanup: a token that only kicks off a scrape has no business triggering
-deletions. Without it the manual trigger answers `503` and the report-driven
-runs carry on regardless.
+deletions. Without it the endpoint answers `503` and nothing collects the
+forecasts at all — it is the only way in.
 
 ## Running it
 
@@ -54,50 +54,88 @@ curl -X POST https://<app>/api/elmeteo/forecasts/refresh \
 
 The endpoint answers `202 Accepted` straight away and does the work in
 `after()`: a run takes roughly 40 seconds, which is long enough for a proxy to
-time out and retry, doubling the load on the source. A second trigger while a
-run is in flight gets `409`.
+time out and retry, doubling the load on the source. A second run starting while
+one is in flight logs `already running, skipped` and returns without fetching.
 
 ## What starts a run
 
-**The uploader's report.** elmeteo.it pushes its map frames to S3 and then pings
-`POST /api/elmeteo` with a report of the upload. That ping is the source saying
-it has finished publishing a run, which is also when the take-off tables have
-been recomputed — so the scrape hangs off it (`app/api/elmeteo/route.ts`) and
-nothing has to guess at the timing. In practice that is four runs a day, around
-04:36, 07:36, 16:37 and 19:36 UTC.
+**A Dokploy schedule**, twice a day. The source recomputes its take-off tables
+on a fixed timetable and stamps each publish on the page itself; every row we
+store carries that stamp as `sourceUpdatedAt`, and across all six sites it reads
+08:15 UTC — **10:15 Europe/Rome** — with the evening publish twelve hours later
+at 22:15 Rome. Two runs a day is the whole of it; a third would re-fetch
+unchanged pages.
 
-Both triggers share one in-process lock, so a manual run during an upload does
-not double the load on the source; the second one logs `already running,
-skipped` and returns.
+The schedule pings the trigger endpoint 15 minutes after each publish. The
+margin is for the source's own edge cache, which holds a page for an hour: a
+request that arrives in the same minute as the publish can still be served the
+previous version.
 
-There is also a manual trigger for backfills and for checking a deploy without
-waiting for the next upload:
+| | Rome | UTC (summer) | UTC (winter) |
+| --- | --- | --- | --- |
+| Source publishes | 10:15 / 22:15 | 08:15 / 20:15 | 09:15 / 21:15 |
+| Schedule fires | 10:30 / 22:30 | 08:30 / 20:30 | 09:30 / 21:30 |
+
+### Configuring the schedule
+
+In Dokploy, **the app → Schedules → Create**:
+
+| Field | Value |
+| --- | --- |
+| Name | `ElMeteo forecast scrape` |
+| Type | Application |
+| Cron | `30 10,22 * * *` |
+| Timezone | `Europe/Rome` |
+| Shell | `bash` |
+
+Command:
 
 ```bash
-curl -X POST https://<app>/api/elmeteo/forecasts/refresh \
-  -H "Authorization: Bearer $ELMETEO_SCRAPE_TOKEN"
+node -e 'fetch("http://localhost:3000/api/elmeteo/forecasts/refresh?trigger=schedule",{method:"POST",headers:{authorization:`Bearer ${process.env.ELMETEO_SCRAPE_TOKEN}`}}).then(async(r)=>{console.log(r.status,await r.text());process.exit(r.ok?0:1)}).catch((e)=>{console.error(e.message);process.exit(1)})'
 ```
 
-It answers `202 Accepted` straight away and does the work in `after()`: a run
-takes roughly 40 seconds, which is long enough for a proxy to time the request
-out and retry, doubling the load on the source.
+Three details that are easy to get wrong:
 
-### Watch the publish time, not the clock
+- **Set the timezone field.** Dokploy defaults a schedule to UTC when it is
+  left empty, and the runtime image sets no `TZ` either, so the container clock
+  is UTC as well. Naming `Europe/Rome` is what keeps the run 15 minutes after
+  the publish through the DST changeover instead of drifting an hour twice a
+  year.
+- **`node -e`, not `curl`.** The runtime image is `node:24-slim`, which ships
+  neither `curl` nor `wget`. Node's global `fetch` is always there.
+- **`?trigger=schedule`** only labels the log line. Leaving it off still runs
+  the scrape, it just records it as `manual`.
+
+The token is read from the app's own environment, so it is never written into
+the schedule.
+
+### Verifying it and watching the publish time
 
 Every run logs `sourceUpdatedAt`, the timestamp the source prints on its own
-pages. The pages are cached for an hour at the edge, and the tables are not
-necessarily recomputed in the same breath as the map upload, so it is worth
-confirming that the ping really does arrive after the tables refresh:
+pages — which is the number that says whether the schedule is landing in the
+right place:
 
 ```sql
 select site, day, max("sourceUpdatedAt") as published, max("scrapedAt") as scraped
 from elmeteo_forecasts group by site, day order by site, day;
 ```
 
-If `sourceUpdatedAt` repeatedly lags a run — the same value two runs running —
-the scrape is landing before the source republishes. The fix is a short delay
-before `refreshForecasts("report")`, not a return to a fixed schedule: the ping
-is still the best signal available, it just needs a margin.
+`published` should advance by one publish between consecutive runs. If it
+repeats — the same value two runs running — the scrape is arriving before the
+source republishes, or is being served a cached page; widen the margin by
+pushing the cron later rather than by adding a second run.
+
+There is also the manual trigger, for a backfill or for checking a deploy
+without waiting for the next slot:
+
+```bash
+curl -X POST https://<app>/api/elmeteo/forecasts/refresh \
+  -H "Authorization: Bearer $ELMETEO_SCRAPE_TOKEN"
+```
+
+Scheduled and manual runs share one in-process lock, so a manual run during a
+scheduled one does not double the load on the source; the second logs `already
+running, skipped` and returns.
 
 ## Deploying
 
@@ -106,11 +144,10 @@ is still the best signal available, it just needs a margin.
 2. `pnpm db:deploy` to apply `20260917103239_add_elmeteo_forecasts`. The
    migration only creates a table and two indexes, so it is safe to run against
    a live database.
-3. Trigger a run by hand and check the `ElMeteo forecast scrape completed` log
+3. Create the schedule described above.
+4. Trigger a run by hand and check the `ElMeteo forecast scrape completed` log
    line: `tables` should be 18 and `failures` 0.
-4. After the next upload, check the same line appears with `trigger: "report"`.
-
-No cron job to configure: the uploader's ping is the schedule.
+5. After the next slot, check the same line appears with `trigger: "schedule"`.
 
 ## Design notes
 
@@ -150,8 +187,7 @@ and logged with their reason.
 | `lib/elmeteo-scraper.ts` | login, cookie reuse, fetch loop |
 | `store/elmeteo-forecasts.ts` | upserts, reads, retention |
 | `lib/elmeteo-forecast-refresh.ts` | scrape + save + prune, and the run lock |
-| `app/api/elmeteo/route.ts` | uploader report; starts a run |
-| `app/api/elmeteo/forecasts/refresh/route.ts` | token-gated manual trigger |
+| `app/api/elmeteo/forecasts/refresh/route.ts` | token-gated trigger; the only way in |
 | `scripts/scrapeElmeteoForecasts.ts` | manual run |
 | `tests/lib/elmeteo-forecast.test.ts` | parser tests against saved fixtures |
 | `tests/fixtures/elmeteo/*.html` | real pages, saved verbatim |

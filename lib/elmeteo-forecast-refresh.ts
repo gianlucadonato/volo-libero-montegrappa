@@ -6,10 +6,10 @@ import { cleanupForecasts, saveForecast } from "@/store/elmeteo-forecasts";
 /**
  * Scrapes the take-off forecast tables and stores them.
  *
- * Shared by the two things that can start a run: the uploader's report (the
- * normal trigger) and the token-gated HTTP endpoint (manual runs and
- * backfills). Both go through the same lock, so a manual run during an upload
- * cannot double the load on the source.
+ * Reached only through the token-gated HTTP endpoint, which the scheduler pings
+ * after each of the source's two daily publishes and which a human can also
+ * call for a backfill. Both go through the same lock, so a manual run during a
+ * scheduled one cannot double the load on the source.
  *
  * The lock is per-process, which is all that is needed here: the app runs as a
  * single container, and the worst case if that ever changes is one duplicated
@@ -27,14 +27,16 @@ export type RefreshResult =
 			failures: number;
 			/**
 			 * The source's own publish time, as printed on the pages. Logged on every
-			 * run so a trigger that keeps arriving before the source republishes
+			 * run so a schedule that keeps firing before the source republishes
 			 * shows up as a `sourceUpdatedAt` that never advances.
 			 */
 			sourceUpdatedAt?: string;
 	  };
 
+export type RefreshTrigger = "schedule" | "manual";
+
 export async function refreshForecasts(
-	trigger: "report" | "manual",
+	trigger: RefreshTrigger,
 ): Promise<RefreshResult> {
 	if (isRunning) {
 		logger.warn(

@@ -2,16 +2,22 @@ import { timingSafeEqual } from "node:crypto";
 import { headers } from "next/headers";
 import { after } from "next/server";
 import { env } from "@/env";
-import { refreshForecasts } from "@/lib/elmeteo-forecast-refresh";
+import {
+	type RefreshTrigger,
+	refreshForecasts,
+} from "@/lib/elmeteo-forecast-refresh";
 import { logger } from "@/lib/logger";
 
 /**
- * Manual trigger for the ElMeteo forecast scrape.
+ * The only trigger for the ElMeteo forecast scrape.
  *
- * The normal trigger is the uploader's report (see `app/api/elmeteo/route.ts`):
- * that is the moment the source has finished recomputing, so there is nothing
- * to schedule. This endpoint stays for backfills and for verifying a deploy
- * without waiting for the next upload.
+ * The source recomputes its take-off tables twice a day and publishes them at
+ * 10:15 and 22:15 Rome time, so a scheduled ping a few minutes later collects
+ * each publish once. See `docs/elmeteo-scraper.md` for the cron to configure.
+ *
+ * The same endpoint serves a human running a backfill or checking a deploy;
+ * `?trigger=schedule` is what tells the two apart in the logs, and nothing else
+ * depends on it. Both share the run lock in `refreshForecasts`.
  *
  * The work runs in `after()` and the route answers 202 immediately: a run takes
  * roughly 40 seconds (18 fetches spaced 2s apart), which is long enough for a
@@ -33,7 +39,7 @@ function isValidToken(token: string) {
  * @auth bearer
  * @response { "message": "string" }
  */
-export const POST = async () => {
+export const POST = async (req: Request) => {
 	if (!env.ELMETEO_SCRAPE_TOKEN) {
 		logger.error("ElMeteo scrape trigger is not configured");
 		return Response.json({ error: "Not configured" }, { status: 503 });
@@ -45,9 +51,15 @@ export const POST = async () => {
 		return Response.json({ error: "Not authenticated" }, { status: 401 });
 	}
 
+	// Anything but the scheduler's own value is a person at a terminal.
+	const trigger: RefreshTrigger =
+		new URL(req.url).searchParams.get("trigger") === "schedule"
+			? "schedule"
+			: "manual";
+
 	after(async () => {
 		try {
-			await refreshForecasts("manual");
+			await refreshForecasts(trigger);
 		} catch (error) {
 			logger.error(
 				{ reason: error instanceof Error ? error.message : String(error) },
