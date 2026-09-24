@@ -349,19 +349,24 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 	const icon = weatherIconName(hour);
 
 	return (
-		<span className="inline-flex items-center gap-2 leading-tight">
+		// Stacked: the glyph reads at a glance down the column, and the three
+		// figures keep their own line underneath rather than being squeezed
+		// beside it.
+		<span className="inline-flex flex-col items-center gap-1 leading-tight">
 			{icon !== null && (
-				// Decorative: the figures beside it carry the reading, and the
+				// Decorative: the figures below it carry the reading, and the
 				// glyph's own vocabulary is the source's, not a label a pilot needs
 				// read out. An unmapped name renders nothing rather than a gap.
-				// biome-ignore lint/performance/noImgElement: a ~1.5 kB static SVG from the public assets; next/image's optimizer has nothing to do to it
+				// The animation is CSS keyframes inside the SVG, which run in an
+				// `img` without the file being inlined into the bundle.
+				// biome-ignore lint/performance/noImgElement: a ~5 kB animated SVG from the public assets; next/image cannot optimise an SVG and would strip nothing useful
 				<img
 					src={`/weather-icons/${icon}.svg`}
 					alt=""
 					aria-hidden
-					width={28}
-					height={28}
-					className="size-7 shrink-0"
+					width={44}
+					height={44}
+					className="size-11 shrink-0"
 				/>
 			)}
 			<span className="inline-flex gap-1.5">
@@ -550,7 +555,7 @@ function RiskCell({ hour }: { hour: ForecastHourView }) {
 	// and the width goes to the note when there is one.
 	const cell = (
 		<>
-			<Icon className="size-3.5 shrink-0" />
+			<Icon className="size-5 shrink-0" />
 			<span className="sr-only">{level}</span>
 			{note && <span className="hidden sm:inline">{note}</span>}
 		</>
