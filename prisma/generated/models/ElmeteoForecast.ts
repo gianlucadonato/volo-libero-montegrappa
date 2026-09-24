@@ -37,10 +37,12 @@ export type ElmeteoForecastAvgAggregateOutputType = {
   cloudsLow: number | null
   temperatureC: number | null
   precipitationMm: number | null
+  maxFlightMinM: number | null
+  maxFlightMaxM: number | null
   cloudBaseMinM: number | null
   cloudBaseMaxM: number | null
   thermalUpdraftsM: number | null
-  stableLayerM: number | null
+  reachableUpdraftsM: number | null
   altitudeM: number | null
   maxDailyCloudBaseM: number | null
 }
@@ -52,10 +54,12 @@ export type ElmeteoForecastSumAggregateOutputType = {
   cloudsLow: number | null
   temperatureC: number | null
   precipitationMm: number | null
+  maxFlightMinM: number | null
+  maxFlightMaxM: number | null
   cloudBaseMinM: number | null
   cloudBaseMaxM: number | null
   thermalUpdraftsM: number[]
-  stableLayerM: number | null
+  reachableUpdraftsM: number[]
   altitudeM: number | null
   maxDailyCloudBaseM: number | null
 }
@@ -68,13 +72,16 @@ export type ElmeteoForecastMinAggregateOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  riskLevel: string | null
   risk: string | null
   temperatureC: number | null
   precipitationMm: number | null
   maxFlightAltitude: string | null
+  maxFlightMinM: number | null
+  maxFlightMaxM: number | null
   cloudBaseMinM: number | null
   cloudBaseMaxM: number | null
-  stableLayerM: number | null
+  cloudBaseBelowTakeOff: boolean | null
   altitudeM: number | null
   maxDailyCloudBaseM: number | null
   sourceUpdatedAt: Date | null
@@ -91,13 +98,16 @@ export type ElmeteoForecastMaxAggregateOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  riskLevel: string | null
   risk: string | null
   temperatureC: number | null
   precipitationMm: number | null
   maxFlightAltitude: string | null
+  maxFlightMinM: number | null
+  maxFlightMaxM: number | null
   cloudBaseMinM: number | null
   cloudBaseMaxM: number | null
-  stableLayerM: number | null
+  cloudBaseBelowTakeOff: boolean | null
   altitudeM: number | null
   maxDailyCloudBaseM: number | null
   sourceUpdatedAt: Date | null
@@ -114,14 +124,19 @@ export type ElmeteoForecastCountAggregateOutputType = {
   cloudsHigh: number
   cloudsMedium: number
   cloudsLow: number
+  riskLevel: number
   risk: number
   temperatureC: number
   precipitationMm: number
   maxFlightAltitude: number
+  maxFlightMinM: number
+  maxFlightMaxM: number
   cloudBaseMinM: number
   cloudBaseMaxM: number
+  cloudBaseBelowTakeOff: number
   thermalUpdraftsM: number
-  stableLayerM: number
+  reachableUpdraftsM: number
+  stableLayers: number
   winds: number
   altitudeM: number
   maxDailyCloudBaseM: number
@@ -140,10 +155,12 @@ export type ElmeteoForecastAvgAggregateInputType = {
   cloudsLow?: true
   temperatureC?: true
   precipitationMm?: true
+  maxFlightMinM?: true
+  maxFlightMaxM?: true
   cloudBaseMinM?: true
   cloudBaseMaxM?: true
   thermalUpdraftsM?: true
-  stableLayerM?: true
+  reachableUpdraftsM?: true
   altitudeM?: true
   maxDailyCloudBaseM?: true
 }
@@ -155,10 +172,12 @@ export type ElmeteoForecastSumAggregateInputType = {
   cloudsLow?: true
   temperatureC?: true
   precipitationMm?: true
+  maxFlightMinM?: true
+  maxFlightMaxM?: true
   cloudBaseMinM?: true
   cloudBaseMaxM?: true
   thermalUpdraftsM?: true
-  stableLayerM?: true
+  reachableUpdraftsM?: true
   altitudeM?: true
   maxDailyCloudBaseM?: true
 }
@@ -171,13 +190,16 @@ export type ElmeteoForecastMinAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  riskLevel?: true
   risk?: true
   temperatureC?: true
   precipitationMm?: true
   maxFlightAltitude?: true
+  maxFlightMinM?: true
+  maxFlightMaxM?: true
   cloudBaseMinM?: true
   cloudBaseMaxM?: true
-  stableLayerM?: true
+  cloudBaseBelowTakeOff?: true
   altitudeM?: true
   maxDailyCloudBaseM?: true
   sourceUpdatedAt?: true
@@ -194,13 +216,16 @@ export type ElmeteoForecastMaxAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  riskLevel?: true
   risk?: true
   temperatureC?: true
   precipitationMm?: true
   maxFlightAltitude?: true
+  maxFlightMinM?: true
+  maxFlightMaxM?: true
   cloudBaseMinM?: true
   cloudBaseMaxM?: true
-  stableLayerM?: true
+  cloudBaseBelowTakeOff?: true
   altitudeM?: true
   maxDailyCloudBaseM?: true
   sourceUpdatedAt?: true
@@ -217,14 +242,19 @@ export type ElmeteoForecastCountAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  riskLevel?: true
   risk?: true
   temperatureC?: true
   precipitationMm?: true
   maxFlightAltitude?: true
+  maxFlightMinM?: true
+  maxFlightMaxM?: true
   cloudBaseMinM?: true
   cloudBaseMaxM?: true
+  cloudBaseBelowTakeOff?: true
   thermalUpdraftsM?: true
-  stableLayerM?: true
+  reachableUpdraftsM?: true
+  stableLayers?: true
   winds?: true
   altitudeM?: true
   maxDailyCloudBaseM?: true
@@ -329,14 +359,19 @@ export type ElmeteoForecastGroupByOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  riskLevel: string | null
   risk: string | null
   temperatureC: number | null
   precipitationMm: number | null
   maxFlightAltitude: string | null
+  maxFlightMinM: number | null
+  maxFlightMaxM: number | null
   cloudBaseMinM: number | null
   cloudBaseMaxM: number | null
+  cloudBaseBelowTakeOff: boolean
   thermalUpdraftsM: number[]
-  stableLayerM: number | null
+  reachableUpdraftsM: number[]
+  stableLayers: runtime.JsonValue
   winds: runtime.JsonValue
   altitudeM: number | null
   maxDailyCloudBaseM: number | null
@@ -377,14 +412,19 @@ export type ElmeteoForecastWhereInput = {
   cloudsHigh?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  riskLevel?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
   precipitationMm?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
   maxFlightAltitude?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
+  maxFlightMinM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  maxFlightMaxM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudBaseMinM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudBaseMaxM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFilter<"ElmeteoForecast"> | boolean
   thermalUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
-  stableLayerM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  reachableUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
+  stableLayers?: Prisma.JsonFilter<"ElmeteoForecast">
   winds?: Prisma.JsonFilter<"ElmeteoForecast">
   altitudeM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   maxDailyCloudBaseM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
@@ -402,14 +442,19 @@ export type ElmeteoForecastOrderByWithRelationInput = {
   cloudsHigh?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsLow?: Prisma.SortOrderInput | Prisma.SortOrder
+  riskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   risk?: Prisma.SortOrderInput | Prisma.SortOrder
   temperatureC?: Prisma.SortOrderInput | Prisma.SortOrder
   precipitationMm?: Prisma.SortOrderInput | Prisma.SortOrder
   maxFlightAltitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrderInput | Prisma.SortOrder
+  cloudBaseBelowTakeOff?: Prisma.SortOrder
   thermalUpdraftsM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrderInput | Prisma.SortOrder
+  reachableUpdraftsM?: Prisma.SortOrder
+  stableLayers?: Prisma.SortOrder
   winds?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrderInput | Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -431,14 +476,19 @@ export type ElmeteoForecastWhereUniqueInput = Prisma.AtLeast<{
   cloudsHigh?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  riskLevel?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
   precipitationMm?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
   maxFlightAltitude?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
+  maxFlightMinM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  maxFlightMaxM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudBaseMinM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudBaseMaxM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFilter<"ElmeteoForecast"> | boolean
   thermalUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
-  stableLayerM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  reachableUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
+  stableLayers?: Prisma.JsonFilter<"ElmeteoForecast">
   winds?: Prisma.JsonFilter<"ElmeteoForecast">
   altitudeM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   maxDailyCloudBaseM?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
@@ -456,14 +506,19 @@ export type ElmeteoForecastOrderByWithAggregationInput = {
   cloudsHigh?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsLow?: Prisma.SortOrderInput | Prisma.SortOrder
+  riskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   risk?: Prisma.SortOrderInput | Prisma.SortOrder
   temperatureC?: Prisma.SortOrderInput | Prisma.SortOrder
   precipitationMm?: Prisma.SortOrderInput | Prisma.SortOrder
   maxFlightAltitude?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrderInput | Prisma.SortOrder
+  cloudBaseBelowTakeOff?: Prisma.SortOrder
   thermalUpdraftsM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrderInput | Prisma.SortOrder
+  reachableUpdraftsM?: Prisma.SortOrder
+  stableLayers?: Prisma.SortOrder
   winds?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrderInput | Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -489,14 +544,19 @@ export type ElmeteoForecastScalarWhereWithAggregatesInput = {
   cloudsHigh?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
+  riskLevel?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   precipitationMm?: Prisma.FloatNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   maxFlightAltitude?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
+  maxFlightMinM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
+  maxFlightMaxM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudBaseMinM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudBaseMaxM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolWithAggregatesFilter<"ElmeteoForecast"> | boolean
   thermalUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
-  stableLayerM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
+  reachableUpdraftsM?: Prisma.IntNullableListFilter<"ElmeteoForecast">
+  stableLayers?: Prisma.JsonWithAggregatesFilter<"ElmeteoForecast">
   winds?: Prisma.JsonWithAggregatesFilter<"ElmeteoForecast">
   altitudeM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   maxDailyCloudBaseM?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
@@ -514,14 +574,19 @@ export type ElmeteoForecastCreateInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
   precipitationMm?: number | null
   maxFlightAltitude?: string | null
+  maxFlightMinM?: number | null
+  maxFlightMaxM?: number | null
   cloudBaseMinM?: number | null
   cloudBaseMaxM?: number | null
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastCreatethermalUpdraftsMInput | number[]
-  stableLayerM?: number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastCreatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: number | null
   maxDailyCloudBaseM?: number | null
@@ -539,14 +604,19 @@ export type ElmeteoForecastUncheckedCreateInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
   precipitationMm?: number | null
   maxFlightAltitude?: string | null
+  maxFlightMinM?: number | null
+  maxFlightMaxM?: number | null
   cloudBaseMinM?: number | null
   cloudBaseMaxM?: number | null
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastCreatethermalUpdraftsMInput | number[]
-  stableLayerM?: number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastCreatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: number | null
   maxDailyCloudBaseM?: number | null
@@ -564,14 +634,19 @@ export type ElmeteoForecastUpdateInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   precipitationMm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxFlightAltitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxFlightMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxFlightMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastUpdatethermalUpdraftsMInput | number[]
-  stableLayerM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastUpdatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxDailyCloudBaseM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -589,14 +664,19 @@ export type ElmeteoForecastUncheckedUpdateInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   precipitationMm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxFlightAltitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxFlightMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxFlightMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastUpdatethermalUpdraftsMInput | number[]
-  stableLayerM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastUpdatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxDailyCloudBaseM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -614,14 +694,19 @@ export type ElmeteoForecastCreateManyInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
   precipitationMm?: number | null
   maxFlightAltitude?: string | null
+  maxFlightMinM?: number | null
+  maxFlightMaxM?: number | null
   cloudBaseMinM?: number | null
   cloudBaseMaxM?: number | null
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastCreatethermalUpdraftsMInput | number[]
-  stableLayerM?: number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastCreatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: number | null
   maxDailyCloudBaseM?: number | null
@@ -639,14 +724,19 @@ export type ElmeteoForecastUpdateManyMutationInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   precipitationMm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxFlightAltitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxFlightMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxFlightMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastUpdatethermalUpdraftsMInput | number[]
-  stableLayerM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastUpdatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxDailyCloudBaseM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -664,14 +754,19 @@ export type ElmeteoForecastUncheckedUpdateManyInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   precipitationMm?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   maxFlightAltitude?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  maxFlightMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  maxFlightMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMinM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudBaseMaxM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cloudBaseBelowTakeOff?: Prisma.BoolFieldUpdateOperationsInput | boolean
   thermalUpdraftsM?: Prisma.ElmeteoForecastUpdatethermalUpdraftsMInput | number[]
-  stableLayerM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  reachableUpdraftsM?: Prisma.ElmeteoForecastUpdatereachableUpdraftsMInput | number[]
+  stableLayers?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   winds?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   altitudeM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   maxDailyCloudBaseM?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -703,14 +798,19 @@ export type ElmeteoForecastCountOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
   precipitationMm?: Prisma.SortOrder
   maxFlightAltitude?: Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrder
+  cloudBaseBelowTakeOff?: Prisma.SortOrder
   thermalUpdraftsM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrder
+  reachableUpdraftsM?: Prisma.SortOrder
+  stableLayers?: Prisma.SortOrder
   winds?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrder
@@ -727,10 +827,12 @@ export type ElmeteoForecastAvgOrderByAggregateInput = {
   cloudsLow?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
   precipitationMm?: Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrder
   thermalUpdraftsM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrder
+  reachableUpdraftsM?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrder
 }
@@ -743,13 +845,16 @@ export type ElmeteoForecastMaxOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
   precipitationMm?: Prisma.SortOrder
   maxFlightAltitude?: Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrder
+  cloudBaseBelowTakeOff?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrder
   sourceUpdatedAt?: Prisma.SortOrder
@@ -766,13 +871,16 @@ export type ElmeteoForecastMinOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
   precipitationMm?: Prisma.SortOrder
   maxFlightAltitude?: Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrder
+  cloudBaseBelowTakeOff?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrder
   sourceUpdatedAt?: Prisma.SortOrder
@@ -788,10 +896,12 @@ export type ElmeteoForecastSumOrderByAggregateInput = {
   cloudsLow?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
   precipitationMm?: Prisma.SortOrder
+  maxFlightMinM?: Prisma.SortOrder
+  maxFlightMaxM?: Prisma.SortOrder
   cloudBaseMinM?: Prisma.SortOrder
   cloudBaseMaxM?: Prisma.SortOrder
   thermalUpdraftsM?: Prisma.SortOrder
-  stableLayerM?: Prisma.SortOrder
+  reachableUpdraftsM?: Prisma.SortOrder
   altitudeM?: Prisma.SortOrder
   maxDailyCloudBaseM?: Prisma.SortOrder
 }
@@ -800,7 +910,16 @@ export type ElmeteoForecastCreatethermalUpdraftsMInput = {
   set: number[]
 }
 
+export type ElmeteoForecastCreatereachableUpdraftsMInput = {
+  set: number[]
+}
+
 export type ElmeteoForecastUpdatethermalUpdraftsMInput = {
+  set?: number[]
+  push?: number | number[]
+}
+
+export type ElmeteoForecastUpdatereachableUpdraftsMInput = {
   set?: number[]
   push?: number | number[]
 }
@@ -815,14 +934,19 @@ export type ElmeteoForecastSelect<ExtArgs extends runtime.Types.Extensions.Inter
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
   precipitationMm?: boolean
   maxFlightAltitude?: boolean
+  maxFlightMinM?: boolean
+  maxFlightMaxM?: boolean
   cloudBaseMinM?: boolean
   cloudBaseMaxM?: boolean
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: boolean
-  stableLayerM?: boolean
+  reachableUpdraftsM?: boolean
+  stableLayers?: boolean
   winds?: boolean
   altitudeM?: boolean
   maxDailyCloudBaseM?: boolean
@@ -840,14 +964,19 @@ export type ElmeteoForecastSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
   precipitationMm?: boolean
   maxFlightAltitude?: boolean
+  maxFlightMinM?: boolean
+  maxFlightMaxM?: boolean
   cloudBaseMinM?: boolean
   cloudBaseMaxM?: boolean
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: boolean
-  stableLayerM?: boolean
+  reachableUpdraftsM?: boolean
+  stableLayers?: boolean
   winds?: boolean
   altitudeM?: boolean
   maxDailyCloudBaseM?: boolean
@@ -865,14 +994,19 @@ export type ElmeteoForecastSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
   precipitationMm?: boolean
   maxFlightAltitude?: boolean
+  maxFlightMinM?: boolean
+  maxFlightMaxM?: boolean
   cloudBaseMinM?: boolean
   cloudBaseMaxM?: boolean
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: boolean
-  stableLayerM?: boolean
+  reachableUpdraftsM?: boolean
+  stableLayers?: boolean
   winds?: boolean
   altitudeM?: boolean
   maxDailyCloudBaseM?: boolean
@@ -890,14 +1024,19 @@ export type ElmeteoForecastSelectScalar = {
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
   precipitationMm?: boolean
   maxFlightAltitude?: boolean
+  maxFlightMinM?: boolean
+  maxFlightMaxM?: boolean
   cloudBaseMinM?: boolean
   cloudBaseMaxM?: boolean
+  cloudBaseBelowTakeOff?: boolean
   thermalUpdraftsM?: boolean
-  stableLayerM?: boolean
+  reachableUpdraftsM?: boolean
+  stableLayers?: boolean
   winds?: boolean
   altitudeM?: boolean
   maxDailyCloudBaseM?: boolean
@@ -907,7 +1046,7 @@ export type ElmeteoForecastSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ElmeteoForecastOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "site" | "day" | "hour" | "cloudsHigh" | "cloudsMedium" | "cloudsLow" | "risk" | "temperatureC" | "precipitationMm" | "maxFlightAltitude" | "cloudBaseMinM" | "cloudBaseMaxM" | "thermalUpdraftsM" | "stableLayerM" | "winds" | "altitudeM" | "maxDailyCloudBaseM" | "sourceUpdatedAt" | "scrapedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["elmeteoForecast"]>
+export type ElmeteoForecastOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "site" | "day" | "hour" | "cloudsHigh" | "cloudsMedium" | "cloudsLow" | "riskLevel" | "risk" | "temperatureC" | "precipitationMm" | "maxFlightAltitude" | "maxFlightMinM" | "maxFlightMaxM" | "cloudBaseMinM" | "cloudBaseMaxM" | "cloudBaseBelowTakeOff" | "thermalUpdraftsM" | "reachableUpdraftsM" | "stableLayers" | "winds" | "altitudeM" | "maxDailyCloudBaseM" | "sourceUpdatedAt" | "scrapedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["elmeteoForecast"]>
 
 export type $ElmeteoForecastPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ElmeteoForecast"
@@ -929,17 +1068,36 @@ export type $ElmeteoForecastPayload<ExtArgs extends runtime.Types.Extensions.Int
     cloudsHigh: number | null
     cloudsMedium: number | null
     cloudsLow: number | null
+    /**
+     * "low" | "medium" | "high", from the icon the source grades the hour with.
+     */
+    riskLevel: string | null
     risk: string | null
     temperatureC: number | null
     precipitationMm: number | null
     maxFlightAltitude: string | null
+    maxFlightMinM: number | null
+    maxFlightMaxM: number | null
     cloudBaseMinM: number | null
     cloudBaseMaxM: number | null
+    /**
+     * The source printed "MIN same altitude or lower": no lower bound exists.
+     */
+    cloudBaseBelowTakeOff: boolean
     /**
      * Updraft ceilings in metres, highest first; empty when no thermal activity.
      */
     thermalUpdraftsM: number[]
-    stableLayerM: number | null
+    /**
+     * The subset reachable from take-off — the source prints those in green,
+     * and the ones above the inversion in red. A pilot can only climb to these.
+     */
+    reachableUpdraftsM: number[]
+    /**
+     * Inversion bands as [{ fromM, toM }], in source order. JSON because an
+     * hour can carry two of them and Prisma has no array-of-pairs scalar.
+     */
+    stableLayers: runtime.JsonValue
     /**
      * Wind readings per altitude, as [{ label, direction, speedKmh, gustKmh }].
      * Stored as JSON because the set of altitude columns differs per site.
@@ -1393,14 +1551,19 @@ export interface ElmeteoForecastFieldRefs {
   readonly cloudsHigh: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudsMedium: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudsLow: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
+  readonly riskLevel: Prisma.FieldRef<"ElmeteoForecast", 'String'>
   readonly risk: Prisma.FieldRef<"ElmeteoForecast", 'String'>
   readonly temperatureC: Prisma.FieldRef<"ElmeteoForecast", 'Float'>
   readonly precipitationMm: Prisma.FieldRef<"ElmeteoForecast", 'Float'>
   readonly maxFlightAltitude: Prisma.FieldRef<"ElmeteoForecast", 'String'>
+  readonly maxFlightMinM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
+  readonly maxFlightMaxM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudBaseMinM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudBaseMaxM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
+  readonly cloudBaseBelowTakeOff: Prisma.FieldRef<"ElmeteoForecast", 'Boolean'>
   readonly thermalUpdraftsM: Prisma.FieldRef<"ElmeteoForecast", 'Int[]'>
-  readonly stableLayerM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
+  readonly reachableUpdraftsM: Prisma.FieldRef<"ElmeteoForecast", 'Int[]'>
+  readonly stableLayers: Prisma.FieldRef<"ElmeteoForecast", 'Json'>
   readonly winds: Prisma.FieldRef<"ElmeteoForecast", 'Json'>
   readonly altitudeM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly maxDailyCloudBaseM: Prisma.FieldRef<"ElmeteoForecast", 'Int'>

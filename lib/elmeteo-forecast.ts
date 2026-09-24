@@ -25,6 +25,19 @@ import * as cheerio from "cheerio";
  * fetching lives in lib/elmeteo-scraper.ts.
  */
 
+/**
+ * How serious the source considers the hour, read from the icon it prints.
+ *
+ * The icon carries the level on its own; the text beside it is a note that is
+ * only printed for some of the medium and high hours, and is empty on every
+ * low one. Reading the text alone therefore lost the whole column on a calm
+ * day — see `parseRisk`.
+ */
+export type ElmeteoRiskLevel = "low" | "medium" | "high";
+
+/** One inversion band: stable air between two altitudes. */
+export type ElmeteoStableLayer = { fromM: number; toM: number };
+
 /** A wind reading: direction, mean speed and, when published, the gust. */
 export type ElmeteoWind = {
 	/** Header label the column was published under, e.g. "Wind 10m". */
@@ -44,17 +57,31 @@ export type ElmeteoForecastHour = {
 	cloudsHigh?: number;
 	cloudsMedium?: number;
 	cloudsLow?: number;
+	/** Risk level from the icon. Published on every row of every site. */
+	riskLevel?: ElmeteoRiskLevel;
 	/** Risk note, e.g. "thunderstorm not ruled out". Empty when low risk. */
 	risk?: string;
 	temperatureC?: number;
 	precipitationMm?: number;
 	/** Verbatim flight-altitude text, e.g. "BETWEEN 991m AND 1280m". */
 	maxFlightAltitude?: string;
+	/** The same band as numbers: how high a pilot can climb from take-off. */
+	maxFlightMinM?: number;
+	maxFlightMaxM?: number;
 	cloudBaseMinM?: number;
 	cloudBaseMaxM?: number;
-	/** Updraft ceilings in metres, highest first. Empty when no thermals. */
+	/**
+	 * The source printed "MIN same altitude or lower": the base can sit at or
+	 * under take-off, so there is no lower bound to publish. Distinct from a
+	 * missing `cloudBaseMinM`, which means the source published nothing at all.
+	 */
+	cloudBaseBelowTakeOff?: boolean;
+	/** Every updraft ceiling in metres, highest first, reachable or not. */
 	thermalUpdraftsM: number[];
-	stableLayerM?: number;
+	/** The subset a pilot can actually climb to — see `parseUpdrafts`. */
+	reachableUpdraftsM: number[];
+	/** Inversion bands, in source order. Empty when the source printed none. */
+	stableLayers: ElmeteoStableLayer[];
 	winds: ElmeteoWind[];
 };
 
@@ -154,24 +181,116 @@ function parseClouds(value: string) {
 	};
 }
 
-/** "MIN 950m ... MAX 1250m" -> the two bounds, either of which may be absent. */
+/**
+ * "MIN 950m ... MAX 1250m" -> the two bounds, either of which may be absent.
+ *
+ * On a low day the source prints "MIN same altitude or lower" in place of a
+ * figure: the cloud base can sit at or below take-off, so there is no lower
+ * bound to give. That is the most flight-critical reading the cell has, and
+ * reading only the numbers turned it into a bare "1075 m" — indistinguishable
+ * from a comfortable ceiling.
+ */
 function parseCloudBase(value: string) {
 	const min = /MIN\s*(\d+)\s*m/i.exec(value);
 	const max = /MAX\s*(\d+)\s*m/i.exec(value);
 	return {
 		cloudBaseMinM: min ? Number(min[1]) : undefined,
 		cloudBaseMaxM: max ? Number(max[1]) : undefined,
+		cloudBaseBelowTakeOff: /MIN\s*same altitude or lower/i.test(value)
+			? true
+			: undefined,
 	};
 }
 
 /**
- * "AT 2297m, AT 2032m, ..." -> [2297, 2032, ...].
- * "No Thermal Activity" yields an empty list.
+ * Risk level, from the icon rather than from the text beside it.
+ *
+ * The source grades every hour with `1en.png` / `2en.png` / `3en.png`, and adds
+ * a note only on some of the graded ones — "thunderstorm not ruled out",
+ * "possible moderate wind on free atmosphere". Every low hour's note is empty,
+ * so reading the text alone reported "no risk data" for a whole calm day and
+ * the column was dropped, while the source showed a green LOW on every row.
  */
-function parseUpdrafts(value: string) {
-	return Array.from(value.matchAll(/AT\s*(\d+)\s*m/gi), (match) =>
-		Number(match[1]),
+const riskLevels: Record<string, ElmeteoRiskLevel> = {
+	"1": "low",
+	"2": "medium",
+	"3": "high",
+};
+
+function parseRisk(cell: cheerio.Cheerio<never>) {
+	const source = cell.find("img").attr("src") ?? "";
+	const icon = /([123])en\.png/i.exec(source)?.[1];
+
+	return {
+		riskLevel: icon === undefined ? undefined : riskLevels[icon],
+		risk: text(cell) || undefined,
+	};
+}
+
+/**
+ * Updraft ceilings, split by whether a pilot can actually get to them.
+ *
+ * The source colours each line: green for an updraft that can be reached from
+ * take-off, red for one sitting above the inversion, which a glider cannot
+ * climb through even though the air above it is rising. Reading only the
+ * numbers made the two indistinguishable, and the table then showed the
+ * highest of all of them — typically 2300m on a day whose real ceiling was
+ * 1070m. Verified across all three fixtures plus a live page: the lowest red
+ * equals the "Max Flight Altitude" upper bound and every green sits below it,
+ * on all 17 rows that publish both.
+ *
+ * "No Thermal Activity" yields two empty lists.
+ */
+function parseUpdrafts($: cheerio.CheerioAPI, cell: cheerio.Cheerio<never>) {
+	const thermalUpdraftsM: number[] = [];
+	const reachableUpdraftsM: number[] = [];
+
+	cell.find("small").each((_, element) => {
+		const line = $(element);
+		const metres = /AT\s*(\d+)\s*m/i.exec(line.text());
+		if (!metres) return;
+
+		thermalUpdraftsM.push(Number(metres[1]));
+		if (/color:\s*green/i.test(line.attr("style") ?? "")) {
+			reachableUpdraftsM.push(Number(metres[1]));
+		}
+	});
+
+	// A layout without the per-line colouring still yields the altitudes, so the
+	// thermals column keeps working; nothing is claimed to be reachable.
+	if (thermalUpdraftsM.length === 0) {
+		thermalUpdraftsM.push(
+			...Array.from(text(cell).matchAll(/AT\s*(\d+)\s*m/gi), (match) =>
+				Number(match[1]),
+			),
+		);
+	}
+
+	return { thermalUpdraftsM, reachableUpdraftsM };
+}
+
+/**
+ * "*BETWEEN 1548m AND 1795m, *BETWEEN 2049m AND 2312m," -> both bands.
+ *
+ * The cell holds one or two inversion bands, and the old parser kept only the
+ * first number of the first one — so 1548 stood in for a layer running to
+ * 2312m, and the second band vanished entirely. The asterisk marks the bands
+ * that block the updrafts above them and carries no extra information here.
+ */
+function parseStableLayers(value: string): ElmeteoStableLayer[] {
+	return Array.from(
+		value.matchAll(/BETWEEN\s*(\d+)\s*m\s*AND\s*(\d+)\s*m/gi),
+		(match) => ({ fromM: Number(match[1]), toM: Number(match[2]) }),
 	);
+}
+
+/** "BETWEEN 991m AND 1280m" -> the two bounds. */
+function parseMaxFlight(value: string) {
+	const match = /BETWEEN\s*(\d+)\s*m\s*AND\s*(\d+)\s*m/i.exec(value);
+	return {
+		maxFlightMinM: match ? Number(match[1]) : undefined,
+		maxFlightMaxM: match ? Number(match[2]) : undefined,
+	};
 }
 
 /**
@@ -213,12 +332,12 @@ export function parseForecastTable(html: string): ElmeteoForecastTable {
 	const hours: ElmeteoForecastHour[] = [];
 
 	for (const row of table.find("tr").toArray()) {
-		const cells = $(row)
-			.find("td")
-			.map((_, element) => text($(element) as cheerio.Cheerio<never>))
-			.toArray();
+		const elements = $(row).find("td").toArray();
+		if (elements.length === 0) continue;
 
-		if (cells.length === 0) continue;
+		const cells = elements.map((element) =>
+			text($(element) as cheerio.Cheerio<never>),
+		);
 
 		/** Cell under a named column, or "" when the site omits that column. */
 		const cell = (name: ColumnName) => {
@@ -226,20 +345,35 @@ export function parseForecastTable(html: string): ElmeteoForecastTable {
 			return index === undefined ? "" : (cells[index] ?? "");
 		};
 
+		/**
+		 * The cell itself, for the two columns whose meaning is in the markup
+		 * rather than the text: the risk icon and the updraft colours.
+		 */
+		const node = (name: ColumnName) => {
+			const index = indices[name];
+			const element = index === undefined ? undefined : elements[index];
+			return (
+				element === undefined ? $() : $(element)
+			) as cheerio.Cheerio<never>;
+		};
+
 		const hour = parseHour(cell("time"));
 		// Skips the header and any spacer/footer row without an "until HH:00".
 		if (hour === undefined) continue;
 
+		const maxFlightAltitude = cell("maxFlightAltitude");
+
 		hours.push({
 			hour,
 			...parseClouds(cell("icon")),
-			risk: cell("risk") || undefined,
+			...parseRisk(node("risk")),
 			temperatureC: toNumber(cell("temperature")),
 			precipitationMm: toNumber(cell("precipitation")),
-			maxFlightAltitude: cell("maxFlightAltitude") || undefined,
+			maxFlightAltitude: maxFlightAltitude || undefined,
+			...parseMaxFlight(maxFlightAltitude),
 			...parseCloudBase(cell("cloudBase")),
-			thermalUpdraftsM: parseUpdrafts(cell("thermalUpdraft")),
-			stableLayerM: toNumber(cell("stableLayer")),
+			...parseUpdrafts($, node("thermalUpdraft")),
+			stableLayers: parseStableLayers(cell("stableLayer")),
 			winds: windColumns.map(({ label, index }) =>
 				parseWind(label, cells[index] ?? ""),
 			),
@@ -295,12 +429,56 @@ function parseMaxDailyCloudBase($: cheerio.CheerioAPI, body: string) {
 	return toNumber(/Cloud Base Altitude\s*(\d+(?:[.,]\d+)?)/i.exec(body)?.[1]);
 }
 
-/** "L'ultimo aggiornamento è avvenuto il: September 16 2026 22:15:07." */
+/**
+ * "L'ultimo aggiornamento è avvenuto il: September 16 2026 22:15:07."
+ *
+ * The stamp carries no zone, and reading it as UTC put it two hours in the
+ * future all summer: a page fetched at 11:47 Rome announced it had been
+ * refreshed at 12:15. It is the source's own wall clock — an Italian site
+ * writing an Italian sentence — so it is read in Europe/Rome and stored as the
+ * UTC instant that names.
+ */
 function parseUpdatedAt(body: string) {
 	const match = /aggiornamento[^:]*:\s*([A-Za-z]+ \d{1,2} \d{4} [\d:]+)/i.exec(
 		body,
 	);
 	if (!match) return undefined;
 	const parsed = new Date(`${match[1]} UTC`);
-	return Number.isNaN(parsed.getTime()) ? undefined : parsed;
+	if (Number.isNaN(parsed.getTime())) return undefined;
+	return new Date(parsed.getTime() - romeOffsetMs(parsed));
+}
+
+/**
+ * Europe/Rome's offset from UTC at a given instant, in milliseconds.
+ *
+ * Derived from `Intl` rather than hardcoded, so the +1/+2 switch at the end of
+ * October is handled without a DST table of our own. Reading the parsed stamp
+ * as if it were UTC and subtracting the offset *at that stamp* is accurate
+ * outside the one ambiguous hour each autumn, which no forecast depends on.
+ */
+function romeOffsetMs(at: Date) {
+	const parts = new Intl.DateTimeFormat("en-US", {
+		timeZone: "Europe/Rome",
+		hourCycle: "h23",
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+	}).formatToParts(at);
+
+	const value = (type: Intl.DateTimeFormatPartTypes) =>
+		Number(parts.find((part) => part.type === type)?.value);
+
+	const asUtc = Date.UTC(
+		value("year"),
+		value("month") - 1,
+		value("day"),
+		value("hour"),
+		value("minute"),
+		value("second"),
+	);
+
+	return asUtc - at.getTime();
 }

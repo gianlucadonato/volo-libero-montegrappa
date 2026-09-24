@@ -1,5 +1,6 @@
 import type {
 	ForecastHourView,
+	ForecastStableLayer,
 	ForecastTableView,
 	ForecastWind,
 } from "@/lib/elmeteo-forecast-view";
@@ -55,14 +56,20 @@ export default async function getElmeteoForecasts() {
 			cloudsHigh: row.cloudsHigh,
 			cloudsMedium: row.cloudsMedium,
 			cloudsLow: row.cloudsLow,
+			riskLevel: (row.riskLevel ?? null) as ForecastHourView["riskLevel"],
 			risk: row.risk,
 			temperatureC: row.temperatureC,
 			precipitationMm: row.precipitationMm,
 			maxFlightAltitude: row.maxFlightAltitude,
+			maxFlightMinM: row.maxFlightMinM,
+			maxFlightMaxM: row.maxFlightMaxM,
 			cloudBaseMinM: row.cloudBaseMinM,
 			cloudBaseMaxM: row.cloudBaseMaxM,
+			cloudBaseBelowTakeOff: row.cloudBaseBelowTakeOff,
 			thermalUpdraftsM: row.thermalUpdraftsM,
-			stableLayerM: row.stableLayerM,
+			reachableUpdraftsM: row.reachableUpdraftsM,
+			// Like `winds`, a JSON column whose shape is the scraper's own.
+			stableLayers: (row.stableLayers ?? []) as ForecastStableLayer[],
 			winds,
 		};
 

@@ -399,38 +399,49 @@ model XcProgress {
 /// in place: the source republishes a corrected forecast about four times a
 /// day, and only the latest reading for an hour is of interest.
 model ElmeteoForecast {
-  id                 String   @id @default(cuid())
+  id                    String    @id @default(cuid())
   /// Site slug from lib/elmeteo-sites.ts, e.g. "tappeti".
-  site               String
+  site                  String
   /// Forecast day as YYYY-MM-DD in Europe/Rome, the source's own timezone.
-  day                String
+  day                   String
   /// Hour the row is valid until, 0-23.
-  hour               Int
-  cloudsHigh         Int?
-  cloudsMedium       Int?
-  cloudsLow          Int?
-  risk               String?
-  temperatureC       Float?
-  precipitationMm    Float?
-  maxFlightAltitude  String?
-  cloudBaseMinM      Int?
-  cloudBaseMaxM      Int?
+  hour                  Int
+  cloudsHigh            Int?
+  cloudsMedium          Int?
+  cloudsLow             Int?
+  /// "low" | "medium" | "high", from the icon the source grades the hour with.
+  riskLevel             String?
+  risk                  String?
+  temperatureC          Float?
+  precipitationMm       Float?
+  maxFlightAltitude     String?
+  maxFlightMinM         Int?
+  maxFlightMaxM         Int?
+  cloudBaseMinM         Int?
+  cloudBaseMaxM         Int?
+  /// The source printed "MIN same altitude or lower": no lower bound exists.
+  cloudBaseBelowTakeOff Boolean   @default(false)
   /// Updraft ceilings in metres, highest first; empty when no thermal activity.
-  thermalUpdraftsM   Int[]
-  stableLayerM       Int?
+  thermalUpdraftsM      Int[]
+  /// The subset reachable from take-off — the source prints those in green,
+  /// and the ones above the inversion in red. A pilot can only climb to these.
+  reachableUpdraftsM    Int[]
+  /// Inversion bands as [{ fromM, toM }], in source order. JSON because an
+  /// hour can carry two of them and Prisma has no array-of-pairs scalar.
+  stableLayers          Json      @default("[]")
   /// Wind readings per altitude, as [{ label, direction, speedKmh, gustKmh }].
   /// Stored as JSON because the set of altitude columns differs per site.
-  winds              Json
+  winds                 Json
   /// Take-off altitude printed on the page, in metres.
-  altitudeM          Int?
+  altitudeM             Int?
   /// "Maximum Daily Cloud Base Altitude" for the day.
-  maxDailyCloudBaseM Int?
+  maxDailyCloudBaseM    Int?
   /// When the source last refreshed its model, as printed on the page.
-  sourceUpdatedAt    DateTime?
+  sourceUpdatedAt       DateTime?
   /// When this row was last written by the scraper.
-  scrapedAt          DateTime @default(now())
-  createdAt          DateTime @default(now()) @map(name: "created_at")
-  updatedAt          DateTime @updatedAt @map(name: "updated_at")
+  scrapedAt             DateTime  @default(now())
+  createdAt             DateTime  @default(now()) @map(name: "created_at")
+  updatedAt             DateTime  @updatedAt @map(name: "updated_at")
 
   @@unique([site, day, hour])
   @@index([site, day])

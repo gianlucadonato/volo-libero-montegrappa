@@ -15,6 +15,10 @@ const borso = fixture("borso-public.html");
 // Saved from https://www.elmeteo.it/tappeti.php? behind the login (13 columns:
 // Wind 1000m but no Wind 500m). The login-only pages are a third column set.
 const tappeti = fixture("tappeti-authenticated.html");
+// Saved from https://www.elmeteo.it/tappeti.php?day=2026-09-24 behind the login,
+// on a thermic day: the only fixture carrying inversion bands, a coloured
+// updraft list, a max-flight band and a cloud base that drops to take-off.
+const thermals = fixture("tappeti-thermals.html");
 
 describe("parseForecastTable", () => {
 	it("reads every hourly row of the table", () => {
@@ -110,7 +114,10 @@ describe("parseForecastTable", () => {
 
 	/**
 	 * "MIN same altitude or lower" carries no number, so only the MAX bound is
-	 * read: the MIN must stay undefined rather than pick up the 1700.
+	 * read: the MIN must stay undefined rather than pick up the 1700. It is not a
+	 * missing reading either — the base can sit at or below take-off, which is
+	 * the one thing in this column a pilot must not read as a ceiling — so the
+	 * wording is kept as a flag of its own.
 	 */
 	it("parses the cloud base bounds, tolerating a textual MIN", () => {
 		const midday = parseForecastTable(panettone).hours.find(
@@ -118,6 +125,15 @@ describe("parseForecastTable", () => {
 		);
 		expect(midday?.cloudBaseMinM).toBeUndefined();
 		expect(midday?.cloudBaseMaxM).toBe(1700);
+		expect(midday?.cloudBaseBelowTakeOff).toBe(true);
+	});
+
+	it("leaves the flag off for an hour with a numeric MIN", () => {
+		const midday = parseForecastTable(borso).hours.find(
+			(hour) => hour.hour === 13,
+		);
+		expect(midday?.cloudBaseMinM).toBe(1163);
+		expect(midday?.cloudBaseBelowTakeOff).toBeUndefined();
 	});
 
 	it("keeps the flight altitude text verbatim", () => {
@@ -212,5 +228,107 @@ describe("parseForecastTable", () => {
 		expect(() =>
 			parseForecastTable("<html><body>Non hai fatto Login</body></html>"),
 		).toThrow(/login wall/i);
+	});
+});
+
+/**
+ * The columns the table was missing, read off a thermic day.
+ *
+ * Every one of these had the same root cause: the meaning is in the markup, not
+ * in the text. The risk grading is an image, the reachable updrafts are a
+ * colour, and both were being read with `.text()`, which sees neither.
+ */
+describe("parseForecastTable on a thermic day", () => {
+	const table = parseForecastTable(thermals);
+	const at = (hour: number) => table.hours.find((row) => row.hour === hour);
+
+	/**
+	 * Every row of this page grades LOW and prints no note at all, so a column
+	 * read from the text alone is empty on all thirteen hours — which is exactly
+	 * why the risk column had disappeared from the site.
+	 */
+	it("grades an hour from the icon, not from the note beside it", () => {
+		expect(table.hours.every((row) => row.riskLevel === "low")).toBe(true);
+		expect(table.hours.every((row) => row.risk === undefined)).toBe(true);
+	});
+
+	it("reads the three gradings the source publishes", () => {
+		const graded = parseForecastTable(tappeti).hours;
+		expect(graded.find((row) => row.hour === 7)?.riskLevel).toBe("medium");
+		expect(graded.find((row) => row.hour === 8)?.riskLevel).toBe("high");
+		expect(graded.find((row) => row.hour === 14)?.riskLevel).toBe("low");
+		// The note stays alongside the grading rather than replacing it.
+		expect(graded.find((row) => row.hour === 8)?.risk).toBe(
+			"possible strong thunderstorm",
+		);
+	});
+
+	/**
+	 * The source colours an updraft green when a glider can reach it from
+	 * take-off and red when it sits above the inversion. Taking the maximum of
+	 * the whole list called this hour a 2311 m day; a pilot launching here tops
+	 * out at 844 m.
+	 */
+	it("separates the updrafts a pilot can reach from the ones above the inversion", () => {
+		expect(at(10)?.thermalUpdraftsM).toEqual([
+			2311, 2048, 1794, 1547, 1307, 1072, 844, 620, 401,
+		]);
+		expect(at(10)?.reachableUpdraftsM).toEqual([844, 620, 401]);
+	});
+
+	/**
+	 * The source's own headline figure, and the column this table had no trace
+	 * of. Its bounds agree with the updraft colouring on every hour of every
+	 * fixture: the top is the lowest red updraft, the bottom 50 m under the
+	 * highest green one.
+	 */
+	it("reads the max flight altitude as bounds, not just as text", () => {
+		expect(at(10)?.maxFlightAltitude).toBe("BETWEEN 794m AND 1072m");
+		expect(at(10)?.maxFlightMinM).toBe(794);
+		expect(at(10)?.maxFlightMaxM).toBe(1072);
+	});
+
+	it("leaves the max flight altitude unset on an hour without thermals", () => {
+		expect(at(19)?.maxFlightAltitude).toBeUndefined();
+		expect(at(19)?.maxFlightMinM).toBeUndefined();
+	});
+
+	/**
+	 * An inversion is a band between two altitudes, and an hour can carry two of
+	 * them. The old column kept the first number of the first band, so a pilot
+	 * was shown the base of one layer with no top and no second layer at all.
+	 */
+	it("keeps both inversion bands of an hour that has two", () => {
+		expect(at(10)?.stableLayers).toEqual([
+			{ fromM: 1547, toM: 1794 },
+			{ fromM: 2048, toM: 2311 },
+		]);
+	});
+
+	it("reads a single merged band", () => {
+		expect(at(11)?.stableLayers).toEqual([{ fromM: 1547, toM: 2311 }]);
+	});
+
+	/** Thermals stop long before the inversion does, so the column outlives them. */
+	it("keeps the inversion on an hour that has no thermals left", () => {
+		expect(at(19)?.thermalUpdraftsM).toEqual([]);
+		expect(at(19)?.stableLayers).toEqual([{ fromM: 1526, toM: 1775 }]);
+	});
+
+	/** The evening hour whose base drops to take-off, with only a MAX to pair. */
+	it("flags the hour whose cloud base reaches take-off", () => {
+		expect(at(19)?.cloudBaseBelowTakeOff).toBe(true);
+		expect(at(19)?.cloudBaseMinM).toBeUndefined();
+		expect(at(19)?.cloudBaseMaxM).toBe(1075);
+	});
+
+	/**
+	 * The page prints its refresh time in Rome local time with no zone on it.
+	 * Reading it as UTC dated the scrape two hours in the future, so the site
+	 * announced a forecast "updated at 12:15" while it was 11:50 in the valley.
+	 */
+	it("reads the source's refresh time as Rome local, not as UTC", () => {
+		expect(thermals).toContain("September 24 2026 10:15:09");
+		expect(table.updatedAt?.toISOString()).toBe("2026-09-24T08:15:09.000Z");
 	});
 });

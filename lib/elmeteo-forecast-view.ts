@@ -9,6 +9,12 @@
  * itself applies, transcribed from the colours it prints in its own tables.
  */
 
+/** How serious the source graded the hour, from the icon it printed. */
+export type ForecastRiskLevel = "low" | "medium" | "high";
+
+/** One inversion band, as stored in the `stableLayers` JSON column. */
+export type ForecastStableLayer = { fromM: number; toM: number };
+
 /** Wind reading as stored in the `winds` JSON column. */
 export type ForecastWind = {
 	label: string;
@@ -23,14 +29,19 @@ export type ForecastHourView = {
 	cloudsHigh: number | null;
 	cloudsMedium: number | null;
 	cloudsLow: number | null;
+	riskLevel: ForecastRiskLevel | null;
 	risk: string | null;
 	temperatureC: number | null;
 	precipitationMm: number | null;
 	maxFlightAltitude: string | null;
+	maxFlightMinM: number | null;
+	maxFlightMaxM: number | null;
 	cloudBaseMinM: number | null;
 	cloudBaseMaxM: number | null;
+	cloudBaseBelowTakeOff: boolean;
 	thermalUpdraftsM: number[];
-	stableLayerM: number | null;
+	reachableUpdraftsM: number[];
+	stableLayers: ForecastStableLayer[];
 	winds: ForecastWind[];
 };
 
@@ -79,40 +90,103 @@ export function shortWindLabel(label: string) {
 	return match ? `${match[1]}m` : label.replace(/^wind\s*/i, "").trim();
 }
 
+/** One deck of the sky, in the order the source prints them. */
+export type ForecastCloudLayer = {
+	layer: "high" | "medium" | "low";
+	cover: number | null;
+};
+
 /**
- * Total cloud cover, 0–100, as the worst of the three layers.
+ * The three cloud decks as the source publishes them: "H-M-L 100-0-28".
  *
- * The source publishes high/medium/low separately and draws an icon from them.
- * We have no icon, so the cover shown is the layer that blocks the most sky:
- * summing would exceed 100 and averaging would call a fully overcast low deck
- * "33% cloudy", which is the opposite of what a pilot needs to read.
+ * All three, not a single summary figure. They are covers of three different
+ * skies and a pilot reads them differently — 100% high is cirrus you fly under,
+ * 100% low is a lid on the day — so collapsing them to the worst one threw away
+ * the distinction, and no arithmetic puts it back. It is also the form pilots
+ * already know from the source's own column.
+ *
+ * Returns null only when the source published no layer at all.
  */
-export function totalCloudCover(hour: ForecastHourView) {
-	const layers = [hour.cloudsHigh, hour.cloudsMedium, hour.cloudsLow].filter(
-		(value): value is number => value !== null,
-	);
-	return layers.length === 0 ? null : Math.max(...layers);
+export function cloudLayers(
+	hour: ForecastHourView,
+): ForecastCloudLayer[] | null {
+	const layers: ForecastCloudLayer[] = [
+		{ layer: "high", cover: hour.cloudsHigh },
+		{ layer: "medium", cover: hour.cloudsMedium },
+		{ layer: "low", cover: hour.cloudsLow },
+	];
+	return layers.every(({ cover }) => cover === null) ? null : layers;
 }
 
 /**
  * Whether the row carries a risk note the source considered worth printing.
  *
- * The cell is empty on a calm hour, so presence is the signal; the text itself
- * is shown verbatim rather than being re-worded or re-ranked here.
+ * The note is empty on every low hour and on some graded ones, so it is only
+ * ever extra wording next to `riskLevel`, never the level itself. The text is
+ * shown verbatim rather than re-worded or re-ranked here.
  */
 export function hasRisk(hour: ForecastHourView) {
 	return hour.risk !== null && hour.risk.trim() !== "";
 }
 
 /**
- * Highest updraft ceiling of the hour, or null when there is no thermal
- * activity. The list is stored highest-first, but that is a property of the
- * source's ordering, so the maximum is taken explicitly.
+ * The highest updraft a pilot can actually climb to, or null when there is no
+ * thermal activity.
+ *
+ * The source prints every updraft it models, colouring green the ones reachable
+ * from take-off and red the ones above the inversion — air that is rising, but
+ * that a glider cannot get into. Taking the maximum of all of them announced a
+ * 2310m day when the real ceiling was 1071m, which is the kind of number a
+ * pilot plans a flight around.
+ *
+ * Falls back to the full list only when the source published no colours at all,
+ * so a layout change downgrades the figure rather than blanking the column.
  */
 export function topThermalM(hour: ForecastHourView) {
-	return hour.thermalUpdraftsM.length === 0
-		? null
-		: Math.max(...hour.thermalUpdraftsM);
+	const reachable =
+		hour.reachableUpdraftsM.length > 0
+			? hour.reachableUpdraftsM
+			: hour.thermalUpdraftsM;
+	return reachable.length === 0 ? null : Math.max(...reachable);
+}
+
+/** One modelled updraft, as the details dialog lists it. */
+export type ForecastUpdraft = {
+	altitudeM: number;
+	/** Green at the source: a climb from take-off can get into this one. */
+	reachable: boolean;
+	/** Starred at the source: the altitude sits inside an inversion band. */
+	inInversion: boolean;
+};
+
+/**
+ * Every updraft the source modelled for the hour, highest first, each carrying
+ * the two things its own table says about it with formatting rather than words.
+ *
+ * `reachable` is the green/red colouring, read at scrape time because the
+ * colour is the only place it exists. `inInversion` is the asterisk, and that
+ * one is derived here rather than stored: the source stars exactly those
+ * altitudes that fall inside one of the hour's own stable-layer bands, which
+ * holds on all 180 starred and unstarred lines across the saved fixtures. A
+ * derived flag cannot go stale against the bands it is drawn from.
+ *
+ * The full list, red entries included, is what the cell's dialog shows: the
+ * table can only carry the one figure a pilot plans around, but a pilot
+ * comparing it against the source's own table needs to see the rest.
+ */
+export function updraftList(hour: ForecastHourView): ForecastUpdraft[] {
+	const reachable = new Set(hour.reachableUpdraftsM);
+	return [...hour.thermalUpdraftsM]
+		.sort((a, b) => b - a)
+		.map((altitudeM) => ({
+			altitudeM,
+			// With no colours published at all, nothing is known to be out of
+			// reach — matching `topThermalM`, which then uses the whole list.
+			reachable: reachable.size === 0 || reachable.has(altitudeM),
+			inInversion: hour.stableLayers.some(
+				(layer) => altitudeM >= layer.fromM && altitudeM <= layer.toM,
+			),
+		}));
 }
 
 /**
@@ -126,22 +200,77 @@ export function hasAnyThermals(hours: readonly ForecastHourView[]) {
 	return hours.some((hour) => hour.thermalUpdraftsM.length > 0);
 }
 
-/** Whether any hour of the day expects precipitation. Same reasoning. */
+/**
+ * Whether the source published a precipitation figure for the day at all.
+ *
+ * Presence, not magnitude: the column used to be dropped unless some hour
+ * expected rain, so a dry day showed no rain column and a pilot could not tell
+ * "no rain forecast" from "we did not scrape it". The source itself prints
+ * "0 mm" on every dry hour for exactly that reason.
+ */
 export function hasAnyPrecipitation(hours: readonly ForecastHourView[]) {
-	return hours.some(
-		(hour) => hour.precipitationMm !== null && hour.precipitationMm > 0,
-	);
+	return hours.some((hour) => hour.precipitationMm !== null);
+}
+
+/** Whether the day has any risk grading to show. */
+export function hasAnyRisk(hours: readonly ForecastHourView[]) {
+	return hours.some((hour) => hour.riskLevel !== null || hasRisk(hour));
+}
+
+/** Whether any hour publishes a max flight altitude. */
+export function hasAnyMaxFlight(hours: readonly ForecastHourView[]) {
+	return hours.some((hour) => hour.maxFlightMaxM !== null);
+}
+
+/** Whether any hour publishes an inversion band. */
+export function hasAnyStableLayer(hours: readonly ForecastHourView[]) {
+	return hours.some((hour) => hour.stableLayers.length > 0);
 }
 
 /**
  * The cloud base as one cell: "988 - 1288 m", or a single bound when the source
  * published only one, or null when it published neither.
+ *
+ * Returns the bounds rather than a finished string because the low case is not
+ * a number at all: the source prints "MIN same altitude or lower", meaning the
+ * base can sit at or below take-off. Rendering only the numbers turned that
+ * into a bare "1075 m", which reads like a comfortable ceiling and is the
+ * opposite of what the hour is telling a pilot.
  */
 export function formatCloudBase(hour: ForecastHourView) {
 	const { cloudBaseMinM: min, cloudBaseMaxM: max } = hour;
+	if (hour.cloudBaseBelowTakeOff) {
+		return {
+			belowTakeOff: true as const,
+			text: max === null ? null : `${max} m`,
+		};
+	}
 	if (min === null && max === null) return null;
-	if (min !== null && max !== null) return `${min} - ${max} m`;
-	return `${min ?? max} m`;
+	return {
+		belowTakeOff: false as const,
+		text:
+			min !== null && max !== null ? `${min} - ${max} m` : `${min ?? max} m`,
+	};
+}
+
+/**
+ * The max flight altitude as one cell: "794 - 1072 m".
+ *
+ * How high a pilot can climb from take-off on the strength of the day's
+ * thermals — the figure the source leads its own table with, and the one this
+ * table was omitting entirely.
+ */
+export function formatMaxFlight(hour: ForecastHourView) {
+	const { maxFlightMinM: min, maxFlightMaxM: max } = hour;
+	if (min === null && max === null) return null;
+	return min !== null && max !== null ? `${min} - ${max} m` : `${min ?? max} m`;
+}
+
+/** The lowest inversion base of the hour: where a climb is expected to stop. */
+export function lowestStableLayerM(hour: ForecastHourView) {
+	return hour.stableLayers.length === 0
+		? null
+		: Math.min(...hour.stableLayers.map((layer) => layer.fromM));
 }
 
 /** "until 07:00" is stored as 7; the table shows the hour it is valid until. */
