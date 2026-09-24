@@ -95,7 +95,14 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 					</SelectContent>
 				</Select>
 
-				<div className="flex rounded-lg border p-0.5">
+				{/* A grid rather than a flex row, because the three tabs have to be
+				    equal AND wide enough for their own text. Equal flex children
+				    (`flex-1 basis-0`) get the first but not the second: a zero basis
+				    leaves the group no intrinsic width to claim, so it shrank to where
+				    "ven 25" broke across two lines. Grid sizes `1fr` columns from the
+				    widest column's content, so the group asks for three times the
+				    longest tab and every label sits on one line. */}
+				<div className="grid shrink-0 grid-cols-3 rounded-lg border p-0.5">
 					{forecasts.days.map((value, index) => (
 						<Button
 							key={value}
@@ -105,28 +112,24 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 							onClick={() => setDay(value)}
 							aria-pressed={value === day}
 							className={cn(
-								// Equal shares of the row rather than each tab sized to its
-								// own text: "Dopo domani" is twice the width of "Oggi", and
-								// left to themselves the three tabs came out lopsided with the
-								// longest one wrapping onto a second line. `basis-0` makes
-								// `flex-1` divide the row evenly instead of handing out the
-								// leftover space on top of each tab's natural width.
-								"h-auto flex-1 basis-0 px-2 py-1.5 text-xs sm:text-sm",
+								// `h-auto` because the content is two stacked lines and the
+								// `sm` size's fixed height would clip them.
+								"h-auto w-full px-3 py-1.5 text-xs sm:text-sm",
 								value === day && "bg-secondary text-secondary-foreground",
 							)}
 						>
 							<span className="flex flex-col items-center leading-tight">
 								{/* The date leads: it is what a pilot is actually picking, and it
 								    stays true past the three days "oggi/domani" can name. */}
-								<span className="tabular-nums">
+								<span className="whitespace-nowrap tabular-nums">
 									{format(new Date(`${value}T12:00:00Z`), "EEE d", {
 										locale: dateLocale,
 									})}
 								</span>
 								{index < dayLabelKeys.length && (
-									// Kept on one line: wrapped, it pushed the tab taller than
-									// its neighbours and the date above it lost the baseline it
-									// shares with them.
+									// Both lines are pinned to one line each: either of them
+									// wrapping makes its tab taller than its neighbours, and the
+									// dates stop sharing a baseline across the three.
 									<span className="whitespace-nowrap font-normal text-[0.625rem] text-muted-foreground">
 										{tDays(dayLabelKeys[index])}
 									</span>
