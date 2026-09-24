@@ -812,6 +812,7 @@
 			"risk_low": "Low risk",
 			"risk_medium": "Medium risk",
 			"risk_high": "High risk",
+			"risk_dialog_title": "Risk at {hour}",
 			"wind": "Wind",
 			"speed": "{speed} <unit>km/h</unit>",
 			"gust": "gust {speed} <unit>km/h</unit>"

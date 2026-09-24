@@ -1,9 +1,10 @@
 import {
+	CircleAlert,
+	CircleCheck,
 	CloudRain,
 	Info,
 	Layers,
-	ShieldCheck,
-	TriangleAlert,
+	OctagonX,
 } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -91,7 +92,11 @@ export function ForecastTable({ table }: { table: ForecastTableView }) {
 							</ColumnInfo>
 						</TableHead>
 						{showRisk && (
-							<TableHead className="text-center">{t("risks")}</TableHead>
+							<TableHead className="text-center">
+								<ColumnInfo title={t("risks")} description={<RiskLegend />}>
+									{t("risks")}
+								</ColumnInfo>
+							</TableHead>
 						)}
 						<TableHead className="text-center">{t("temperature")}</TableHead>
 						{showPrecipitation && (
@@ -316,6 +321,10 @@ function ColumnInfo({
  * on the day, and any single summary number loses which of the two it is. The
  * initials are spelled out underneath at the size the wind cells use theirs, so
  * the row reads without the header.
+ *
+ * Each figure keeps its per cent sign, as the source prints it: the columns
+ * either side are degrees and millimetres, and a bare "52" between them does
+ * not say which of the three it is.
  */
 function CloudsCell({ hour }: { hour: ForecastHourView }) {
 	const t = useTranslations("MeteoPage.ForecastTable");
@@ -338,11 +347,11 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 					<span className="sr-only">{labels[layer]}</span>
 					<span
 						className={cn(
-							"tabular-nums",
+							"whitespace-nowrap tabular-nums",
 							cover !== null && cover >= 80 && "font-medium",
 						)}
 					>
-						{cover === null ? "—" : cover}
+						{cover === null ? "—" : `${cover}%`}
 					</span>
 					<span
 						aria-hidden
@@ -398,11 +407,16 @@ function ThermalsCell({
 						>
 							{updraft.altitudeM} m{updraft.inInversion && "*"}
 						</span>
-						<span className="text-right text-muted-foreground text-xs">
-							{updraft.reachable
-								? t("thermals_reachable")
-								: t("thermals_unreachable")}
-							{updraft.inInversion && ` · ${t("thermals_in_inversion")}`}
+						{/* Two separate facts about the same altitude — whether a climb
+						    gets there, and whether it sits in stagnant air — so they are
+						    stacked rather than run together on one line. */}
+						<span className="flex flex-col items-end text-right text-muted-foreground text-xs">
+							<span>
+								{updraft.reachable
+									? t("thermals_reachable")
+									: t("thermals_unreachable")}
+							</span>
+							{updraft.inInversion && <span>{t("thermals_in_inversion")}</span>}
 						</span>
 					</li>
 				))}
@@ -461,43 +475,108 @@ function StableLayerCell({ hour }: { hour: ForecastHourView }) {
  * column used to key off the note alone, so a day the source marked LOW all
  * through showed no risk column at all.
  *
+ * Each level gets its own shape, not just its own colour, because that is what
+ * the source does: a tick for LOW, an exclamation mark for MEDIUM, a cross for
+ * HIGH. Two levels drawn as the same triangle in two colours tell a
+ * colour-blind pilot nothing, and they are two thirds of the vocabulary.
+ *
  * The note is kept in the source's own English rather than translated: it is a
  * safety statement, and re-wording one risks changing what it says.
  */
+const riskStyles = {
+	low: {
+		Icon: CircleCheck,
+		className: "text-emerald-700 dark:text-emerald-400",
+		label: "risk_low",
+	},
+	medium: {
+		Icon: CircleAlert,
+		className: "text-amber-700 dark:text-amber-400",
+		label: "risk_medium",
+	},
+	high: {
+		Icon: OctagonX,
+		className: "font-medium text-red-700 dark:text-red-400",
+		label: "risk_high",
+	},
+} as const;
+
 function RiskCell({ hour }: { hour: ForecastHourView }) {
 	const t = useTranslations("MeteoPage.ForecastTable");
 	const note = hasRisk(hour) ? hour.risk : null;
 
 	if (hour.riskLevel === null && note === null) return <Empty />;
 
-	if (hour.riskLevel === "low" && note === null) {
+	// A note without a grading is the source publishing wording we cannot rank;
+	// showing it as a level would be inventing one, so it stays plain text.
+	if (hour.riskLevel === null) {
 		return (
-			<span
-				className="inline-flex items-center text-emerald-700 dark:text-emerald-400"
-				title={t("risk_low")}
-			>
-				<ShieldCheck className="size-3.5" />
-				<span className="sr-only">{t("risk_low")}</span>
+			<span className="text-[0.6875rem] text-muted-foreground leading-tight">
+				{note}
 			</span>
 		);
 	}
 
-	const high = hour.riskLevel === "high";
+	const { Icon, className, label } = riskStyles[hour.riskLevel];
+	const level = t(label);
+
+	// The level always reaches a screen reader; on screen it is the icon's job,
+	// and the width goes to the note when there is one.
+	const cell = (
+		<>
+			<Icon className="size-3.5 shrink-0" />
+			<span className="sr-only">{level}</span>
+			{note && <span className="hidden sm:inline">{note}</span>}
+		</>
+	);
+
+	const cellClass = cn(
+		"inline-flex items-center gap-1 text-[0.6875rem] leading-tight",
+		className,
+	);
+
+	if (note === null) {
+		return <span className={cellClass}>{cell}</span>;
+	}
+
+	// The note only fits from `sm` up, so on a phone the icon would be the whole
+	// warning — and the wording is the part that says what to watch out for.
+	return (
+		<ForecastDetailDialog
+			title={t("risk_dialog_title", { hour: formatHour(hour.hour) })}
+			description={level}
+			className={cn(cellClass, "sm:no-underline")}
+			label={cell}
+		>
+			<p className="font-medium text-sm">{note}</p>
+		</ForecastDetailDialog>
+	);
+}
+
+/**
+ * What the three risk icons mean, as the header's dialog.
+ *
+ * On a phone the cell is the icon and nothing else — the source's note needs
+ * width the column does not have — so the shapes carry the whole column there.
+ * A legend is what makes them readable the first time.
+ */
+function RiskLegend() {
+	const t = useTranslations("MeteoPage.ForecastTable");
 
 	return (
-		<span
-			className={cn(
-				"inline-flex items-center gap-1 text-[0.6875rem] leading-tight",
-				high
-					? "font-medium text-red-700 dark:text-red-400"
-					: "text-amber-700 dark:text-amber-400",
-			)}
-			title={note ?? t(high ? "risk_high" : "risk_medium")}
-		>
-			<TriangleAlert className="size-3 shrink-0" />
-			<span className="hidden sm:inline">
-				{note ?? t(high ? "risk_high" : "risk_medium")}
-			</span>
+		<span className="flex flex-col gap-1.5">
+			{(["low", "medium", "high"] as const).map((level) => {
+				const { Icon, className, label } = riskStyles[level];
+				return (
+					<span
+						key={level}
+						className={cn("flex items-center gap-2", className)}
+					>
+						<Icon className="size-4 shrink-0" />
+						{t(label)}
+					</span>
+				);
+			})}
 		</span>
 	);
 }
