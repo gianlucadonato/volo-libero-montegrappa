@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { formatRomeDateTime } from "@/lib/meteo-time";
+import { formatRomeDateTime, romeHourToUtc } from "@/lib/meteo-time";
 
 // 18:57:15 in Rome, 16:57:15 UTC — the pair from the bug report.
 const at = new Date("2026-09-23T16:57:15.000Z");
@@ -61,5 +61,62 @@ describe("formatRomeDateTime", () => {
 		expect(formatRomeDateTime("it", new Date("2026-12-23T16:57:15.000Z"))).toBe(
 			"23/12/2026 17:57",
 		);
+	});
+});
+
+describe("romeHourToUtc", () => {
+	it("reads a table row's hour as the wall clock at the take-off", () => {
+		// The rows carry no zone at all — just a day and an hour — and a pilot
+		// reads them against their own watch, so 08:00 on this row is 06:00 UTC.
+		expect(romeHourToUtc("2026-09-23", 8)?.toISOString()).toBe(
+			"2026-09-23T06:00:00.000Z",
+		);
+	});
+
+	it("follows Italy off summer time", () => {
+		// Same hour of the table, two hours apart in UTC depending on the month.
+		// A fixed offset would point at the wrong frame for half the season.
+		expect(romeHourToUtc("2026-12-23", 8)?.toISOString()).toBe(
+			"2026-12-23T07:00:00.000Z",
+		);
+	});
+
+	it("uses the offset in force at the hour, not at the guess", () => {
+		// The Sunday the clocks go back. 01:00 is still summer time and 04:00 is
+		// already winter time, so a single-pass conversion — which reads the
+		// offset at the guess rather than at the answer — is an hour out on one
+		// of the two.
+		expect(romeHourToUtc("2026-10-25", 1)?.toISOString()).toBe(
+			"2026-10-24T23:00:00.000Z",
+		);
+		expect(romeHourToUtc("2026-10-25", 4)?.toISOString()).toBe(
+			"2026-10-25T03:00:00.000Z",
+		);
+	});
+
+	it("survives the hour that does not exist", () => {
+		// 02:00 on the March Sunday is skipped by the clocks. The source
+		// publishes no forecast at it, and a frame an hour either side is still
+		// the right weather, so this resolves rather than failing.
+		expect(romeHourToUtc("2026-03-29", 2)?.toISOString()).toBe(
+			"2026-03-29T01:00:00.000Z",
+		);
+	});
+
+	it("keeps the flying hours right across both changeover days", () => {
+		// What actually matters: the tables only run 08:00-19:00, and those
+		// hours are unambiguous on both Sundays.
+		expect(romeHourToUtc("2026-03-29", 8)?.toISOString()).toBe(
+			"2026-03-29T06:00:00.000Z",
+		);
+		expect(romeHourToUtc("2026-10-25", 8)?.toISOString()).toBe(
+			"2026-10-25T07:00:00.000Z",
+		);
+	});
+
+	it("rejects anything that is not a plain calendar day", () => {
+		expect(romeHourToUtc("23/09/2026", 8)).toBeUndefined();
+		expect(romeHourToUtc("2026-09-23T00:00:00Z", 8)).toBeUndefined();
+		expect(romeHourToUtc("", 8)).toBeUndefined();
 	});
 });

@@ -52,3 +52,69 @@ export function formatRomeDateTime(
 	const date = typeof at === "string" ? new Date(at) : at;
 	return `${romeDate(locale).format(date)} ${romeTime(locale, seconds).format(date)}`;
 }
+
+/**
+ * Europe/Rome's offset from UTC at a given instant, in milliseconds.
+ *
+ * Derived from `Intl` rather than hardcoded, so the +1/+2 switch at the end of
+ * October is handled without a DST table of our own.
+ */
+export function romeOffsetMs(at: Date) {
+	const parts = new Intl.DateTimeFormat("en-US", {
+		timeZone: ROME_TIME_ZONE,
+		hourCycle: "h23",
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+	}).formatToParts(at);
+
+	const value = (type: Intl.DateTimeFormatPartTypes) =>
+		Number(parts.find((part) => part.type === type)?.value);
+
+	const asUtc = Date.UTC(
+		value("year"),
+		value("month") - 1,
+		value("day"),
+		value("hour"),
+		value("minute"),
+		value("second"),
+	);
+
+	return asUtc - at.getTime();
+}
+
+const dayPattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+/**
+ * The UTC instant of a wall-clock hour in the flying zone.
+ *
+ * The forecast tables are keyed by `(day, hour)` as the source publishes them —
+ * a local date and a local hour, with no zone anywhere in the row — while the
+ * map frames are keyed by a UTC instant. This is the conversion between the
+ * two, and it is what lets an hour of the table name a frame.
+ *
+ * Solved in two passes rather than by adding a fixed offset: the offset that
+ * applies is the one at the *answer*, not the one at the guess, and on the two
+ * changeover days those differ. The first pass lands within an hour of the
+ * instant, which is close enough for the second to read the right offset.
+ *
+ * The hour that does not exist (02:00 on the March Sunday) and the one that
+ * happens twice (in October) resolve to a neighbouring instant rather than
+ * failing: the source publishes no forecast at either, and a map frame an hour
+ * either side is still the right weather.
+ */
+export function romeHourToUtc(day: string, hour: number) {
+	const match = dayPattern.exec(day);
+	if (!match) {
+		return undefined;
+	}
+
+	const [, year, month, date] = match;
+	const asUtc = Date.UTC(Number(year), Number(month) - 1, Number(date), hour);
+
+	const firstPass = asUtc - romeOffsetMs(new Date(asUtc));
+	return new Date(asUtc - romeOffsetMs(new Date(firstPass)));
+}

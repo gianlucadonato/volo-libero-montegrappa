@@ -18,6 +18,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
+import { elmeteoFrameUrl } from "@/lib/elmeteo-forecast-frame";
 import {
 	type ElmeteoMapDetails,
 	type ElmeteoMapId,
@@ -78,15 +79,6 @@ type MapQuadrantProps = {
 	onRemove?: () => void;
 };
 
-function frameUrl(folder: string, map: string, step: number) {
-	const params = new URLSearchParams({
-		folder,
-		map,
-		step: String(step),
-	});
-	return `/api/elmeteo/frame?${params.toString()}`;
-}
-
 export function MapQuadrant({
 	map,
 	usedMaps,
@@ -106,7 +98,7 @@ export function MapQuadrant({
 	// Controlled so both the header button and the frame itself can open it, while
 	// focus still returns to the header button on close.
 	const [zoomed, setZoomed] = useState(false);
-	const currentUrl = frameUrl(folder, map, step);
+	const currentUrl = elmeteoFrameUrl(folder, map, step);
 	const loaded = loadedUrl === currentUrl;
 
 	return (
@@ -236,7 +228,7 @@ export function MapQuadrant({
 					// biome-ignore lint/performance/noImgElement: preload only, never painted
 					<img
 						key={`${frame.folder}_${frame.step}`}
-						src={frameUrl(frame.folder, map, frame.step)}
+						src={elmeteoFrameUrl(frame.folder, map, frame.step)}
 						alt=""
 						loading="lazy"
 						decoding="async"

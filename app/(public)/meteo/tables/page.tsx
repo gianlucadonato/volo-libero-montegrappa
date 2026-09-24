@@ -2,6 +2,7 @@ import { ArrowLeft, Lock } from "lucide-react";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import getElmeteoForecasts from "@/actions/getElmeteoForecasts";
+import getElmeteoRuns from "@/actions/getElmeteoRuns";
 import { ForecastTables } from "@/components/meteo/ForecastTables";
 import { buttonVariants } from "@/components/ui/button";
 import { constructMetadata, siteConfig } from "@/config/site";
@@ -29,7 +30,13 @@ export default async function MeteoTablesPage() {
 	// behind elmeteo.it's own login, so serving them to anonymous visitors would
 	// republish paywalled data. Fetching after the check also keeps a logged-out
 	// hit off the database entirely.
-	const forecasts = user ? await getElmeteoForecasts() : null;
+	//
+	// The map runs come along for the clouds column, whose cells open the frame
+	// that illustrates their hour — the source's own tables point at that map
+	// too, only at its copy rather than at the club's.
+	const [forecasts, elmeteo] = user
+		? await Promise.all([getElmeteoForecasts(), getElmeteoRuns()])
+		: [null, undefined];
 
 	return (
 		<div>
@@ -90,7 +97,15 @@ export default async function MeteoTablesPage() {
 							description={t("empty_description")}
 						/>
 					) : (
-						<ForecastTables forecasts={forecasts} />
+						<ForecastTables
+							forecasts={forecasts}
+							runs={
+								elmeteo?.runs.map(({ folder, runStart }) => ({
+									folder,
+									runStartIso: runStart.toISOString(),
+								})) ?? []
+							}
+						/>
 					)}
 				</div>
 			</div>

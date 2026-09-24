@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { enUS, it as itLocale } from "date-fns/locale";
 import { Mountain } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { ElmeteoForecasts } from "@/actions/getElmeteoForecasts";
 import { ForecastTable } from "@/components/meteo/ForecastTable";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,13 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { buildElmeteoTimeline } from "@/lib/elmeteo-run";
 import { cn } from "@/lib/utils";
 
 type ForecastTablesProps = {
 	forecasts: ElmeteoForecasts;
+	/** Map runs, serialised for the client boundary, as the maps page sends them. */
+	runs: readonly { folder: string; runStartIso: string }[];
 };
 
 /** Translation keys for the tabs, by position in the three days collected. */
@@ -41,7 +44,7 @@ const dayLabelKeys = ["today", "tomorrow", "after_tomorrow"] as const;
  * it. So the rows scroll inside the card and everything around them holds
  * still.
  */
-export function ForecastTables({ forecasts }: ForecastTablesProps) {
+export function ForecastTables({ forecasts, runs }: ForecastTablesProps) {
 	const t = useTranslations("MeteoPage.Tables");
 	// The day tabs carry a weekday, so the date formatting follows the UI
 	// language rather than being pinned to Italian.
@@ -66,6 +69,19 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 		(entry) => entry.site.slug === siteSlug,
 	);
 	const table = selected?.days.find((entry) => entry.day === day);
+
+	// Derived on the client for the same reason the maps page does it: ~60 runs
+	// travel over the wire instead of the ~380 hourly slots they expand into.
+	const slots = useMemo(
+		() =>
+			buildElmeteoTimeline(
+				runs.map(({ folder, runStartIso }) => ({
+					folder,
+					runStart: new Date(runStartIso),
+				})),
+			),
+		[runs],
+	);
 
 	return (
 		// Takes the height the page gives it — see the pane comment on the route —
@@ -157,7 +173,18 @@ export function ForecastTables({ forecasts }: ForecastTablesProps) {
 							</span>
 						)}
 					</div>
-					<ForecastTable table={table} />
+					<ForecastTable
+						table={table}
+						slots={slots}
+						siteName={selected?.site.name ?? ""}
+						dayLabel={format(
+							new Date(`${table.day}T12:00:00Z`),
+							"EEEE d MMMM",
+							{
+								locale: dateLocale,
+							},
+						)}
+					/>
 				</div>
 			) : (
 				<div className="rounded-xl border border-dashed px-6 py-16 text-center">

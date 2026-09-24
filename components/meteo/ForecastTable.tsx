@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { ForecastDetailDialog } from "@/components/meteo/ForecastDetailDialog";
+import { ForecastMapDialog } from "@/components/meteo/ForecastMapDialog";
 import { ForecastWindCell } from "@/components/meteo/ForecastWindCell";
 import {
 	TableBody,
@@ -18,6 +19,12 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import {
+	type ForecastFrame,
+	findForecastFrame,
+	forecastCloudsMap,
+	forecastThermalsMap,
+} from "@/lib/elmeteo-forecast-frame";
 import {
 	cloudLayers,
 	type ForecastHourView,
@@ -39,6 +46,7 @@ import {
 	weatherIconDrawsFullHeight,
 	weatherIconName,
 } from "@/lib/elmeteo-forecast-view";
+import type { ElmeteoSlot } from "@/lib/elmeteo-run";
 import { cn } from "@/lib/utils";
 
 /**
@@ -60,7 +68,19 @@ import { cn } from "@/lib/utils";
  * Everything extra is behind a click rather than a hover: on a phone, which is
  * where these tables are actually read, a `title` tooltip never appears at all.
  */
-export function ForecastTable({ table }: { table: ForecastTableView }) {
+export function ForecastTable({
+	table,
+	slots,
+	siteName,
+	dayLabel,
+}: {
+	table: ForecastTableView;
+	/** The map timeline, so each hour can offer the frame that illustrates it. */
+	slots: readonly ElmeteoSlot[];
+	siteName: string;
+	/** The table's own day, spelled out for the map dialog's subtitle. */
+	dayLabel: string;
+}) {
 	const t = useTranslations("MeteoPage.ForecastTable");
 	const showThermals = hasAnyThermals(table.hours);
 	const showMaxFlight = hasAnyMaxFlight(table.hours);
@@ -97,7 +117,23 @@ export function ForecastTable({ table }: { table: ForecastTableView }) {
 							{t("hour")}
 						</TableHead>
 						<TableHead className="text-center">
-							<ColumnInfo title={t("clouds")} description={t("clouds_hint")}>
+							<ColumnInfo
+								title={t("clouds")}
+								description={
+									<>
+										{t("clouds_hint")} {t("clouds_maps_hint")}{" "}
+										{/* The source ends this column with a link to its own
+										    clouds map. We link the club's copy of the same map,
+										    for the same reason the thermals column does. */}
+										<Link
+											href="/meteo/maps"
+											className="font-medium underline underline-offset-4"
+										>
+											{t("thermals_maps_link")}
+										</Link>
+									</>
+								}
+							>
 								{t("clouds")}
 							</ColumnInfo>
 						</TableHead>
@@ -193,7 +229,12 @@ export function ForecastTable({ table }: { table: ForecastTableView }) {
 								</TableCell>
 
 								<TableCell className="text-center">
-									<CloudsCell hour={hour} />
+									<CloudsCell
+										hour={hour}
+										frame={findForecastFrame(slots, table.day, hour.hour)}
+										siteName={siteName}
+										dayLabel={dayLabel}
+									/>
 								</TableCell>
 
 								{showRisk && (
@@ -259,7 +300,13 @@ export function ForecastTable({ table }: { table: ForecastTableView }) {
 										{thermal === null ? (
 											<Empty />
 										) : (
-											<ThermalsCell hour={hour} topM={thermal} />
+											<ThermalsCell
+												hour={hour}
+												topM={thermal}
+												frame={findForecastFrame(slots, table.day, hour.hour)}
+												siteName={siteName}
+												dayLabel={dayLabel}
+											/>
 										)}
 									</TableCell>
 								)}
@@ -372,7 +419,18 @@ function WeatherGlyph({ icon }: { icon: string }) {
 	);
 }
 
-function CloudsCell({ hour }: { hour: ForecastHourView }) {
+function CloudsCell({
+	hour,
+	frame,
+	siteName,
+	dayLabel,
+}: {
+	hour: ForecastHourView;
+	/** The map frame for this hour, when a run still covers it. */
+	frame: ForecastFrame | undefined;
+	siteName: string;
+	dayLabel: string;
+}) {
 	const t = useTranslations("MeteoPage.ForecastTable");
 	const layers = cloudLayers(hour);
 
@@ -386,7 +444,7 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 
 	const icon = weatherIconName(hour);
 
-	return (
+	const cell = (
 		// Stacked: the glyph reads at a glance down the column, and the three
 		// figures keep their own line underneath rather than being squeezed
 		// beside it.
@@ -417,6 +475,27 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 			</span>
 		</span>
 	);
+
+	// Day three regularly runs past the last frame any run publishes — a run
+	// carries 49 hours and the tables reach 72 — so the hours it cannot
+	// illustrate simply stay plain text rather than opening onto a missing
+	// image.
+	if (!frame) {
+		return cell;
+	}
+
+	return (
+		<ForecastMapDialog
+			frame={frame}
+			map={forecastCloudsMap}
+			hourLabel={formatHour(hour.hour)}
+			siteName={siteName}
+			dayLabel={dayLabel}
+			triggerLabel={t("clouds_map_open", { hour: formatHour(hour.hour) })}
+		>
+			{cell}
+		</ForecastMapDialog>
+	);
 }
 
 /**
@@ -431,17 +510,46 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 function ThermalsCell({
 	hour,
 	topM,
+	frame,
+	siteName,
+	dayLabel,
 }: {
 	hour: ForecastHourView;
 	topM: number;
+	/** The map frame for this hour, when a run still covers it. */
+	frame: ForecastFrame | undefined;
+	siteName: string;
+	dayLabel: string;
 }) {
 	const t = useTranslations("MeteoPage.ForecastTable");
 	const updrafts = updraftList(hour);
+	const hourLabel = formatHour(hour.hour);
 
 	return (
 		<ForecastDetailDialog
-			title={t("thermals_dialog_title", { hour: formatHour(hour.hour) })}
-			description={t("thermals_hint")}
+			title={t("thermals_dialog_title", { hour: hourLabel })}
+			description={
+				<>
+					{t("thermals_hint")}{" "}
+					{/* The modelled list says how high a climb reaches; the map says
+					    how strong the air is getting there, and where. Offered only
+					    for the hours a run still covers — day three regularly runs
+					    past the last frame published. */}
+					{frame && (
+						<ForecastMapDialog
+							frame={frame}
+							map={forecastThermalsMap}
+							hourLabel={hourLabel}
+							siteName={siteName}
+							dayLabel={dayLabel}
+							triggerLabel={t("thermals_map_open", { hour: hourLabel })}
+							triggerClassName="font-medium text-foreground underline underline-offset-4"
+						>
+							{t("map_link")}
+						</ForecastMapDialog>
+					)}
+				</>
+			}
 			className="font-medium text-emerald-700 dark:text-emerald-400"
 			label={`${topM} m`}
 		>

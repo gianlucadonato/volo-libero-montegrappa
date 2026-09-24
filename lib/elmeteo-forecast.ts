@@ -1,4 +1,5 @@
 import * as cheerio from "cheerio";
+import { romeOffsetMs } from "@/lib/meteo-time";
 
 /**
  * Parser for the hourly forecast table of an elmeteo.it take-off page.
@@ -485,39 +486,4 @@ function parseUpdatedAt(body: string) {
 	const parsed = new Date(`${match[1]} UTC`);
 	if (Number.isNaN(parsed.getTime())) return undefined;
 	return new Date(parsed.getTime() - romeOffsetMs(parsed));
-}
-
-/**
- * Europe/Rome's offset from UTC at a given instant, in milliseconds.
- *
- * Derived from `Intl` rather than hardcoded, so the +1/+2 switch at the end of
- * October is handled without a DST table of our own. Reading the parsed stamp
- * as if it were UTC and subtracting the offset *at that stamp* is accurate
- * outside the one ambiguous hour each autumn, which no forecast depends on.
- */
-function romeOffsetMs(at: Date) {
-	const parts = new Intl.DateTimeFormat("en-US", {
-		timeZone: "Europe/Rome",
-		hourCycle: "h23",
-		year: "numeric",
-		month: "2-digit",
-		day: "2-digit",
-		hour: "2-digit",
-		minute: "2-digit",
-		second: "2-digit",
-	}).formatToParts(at);
-
-	const value = (type: Intl.DateTimeFormatPartTypes) =>
-		Number(parts.find((part) => part.type === type)?.value);
-
-	const asUtc = Date.UTC(
-		value("year"),
-		value("month") - 1,
-		value("day"),
-		value("hour"),
-		value("minute"),
-		value("second"),
-	);
-
-	return asUtc - at.getTime();
 }
