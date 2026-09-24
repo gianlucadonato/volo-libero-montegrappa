@@ -1,0 +1,12 @@
+-- Stores the source's own weather glyph for each hour.
+--
+-- The name is kept verbatim ("sereno", "parznuv", "nebbia") rather than mapped
+-- to one of our icon files at scrape time: the vocabulary is the source's and
+-- it is open — seven names are known, one of which turned up exactly once in
+-- 252 rows — so mapping on the way in would silently drop the first sighting of
+-- an unseen one. Mapping happens at render, where an unknown name degrades to
+-- the cloud percentages instead.
+--
+-- Nullable with no backfill: existing rows predate the parser change and the
+-- next scrape rewrites every one of them from the source.
+ALTER TABLE "elmeteo_forecasts" ADD COLUMN "weatherIcon" TEXT;

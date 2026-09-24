@@ -57,6 +57,13 @@ export type ElmeteoForecastHour = {
 	cloudsHigh?: number;
 	cloudsMedium?: number;
 	cloudsLow?: number;
+	/**
+	 * The source's own weather glyph for the hour, as the bare filename it
+	 * publishes it under: `sereno`, `parznuv`, `nebbia`. Stored verbatim rather
+	 * than mapped to one of ours, so an unseen name survives the scrape and can
+	 * be mapped later instead of being lost at parse time.
+	 */
+	weatherIcon?: string;
 	/** Risk level from the icon. Published on every row of every site. */
 	riskLevel?: ElmeteoRiskLevel;
 	/** Risk note, e.g. "thunderstorm not ruled out". Empty when low risk. */
@@ -179,6 +186,37 @@ function parseClouds(value: string) {
 		cloudsMedium: Number(match[2]),
 		cloudsLow: Number(match[3]),
 	};
+}
+
+/**
+ * The source's weather glyph, from the icon's filename.
+ *
+ * The third column whose meaning lives in the markup rather than the text,
+ * after the risk icon and the updraft colours — and the most thoroughly hidden
+ * of the three: the `<img>` carries no `alt` and no `title`, so the filename is
+ * the only place the reading exists.
+ *
+ * It cannot be derived from the percentages published beside it. Across the
+ * saved fixtures the low-cloud figure runs 0-45% under `poconuv`, 8-79% under
+ * `parznuv` and 0-94% under `coperto`, and at 0% the source prints `sereno`,
+ * `poconuv` and `coperto` on different rows. The glyph comes from the source's
+ * own model state, which it does not publish.
+ *
+ * Returns the bare name with no vocabulary check. Seven names are known
+ * (`sereno`, `poconuv`, `parznuv`, `coperto`, `copiog`, `tempor`, `nebbia`) but
+ * that list is one week of late-summer weather, and `nebbia` turned up exactly
+ * once in 252 rows — so it is certainly incomplete. Winter should add snow, and
+ * the mapping in `lib/elmeteo-forecast-view.ts` is where an unknown name is
+ * handled, so a new one is stored and rendered as a gap rather than rejected
+ * here.
+ */
+function parseWeatherIcon(cell: cheerio.Cheerio<never>) {
+	const source = cell.find("img").attr("src") ?? "";
+	// The path segment is `day` on every row seen: the tables run 07:00-19:00,
+	// so a `night` variant may exist at the source but never reaches us. Only
+	// the basename is kept, so it would map the same either way.
+	const name = /\/([a-z]+)\.gif(?:[?#]|$)/i.exec(source)?.[1];
+	return { weatherIcon: name?.toLowerCase() };
 }
 
 /**
@@ -366,6 +404,7 @@ export function parseForecastTable(html: string): ElmeteoForecastTable {
 		hours.push({
 			hour,
 			...parseClouds(cell("icon")),
+			...parseWeatherIcon(node("icon")),
 			...parseRisk(node("risk")),
 			temperatureC: toNumber(cell("temperature")),
 			precipitationMm: toNumber(cell("precipitation")),

@@ -35,6 +35,7 @@ import {
 	shortWindLabel,
 	topThermalM,
 	updraftList,
+	weatherIconName,
 } from "@/lib/elmeteo-forecast-view";
 import { cn } from "@/lib/utils";
 
@@ -345,29 +346,47 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 		low: t("clouds_low"),
 	} as const;
 
+	const icon = weatherIconName(hour);
+
 	return (
-		<span className="inline-flex gap-1.5 leading-tight">
-			{layers.map(({ layer, cover }) => (
-				<span key={layer} className="inline-flex flex-col items-center">
-					{/* Which deck the figure belongs to, spelled out for a reader who
+		<span className="inline-flex items-center gap-2 leading-tight">
+			{icon !== null && (
+				// Decorative: the figures beside it carry the reading, and the
+				// glyph's own vocabulary is the source's, not a label a pilot needs
+				// read out. An unmapped name renders nothing rather than a gap.
+				// biome-ignore lint/performance/noImgElement: a ~1.5 kB static SVG from the public assets; next/image's optimizer has nothing to do to it
+				<img
+					src={`/weather-icons/${icon}.svg`}
+					alt=""
+					aria-hidden
+					width={28}
+					height={28}
+					className="size-7 shrink-0"
+				/>
+			)}
+			<span className="inline-flex gap-1.5">
+				{layers.map(({ layer, cover }) => (
+					<span key={layer} className="inline-flex flex-col items-center">
+						{/* Which deck the figure belongs to, spelled out for a reader who
 					    cannot see the initial printed underneath it. */}
-					<span className="sr-only">{labels[layer]}</span>
-					<span
-						className={cn(
-							"whitespace-nowrap tabular-nums",
-							cover !== null && cover >= 80 && "font-medium",
-						)}
-					>
-						{cover === null ? "—" : `${cover}%`}
+						<span className="sr-only">{labels[layer]}</span>
+						<span
+							className={cn(
+								"whitespace-nowrap tabular-nums",
+								cover !== null && cover >= 80 && "font-medium",
+							)}
+						>
+							{cover === null ? "—" : `${cover}%`}
+						</span>
+						<span
+							aria-hidden
+							className="text-[0.625rem] text-muted-foreground uppercase"
+						>
+							{labels[layer].charAt(0)}
+						</span>
 					</span>
-					<span
-						aria-hidden
-						className="text-[0.625rem] text-muted-foreground uppercase"
-					>
-						{labels[layer].charAt(0)}
-					</span>
-				</span>
-			))}
+				))}
+			</span>
 		</span>
 	);
 }

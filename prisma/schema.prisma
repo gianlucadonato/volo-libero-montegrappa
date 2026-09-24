@@ -409,6 +409,10 @@ model ElmeteoForecast {
   cloudsHigh            Int?
   cloudsMedium          Int?
   cloudsLow             Int?
+  /// The source's own weather glyph, as the bare filename it publishes it
+  /// under, e.g. "sereno" / "parznuv" / "nebbia". Stored verbatim: the
+  /// vocabulary is open, so an unseen name is kept and mapped at render.
+  weatherIcon           String?
   /// "low" | "medium" | "high", from the icon the source grades the hour with.
   riskLevel             String?
   risk                  String?

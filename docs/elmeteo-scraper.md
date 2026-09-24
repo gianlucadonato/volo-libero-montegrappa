@@ -191,6 +191,23 @@ column sets (Panettone 12, Borso 14 — it adds Wind 500m and Wind 1000m), so a
 hardcoded index reads the wrong column on some of them. Because every value is a
 plausible altitude or wind speed, that failure would be silent.
 
+**Three columns say it in markup, not in words.** The risk grading is the icon
+filename (`1en`/`2en`/`3en`), the reachable updrafts are the green/red colouring,
+and the weather glyph is its own filename — that one carries no `alt` and no
+`title` at all. None can be recovered from the cell's text, and the glyph cannot
+be recomputed from the cloud percentages printed beside it either: low cloud runs
+0-45% under `poconuv`, 8-79% under `parznuv` and 0-94% under `coperto`, and the
+thermic page draws 0% low cloud as `coperto` while Borso draws 27% as the
+clearer `poconuv`.
+
+**The glyph vocabulary is open.** Seven names are known — `sereno`, `poconuv`,
+`parznuv`, `coperto`, `copiog`, `tempor`, `nebbia` — collected across the saved
+fixtures and 252 live rows, in which `nebbia` appeared exactly once. That is one
+week of late-summer weather, so winter will add names. The filename is stored
+verbatim and mapped at render (`lib/elmeteo-forecast-view.ts`), so an unseen one
+is kept in the database and shows as no glyph rather than being lost at parse
+time. Adding a mapping means vendoring its SVG into `public/weather-icons/` too.
+
 **`<br>` and `<p>` are line separators.** Cheerio's `.text()` joins them with
 nothing in between, welding "MIN same altitude or lower" to "MAX 1700m" and
 hiding the boundary from the parsers. All extraction goes through the `text()`

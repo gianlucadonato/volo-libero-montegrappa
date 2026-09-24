@@ -72,6 +72,7 @@ export type ElmeteoForecastMinAggregateOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  weatherIcon: string | null
   riskLevel: string | null
   risk: string | null
   temperatureC: number | null
@@ -98,6 +99,7 @@ export type ElmeteoForecastMaxAggregateOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  weatherIcon: string | null
   riskLevel: string | null
   risk: string | null
   temperatureC: number | null
@@ -124,6 +126,7 @@ export type ElmeteoForecastCountAggregateOutputType = {
   cloudsHigh: number
   cloudsMedium: number
   cloudsLow: number
+  weatherIcon: number
   riskLevel: number
   risk: number
   temperatureC: number
@@ -190,6 +193,7 @@ export type ElmeteoForecastMinAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  weatherIcon?: true
   riskLevel?: true
   risk?: true
   temperatureC?: true
@@ -216,6 +220,7 @@ export type ElmeteoForecastMaxAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  weatherIcon?: true
   riskLevel?: true
   risk?: true
   temperatureC?: true
@@ -242,6 +247,7 @@ export type ElmeteoForecastCountAggregateInputType = {
   cloudsHigh?: true
   cloudsMedium?: true
   cloudsLow?: true
+  weatherIcon?: true
   riskLevel?: true
   risk?: true
   temperatureC?: true
@@ -359,6 +365,7 @@ export type ElmeteoForecastGroupByOutputType = {
   cloudsHigh: number | null
   cloudsMedium: number | null
   cloudsLow: number | null
+  weatherIcon: string | null
   riskLevel: string | null
   risk: string | null
   temperatureC: number | null
@@ -412,6 +419,7 @@ export type ElmeteoForecastWhereInput = {
   cloudsHigh?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  weatherIcon?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   riskLevel?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
@@ -442,6 +450,7 @@ export type ElmeteoForecastOrderByWithRelationInput = {
   cloudsHigh?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsLow?: Prisma.SortOrderInput | Prisma.SortOrder
+  weatherIcon?: Prisma.SortOrderInput | Prisma.SortOrder
   riskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   risk?: Prisma.SortOrderInput | Prisma.SortOrder
   temperatureC?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -476,6 +485,7 @@ export type ElmeteoForecastWhereUniqueInput = Prisma.AtLeast<{
   cloudsHigh?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableFilter<"ElmeteoForecast"> | number | null
+  weatherIcon?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   riskLevel?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableFilter<"ElmeteoForecast"> | number | null
@@ -506,6 +516,7 @@ export type ElmeteoForecastOrderByWithAggregationInput = {
   cloudsHigh?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrderInput | Prisma.SortOrder
   cloudsLow?: Prisma.SortOrderInput | Prisma.SortOrder
+  weatherIcon?: Prisma.SortOrderInput | Prisma.SortOrder
   riskLevel?: Prisma.SortOrderInput | Prisma.SortOrder
   risk?: Prisma.SortOrderInput | Prisma.SortOrder
   temperatureC?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -544,6 +555,7 @@ export type ElmeteoForecastScalarWhereWithAggregatesInput = {
   cloudsHigh?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudsMedium?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
   cloudsLow?: Prisma.IntNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
+  weatherIcon?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
   riskLevel?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
   risk?: Prisma.StringNullableWithAggregatesFilter<"ElmeteoForecast"> | string | null
   temperatureC?: Prisma.FloatNullableWithAggregatesFilter<"ElmeteoForecast"> | number | null
@@ -574,6 +586,7 @@ export type ElmeteoForecastCreateInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  weatherIcon?: string | null
   riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
@@ -604,6 +617,7 @@ export type ElmeteoForecastUncheckedCreateInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  weatherIcon?: string | null
   riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
@@ -634,6 +648,7 @@ export type ElmeteoForecastUpdateInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weatherIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -664,6 +679,7 @@ export type ElmeteoForecastUncheckedUpdateInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weatherIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -694,6 +710,7 @@ export type ElmeteoForecastCreateManyInput = {
   cloudsHigh?: number | null
   cloudsMedium?: number | null
   cloudsLow?: number | null
+  weatherIcon?: string | null
   riskLevel?: string | null
   risk?: string | null
   temperatureC?: number | null
@@ -724,6 +741,7 @@ export type ElmeteoForecastUpdateManyMutationInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weatherIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -754,6 +772,7 @@ export type ElmeteoForecastUncheckedUpdateManyInput = {
   cloudsHigh?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsMedium?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   cloudsLow?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  weatherIcon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   riskLevel?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   risk?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   temperatureC?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
@@ -798,6 +817,7 @@ export type ElmeteoForecastCountOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  weatherIcon?: Prisma.SortOrder
   riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
@@ -845,6 +865,7 @@ export type ElmeteoForecastMaxOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  weatherIcon?: Prisma.SortOrder
   riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
@@ -871,6 +892,7 @@ export type ElmeteoForecastMinOrderByAggregateInput = {
   cloudsHigh?: Prisma.SortOrder
   cloudsMedium?: Prisma.SortOrder
   cloudsLow?: Prisma.SortOrder
+  weatherIcon?: Prisma.SortOrder
   riskLevel?: Prisma.SortOrder
   risk?: Prisma.SortOrder
   temperatureC?: Prisma.SortOrder
@@ -934,6 +956,7 @@ export type ElmeteoForecastSelect<ExtArgs extends runtime.Types.Extensions.Inter
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  weatherIcon?: boolean
   riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
@@ -964,6 +987,7 @@ export type ElmeteoForecastSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  weatherIcon?: boolean
   riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
@@ -994,6 +1018,7 @@ export type ElmeteoForecastSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  weatherIcon?: boolean
   riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
@@ -1024,6 +1049,7 @@ export type ElmeteoForecastSelectScalar = {
   cloudsHigh?: boolean
   cloudsMedium?: boolean
   cloudsLow?: boolean
+  weatherIcon?: boolean
   riskLevel?: boolean
   risk?: boolean
   temperatureC?: boolean
@@ -1046,7 +1072,7 @@ export type ElmeteoForecastSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ElmeteoForecastOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "site" | "day" | "hour" | "cloudsHigh" | "cloudsMedium" | "cloudsLow" | "riskLevel" | "risk" | "temperatureC" | "precipitationMm" | "maxFlightAltitude" | "maxFlightMinM" | "maxFlightMaxM" | "cloudBaseMinM" | "cloudBaseMaxM" | "cloudBaseBelowTakeOff" | "thermalUpdraftsM" | "reachableUpdraftsM" | "stableLayers" | "winds" | "altitudeM" | "maxDailyCloudBaseM" | "sourceUpdatedAt" | "scrapedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["elmeteoForecast"]>
+export type ElmeteoForecastOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "site" | "day" | "hour" | "cloudsHigh" | "cloudsMedium" | "cloudsLow" | "weatherIcon" | "riskLevel" | "risk" | "temperatureC" | "precipitationMm" | "maxFlightAltitude" | "maxFlightMinM" | "maxFlightMaxM" | "cloudBaseMinM" | "cloudBaseMaxM" | "cloudBaseBelowTakeOff" | "thermalUpdraftsM" | "reachableUpdraftsM" | "stableLayers" | "winds" | "altitudeM" | "maxDailyCloudBaseM" | "sourceUpdatedAt" | "scrapedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["elmeteoForecast"]>
 
 export type $ElmeteoForecastPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ElmeteoForecast"
@@ -1068,6 +1094,12 @@ export type $ElmeteoForecastPayload<ExtArgs extends runtime.Types.Extensions.Int
     cloudsHigh: number | null
     cloudsMedium: number | null
     cloudsLow: number | null
+    /**
+     * The source's own weather glyph, as the bare filename it publishes it
+     * under, e.g. "sereno" / "parznuv" / "nebbia". Stored verbatim: the
+     * vocabulary is open, so an unseen name is kept and mapped at render.
+     */
+    weatherIcon: string | null
     /**
      * "low" | "medium" | "high", from the icon the source grades the hour with.
      */
@@ -1551,6 +1583,7 @@ export interface ElmeteoForecastFieldRefs {
   readonly cloudsHigh: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudsMedium: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
   readonly cloudsLow: Prisma.FieldRef<"ElmeteoForecast", 'Int'>
+  readonly weatherIcon: Prisma.FieldRef<"ElmeteoForecast", 'String'>
   readonly riskLevel: Prisma.FieldRef<"ElmeteoForecast", 'String'>
   readonly risk: Prisma.FieldRef<"ElmeteoForecast", 'String'>
   readonly temperatureC: Prisma.FieldRef<"ElmeteoForecast", 'Float'>

@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import {
@@ -18,6 +18,7 @@ import {
 	shortWindLabel,
 	topThermalM,
 	updraftList,
+	weatherIconName,
 	windBands,
 } from "@/lib/elmeteo-forecast-view";
 
@@ -31,6 +32,7 @@ function hour(overrides: Partial<ForecastHourView> = {}): ForecastHourView {
 		cloudsHigh: null,
 		cloudsMedium: null,
 		cloudsLow: null,
+		weatherIcon: null,
 		riskLevel: null,
 		risk: null,
 		temperatureC: null,
@@ -415,5 +417,45 @@ describe("hours", () => {
 	it("pads to the HH:00 the source prints", () => {
 		expect(formatHour(7)).toBe("07:00");
 		expect(formatHour(19)).toBe("19:00");
+	});
+});
+
+describe("weather icons", () => {
+	/**
+	 * Every name observed at the source maps to a file that is actually
+	 * vendored. A mapping pointing at a file nobody added renders a broken
+	 * image, which is worse than showing no glyph at all.
+	 */
+	it("maps every known source name to a vendored file", () => {
+		const names = [
+			"sereno",
+			"poconuv",
+			"parznuv",
+			"coperto",
+			"copiog",
+			"tempor",
+			"nebbia",
+		];
+		for (const name of names) {
+			const file = weatherIconName(hour({ weatherIcon: name }));
+			expect(file, `no mapping for ${name}`).not.toBeNull();
+			expect(
+				existsSync(
+					join(__dirname, "../../public/weather-icons", `${file}.svg`),
+				),
+				`${file}.svg is mapped but not vendored`,
+			).toBe(true);
+		}
+	});
+
+	/**
+	 * The vocabulary is the source's and it is open: `nebbia` appeared exactly
+	 * once in 252 live rows, so the next unseen name is a question of season,
+	 * not of whether. It has to degrade to the percentages rather than throw or
+	 * render a missing file.
+	 */
+	it("returns null for a name it has not seen", () => {
+		expect(weatherIconName(hour({ weatherIcon: "nevischio" }))).toBeNull();
+		expect(weatherIconName(hour({ weatherIcon: null }))).toBeNull();
 	});
 });

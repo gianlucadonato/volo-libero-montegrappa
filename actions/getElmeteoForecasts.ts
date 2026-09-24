@@ -56,6 +56,7 @@ export default async function getElmeteoForecasts() {
 			cloudsHigh: row.cloudsHigh,
 			cloudsMedium: row.cloudsMedium,
 			cloudsLow: row.cloudsLow,
+			weatherIcon: row.weatherIcon,
 			riskLevel: (row.riskLevel ?? null) as ForecastHourView["riskLevel"],
 			risk: row.risk,
 			temperatureC: row.temperatureC,

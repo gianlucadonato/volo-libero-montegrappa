@@ -2106,6 +2106,7 @@ export const ElmeteoForecastScalarFieldEnum = {
   cloudsHigh: 'cloudsHigh',
   cloudsMedium: 'cloudsMedium',
   cloudsLow: 'cloudsLow',
+  weatherIcon: 'weatherIcon',
   riskLevel: 'riskLevel',
   risk: 'risk',
   temperatureC: 'temperatureC',

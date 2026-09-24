@@ -31,6 +31,7 @@ export async function saveForecast({ site, day, table }: ScrapedForecast) {
 				cloudsHigh: entry.cloudsHigh ?? null,
 				cloudsMedium: entry.cloudsMedium ?? null,
 				cloudsLow: entry.cloudsLow ?? null,
+				weatherIcon: entry.weatherIcon ?? null,
 				riskLevel: entry.riskLevel ?? null,
 				risk: entry.risk ?? null,
 				temperatureC: entry.temperatureC ?? null,

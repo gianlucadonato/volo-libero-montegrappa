@@ -29,6 +29,8 @@ export type ForecastHourView = {
 	cloudsHigh: number | null;
 	cloudsMedium: number | null;
 	cloudsLow: number | null;
+	/** The source's own glyph name, verbatim. Null when it published none. */
+	weatherIcon: string | null;
 	riskLevel: ForecastRiskLevel | null;
 	risk: string | null;
 	temperatureC: number | null;
@@ -116,6 +118,42 @@ export function cloudLayers(
 		{ layer: "low", cover: hour.cloudsLow },
 	];
 	return layers.every(({ cover }) => cover === null) ? null : layers;
+}
+
+/**
+ * The source's weather glyph, mapped onto the icon set the site ships.
+ *
+ * elmeteo.it names its glyphs in Italian and serves them as GIFs from its own
+ * host. Neither is something to hotlink: the names are mapped to the
+ * Makin-Things set (MIT) so the icons match the rest of the UI and no request
+ * ever leaves for the source on a page view.
+ *
+ * The vocabulary is open. These seven are every name seen across 252 live rows
+ * and the saved fixtures, but that is one week of late-summer weather — the
+ * seventh, `nebbia`, appeared exactly once, which is the measure of how thin
+ * the evidence for "complete" is. Winter will add snow at least. An unmapped
+ * name returns null rather than guessing, so the cell falls back to the
+ * percentages and the row still reads.
+ */
+const weatherIcons: Record<string, string> = {
+	sereno: "clear-day",
+	poconuv: "cloudy-1-day",
+	parznuv: "cloudy-3-day",
+	// The sunless glyph: `coperto` is a lid on the day, and every day variant in
+	// the set keeps a sun showing through.
+	coperto: "cloudy",
+	copiog: "rainy-2",
+	tempor: "severe-thunderstorm",
+	nebbia: "fog",
+};
+
+/**
+ * The icon file to render for the hour, or null when the source published no
+ * glyph or one we have not mapped yet.
+ */
+export function weatherIconName(hour: ForecastHourView) {
+	if (hour.weatherIcon === null) return null;
+	return weatherIcons[hour.weatherIcon] ?? null;
 }
 
 /**

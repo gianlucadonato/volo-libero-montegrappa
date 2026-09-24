@@ -252,6 +252,41 @@ describe("parseForecastTable on a thermic day", () => {
 		expect(table.hours.every((row) => row.risk === undefined)).toBe(true);
 	});
 
+	/**
+	 * The glyph is the third thing this page says with markup rather than words,
+	 * after the risk grading and the updraft colours — and the best hidden: its
+	 * `<img>` carries no `alt` and no `title`, so the filename is the only place
+	 * the reading exists.
+	 */
+	it("reads the weather glyph from the icon filename", () => {
+		const graded = parseForecastTable(tappeti).hours;
+		expect(graded.find((row) => row.hour === 7)?.weatherIcon).toBe("coperto");
+		expect(graded.find((row) => row.hour === 8)?.weatherIcon).toBe("tempor");
+		expect(graded.find((row) => row.hour === 9)?.weatherIcon).toBe("copiog");
+		expect(graded.find((row) => row.hour === 19)?.weatherIcon).toBe("sereno");
+	});
+
+	/**
+	 * Why the glyph is scraped at all rather than computed from the three
+	 * percentages printed in the same cell. These two hours rank opposite ways
+	 * under the two readings: the thermic page's 19:00 has no low cloud at all
+	 * and the source still draws it overcast, while Borso's 07:00 has 27% and
+	 * gets the clearer glyph. Any threshold over the stored figures orders them
+	 * the wrong way round, so the glyph has to come from the markup.
+	 */
+	it("keeps a glyph the cloud percentages rank the other way round", () => {
+		const overcast = parseForecastTable(thermals).hours.find(
+			(row) => row.hour === 19,
+		);
+		const clearer = parseForecastTable(borso).hours.find(
+			(row) => row.hour === 7,
+		);
+		expect(overcast?.weatherIcon).toBe("coperto");
+		expect(clearer?.weatherIcon).toBe("poconuv");
+		// More low cloud on the one the source draws as the clearer sky.
+		expect(clearer?.cloudsLow).toBeGreaterThan(overcast?.cloudsLow ?? 0);
+	});
+
 	it("reads the three gradings the source publishes", () => {
 		const graded = parseForecastTable(tappeti).hours;
 		expect(graded.find((row) => row.hour === 7)?.riskLevel).toBe("medium");
