@@ -167,11 +167,41 @@ export function weatherIconName(hour: ForecastHourView) {
  *
  * Measured by rasterising each file and reading its opaque bounds, not by eye.
  */
-const fullHeightWeatherIcons = new Set(["severe-thunderstorm"]);
+const fullHeightWeatherIcons = new Set([
+	"severe-thunderstorm",
+	// Both wind glyphs are the same artwork, drawn lower on the canvas than the
+	// cloud ones: 8px of empty below them at a rendered 48, against ~14px.
+	"dust",
+	"wind",
+]);
 
 /** Whether the glyph needs its full canvas height left alone. */
 export function weatherIconDrawsFullHeight(icon: string) {
 	return fullHeightWeatherIcons.has(icon);
+}
+
+/**
+ * The glyph for a wind risk note, or null when the note is about something
+ * else.
+ *
+ * The source's wording is open — eight distinct notes so far across the stored
+ * rows and the saved fixtures, covering wind, precipitation and thunderstorms,
+ * and it phrases the same warning more than one way ("possible moderate wind",
+ * "possible moderate wind on free atmosphere"). So this matches on the two
+ * words that carry the meaning rather than on the whole string, and anything it
+ * does not recognise falls through to the risk grading's own icon.
+ *
+ * Strength is read from the note, not from `riskLevel`: the levels also grade
+ * thunderstorms and rain, so a high hour is not necessarily a windy one.
+ */
+export function riskWindIcon(hour: ForecastHourView) {
+	const note = hour.risk?.toLowerCase();
+	if (note === undefined || !/\bwind/.test(note)) return null;
+	// Animated blue for strong, still tan for moderate: the movement is the
+	// warning, so it is spent on the level a pilot has to act on.
+	if (/\bstrong\b/.test(note)) return "wind";
+	if (/\bmoderate\b/.test(note)) return "dust";
+	return null;
 }
 
 /**

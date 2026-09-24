@@ -21,6 +21,18 @@ publishes its own GIFs, but a page view must never send a request there. See
 | `tempor` | `severe-thunderstorm.svg` |
 | `nebbia` | `fog.svg` |
 
+Two more are keyed off the risk column's note rather than off a source glyph —
+elmeteo.it prints that warning as words, not as an icon:
+
+| risk note | file | |
+| --- | --- | --- |
+| `...moderate wind...` | `dust.svg` | still, tan |
+| `...strong wind...` | `wind.svg` | animated, blue |
+
+Same artwork in both; the movement and the colour are what separate them, so the
+animation is spent on the level a pilot has to act on. `dust` is the set's only
+still file here — every other one animates.
+
 Adding a mapping means vendoring its file here too.
 
 ## They carry no `viewBox`, and most of them do not fill their canvas
@@ -41,10 +53,13 @@ rasterising each file and reading its opaque bounds, at a rendered height of
 | `cloudy-1-day` | 13.9px |
 | `cloudy-3-day` | 13.9px |
 | `cloudy` | 13.9px |
+| `dust` | 8.0px |
+| `wind` | 8.0px |
 | `severe-thunderstorm` | 1.3px |
 
-The table closes that band with a negative bottom margin so the cloud figures sit
-under the artwork rather than under the empty space. `severe-thunderstorm` is the
-exception — its bolt reaches 97% of the height — so it is exempted in
-`lib/elmeteo-forecast-view.ts`. A newly vendored file needs the same measurement
+The table closes that band with a negative bottom margin so the text sits under
+the artwork rather than under the empty space. `severe-thunderstorm` is the
+exception — its bolt reaches 97% of the height — and so are the two wind glyphs,
+which are drawn lower on their canvas than the cloud ones. All three are exempted
+in `lib/elmeteo-forecast-view.ts`. A newly vendored file needs the same measurement
 before it is added to that set, or left out of it.

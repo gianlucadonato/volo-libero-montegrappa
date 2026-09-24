@@ -200,6 +200,17 @@ be recomputed from the cloud percentages printed beside it either: low cloud run
 thermic page draws 0% low cloud as `coperto` while Borso draws 27% as the
 clearer `poconuv`.
 
+**The risk note's wording is open too, and mostly not about wind.** Eight
+distinct notes have been seen — `possible moderate wind`, `possible strong wind`,
+`possible moderate wind on free atmosphere`, `possible precipitations`,
+`precipitations not ruled out`, `thunderstorm not ruled out`, `possible strong
+thunderstorm` — and the source words the same warning more than one way. The two
+wind ones get their own glyph in the table, matched on the words that carry the
+meaning rather than on the whole string; everything else keeps the graded shape.
+Strength is read from the note rather than from `riskLevel`, because the levels
+grade thunderstorms and rain as well, so a high hour is not necessarily a windy
+one.
+
 **The glyph vocabulary is open.** Seven names are known — `sereno`, `poconuv`,
 `parznuv`, `coperto`, `copiog`, `tempor`, `nebbia` — collected across the saved
 fixtures and 252 live rows, in which `nebbia` appeared exactly once. That is one

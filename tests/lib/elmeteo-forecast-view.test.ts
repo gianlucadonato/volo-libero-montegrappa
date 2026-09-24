@@ -15,6 +15,7 @@ import {
 	hasAnyThermals,
 	hasRisk,
 	lowestStableLayerM,
+	riskWindIcon,
 	shortWindLabel,
 	topThermalM,
 	updraftList,
@@ -468,7 +469,67 @@ describe("weather icons", () => {
 	 */
 	it("exempts only the glyphs that draw to the bottom of their canvas", () => {
 		expect(weatherIconDrawsFullHeight("severe-thunderstorm")).toBe(true);
+		expect(weatherIconDrawsFullHeight("dust")).toBe(true);
+		expect(weatherIconDrawsFullHeight("wind")).toBe(true);
 		expect(weatherIconDrawsFullHeight("cloudy-1-day")).toBe(false);
 		expect(weatherIconDrawsFullHeight("clear-day")).toBe(false);
+	});
+});
+
+describe("wind risk glyphs", () => {
+	/**
+	 * The two notes as the source actually publishes them, counted across the
+	 * stored rows: 28 moderate and 10 strong.
+	 */
+	it("tells a moderate wind note from a strong one", () => {
+		expect(riskWindIcon(hour({ risk: "possible moderate wind" }))).toBe("dust");
+		expect(riskWindIcon(hour({ risk: "possible strong wind" }))).toBe("wind");
+	});
+
+	/**
+	 * The source phrases the same warning more than one way — this exact string
+	 * is in the saved Tappeti fixture — so matching the whole note would have
+	 * dropped the glyph on a real row.
+	 */
+	it("reads a wind note the source worded the longer way", () => {
+		expect(
+			riskWindIcon(hour({ risk: "possible moderate wind on free atmosphere" })),
+		).toBe("dust");
+	});
+
+	/**
+	 * The vocabulary is open and mostly not about wind: rain and thunderstorm
+	 * notes have to keep the graded shape rather than borrowing a wind glyph.
+	 */
+	it("leaves notes that are not about wind alone", () => {
+		expect(
+			riskWindIcon(hour({ risk: "thunderstorm not ruled out" })),
+		).toBeNull();
+		expect(riskWindIcon(hour({ risk: "possible precipitations" }))).toBeNull();
+		expect(
+			riskWindIcon(hour({ risk: "possible strong thunderstorm" })),
+		).toBeNull();
+		expect(riskWindIcon(hour({ risk: null }))).toBeNull();
+	});
+
+	/**
+	 * A wind note whose strength we cannot read shows the grading rather than a
+	 * guess: picking one of the two glyphs would be inventing a severity the
+	 * source did not state.
+	 */
+	it("shows no glyph for a wind note it cannot rank", () => {
+		expect(riskWindIcon(hour({ risk: "wind shear possible" }))).toBeNull();
+	});
+
+	/** A mapped glyph that nobody vendored renders a broken image. */
+	it("maps both strengths to a vendored file", () => {
+		for (const file of ["dust", "wind"]) {
+			expect(
+				existsSync(
+					join(__dirname, "../../public/weather-icons", `${file}.svg`),
+				),
+				`${file}.svg is mapped but not vendored`,
+			).toBe(true);
+		}
 	});
 });

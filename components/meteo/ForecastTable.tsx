@@ -32,6 +32,7 @@ import {
 	hasAnyThermals,
 	hasRisk,
 	lowestStableLayerM,
+	riskWindIcon,
 	shortWindLabel,
 	topThermalM,
 	updraftList,
@@ -335,6 +336,42 @@ function ColumnInfo({
  * either side are degrees and millimetres, and a bare "52" between them does
  * not say which of the three it is.
  */
+/**
+ * One of the vendored weather glyphs, sized and spaced for a table cell.
+ *
+ * Decorative: whatever it illustrates is also written in the cell, and the
+ * glyph's own vocabulary is the source's rather than a label a pilot needs read
+ * out. The animation, where a file has one, is CSS keyframes or SMIL inside the
+ * SVG, both of which run in an `img` without the file being inlined.
+ *
+ * Sized 56x48 to the icons' own canvas rather than to a square: they carry no
+ * `viewBox`, so a square box letterboxes them and adds dead height on top of
+ * the dead space already inside the artwork.
+ *
+ * The negative bottom margin closes that inner gap rather than the canvas being
+ * cropped per glyph: keeping every canvas whole is what holds the artwork on
+ * one baseline down the column, so the text is pulled up over the empty band
+ * instead. Most of them draw their lowest shape at ~71% of the canvas, leaving
+ * ~14px of an unscaled 48 below it; 10px of that is taken back. The ones that
+ * do use their lower canvas are exempt — see `weatherIconDrawsFullHeight`.
+ */
+function WeatherGlyph({ icon }: { icon: string }) {
+	return (
+		// biome-ignore lint/performance/noImgElement: a ~5 kB animated SVG from the public assets; next/image cannot optimise an SVG and would strip nothing useful
+		<img
+			src={`/weather-icons/${icon}.svg`}
+			alt=""
+			aria-hidden
+			width={56}
+			height={48}
+			className={cn(
+				"h-12 w-14 shrink-0",
+				!weatherIconDrawsFullHeight(icon) && "-mb-2.5",
+			)}
+		/>
+	);
+}
+
 function CloudsCell({ hour }: { hour: ForecastHourView }) {
 	const t = useTranslations("MeteoPage.ForecastTable");
 	const layers = cloudLayers(hour);
@@ -354,40 +391,7 @@ function CloudsCell({ hour }: { hour: ForecastHourView }) {
 		// figures keep their own line underneath rather than being squeezed
 		// beside it.
 		<span className="inline-flex flex-col items-center leading-tight">
-			{icon !== null && (
-				// Decorative: the figures below it carry the reading, and the
-				// glyph's own vocabulary is the source's, not a label a pilot needs
-				// read out. An unmapped name renders nothing rather than a gap.
-				// The animation is CSS keyframes inside the SVG, which run in an
-				// `img` without the file being inlined into the bundle.
-				//
-				// Sized 56x48 to the icons' own canvas rather than to a square: they
-				// carry no `viewBox`, so a square box letterboxes them and adds dead
-				// height on top of the dead space already inside the artwork.
-				//
-				// The negative bottom margin closes that inner gap rather than the
-				// canvas being cropped per glyph: keeping every canvas whole is what
-				// holds the artwork on one baseline down the column, so the figures
-				// are pulled up over the empty band instead. Six of the seven draw
-				// their lowest cloud at ~71% of the canvas, leaving ~14px of an
-				// unscaled 48 below them; 10px of that is taken back, which leaves
-				// the gap reading as spacing rather than as a collision.
-				//
-				// `severe-thunderstorm` is exempt: its bolt reaches 97% of the
-				// canvas, so the same pull would run the figures through the tip.
-				// biome-ignore lint/performance/noImgElement: a ~5 kB animated SVG from the public assets; next/image cannot optimise an SVG and would strip nothing useful
-				<img
-					src={`/weather-icons/${icon}.svg`}
-					alt=""
-					aria-hidden
-					width={56}
-					height={48}
-					className={cn(
-						"h-12 w-14 shrink-0",
-						!weatherIconDrawsFullHeight(icon) && "-mb-2.5",
-					)}
-				/>
-			)}
+			{icon !== null && <WeatherGlyph icon={icon} />}
 			<span className="inline-flex gap-1.5">
 				{layers.map(({ layer, cover }) => (
 					<span key={layer} className="inline-flex flex-col items-center">
@@ -569,19 +573,36 @@ function RiskCell({ hour }: { hour: ForecastHourView }) {
 
 	const { Icon, className, label } = riskStyles[hour.riskLevel];
 	const level = t(label);
+	// A wind warning gets the wind glyph in place of the grading shape: it says
+	// what to expect, not just how bad it is. Every other note — rain,
+	// thunderstorms, anything unrecognised — keeps the graded shape.
+	const windIcon = riskWindIcon(hour);
 
 	// The level always reaches a screen reader; on screen it is the icon's job,
 	// and the width goes to the note when there is one.
-	const cell = (
-		<>
-			<Icon className="size-5 shrink-0" />
-			<span className="sr-only">{level}</span>
-			{note && <span className="hidden sm:inline">{note}</span>}
-		</>
-	);
+	const cell =
+		windIcon === null ? (
+			<>
+				<Icon className="size-5 shrink-0" />
+				<span className="sr-only">{level}</span>
+				{note && <span className="hidden sm:inline">{note}</span>}
+			</>
+		) : (
+			// Stacked like the clouds column, so the glyph reads down the table and
+			// the wording keeps its own line underneath instead of being squeezed
+			// beside it.
+			<>
+				<WeatherGlyph icon={windIcon} />
+				<span className="sr-only">{level}</span>
+				{note && <span className="hidden text-center sm:inline">{note}</span>}
+			</>
+		);
 
 	const cellClass = cn(
-		"inline-flex items-center gap-1 text-[0.6875rem] leading-tight",
+		"inline-flex text-[0.6875rem] leading-tight",
+		windIcon === null
+			? "items-center gap-1"
+			: "flex-col items-center justify-center",
 		className,
 	);
 
@@ -604,11 +625,13 @@ function RiskCell({ hour }: { hour: ForecastHourView }) {
 }
 
 /**
- * What the three risk icons mean, as the header's dialog.
+ * What the risk icons mean, as the header's dialog.
  *
  * On a phone the cell is the icon and nothing else — the source's note needs
  * width the column does not have — so the shapes carry the whole column there.
- * A legend is what makes them readable the first time.
+ * A legend is what makes them readable the first time. That is also why the two
+ * wind glyphs are listed: on a phone they replace the graded shape with no
+ * wording beside them, so without this nothing on screen says what they mean.
  */
 function RiskLegend() {
 	const t = useTranslations("MeteoPage.ForecastTable");
@@ -627,6 +650,27 @@ function RiskLegend() {
 					</span>
 				);
 			})}
+			{(
+				[
+					["dust", "risk_wind_moderate"],
+					["wind", "risk_wind_strong"],
+				] as const
+			).map(([icon, label]) => (
+				<span key={icon} className="flex items-center gap-2">
+					{/* Boxed to the row height rather than shown at the cell's size: a
+					    48px glyph would tower over the lucide shapes above it. */}
+					{/* biome-ignore lint/performance/noImgElement: a ~1 kB SVG from the public assets; next/image cannot optimise an SVG and would strip nothing useful */}
+					<img
+						src={`/weather-icons/${icon}.svg`}
+						alt=""
+						aria-hidden
+						width={56}
+						height={48}
+						className="h-5 w-6 shrink-0"
+					/>
+					{t(label)}
+				</span>
+			))}
 		</span>
 	);
 }

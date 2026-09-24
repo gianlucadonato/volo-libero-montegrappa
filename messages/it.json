@@ -855,6 +855,8 @@
 			"risk_medium": "Rischio medio",
 			"risk_high": "Rischio alto",
 			"risk_dialog_title": "Rischio alle {hour}",
+			"risk_wind_moderate": "Vento moderato possibile",
+			"risk_wind_strong": "Vento forte possibile",
 			"wind": "Vento",
 			"speed": "{speed} <unit>km/h</unit>",
 			"gust": "raff. {speed} <unit>km/h</unit>"
