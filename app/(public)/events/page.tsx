@@ -1,7 +1,7 @@
 import { isBefore } from "date-fns";
 import { getTranslations } from "next-intl/server";
 import getEvents from "@/actions/getEvents";
-import CreateEventButton from "@/components/CreateEventButton";
+import CreateEventCard from "@/components/CreateEventCard";
 import { DashboardHeader } from "@/components/dashboard/header";
 import EventCard from "@/components/EventCard";
 import { constructMetadata, siteConfig } from "@/config/site";
@@ -42,10 +42,10 @@ export default async function EventsPage() {
 
 			<div className="container mx-auto px-4 pt-10">
 				{events.length === 0 && (
-					<div className="flex h-96 flex-col items-center justify-center">
+					<div className="flex min-h-96 flex-col items-center justify-center">
 						<p className="text-lg text-gray-500">{t("no_events")}</p>
-						<div className="mt-2">
-							<CreateEventButton />
+						<div className="mt-6 w-full max-w-sm">
+							<CreateEventCard />
 						</div>
 					</div>
 				)}
@@ -53,11 +53,10 @@ export default async function EventsPage() {
 				{upcomingEvents.length > 0 && (
 					<div className="mb-12">
 						<div className="my-6 pb-4">
-							<DashboardHeader heading={t("upcoming_events")}>
-								<CreateEventButton />
-							</DashboardHeader>
+							<DashboardHeader heading={t("upcoming_events")} />
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+							<CreateEventCard />
 							{upcomingEvents.map((event) => (
 								<EventCard key={event.id} event={event} />
 							))}
@@ -71,6 +70,7 @@ export default async function EventsPage() {
 							<DashboardHeader heading={t("past_events")} />
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+							{upcomingEvents.length === 0 && <CreateEventCard />}
 							{pastEvents.map((event) => (
 								<EventCard key={event.id} event={event} />
 							))}

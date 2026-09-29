@@ -695,7 +695,7 @@
 		"header_description": "Scopri tutti gli eventi organizzati dal Club Montegrappa",
 		"upcoming_events": "Prossimi Eventi",
 		"past_events": "Eventi Passati",
-		"create_event": "Crea Evento",
+		"add_event": "Aggiungi nuovo evento",
 		"no_events": "Nessun evento trovato"
 	},
 	"NewsPage": {
