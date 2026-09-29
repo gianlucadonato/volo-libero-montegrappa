@@ -712,7 +712,8 @@
 		"edit_event": "Edit Event",
 		"create_success": "Event created successfully!",
 		"edit_success": "Event updated successfully!",
-		"event_error": "An error occurred while creating the event!"
+		"event_error": "An error occurred while creating the event!",
+		"cover_upload_error": "The image upload failed, please try again"
 	},
 	"MeteoPage": {
 		"back": "Back",

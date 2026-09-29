@@ -34,3 +34,13 @@ export const deleteSubmissionApi = async (submissionId: string) =>
 	api.DELETE("/xc/submissions/{id}", {
 		params: { path: { id: submissionId } },
 	});
+
+export const uploadEventCoverApi = async (file: File) => {
+	const formData = new FormData();
+	formData.append("file", file);
+
+	return api.POST("/events/cover", {
+		body: formData,
+		bodySerializer: (body) => body,
+	});
+};

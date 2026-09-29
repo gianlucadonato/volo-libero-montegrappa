@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { EVENT_COVERS_BASE_URL } from "@/config/constants";
 
 export const LoginSchema = z.object({
 	email: z
@@ -152,7 +153,18 @@ export const EventSchema = z.object({
 	title: z.string(),
 	description: z.string(),
 	information: z.string().optional(),
-	imageUrl: z.string().optional(),
+	// A cover uploaded through /api/events/cover. Data URLs are the legacy inline
+	// covers: still accepted so events not yet moved by
+	// scripts/migrateEventCoversToS3.ts stay editable. Drop them once it has run.
+	imageUrl: z
+		.string()
+		.refine(
+			(value) =>
+				value.startsWith(EVENT_COVERS_BASE_URL) ||
+				value.startsWith("data:image/"),
+			"Invalid cover image URL",
+		)
+		.optional(),
 	eventDate: z.string(),
 	optionalDate: z.string().optional(),
 	startTime: z.string().optional(),

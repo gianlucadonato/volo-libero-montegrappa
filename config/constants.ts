@@ -14,3 +14,14 @@ export const XC_PUBLIC_ASSETS_BASE_URL =
 // public/ — the hero video, the airspace archives and the site photos — under a
 // "media/" prefix that keeps them clear of the XC task assets.
 export const PUBLIC_MEDIA_BASE_URL = `${XC_PUBLIC_ASSETS_BASE_URL}/media`;
+
+// Event covers are uploaded through /api/events/cover and re-encoded to JPEG
+// server-side; the form enforces the same limits before sending.
+export const EVENT_COVER_ACCEPTED_TYPES = [
+	"image/jpeg",
+	"image/png",
+	"image/webp",
+];
+export const EVENT_COVER_MAX_UPLOAD_MB = 5;
+export const EVENT_COVERS_PREFIX = "events/covers/";
+export const EVENT_COVERS_BASE_URL = `${XC_PUBLIC_ASSETS_BASE_URL}/${EVENT_COVERS_PREFIX}`;

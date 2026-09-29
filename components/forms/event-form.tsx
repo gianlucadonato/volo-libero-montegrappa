@@ -27,27 +27,15 @@ import {
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import {
+	EVENT_COVER_ACCEPTED_TYPES,
+	EVENT_COVER_MAX_UPLOAD_MB,
+} from "@/config/constants";
+import { uploadEventCoverApi } from "@/lib/api-client";
 import type { Event } from "@/prisma/generated/client";
 import { EventSchema } from "@/schemas";
 
 type FormData = z.infer<typeof EventSchema>;
-
-function fileToBase64(file: File | Blob) {
-	return new Promise<string>((resolve, reject) => {
-		const reader = new FileReader();
-
-		reader.onloadend = () => {
-			if (typeof reader.result === "string") {
-				resolve(reader.result);
-			} else {
-				reject(new Error("Failed to convert file to base64"));
-			}
-		};
-
-		reader.onerror = reject;
-		reader.readAsDataURL(file);
-	});
-}
 
 function formatEvent(event: Event): FormData {
 	return {
@@ -84,6 +72,8 @@ export function EventForm({
 		},
 	});
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
+	const [isUploadingCover, setIsUploadingCover] =
+		React.useState<boolean>(false);
 	const [coverImage, setCoverImage] = React.useState<boolean>(
 		Boolean(event?.imageUrl),
 	);
@@ -112,8 +102,17 @@ export function EventForm({
 	}
 
 	const onUploadComplete = async (file: File) => {
-		const url = await fileToBase64(file);
-		form.setValue("imageUrl", url as string);
+		setIsUploadingCover(true);
+		try {
+			const { data, error } = await uploadEventCoverApi(file);
+			if (error || !data) throw error;
+			form.setValue("imageUrl", data.url);
+		} catch {
+			form.setValue("imageUrl", undefined);
+			toast.error("Errore", { description: t("cover_upload_error") });
+		} finally {
+			setIsUploadingCover(false);
+		}
 	};
 
 	const onUploadDelete = () => form.setValue("imageUrl", undefined);
@@ -126,7 +125,10 @@ export function EventForm({
 					variant="outline"
 					size="sm"
 					className="mb-2"
-					onClick={() => setCoverImage(false)}
+					onClick={() => {
+						setCoverImage(false);
+						form.setValue("imageUrl", undefined);
+					}}
 				>
 					<X className="mr-2 size-4" />
 					<span>Rimuovi immagine</span>
@@ -152,6 +154,8 @@ export function EventForm({
 				<div className="mb-6">
 					<EventFileUpload
 						multiple={false}
+						acceptedFileTypes={EVENT_COVER_ACCEPTED_TYPES}
+						maxSizeInMB={EVENT_COVER_MAX_UPLOAD_MB}
 						onUploadComplete={onUploadComplete}
 						onDelete={onUploadDelete}
 					/>
@@ -373,8 +377,10 @@ export function EventForm({
 						/>
 					</div>
 					<div className="mt-8 grid gap-2">
-						<Button type="submit" disabled={isLoading}>
-							{isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
+						<Button type="submit" disabled={isLoading || isUploadingCover}>
+							{(isLoading || isUploadingCover) && (
+								<Loader2 className="mr-2 size-4 animate-spin" />
+							)}
 							{event ? t("edit_event") : t("create_event")}
 						</Button>
 					</div>

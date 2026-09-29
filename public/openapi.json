@@ -24,6 +24,18 @@
 			}
 		},
 		"schemas": {
+			"EventCoverUploadBodySchema": {
+				"description": "Event cover image (JPEG, PNG or WebP, up to 5 MB)"
+			},
+			"EventCoverUploadResponseSchema": {
+				"type": "object",
+				"properties": {
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": ["url"]
+			},
 			"UsersSchema": {
 				"type": "object",
 				"properties": {
@@ -583,6 +595,23 @@
 					"categories",
 					"flights"
 				]
+			},
+			"FrameQuerySchema": {
+				"type": "object",
+				"properties": {
+					"folder": {
+						"type": "string",
+						"pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?$"
+					},
+					"map": {
+						"type": "string"
+					},
+					"step": {
+						"type": "integer",
+						"minimum": 0
+					}
+				},
+				"required": ["folder", "map", "step"]
 			},
 			"IGCFixSchema": {
 				"type": "object",
@@ -1445,6 +1474,112 @@
 		}
 	},
 	"paths": {
+		"/elmeteo/frame": {
+			"get": {
+				"operationId": "get-elmeteo-frame",
+				"summary": "/elmeteo/frame",
+				"description": "Serve one ElMeteo forecast frame as WebP. The source bucket is private, so frames are proxied, converted and cached by the app.",
+				"tags": ["Elmeteo"],
+				"parameters": [],
+				"security": [
+					{
+						"required": []
+					}
+				],
+				"responses": {
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/elmeteo/forecasts/refresh": {
+			"post": {
+				"operationId": "post-elmeteo-forecasts-refresh",
+				"summary": "",
+				"description": "",
+				"tags": ["Elmeteo"],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "trigger",
+						"required": false,
+						"schema": {
+							"type": "string"
+						},
+						"example": "example"
+					}
+				],
+				"security": [
+					{
+						"BearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {}
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
+		"/events/cover": {
+			"post": {
+				"operationId": "post-events-cover",
+				"summary": "/events/cover",
+				"description": "Upload an event cover image to the public bucket and return its URL",
+				"tags": ["Events"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/EventCoverUploadBodySchema"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/EventCoverUploadResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/users": {
 			"get": {
 				"operationId": "get-users",
@@ -2037,6 +2172,12 @@
 		}
 	},
 	"tags": [
+		{
+			"name": "Elmeteo"
+		},
+		{
+			"name": "Events"
+		},
 		{
 			"name": "Users"
 		},
