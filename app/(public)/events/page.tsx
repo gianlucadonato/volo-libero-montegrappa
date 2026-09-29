@@ -68,7 +68,9 @@ export default async function EventsPage() {
 				{pastEvents.length > 0 && (
 					<div className="mb-12 mt-10">
 						<div className="my-6 pb-4">
-							<DashboardHeader heading={t("past_events")} />
+							<DashboardHeader heading={t("past_events")}>
+								{upcomingEvents.length === 0 && <CreateEventButton />}
+							</DashboardHeader>
 						</div>
 						<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
 							{pastEvents.map((event) => (
