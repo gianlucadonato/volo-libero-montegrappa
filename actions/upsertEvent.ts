@@ -12,6 +12,9 @@ const formatData = (data: FormData) => ({
 	...data,
 	eventDate: new Date(data.eventDate),
 	optionalDate: data.optionalDate ? new Date(data.optionalDate) : null,
+	// Prisma skips undefined fields on update, so a removed cover must be an
+	// explicit null to clear the column.
+	imageUrl: data.imageUrl || null,
 	price: (data.price || 0) * 100,
 });
 

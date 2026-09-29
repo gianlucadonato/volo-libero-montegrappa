@@ -229,3 +229,11 @@ export const XcPilotProfileSchema = z.object({
 	categories: z.array(XcPilotCategoryStatsSchema),
 	flights: z.array(XcPilotFlightSchema),
 });
+
+export const EventCoverUploadBodySchema = z
+	.any()
+	.describe("Event cover image (JPEG, PNG or WebP, up to 5 MB)");
+
+export const EventCoverUploadResponseSchema = z.object({
+	url: z.string(),
+});

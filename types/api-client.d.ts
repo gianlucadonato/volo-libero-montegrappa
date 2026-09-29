@@ -4,6 +4,62 @@
  */
 
 export interface paths {
+	"/elmeteo/frame": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /elmeteo/frame
+		 * @description Serve one ElMeteo forecast frame as WebP. The source bucket is private, so frames are proxied, converted and cached by the app.
+		 */
+		get: operations["get-elmeteo-frame"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/elmeteo/forecasts/refresh": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		post: operations["post-elmeteo-forecasts-refresh"];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/events/cover": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * /events/cover
+		 * @description Upload an event cover image to the public bucket and return its URL
+		 */
+		post: operations["post-events-cover"];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/users": {
 		parameters: {
 			query?: never;
@@ -276,6 +332,11 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
 	schemas: {
+		/** @description Event cover image (JPEG, PNG or WebP, up to 5 MB) */
+		EventCoverUploadBodySchema: unknown;
+		EventCoverUploadResponseSchema: {
+			url: string;
+		};
 		UsersSchema: {
 			id: string;
 			firstName?: string | null;
@@ -444,6 +505,11 @@ export interface components {
 			};
 			categories: components["schemas"]["XcPilotCategoryStatsSchema"][];
 			flights: components["schemas"]["XcPilotFlightSchema"][];
+		};
+		FrameQuerySchema: {
+			folder: string;
+			map: string;
+			step: number;
 		};
 		IGCFixSchema: {
 			timestamp: number;
@@ -743,6 +809,70 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+	"get-elmeteo-frame": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"post-elmeteo-forecasts-refresh": {
+		parameters: {
+			query?: {
+				/** @example example */
+				trigger?: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": Record<string, never>;
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"post-events-cover": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: {
+			content: {
+				"multipart/form-data": components["schemas"]["EventCoverUploadBodySchema"];
+			};
+		};
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["EventCoverUploadResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
 	"get-users": {
 		parameters: {
 			query?: never;
