@@ -655,7 +655,7 @@
 		"header_description": "Stay updated on the latest events organized by Club Montegrappa",
 		"upcoming_events": "Upcoming Events",
 		"past_events": "Past Events",
-		"create_event": "Create Event",
+		"add_event": "Add new event",
 		"no_events": "No events found"
 	},
 	"NewsPage": {
