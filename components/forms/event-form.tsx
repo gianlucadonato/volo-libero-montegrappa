@@ -74,6 +74,10 @@ export function EventForm({
 	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	const [isUploadingCover, setIsUploadingCover] =
 		React.useState<boolean>(false);
+	// Not part of EventSchema: it is a one-off choice made when creating the
+	// event, not something stored on it.
+	const [announceOnTelegram, setAnnounceOnTelegram] =
+		React.useState<boolean>(true);
 	const [coverImage, setCoverImage] = React.useState<boolean>(
 		Boolean(event?.imageUrl),
 	);
@@ -83,11 +87,16 @@ export function EventForm({
 	async function handleSubmit(data: FormData) {
 		setIsLoading(true);
 		try {
-			const res = await upsertEvent({ ...data, id: event?.id });
+			const res = await upsertEvent({
+				...data,
+				id: event?.id,
+				announceOnTelegram: !event && announceOnTelegram,
+			});
 			posthog.capture(event ? "event_updated" : "event_created", {
 				event_id: res.id,
 				is_member_only: data.isMemberOnly,
 				has_cover_image: Boolean(data.imageUrl),
+				...(event ? {} : { announced_on_telegram: announceOnTelegram }),
 			});
 			onSubmit?.();
 			toast.success("OK!", {
@@ -375,6 +384,20 @@ export function EventForm({
 								</FormItem>
 							)}
 						/>
+						{!event && (
+							<FormItem>
+								<FormLabel htmlFor="announceOnTelegram">
+									{t("event.announceOnTelegram")}
+								</FormLabel>
+								<div>
+									<Switch
+										id="announceOnTelegram"
+										checked={announceOnTelegram}
+										onCheckedChange={setAnnounceOnTelegram}
+									/>
+								</div>
+							</FormItem>
+						)}
 					</div>
 					<div className="mt-8 grid gap-2">
 						<Button type="submit" disabled={isLoading || isUploadingCover}>
