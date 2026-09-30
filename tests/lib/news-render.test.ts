@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { markdownToNewsBlocks, renderNewsHtml } from "@/lib/news-render";
+import { renderNewsHtml } from "@/lib/news-render";
 import type { NewsPartialBlock } from "@/lib/news-schema";
 
 const paragraph = (
@@ -8,10 +8,21 @@ const paragraph = (
 
 describe("renderNewsHtml", () => {
 	it("renders headings, lists and formatting", async () => {
-		const blocks = await markdownToNewsBlocks(
-			"## Titolo\n\nTesto **forte** e *corsivo*.\n\n- uno\n- due",
-		);
-		const html = await renderNewsHtml(blocks);
+		const html = await renderNewsHtml([
+			{
+				type: "heading",
+				props: { level: 2 },
+				content: [{ type: "text", text: "Titolo", styles: {} }],
+			} as NewsPartialBlock,
+			paragraph([
+				{ type: "text", text: "Testo ", styles: {} },
+				{ type: "text", text: "forte", styles: { bold: true } },
+				{ type: "text", text: " e ", styles: {} },
+				{ type: "text", text: "corsivo", styles: { italic: true } },
+			]),
+			{ type: "bulletListItem", content: "uno" } as NewsPartialBlock,
+			{ type: "bulletListItem", content: "due" } as NewsPartialBlock,
+		]);
 		expect(html).toContain("<h2>Titolo</h2>");
 		expect(html).toContain("<strong>forte</strong>");
 		expect(html).toContain("<em>corsivo</em>");
@@ -21,9 +32,15 @@ describe("renderNewsHtml", () => {
 	});
 
 	it("opens links in a new tab safely", async () => {
-		const html = await renderNewsHtml(
-			await markdownToNewsBlocks("[sito](https://example.com)"),
-		);
+		const html = await renderNewsHtml([
+			paragraph([
+				{
+					type: "link",
+					href: "https://example.com",
+					content: [{ type: "text", text: "sito", styles: {} }],
+				},
+			]),
+		]);
 		expect(html).toContain(
 			'<a href="https://example.com" target="_blank" rel="noopener noreferrer">sito</a>',
 		);
