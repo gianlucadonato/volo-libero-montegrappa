@@ -5,6 +5,7 @@ const env = vi.hoisted(() => ({
 	TELEGRAM_BOT_TOKEN: "123:abc" as string | undefined,
 	TELEGRAM_CHAT_ID: "-1001234567890" as string | undefined,
 	TELEGRAM_EVENTS_TOPIC_ID: 42 as number | undefined,
+	TELEGRAM_NEWS_TOPIC_ID: 43 as number | undefined,
 }));
 const sendPhoto = vi.hoisted(() => vi.fn());
 
@@ -25,7 +26,7 @@ vi.mock("grammy", async (importOriginal) => {
 
 import { InputFile } from "grammy";
 import { logger } from "@/lib/logger";
-import { announceEvent } from "@/lib/telegram";
+import { announceEvent, announceNews } from "@/lib/telegram";
 
 const event = {
 	id: "evt1",
@@ -41,6 +42,8 @@ beforeEach(() => {
 	vi.clearAllMocks();
 	sendPhoto.mockResolvedValue({ message_id: 7 });
 	env.TELEGRAM_BOT_TOKEN = "123:abc";
+	env.TELEGRAM_EVENTS_TOPIC_ID = 42;
+	env.TELEGRAM_NEWS_TOPIC_ID = 43;
 });
 
 describe("announceEvent", () => {
@@ -80,6 +83,49 @@ describe("announceEvent", () => {
 		expect(logger.error).toHaveBeenCalledWith(
 			{ eventId: "evt1", reason: "Bad Request: message thread not found" },
 			"Failed to announce event on Telegram",
+		);
+	});
+});
+
+describe("announceNews", () => {
+	const news = {
+		id: "n1",
+		slug: "cena-sociale",
+		title: "Cena sociale",
+		excerpt: "Ci vediamo sabato",
+		contentHtml: "<p>Testo</p>",
+		coverUrl:
+			"https://vlm-xc-public.s3.eu-central-1.amazonaws.com/news/images/a.jpg",
+	};
+
+	it("posts the cover to the news topic, linking the news", async () => {
+		expect(await announceNews(news)).toBe(true);
+		expect(sendPhoto).toHaveBeenCalledWith("-1001234567890", news.coverUrl, {
+			message_thread_id: 43,
+			caption: expect.stringContaining(
+				'<a href="https://www.vololiberomontegrappa.it/news/cena-sociale">',
+			),
+			parse_mode: "HTML",
+		});
+	});
+
+	it("falls back to the default cover", async () => {
+		await announceNews({ ...news, coverUrl: null });
+		expect(sendPhoto.mock.calls[0][1]).toBeInstanceOf(InputFile);
+	});
+
+	it("is skipped without a news topic, even with an events topic", async () => {
+		env.TELEGRAM_NEWS_TOPIC_ID = undefined;
+		expect(await announceNews(news)).toBe(false);
+		expect(sendPhoto).not.toHaveBeenCalled();
+	});
+
+	it("logs and reports failure instead of throwing", async () => {
+		sendPhoto.mockRejectedValue(new Error("Forbidden"));
+		expect(await announceNews(news)).toBe(false);
+		expect(logger.error).toHaveBeenCalledWith(
+			{ newsId: "n1", reason: "Forbidden" },
+			"Failed to announce news on Telegram",
 		);
 	});
 });

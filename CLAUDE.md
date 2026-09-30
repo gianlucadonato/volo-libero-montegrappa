@@ -70,6 +70,7 @@ Cross-country competition domain spanning `app/api/xc/*`, `actions/xc/*`, `compo
 - `@blocknote/server-util` must stay in `serverExternalPackages` (`next.config.ts`): Next can't bundle it for the server.
 - The slug is fixed at creation (`store/news.ts#uniqueNewsSlug`), so edits never break shared links. A news is public when not a draft, not deleted, and `publishedAt` has come; admins see the rest flagged.
 - Images (cover and inline) go through `POST /api/news/images` to the public assets bucket under `news/images/`, via `lib/public-images.ts` (shared with event covers).
+- Publishing can post the news to the Telegram group's news topic (`announceNews` in `lib/telegram.ts`, `TELEGRAM_NEWS_TOPIC_ID`; events use their own topic). It runs in `after()`, once per news: `upsertNews` claims `announcedAt` atomically, posts only when the news is public now (future-dated news are skipped, not scheduled), and releases the claim if Telegram fails.
 - Static legal pages are separate: Markdoc files in `content/pages/`, read by `lib/pages.ts`.
 
 ### i18n

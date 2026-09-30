@@ -234,6 +234,8 @@ model News {
   contentHtml String    @map(name: "content_html")
   publishedAt DateTime  @map(name: "published_at")
   draft       Boolean   @default(false)
+  // Set once the news has been posted to Telegram, so it is posted only once.
+  announcedAt DateTime? @map(name: "announced_at")
   createdBy   String?   @map(name: "created_by")
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")

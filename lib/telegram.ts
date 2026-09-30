@@ -7,29 +7,20 @@ import { env } from "@/env";
 import { logger } from "@/lib/logger";
 import {
 	buildEventCaption,
+	buildNewsCaption,
 	type EventCaptionInput,
+	type NewsCaptionInput,
 } from "@/lib/telegram-caption";
 
 let api: Api | undefined;
 
-function getTelegramConfig() {
-	if (
-		!env.TELEGRAM_BOT_TOKEN ||
-		!env.TELEGRAM_CHAT_ID ||
-		!env.TELEGRAM_EVENTS_TOPIC_ID
-	) {
+/** Each kind of announcement goes to its own topic of the club group. */
+function getTelegramConfig(topicId: number | undefined) {
+	if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID || !topicId) {
 		return null;
 	}
 	api ??= new Api(env.TELEGRAM_BOT_TOKEN);
-	return {
-		api,
-		chatId: env.TELEGRAM_CHAT_ID,
-		topicId: env.TELEGRAM_EVENTS_TOPIC_ID,
-	};
-}
-
-export function isTelegramConfigured(): boolean {
-	return getTelegramConfig() !== null;
+	return { api, chatId: env.TELEGRAM_CHAT_ID, topicId };
 }
 
 const DEFAULT_COVER_PATH = path.join(
@@ -66,7 +57,7 @@ export type AnnounceableEvent = EventCaptionInput & {
  */
 export async function announceEvent(event: AnnounceableEvent): Promise<void> {
 	try {
-		const config = getTelegramConfig();
+		const config = getTelegramConfig(env.TELEGRAM_EVENTS_TOPIC_ID);
 		if (!config) {
 			logger.info(
 				{ eventId: event.id },
@@ -101,5 +92,56 @@ export async function announceEvent(event: AnnounceableEvent): Promise<void> {
 			},
 			"Failed to announce event on Telegram",
 		);
+	}
+}
+
+export type AnnounceableNews = NewsCaptionInput & {
+	id: string;
+	slug: string;
+	coverUrl?: string | null;
+};
+
+/**
+ * Posts a news to the news topic of the club's Telegram group. Like
+ * announceEvent it never throws; it resolves to whether the post went out.
+ */
+export async function announceNews(news: AnnounceableNews): Promise<boolean> {
+	try {
+		const config = getTelegramConfig(env.TELEGRAM_NEWS_TOPIC_ID);
+		if (!config) {
+			logger.info(
+				{ newsId: news.id },
+				"Telegram is not configured, skipping news announcement",
+			);
+			return false;
+		}
+
+		const newsUrl = new URL(
+			`/news/${news.slug}`,
+			env.NEXT_PUBLIC_APP_URL,
+		).toString();
+		const message = await config.api.sendPhoto(
+			config.chatId,
+			await resolvePhoto(news.coverUrl),
+			{
+				message_thread_id: config.topicId,
+				caption: buildNewsCaption(news, newsUrl),
+				parse_mode: "HTML",
+			},
+		);
+		logger.info(
+			{ newsId: news.id, messageId: message.message_id },
+			"News announced on Telegram",
+		);
+		return true;
+	} catch (error) {
+		logger.error(
+			{
+				newsId: news.id,
+				reason: error instanceof Error ? error.message : String(error),
+			},
+			"Failed to announce news on Telegram",
+		);
+		return false;
 	}
 }
