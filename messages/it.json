@@ -748,6 +748,7 @@
 			"locationUrl": "URL Luogo",
 			"maxAvailability": "Max posti disponibili",
 			"isMemberOnly": "Evento riservato ai soci",
+			"announceOnTelegram": "Pubblica sul gruppo Telegram",
 			"image": "Immagine"
 		},
 		"create_event": "Crea Evento",

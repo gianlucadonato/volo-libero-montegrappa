@@ -90,6 +90,7 @@
 		"dotenv": "^17.3.1",
 		"es-toolkit": "^1.45.1",
 		"framer-motion": "^12.36.0",
+		"grammy": "^1.46.0",
 		"js-yaml": "^5.4.1",
 		"leaflet": "^1.9.4",
 		"lexical": "^0.41.0",

@@ -1,9 +1,11 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import type { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
+import { announceEvent } from "@/lib/telegram";
 import type { EventSchema } from "@/schemas";
 
 type FormData = z.infer<typeof EventSchema>;
@@ -18,7 +20,10 @@ const formatData = (data: FormData) => ({
 	price: (data.price || 0) * 100,
 });
 
-export default async function upsertEvent(data: FormData & { id?: string }) {
+export default async function upsertEvent({
+	announceOnTelegram = false,
+	...data
+}: FormData & { id?: string; announceOnTelegram?: boolean }) {
 	const user = await getSessionUser();
 	if (!user || user.role !== "ADMIN") {
 		throw new Error("Unauthorized");
@@ -35,6 +40,12 @@ export default async function upsertEvent(data: FormData & { id?: string }) {
 					createdBy: user.id,
 				},
 			});
+
+	// Only brand-new events are announced. It runs after the response so the
+	// admin isn't kept waiting on Telegram, and announceEvent never throws.
+	if (!data.id && announceOnTelegram) {
+		after(() => announceEvent(event));
+	}
 
 	revalidatePath("/events");
 	return event;

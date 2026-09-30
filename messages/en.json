@@ -706,6 +706,7 @@
 			"locationUrl": "Location URL",
 			"maxAvailability": "Max available seats",
 			"isMemberOnly": "Members only",
+			"announceOnTelegram": "Post to the Telegram group",
 			"image": "Image"
 		},
 		"create_event": "Create Event",
