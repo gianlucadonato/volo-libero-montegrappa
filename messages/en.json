@@ -662,7 +662,19 @@
 		"header_title": "News",
 		"header_description": "Latest news and updates from Volo Libero Montegrappa",
 		"no_news": "No news published yet",
-		"back_to_news": "Back to news"
+		"back_to_news": "Back to news",
+		"add_news": "Add news",
+		"edit_news": "Edit",
+		"delete_news": "Delete",
+		"delete_confirm_title": "Delete this news?",
+		"delete_confirm_description": "The news will be removed from the site.",
+		"delete_success": "News deleted",
+		"delete_error": "Could not delete the news",
+		"cancel": "Cancel",
+		"draft": "Draft",
+		"scheduled": "Scheduled",
+		"draft_notice": "This news is a draft: only admins can see it.",
+		"scheduled_notice": "This news goes live on its publish date: until then only admins can see it."
 	},
 	"EventCard": {
 		"back_to_events": "Back to events",
@@ -1212,5 +1224,30 @@
 		"non_trovata": "Card not found",
 		"non_trovata_desc": "No member matches this code.",
 		"anni_iscrizione": "Membership years"
+	},
+	"NewNewsPage": {
+		"header_title": "New news",
+		"header_description": "Write a new news",
+		"header_title_edit": "Edit news",
+		"header_description_edit": "Edit an existing news",
+		"create_news": "Publish news",
+		"edit_news": "Save changes",
+		"create_success": "News created",
+		"edit_success": "News updated",
+		"news_error": "Could not save the news",
+		"image_upload_error": "Image upload failed",
+		"news": {
+			"cover": "Cover image",
+			"remove_cover": "Remove image",
+			"title": "Title",
+			"excerpt": "Summary",
+			"excerpt_placeholder": "One or two sentences shown in the news list",
+			"content": "Content",
+			"content_hint": "Type / to insert headings, lists, images and tables. Drop an image to upload it.",
+			"publishedAt": "Publish date",
+			"publishedAt_hint": "With a future date, the news stays hidden until that day.",
+			"draft": "Draft",
+			"draft_hint": "Drafts are visible to admins only."
+		}
 	}
 }

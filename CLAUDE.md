@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Website and member platform for **Volo Libero Montegrappa**, a paragliding club. The public site (in Italian) covers flying sites, weather, news, and events; the member area handles registration, Stripe-based memberships, and the **XC Montegrappa** cross-country competition. Next.js 16 (App Router) + React 19 + TypeScript, Prisma 7 / PostgreSQL, better-auth, Tailwind v4 + shadcn, Keystatic CMS.
+Website and member platform for **Volo Libero Montegrappa**, a paragliding club. The public site (in Italian) covers flying sites, weather, news, and events; the member area handles registration, Stripe-based memberships, and the **XC Montegrappa** cross-country competition. Next.js 16 (App Router) + React 19 + TypeScript, Prisma 7 / PostgreSQL, better-auth, Tailwind v4 + shadcn, BlockNote for the news editor.
 
 ## Commands
 
@@ -39,9 +39,9 @@ Husky enforces quality gates: **pre-commit** runs lint-staged (Biome), **pre-pus
 
 - **Biome** handles lint/format: **tabs**, double quotes, organized imports. Linting is **disabled** for `components/ui/**` (shadcn) and `prisma/generated/**` — don't try to fix lint there.
 - Path alias `@/*` maps to the repo root.
-- **Env vars**: import the validated `env` from `@/env` (typed via `@t3-oss/env-nextjs` + Zod), not `process.env` directly. `VLM_ENV` is the app environment flag, **not** `NODE_ENV`. Exception: code that runs in the browser bundle (e.g. `keystatic.config.tsx`) must use `NODE_ENV`/`NEXT_PUBLIC_*` since server-only vars are undefined client-side.
+- **Env vars**: import the validated `env` from `@/env` (typed via `@t3-oss/env-nextjs` + Zod), not `process.env` directly. `VLM_ENV` is the app environment flag, **not** `NODE_ENV`. Exception: code that runs in the browser bundle must use `NEXT_PUBLIC_*` since server-only vars are undefined client-side.
 - Modules marked `import "server-only"` (`lib/logger.ts`, `lib/session.ts`) must never be imported into client components.
-- **English everywhere in the repo**, without exception: commit messages, code comments, identifiers, docs, PR descriptions, log and error messages. This holds even when the conversation with the author is in Italian, and even though older commits in the log are Italian — do not match them. The only Italian in the repo is user-facing content: UI strings in `messages/it.json`, Markdoc under `content/news/it/`, and the Italian public route segments.
+- **English everywhere in the repo**, without exception: commit messages, code comments, identifiers, docs, PR descriptions, log and error messages. This holds even when the conversation with the author is in Italian, and even though older commits in the log are Italian — do not match them. The only Italian in the repo is user-facing content: UI strings in `messages/it.json`, the static pages under `content/pages/`, and the Italian public route segments.
 
 ## Architecture
 
@@ -65,8 +65,12 @@ Husky enforces quality gates: **pre-commit** runs lint-staged (Biome), **pre-pus
 ### XC Montegrappa (largest feature)
 Cross-country competition domain spanning `app/api/xc/*`, `actions/xc/*`, `components/xc/*`, `store/xc.ts`, and `schemas/xc.ts`. Concepts: **editions** (yearly, `XcEdition`), **tasks** (`.tsk`/`.xctsk` route files, categories BASIC/INTERMEDIATE/ADVANCED), **enrollments**, **track submissions** (IGC files, validated → leaderboards/progress). Supporting libs: `lib/igc-parser.ts`, `lib/tsk-parser.ts`, `lib/track-validator.ts`, `lib/xc-task.ts` (task↔QR-code URL mapping — note the per-category vs. global task numbering re-basing).
 
-### Content (Keystatic CMS)
-- `keystatic.config.tsx` defines `news_it` / `news_en` collections backed by Markdoc files in `content/news/{it,en}/`. Storage is **local** in dev, **cloud** (`vlmg/news`) in prod, keyed off `NODE_ENV` (see the comment in that file about why not `VLM_ENV`). Admin UI at `/keystatic`.
+### News
+- Italian only, stored in the `News` table and written by admins in-app at `/news/new` and `/news/<slug>/edit` (no separate CMS login). The body is edited with **BlockNote** (`components/news/NewsEditor.tsx`, client-only via `next/dynamic`); its block JSON in `content` is the source of truth, and `contentHtml` is rendered and **sanitised** on save by `lib/news-render.ts`, then served as-is. Keep the editor and the server renderer on the same schema (`lib/news-schema.ts`).
+- `@blocknote/server-util` must stay in `serverExternalPackages` (`next.config.ts`): Next can't bundle it for the server.
+- The slug is fixed at creation (`store/news.ts#uniqueNewsSlug`), so edits never break shared links. A news is public when not a draft, not deleted, and `publishedAt` has come; admins see the rest flagged.
+- Images (cover and inline) go through `POST /api/news/images` to the public assets bucket under `news/images/`, via `lib/public-images.ts` (shared with event covers).
+- Static legal pages are separate: Markdoc files in `content/pages/`, read by `lib/pages.ts`.
 
 ### i18n
 - `next-intl` with locales `it` (default) and `en`. Locale is stored in the **`NEXT_LOCALE` cookie**, not in the URL path (`i18n/locale.ts` + `i18n/request.ts`). UI strings live in `messages/{locale}.json`.

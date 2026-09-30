@@ -73,6 +73,7 @@ model User {
   payments              Payment[]           @relation("user")
   paymentsAdded         Payment[]           @relation("creator")
   eventsCreated         Event[]
+  newsCreated           News[]
   registrations         EventRegistration[]
   coupons               Coupon[]
   xcEnrollments         XcEnrollment[]
@@ -218,6 +219,30 @@ model Event {
   registrations EventRegistration[]
 
   @@map(name: "events")
+}
+
+/// A news post, written in the admin editor (BlockNote). `content` is the
+/// editor's block JSON, the source of truth; `contentHtml` is rendered from it
+/// on save so public pages never need the editor.
+model News {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String?
+  coverUrl    String?   @map(name: "cover_url")
+  content     Json
+  contentHtml String    @map(name: "content_html")
+  publishedAt DateTime  @map(name: "published_at")
+  draft       Boolean   @default(false)
+  createdBy   String?   @map(name: "created_by")
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  deletedAt   DateTime? @map(name: "deleted_at")
+
+  creator User? @relation(fields: [createdBy], references: [id])
+
+  @@index([publishedAt])
+  @@map(name: "news")
 }
 
 model EventRegistration {

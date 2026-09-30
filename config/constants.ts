@@ -25,3 +25,8 @@ export const EVENT_COVER_ACCEPTED_TYPES = [
 export const EVENT_COVER_MAX_UPLOAD_MB = 5;
 export const EVENT_COVERS_PREFIX = "events/covers/";
 export const EVENT_COVERS_BASE_URL = `${XC_PUBLIC_ASSETS_BASE_URL}/${EVENT_COVERS_PREFIX}`;
+
+// News covers and the images inside a news body go through /api/news/images,
+// with the same limits and re-encoding as event covers.
+export const NEWS_IMAGES_PREFIX = "news/images/";
+export const NEWS_IMAGES_BASE_URL = `${XC_PUBLIC_ASSETS_BASE_URL}/${NEWS_IMAGES_PREFIX}`;

@@ -237,3 +237,11 @@ export const EventCoverUploadBodySchema = z
 export const EventCoverUploadResponseSchema = z.object({
 	url: z.string(),
 });
+
+export const NewsImageUploadBodySchema = z
+	.any()
+	.describe("News image (JPEG, PNG or WebP, up to 5 MB)");
+
+export const NewsImageUploadResponseSchema = z.object({
+	url: z.string(),
+});

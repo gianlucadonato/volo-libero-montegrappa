@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
 	// Emit a self-contained server bundle (.next/standalone) so the production
 	// image ships only traced runtime deps instead of the full node_modules.
 	output: "standalone",
+	// BlockNote's server renderer imports its React package, which Next refuses
+	// to bundle for the server ("export *" in a client boundary). Loaded from
+	// node_modules at runtime instead, and still traced into standalone.
+	serverExternalPackages: ["@blocknote/server-util"],
 	images: {
 		remotePatterns: [
 			{

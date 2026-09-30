@@ -60,6 +60,26 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/news/images": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get?: never;
+		put?: never;
+		/**
+		 * /news/images
+		 * @description Upload a news image (cover or body) to the public bucket and return its URL
+		 */
+		post: operations["post-news-images"];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/users": {
 		parameters: {
 			query?: never;
@@ -335,6 +355,11 @@ export interface components {
 		/** @description Event cover image (JPEG, PNG or WebP, up to 5 MB) */
 		EventCoverUploadBodySchema: unknown;
 		EventCoverUploadResponseSchema: {
+			url: string;
+		};
+		/** @description News image (JPEG, PNG or WebP, up to 5 MB) */
+		NewsImageUploadBodySchema: unknown;
+		NewsImageUploadResponseSchema: {
 			url: string;
 		};
 		UsersSchema: {
@@ -867,6 +892,32 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["EventCoverUploadResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"post-news-images": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: {
+			content: {
+				"multipart/form-data": components["schemas"]["NewsImageUploadBodySchema"];
+			};
+		};
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["NewsImageUploadResponseSchema"];
 				};
 			};
 			400: components["responses"]["400"];
