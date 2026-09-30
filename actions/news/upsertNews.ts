@@ -1,18 +1,23 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import type { z } from "zod";
 import { renderNewsHtml } from "@/lib/news-render";
 import type { NewsPartialBlock } from "@/lib/news-schema";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 import { slugify } from "@/lib/slug";
+import { type AnnounceableNews, announceNews } from "@/lib/telegram";
 import { NewsSchema } from "@/schemas";
 import { uniqueNewsSlug } from "@/store/news";
 
 type NewsInput = z.input<typeof NewsSchema>;
 
-export default async function upsertNews(input: NewsInput & { id?: string }) {
+export default async function upsertNews({
+	announceOnTelegram = false,
+	...input
+}: NewsInput & { id?: string; announceOnTelegram?: boolean }) {
 	const user = await getSessionUser();
 	if (!user || user.role !== "ADMIN") {
 		throw new Error("Unauthorized");
@@ -45,8 +50,38 @@ export default async function upsertNews(input: NewsInput & { id?: string }) {
 				},
 			});
 
+	// Posted once, on the first save that makes the news public. A future date
+	// is skipped rather than scheduled: the admin can post it on a later save.
+	if (
+		announceOnTelegram &&
+		!news.draft &&
+		!news.announcedAt &&
+		news.publishedAt <= new Date()
+	) {
+		after(() => announceOnce(news));
+	}
+
 	revalidatePath("/news");
 	revalidatePath(`/news/${news.slug}`);
 	revalidatePath("/");
 	return { id: news.id, slug: news.slug };
+}
+
+/**
+ * Claims the news before posting, so two saves in quick succession can't both
+ * post it, and releases the claim if the post fails so a later save can retry.
+ */
+async function announceOnce(news: AnnounceableNews) {
+	const { count } = await prisma.news.updateMany({
+		where: { id: news.id, announcedAt: null },
+		data: { announcedAt: new Date() },
+	});
+	if (count === 0) return;
+
+	if (!(await announceNews(news))) {
+		await prisma.news.update({
+			where: { id: news.id },
+			data: { announcedAt: null },
+		});
+	}
 }

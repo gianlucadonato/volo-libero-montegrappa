@@ -2039,6 +2039,7 @@ export const NewsScalarFieldEnum = {
   contentHtml: 'contentHtml',
   publishedAt: 'publishedAt',
   draft: 'draft',
+  announcedAt: 'announcedAt',
   createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',

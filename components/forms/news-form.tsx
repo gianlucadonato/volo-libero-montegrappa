@@ -77,18 +77,29 @@ export function NewsForm({ news }: { news?: News }) {
 	});
 	const [isLoading, setIsLoading] = React.useState(false);
 	const [isUploadingCover, setIsUploadingCover] = React.useState(false);
+	// On by default only for a new news: an edit is usually a fix, and old news
+	// were never posted.
+	const [announceOnTelegram, setAnnounceOnTelegram] = React.useState(!news);
 	const coverUrl = form.watch("coverUrl");
+	const isDraft = form.watch("draft");
+	const canAnnounce = !news?.announcedAt;
 	const t = useTranslations("NewNewsPage");
 	const router = useRouter();
 
 	async function handleSubmit(data: FormData) {
 		setIsLoading(true);
 		try {
-			const res = await upsertNews({ ...data, id: news?.id });
+			const announce = canAnnounce && !data.draft && announceOnTelegram;
+			const res = await upsertNews({
+				...data,
+				id: news?.id,
+				announceOnTelegram: announce,
+			});
 			posthog.capture(news ? "news_updated" : "news_created", {
 				news_id: res.id,
 				is_draft: data.draft,
 				has_cover_image: Boolean(data.coverUrl),
+				announced_on_telegram: announce,
 			});
 			toast.success("OK!", {
 				description: t(news ? "edit_success" : "create_success"),
@@ -244,6 +255,27 @@ export function NewsForm({ news }: { news?: News }) {
 						)}
 					/>
 				</div>
+
+				{canAnnounce && (
+					<FormItem>
+						<FormLabel htmlFor="announceOnTelegram">
+							{t("news.announceOnTelegram")}
+						</FormLabel>
+						<FormControl>
+							<div>
+								<Switch
+									id="announceOnTelegram"
+									checked={announceOnTelegram && !isDraft}
+									disabled={isDraft}
+									onCheckedChange={setAnnounceOnTelegram}
+								/>
+							</div>
+						</FormControl>
+						<FormDescription>
+							{t("news.announceOnTelegram_hint")}
+						</FormDescription>
+					</FormItem>
+				)}
 
 				<div className="grid gap-2 pt-2">
 					<Button type="submit" disabled={busy}>

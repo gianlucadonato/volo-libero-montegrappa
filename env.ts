@@ -48,14 +48,17 @@ export const env = createEnv({
 		R2_ACCESS_KEY_ID: z.string().optional(),
 		R2_SECRET_ACCESS_KEY: z.string().optional(),
 		R2_BUCKET_NAME: z.string().optional(),
-		// Telegram bot that announces new events in the club group. All three are
-		// needed; without any of them announcements are skipped.
+		// Telegram bot that announces new events and news in the club group. The
+		// token, the chat and a topic are needed; without them announcements to
+		// that topic are skipped.
 		TELEGRAM_BOT_TOKEN: z.string().min(1).optional(),
 		// The group's id, e.g. "-1001234567890".
 		TELEGRAM_CHAT_ID: z.string().min(1).optional(),
 		// The events topic's message_thread_id, the first number in a topic
 		// message link: t.me/c/<chat>/<topic_id>/<message_id>.
 		TELEGRAM_EVENTS_TOPIC_ID: z.coerce.number().int().positive().optional(),
+		// The news topic's message_thread_id, found the same way.
+		TELEGRAM_NEWS_TOPIC_ID: z.coerce.number().int().positive().optional(),
 	},
 	client: {
 		// 🌐 Client-side vars (browser safe)
@@ -97,6 +100,7 @@ export const env = createEnv({
 		TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
 		TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
 		TELEGRAM_EVENTS_TOPIC_ID: process.env.TELEGRAM_EVENTS_TOPIC_ID,
+		TELEGRAM_NEWS_TOPIC_ID: process.env.TELEGRAM_NEWS_TOPIC_ID,
 		NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
 		NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN:
 			process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN,

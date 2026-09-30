@@ -2,6 +2,7 @@ import * as cheerio from "cheerio";
 import { describe, expect, it } from "vitest";
 import {
 	buildEventCaption,
+	buildNewsCaption,
 	TELEGRAM_CAPTION_LIMIT,
 } from "@/lib/telegram-caption";
 
@@ -116,5 +117,49 @@ describe("buildEventCaption", () => {
 		);
 		expect(caption).not.toContain("\n\n\n");
 		expect(caption.split("\n\n")).toHaveLength(2);
+	});
+});
+
+describe("buildNewsCaption", () => {
+	const NEWS_URL = "https://www.vololiberomontegrappa.it/news/cena-sociale";
+	const news = {
+		title: "Cena & premiazioni",
+		excerpt: "Ci vediamo sabato",
+		contentHtml: "<p>Il testo completo</p>",
+	};
+
+	it("uses the summary when there is one", () => {
+		expect(buildNewsCaption(news, NEWS_URL)).toBe(
+			`<b>Cena &amp; premiazioni</b>\n\nCi vediamo sabato\n\n<a href="${NEWS_URL}">Leggi la news →</a>`,
+		);
+	});
+
+	it("falls back to the rendered text", () => {
+		const caption = buildNewsCaption(
+			{
+				...news,
+				excerpt: " ",
+				contentHtml:
+					'<h2>Menu</h2><ul><li><p>Pizza</p></li></ul><img src="https://x/a.jpg" alt="" /><p><strong>Sabato</strong></p>',
+			},
+			NEWS_URL,
+		);
+		expect(caption).toContain("Menu\n\n• Pizza\n\n<b>Sabato</b>");
+		expect(caption).not.toContain("<img");
+	});
+
+	it("fits long news in the caption limit", () => {
+		const caption = buildNewsCaption(
+			{
+				...news,
+				excerpt: null,
+				contentHtml: `<p>${"parola ".repeat(400)}</p>`,
+			},
+			NEWS_URL,
+		);
+		expect(textLength(caption)).toBeLessThanOrEqual(TELEGRAM_CAPTION_LIMIT);
+		expect(caption).toContain("…");
+		expect(caption.endsWith("Leggi la news →</a>")).toBe(true);
+		expect(isBalanced(caption)).toBe(true);
 	});
 });

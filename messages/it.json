@@ -1292,7 +1292,9 @@
 			"publishedAt": "Data di pubblicazione",
 			"publishedAt_hint": "Con una data futura, la news resta nascosta fino a quel giorno.",
 			"draft": "Bozza",
-			"draft_hint": "Le bozze sono visibili solo agli admin."
+			"draft_hint": "Le bozze sono visibili solo agli admin.",
+			"announceOnTelegram": "Pubblica sul gruppo Telegram",
+			"announceOnTelegram_hint": "Una sola volta, nel topic News. Non per le bozze né per le news con data futura: attiva l'opzione quando le salvi pubblicate."
 		}
 	}
 }

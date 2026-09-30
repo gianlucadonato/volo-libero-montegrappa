@@ -35,6 +35,7 @@ export type NewsMinAggregateOutputType = {
   contentHtml: string | null
   publishedAt: Date | null
   draft: boolean | null
+  announcedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -50,6 +51,7 @@ export type NewsMaxAggregateOutputType = {
   contentHtml: string | null
   publishedAt: Date | null
   draft: boolean | null
+  announcedAt: Date | null
   createdBy: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -66,6 +68,7 @@ export type NewsCountAggregateOutputType = {
   contentHtml: number
   publishedAt: number
   draft: number
+  announcedAt: number
   createdBy: number
   createdAt: number
   updatedAt: number
@@ -83,6 +86,7 @@ export type NewsMinAggregateInputType = {
   contentHtml?: true
   publishedAt?: true
   draft?: true
+  announcedAt?: true
   createdBy?: true
   createdAt?: true
   updatedAt?: true
@@ -98,6 +102,7 @@ export type NewsMaxAggregateInputType = {
   contentHtml?: true
   publishedAt?: true
   draft?: true
+  announcedAt?: true
   createdBy?: true
   createdAt?: true
   updatedAt?: true
@@ -114,6 +119,7 @@ export type NewsCountAggregateInputType = {
   contentHtml?: true
   publishedAt?: true
   draft?: true
+  announcedAt?: true
   createdBy?: true
   createdAt?: true
   updatedAt?: true
@@ -203,6 +209,7 @@ export type NewsGroupByOutputType = {
   contentHtml: string
   publishedAt: Date
   draft: boolean
+  announcedAt: Date | null
   createdBy: string | null
   createdAt: Date
   updatedAt: Date
@@ -240,6 +247,7 @@ export type NewsWhereInput = {
   contentHtml?: Prisma.StringFilter<"News"> | string
   publishedAt?: Prisma.DateTimeFilter<"News"> | Date | string
   draft?: Prisma.BoolFilter<"News"> | boolean
+  announcedAt?: Prisma.DateTimeNullableFilter<"News"> | Date | string | null
   createdBy?: Prisma.StringNullableFilter<"News"> | string | null
   createdAt?: Prisma.DateTimeFilter<"News"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"News"> | Date | string
@@ -257,6 +265,7 @@ export type NewsOrderByWithRelationInput = {
   contentHtml?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   draft?: Prisma.SortOrder
+  announcedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -277,6 +286,7 @@ export type NewsWhereUniqueInput = Prisma.AtLeast<{
   contentHtml?: Prisma.StringFilter<"News"> | string
   publishedAt?: Prisma.DateTimeFilter<"News"> | Date | string
   draft?: Prisma.BoolFilter<"News"> | boolean
+  announcedAt?: Prisma.DateTimeNullableFilter<"News"> | Date | string | null
   createdBy?: Prisma.StringNullableFilter<"News"> | string | null
   createdAt?: Prisma.DateTimeFilter<"News"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"News"> | Date | string
@@ -294,6 +304,7 @@ export type NewsOrderByWithAggregationInput = {
   contentHtml?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   draft?: Prisma.SortOrder
+  announcedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdBy?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -316,6 +327,7 @@ export type NewsScalarWhereWithAggregatesInput = {
   contentHtml?: Prisma.StringWithAggregatesFilter<"News"> | string
   publishedAt?: Prisma.DateTimeWithAggregatesFilter<"News"> | Date | string
   draft?: Prisma.BoolWithAggregatesFilter<"News"> | boolean
+  announcedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"News"> | Date | string | null
   createdBy?: Prisma.StringNullableWithAggregatesFilter<"News"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"News"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"News"> | Date | string
@@ -332,6 +344,7 @@ export type NewsCreateInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -348,6 +361,7 @@ export type NewsUncheckedCreateInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -364,6 +378,7 @@ export type NewsUpdateInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -380,6 +395,7 @@ export type NewsUncheckedUpdateInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -396,6 +412,7 @@ export type NewsCreateManyInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdBy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -412,6 +429,7 @@ export type NewsUpdateManyMutationInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -427,6 +445,7 @@ export type NewsUncheckedUpdateManyInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -453,6 +472,7 @@ export type NewsCountOrderByAggregateInput = {
   contentHtml?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   draft?: Prisma.SortOrder
+  announcedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -468,6 +488,7 @@ export type NewsMaxOrderByAggregateInput = {
   contentHtml?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   draft?: Prisma.SortOrder
+  announcedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -483,6 +504,7 @@ export type NewsMinOrderByAggregateInput = {
   contentHtml?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   draft?: Prisma.SortOrder
+  announcedAt?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -541,6 +563,7 @@ export type NewsCreateWithoutCreatorInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -556,6 +579,7 @@ export type NewsUncheckedCreateWithoutCreatorInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -600,6 +624,7 @@ export type NewsScalarWhereInput = {
   contentHtml?: Prisma.StringFilter<"News"> | string
   publishedAt?: Prisma.DateTimeFilter<"News"> | Date | string
   draft?: Prisma.BoolFilter<"News"> | boolean
+  announcedAt?: Prisma.DateTimeNullableFilter<"News"> | Date | string | null
   createdBy?: Prisma.StringNullableFilter<"News"> | string | null
   createdAt?: Prisma.DateTimeFilter<"News"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"News"> | Date | string
@@ -616,6 +641,7 @@ export type NewsCreateManyCreatorInput = {
   contentHtml: string
   publishedAt: Date | string
   draft?: boolean
+  announcedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -631,6 +657,7 @@ export type NewsUpdateWithoutCreatorInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -646,6 +673,7 @@ export type NewsUncheckedUpdateWithoutCreatorInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -661,6 +689,7 @@ export type NewsUncheckedUpdateManyWithoutCreatorInput = {
   contentHtml?: Prisma.StringFieldUpdateOperationsInput | string
   publishedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   draft?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  announcedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -678,6 +707,7 @@ export type NewsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   contentHtml?: boolean
   publishedAt?: boolean
   draft?: boolean
+  announcedAt?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -695,6 +725,7 @@ export type NewsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contentHtml?: boolean
   publishedAt?: boolean
   draft?: boolean
+  announcedAt?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -712,6 +743,7 @@ export type NewsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   contentHtml?: boolean
   publishedAt?: boolean
   draft?: boolean
+  announcedAt?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -729,13 +761,14 @@ export type NewsSelectScalar = {
   contentHtml?: boolean
   publishedAt?: boolean
   draft?: boolean
+  announcedAt?: boolean
   createdBy?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type NewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "excerpt" | "coverUrl" | "content" | "contentHtml" | "publishedAt" | "draft" | "createdBy" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["news"]>
+export type NewsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "excerpt" | "coverUrl" | "content" | "contentHtml" | "publishedAt" | "draft" | "announcedAt" | "createdBy" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["news"]>
 export type NewsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.News$creatorArgs<ExtArgs>
 }
@@ -761,6 +794,7 @@ export type $NewsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     contentHtml: string
     publishedAt: Date
     draft: boolean
+    announcedAt: Date | null
     createdBy: string | null
     createdAt: Date
     updatedAt: Date
@@ -1198,6 +1232,7 @@ export interface NewsFieldRefs {
   readonly contentHtml: Prisma.FieldRef<"News", 'String'>
   readonly publishedAt: Prisma.FieldRef<"News", 'DateTime'>
   readonly draft: Prisma.FieldRef<"News", 'Boolean'>
+  readonly announcedAt: Prisma.FieldRef<"News", 'DateTime'>
   readonly createdBy: Prisma.FieldRef<"News", 'String'>
   readonly createdAt: Prisma.FieldRef<"News", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"News", 'DateTime'>

@@ -1247,7 +1247,9 @@
 			"publishedAt": "Publish date",
 			"publishedAt_hint": "With a future date, the news stays hidden until that day.",
 			"draft": "Draft",
-			"draft_hint": "Drafts are visible to admins only."
+			"draft_hint": "Drafts are visible to admins only.",
+			"announceOnTelegram": "Post to the Telegram group",
+			"announceOnTelegram_hint": "Once, in the News topic. Not for drafts or future-dated news: turn it on when you save them as published."
 		}
 	}
 }

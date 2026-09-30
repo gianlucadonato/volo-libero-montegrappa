@@ -7,7 +7,7 @@ import * as cheerio from "cheerio";
 export const TELEGRAM_CAPTION_LIMIT = 1024;
 
 // Tags Telegram's HTML parse mode understands, mapped from what the Lexical
-// editor emits. Everything else is unwrapped to its text.
+// (events) and BlockNote (news) editors emit. Everything else is unwrapped to its text.
 const INLINE_TAGS: Record<string, string> = {
 	b: "b",
 	strong: "b",
@@ -64,23 +64,25 @@ function htmlToSegments(html: string): Segment[] {
 	const segments: Segment[] = [];
 	const open = new Set<string>();
 
-	const textSoFar = () =>
-		segments
-			.map((segment) => (segment.kind === "text" ? segment.text : ""))
-			.join("");
-
 	// Ensures the text ends with at least `count` line breaks, never leading
-	// with them. Descriptions are short, so rescanning the text is fine.
+	// with them. Only the tail is scanned: news bodies can be long.
 	const pushBreak = (count: number) => {
-		const text = textSoFar();
-		if (!text.trim()) return;
-		const trailing = text.match(/\n*$/)?.[0].length ?? 0;
+		let trailing = 0;
+		let hasText = false;
+		for (let i = segments.length - 1; i >= 0 && !hasText; i--) {
+			const segment = segments[i];
+			if (segment.kind !== "text") continue;
+			const breaks = segment.text.match(/\s*$/)?.[0] ?? "";
+			trailing += breaks.split("\n").length - 1;
+			hasText = breaks.length < segment.text.length;
+		}
+		if (!hasText) return;
 		if (trailing < count) {
 			segments.push({ kind: "text", text: "\n".repeat(count - trailing) });
 		}
 	};
 
-	const walk = (nodes: HtmlNode[], listDepth: number) => {
+	const walk = (nodes: HtmlNode[], listDepth: number, inItem = false) => {
 		for (const node of nodes) {
 			if (node.type === "text") {
 				// Source HTML whitespace is insignificant; line breaks come from tags.
@@ -98,7 +100,7 @@ function htmlToSegments(html: string): Segment[] {
 			} else if (tag === "li") {
 				pushBreak(1);
 				segments.push({ kind: "text", text: `${"  ".repeat(listDepth)}• ` });
-				walk(children, listDepth + 1);
+				walk(children, listDepth + 1, true);
 				pushBreak(1);
 			} else if (tag === "a" && node.attribs.href?.match(/^https?:\/\//)) {
 				segments.push({
@@ -116,6 +118,9 @@ function htmlToSegments(html: string): Segment[] {
 				walk(children, listDepth);
 				segments.push({ kind: "close", tag: mapped });
 				open.delete(mapped);
+			} else if (tag === "p" && inItem) {
+				// BlockNote wraps each list item's text in a <p>.
+				walk(children, listDepth);
 			} else if (BLOCK_TAGS.has(tag)) {
 				pushBreak(2);
 				walk(children, listDepth);
@@ -240,10 +245,28 @@ function formatEventDate(date: Date): string {
 }
 
 /**
- * Builds the HTML caption for an event announcement. The header (title, date,
- * place) and the footer link are always kept whole; the description fills
- * whatever budget is left and is cut first.
+ * Joins header, body and footer into a caption. The header and footer are
+ * always kept whole; the body fills whatever budget is left and is cut first.
  */
+function fitCaption(
+	headerHtml: string,
+	bodyHtml: string,
+	footerHtml: string,
+): string {
+	const plainLength = (html: string) =>
+		[...cheerio.load(html, null, false).root().text()].length;
+	const separators = 4; // two "\n\n" around the body
+	const budget =
+		TELEGRAM_CAPTION_LIMIT -
+		plainLength(headerHtml) -
+		plainLength(footerHtml) -
+		separators;
+
+	const body = renderSegments(htmlToSegments(bodyHtml), Math.max(budget, 0));
+	return [headerHtml, body, footerHtml].filter(Boolean).join("\n\n");
+}
+
+/** Builds the HTML caption for an event announcement. */
 export function buildEventCaption(
 	event: EventCaptionInput,
 	eventUrl: string,
@@ -261,22 +284,33 @@ export function buildEventCaption(
 		header.push("🔒 Riservato ai soci");
 	}
 
-	const headerHtml = header.join("\n");
-	const footerHtml = `<a href="${escapeAttribute(eventUrl)}">Dettagli e iscrizioni →</a>`;
-
-	const plainLength = (html: string) =>
-		[...cheerio.load(html, null, false).root().text()].length;
-	const separators = 4; // two "\n\n" around the description
-	const budget =
-		TELEGRAM_CAPTION_LIMIT -
-		plainLength(headerHtml) -
-		plainLength(footerHtml) -
-		separators;
-
-	const descriptionHtml = renderSegments(
-		htmlToSegments(event.description),
-		Math.max(budget, 0),
+	return fitCaption(
+		header.join("\n"),
+		event.description,
+		`<a href="${escapeAttribute(eventUrl)}">Dettagli e iscrizioni →</a>`,
 	);
+}
 
-	return [headerHtml, descriptionHtml, footerHtml].filter(Boolean).join("\n\n");
+export type NewsCaptionInput = {
+	title: string;
+	excerpt?: string | null;
+	contentHtml: string;
+};
+
+/**
+ * Builds the HTML caption for a news announcement: the title, then the
+ * summary when there is one, else as much of the text as fits.
+ */
+export function buildNewsCaption(
+	news: NewsCaptionInput,
+	newsUrl: string,
+): string {
+	const body = news.excerpt?.trim()
+		? `<p>${escapeTelegramHtml(news.excerpt.trim())}</p>`
+		: news.contentHtml;
+	return fitCaption(
+		`<b>${escapeTelegramHtml(news.title)}</b>`,
+		body,
+		`<a href="${escapeAttribute(newsUrl)}">Leggi la news →</a>`,
+	);
 }
