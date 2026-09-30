@@ -11,7 +11,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Locale } from "@/i18n/config";
+import { type Locale, localeFlags } from "@/i18n/config";
 import { setUserLocale } from "@/i18n/locale";
 
 type Props = {
@@ -45,7 +45,7 @@ export function LocaleToggle({ defaultValue, items }: Props) {
 						onClick={() => onSelect(item.value)}
 					>
 						<Flag
-							code={item.value.toUpperCase()}
+							code={localeFlags[item.value as Locale]}
 							size="m"
 							hasBorder={false}
 							className="mr-2 size-4"

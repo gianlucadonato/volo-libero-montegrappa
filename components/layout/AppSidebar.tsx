@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { NavAuth } from "@/components/layout/nav-auth";
+import { NavLocale } from "@/components/layout/nav-locale";
 import { NavMain } from "@/components/layout/nav-main";
 import { NavUser } from "@/components/layout/nav-user";
 import {
@@ -60,6 +61,7 @@ export function AppSidebar({
 					<NavMain items={filteredLinks.options} groupLabel={"Admin"} />
 				)}
 				{!isLoggedIn && <NavAuth />}
+				<NavLocale />
 			</SidebarContent>
 			{/* NavUser reads the session client-side, so only mount it after
 			    hydration to avoid rendering an empty user during SSR. */}

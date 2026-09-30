@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { locales } from "@/i18n/config";
 import { LocaleToggle } from "./locale-toggle";
 
 export default function LocaleSwitcher() {
@@ -10,16 +11,7 @@ export default function LocaleSwitcher() {
 	return (
 		<LocaleToggle
 			defaultValue={locale}
-			items={[
-				{
-					value: "it",
-					label: t("it"),
-				},
-				{
-					value: "en",
-					label: t("en"),
-				},
-			]}
+			items={locales.map((value) => ({ value, label: t(value) }))}
 		/>
 	);
 }

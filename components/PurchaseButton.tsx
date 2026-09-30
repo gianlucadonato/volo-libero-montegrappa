@@ -9,6 +9,7 @@ import { useState } from "react";
 import Login from "@/components/auth/Login";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import type { Locale } from "@/i18n/config";
 
 export default function PurchaseButton({
 	isDisabled,
@@ -37,7 +38,7 @@ export default function PurchaseButton({
 		}
 		try {
 			const { data } = await axios.post("/api/stripe/checkout", {
-				locale: locale as "it" | "en",
+				locale: locale as Locale,
 			});
 			if (!data.ok) throw new Error("Something went wrong");
 			posthog.capture("membership_checkout_started", {

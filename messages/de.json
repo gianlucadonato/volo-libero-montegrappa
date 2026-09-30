@@ -1,0 +1,1305 @@
+{
+	"LocaleSwitcher": {
+		"it": "Italienisch",
+		"en": "Englisch",
+		"label": "Sprache",
+		"select_language": "Sprache auswählen",
+		"settings": {
+			"title": "Sprache",
+			"description": "Wähle deine bevorzugte Sprache."
+		},
+		"de": "Deutsch"
+	},
+	"FormMessageI18N": {
+		"required": "Erforderlich",
+		"invalid_type": "Pflichtfeld",
+		"email": {
+			"required": "Gib deine E-Mail ein",
+			"invalid_type": "Gib deine E-Mail ein",
+			"invalid_string": "Ungültige E-Mail"
+		},
+		"password": {
+			"required": "Gib dein Passwort ein",
+			"invalid_type": "Gib dein Passwort ein",
+			"too_small": "Das Passwort muss mindestens 8 Zeichen enthalten"
+		},
+		"newPassword": {
+			"required": "Gib das neue Passwort ein",
+			"invalid_type": "Gib das neue Passwort ein",
+			"too_small": "Das Passwort muss mindestens 8 Zeichen enthalten"
+		},
+		"confirmPassword": {
+			"required": "Bestätige das neue Passwort",
+			"invalid_type": "Bestätige das neue Passwort",
+			"too_small": "Das Passwort muss mindestens 8 Zeichen enthalten"
+		},
+		"privacyPolicy": {
+			"invalid_type": "Zustimmung erforderlich!",
+			"custom": "Zustimmung erforderlich!"
+		},
+		"emailConsent": {
+			"invalid_type": "Zustimmung erforderlich!",
+			"custom": "Zustimmung erforderlich!"
+		},
+		"dateOfBirth": {
+			"too_small": "Ungültiges Datum",
+			"invalid_date": "Ungültiges Datum"
+		}
+	},
+	"NotFoundPage": {
+		"title": "Seite nicht gefunden",
+		"description": "Die gesuchte Seite existiert nicht!",
+		"back_to": "Zurück zu"
+	},
+	"Navbar": {
+		"member_area": "Mitgliederbereich",
+		"login": "Anmelden",
+		"signup": "Dem Verein beitreten",
+		"profile": "Profil"
+	},
+	"NavMobile": {
+		"member_area": "Mitgliederbereich",
+		"admin": "Admin",
+		"login": "Anmelden",
+		"signup": "Dem Verein beitreten",
+		"profile": "Profil",
+		"events": "Veranstaltungen",
+		"news": "Neuigkeiten",
+		"weather": "Wetter"
+	},
+	"NavMain": {
+		"menu": "Menü",
+		"options": "Optionen",
+		"admin": "Admin-Bereich",
+		"club": "Der Verein",
+		"flying_area": {
+			"title": "Fluggebiet",
+			"description": "Praktische Informationen zum Fliegen am Monte Grappa"
+		},
+		"takeoffs": {
+			"title": "Startplätze",
+			"description": "Startplätze ansehen"
+		},
+		"landings": {
+			"title": "Landeplätze",
+			"description": "Landeplätze ansehen"
+		},
+		"directions": {
+			"title": "Anfahrt",
+			"description": "Wie du hierher kommst"
+		},
+		"contacts": "Kontakte",
+		"homepage": "Startseite",
+		"dashboard": "Dashboard",
+		"profile": "Profil",
+		"orders": "Bestellungen",
+		"weather": "Wetter",
+		"events": "Veranstaltungen",
+		"events_description": "Alle Veranstaltungen ansehen",
+		"trofeo_montegrappa": "Trofeo Montegrappa",
+		"xc_montegrappa": "XC Montegrappa",
+		"canal_cup": "Canal Cup",
+		"all_events": "Alle Veranstaltungen",
+		"news": "Neuigkeiten",
+		"membership": "Mitgliedschaft",
+		"cards": "Deine Karten",
+		"support": "Support",
+		"users": "Benutzer",
+		"payments": "Zahlungen",
+		"documentation": "Dokumentation",
+		"settings": "Einstellungen"
+	},
+	"NavAuth": {
+		"access": "Zugang",
+		"login": "Anmelden",
+		"signup": "Dem Verein beitreten!"
+	},
+	"Homepage": {
+		"header_subtitle": "Jahre in den Wolken",
+		"join_the_club": "Dem Verein beitreten",
+		"info_1": {
+			"title": "DER BEZUGSPUNKT",
+			"title_2": "FÜR DEN FREIEN FLUG IN VENETIEN",
+			"description": "Der ASD Volo Libero Montegrappa wurde 1979 von einer Gruppe von Freunden und Piloten gegründet, mit dem Ziel, den freien Flug rund um Borso Del Grappa zu fördern, ein Gebiet, das sich im Laufe der Jahre als unbestrittenes Ziel für Tausende italienischer und ausländischer Piloten etabliert hat. Seit den 1970er Jahren, mit den ersten Drachen, und dann ab den späten 1980er Jahren mit dem Gleitschirm, hat Borso del Grappa viele Piloten geboren sehen und ihnen geholfen, in diesem Sport zu wachsen, dank der besonderen aerologischen Eigenschaften des Gebiets, seiner breiten, leicht zugänglichen Startplätze und der nahezu vollständigen Abwesenheit starker Winde. Perfekte Eigenschaften sowohl für Anfänger als auch für erfahrenere Piloten, die Streckenflüge und Wettbewerbe unternehmen möchten."
+		},
+		"info_2": {
+			"title": "Nützliche Informationen",
+			"description": "",
+			"weather": {
+				"title": "Wetter",
+				"description": "Prüfe die Wetterdaten und plane deinen Flug sicher"
+			},
+			"fly_area": {
+				"title": "Fluggebiet",
+				"description": "Startplätze, Landeplätze und praktische Informationen zum Fliegen am Grappa"
+			},
+			"info": {
+				"title": "Praktische Informationen",
+				"description": "Alle Informationen für Mitglieder: Anmeldungen, Verlängerungen, ärztliche Untersuchungen..."
+			}
+		},
+		"latest_news": {
+			"title": "Neueste Nachrichten",
+			"view_all": "Alle ansehen"
+		},
+		"partners": {
+			"title": "In Zusammenarbeit mit"
+		}
+	},
+	"SidebarLinks": {
+		"menu": "Menü",
+		"options": "Optionen",
+		"admin": "Admin-Bereich",
+		"homepage": "Startseite",
+		"dashboard": "Dashboard",
+		"profile": "Profil",
+		"orders": "Bestellungen",
+		"weather": "Wetter",
+		"events": "Veranstaltungen",
+		"news": "Neuigkeiten",
+		"contacts": "Kontakte",
+		"membership": "Mitgliedschaft",
+		"cards": "Deine Karten",
+		"settings": "Einstellungen",
+		"documentation": "Dokumentation",
+		"support": "Support"
+	},
+	"LoginPage": {
+		"welcome": "Willkommen! 👋",
+		"access_account": "Auf dein Konto zugreifen",
+		"dont_have_account": "Noch kein Konto? Registrieren"
+	},
+	"ResetPasswordPage": {
+		"title": "Passwort zurücksetzen",
+		"description": "Gib deine E-Mail ein und wir senden dir einen Link zum Zurücksetzen deines Passworts",
+		"submit": "Zurücksetzungs-E-Mail senden",
+		"back_to_login": "Zurück zur Anmeldung",
+		"email_sent": {
+			"title": "E-Mail erfolgreich gesendet!",
+			"description": "Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet. Überprüfe dein E-Mail-Postfach!"
+		},
+		"errors": {
+			"message": "Fehler.",
+			"description": "Beim Senden der Zurücksetzungs-E-Mail ist ein Fehler aufgetreten",
+			"not_found": "Die E-Mail existiert nicht!",
+			"validation": "Ein Fehler ist aufgetreten, bitte versuche es später erneut"
+		},
+		"success": {
+			"message": "E-Mail erfolgreich gesendet!",
+			"description": "Wir haben dir einen Link zum Zurücksetzen deines Passworts gesendet"
+		}
+	},
+	"NewPasswordPage": {
+		"title": "Passwort zurücksetzen",
+		"description": "Gib das neue Passwort ein",
+		"submit": "Senden",
+		"back_to_login": "Zurück zur Anmeldung",
+		"new_password": "Neues Passwort",
+		"confirm_password": "Passwort bestätigen",
+		"errors": {
+			"message": "Fehler.",
+			"missing_token": "Token fehlt!",
+			"password_mismatch": "Die Passwörter stimmen nicht überein!",
+			"invalid_token": "Ungültiges Token!",
+			"token_expired": "Token abgelaufen!",
+			"unknown": "Ein Fehler ist aufgetreten, bitte versuche es später erneut"
+		},
+		"success": {
+			"message": "OK!",
+			"description": "Das Passwort wurde erfolgreich zurückgesetzt!"
+		}
+	},
+	"LoginForm": {
+		"submit": "Anmelden",
+		"forgot_password": "Passwort vergessen?",
+		"continue_with": "Oder fortfahren mit",
+		"errors": {
+			"message": "Etwas ist schiefgelaufen.",
+			"validation": "Validierungsfehler",
+			"not_found": "E-Mail existiert nicht!",
+			"invalid_credentials": "Ungültige Anmeldedaten!",
+			"invalid_callback_url": "Ungültige Anmeldedaten!",
+			"unknown": "Ein Fehler ist aufgetreten, bitte versuche es später erneut",
+			"email": {
+				"invalid_string": "Ungültige E-Mail"
+			},
+			"password": {
+				"too_small": "String muss mindestens 3 Zeichen enthalten"
+			}
+		}
+	},
+	"SignupPage": {
+		"welcome": "Willkommen bei Club Montegrappa! 👋",
+		"create_account": "Ein neues Konto erstellen",
+		"already_have_account": "Du hast schon ein Konto? Anmelden",
+		"join_the_club": "DEM VEREIN BEITRETEN!",
+		"membership": "Mitgliedschaft",
+		"membership_description": "Mitgliedschaft im Club Montegrappa {NEXT_YEAR}",
+		"signup": "Registrieren"
+	},
+	"SignupForm": {
+		"email": "E-Mail",
+		"first_name": "Vorname",
+		"last_name": "Nachname",
+		"password": "Passwort",
+		"confirm_password": "Passwort bestätigen",
+		"submit": "Registrieren",
+		"errors": {
+			"message": "Fehler!",
+			"password_dont_match": "Passwörter stimmen nicht überein",
+			"already_exists": "Benutzer existiert bereits!",
+			"validation": "Ungültige Daten"
+		}
+	},
+	"UserForm": {
+		"save": "Speichern",
+		"email": "E-Mail",
+		"first_name": "Vorname",
+		"last_name": "Nachname",
+		"place_of_birth": "Geburtsort",
+		"date_of_birth": "Geburtsdatum",
+		"street_address": "Straße und Hausnummer",
+		"fiscal_code": "Steuernummer",
+		"city": "Stadt",
+		"zip_code": "Postleitzahl",
+		"province": "Provinz",
+		"state": "Land",
+		"phone": "Telefonnummer",
+		"size": "Kleidergröße",
+		"gender": "Geschlecht",
+		"sport": "Sportart",
+		"select_size": "Größe auswählen",
+		"select_gender": "Geschlecht auswählen",
+		"male": "Männlich",
+		"female": "Weiblich",
+		"select_sport": "Sportart auswählen",
+		"paragliding": "Gleitschirm",
+		"hang_gliding": "Drachen",
+		"paramotor": "Motorschirm",
+		"nothing": "Nichts",
+		"vds_license": "VDS-Lizenz",
+		"vds_number": "VDS-Lizenz Nr.",
+		"vds_release_date": "Ausgestellt am",
+		"medical_exam_valid_date": "Ärztliche Untersuchung gültig bis",
+		"fivl_number": "FIVL-Karte Nr.",
+		"xcontest_id": "XContest Id",
+		"xcontest_id_description": "Deine XContest-Profilkennung. Wir verwenden sie, um deine Wettbewerbsergebnisse mit deinem Mitgliedsprofil zu verknüpfen.",
+		"ogn_callsign": "OGN Rufzeichen",
+		"ogn_callsign_description": "Dein Rufzeichen im Open Glider Network (OGN). Wird von Live-Tracking-Systemen verwendet, um deine Flüge zu identifizieren.",
+		"ogn_hex": "OGN Hex",
+		"ogn_hex_description": "Die hexadezimale ID deines OGN/FLARM-Trackers (normalerweise 6 Hex-Zeichen). Wird verwendet, um dein Gerät im Live-Tracking-Netzwerk zu erkennen.",
+		"more_info": "Mehr Infos",
+		"privacy_policy_description_1": "Ich habe die",
+		"privacy_policy_description_2": "gelesen und akzeptiere die",
+		"terms_and_conditions": "Allgemeinen Geschäftsbedingungen",
+		"mog": "Modello Organizzativo Generale (MOG)",
+		"mog_description": "Ich erkläre, dass ich das",
+		"mog_description_2": "zur Kenntnis genommen und dessen Inhalt akzeptiert habe",
+		"optional": "optional",
+		"integrations": "Integrationen",
+		"email_consent_description": "Ich bin damit einverstanden, E-Mails vom Verein zu erhalten",
+		"email_consent": "E-Mail-Zustimmung"
+	},
+	"UpgradeCard": {
+		"become_member": "Mitglied werden!",
+		"membership_description": "Tritt dem Club Montegrappa bei und nimm an unseren Aktivitäten teil!",
+		"join_the_club": "Dem Verein beitreten"
+	},
+	"MembershipPage": {
+		"join_the_club": "DEM VEREIN BEITRETEN!",
+		"join_the_club_subtext": "Werde Mitglied oder verlängere deine Vereinsmitgliedschaft!",
+		"signup": "Registrieren"
+	},
+	"PurchaseMembershipCard": {
+		"membership": "Mitgliedschaft",
+		"membership_description": "Mitgliedschaft im Club Montegrappa für das Jahr {NEXT_YEAR} (30€)",
+		"or": "oder",
+		"pay_with_bank_transfer": "Per Banküberweisung bezahlen",
+		"membership_club": "Vereinsmitgliedschaft {NEXT_YEAR}",
+		"membership_flycard": "Gutschein FlyCard {NEXT_YEAR}",
+		"alert_title": "Achtung!",
+		"alert_description": "Du bist bereits Mitglied für das Jahr {NEXT_YEAR}. Es ist nicht möglich, mehr als eine Mitgliedschaft pro Jahr zu erwerben!",
+		"PricingCard": {
+			"selected": "Mitgliedschaft {NEXT_YEAR}",
+			"membership_price": "Mitgliedsbeitrag",
+			"includes": "Beinhaltet"
+		},
+		"info": {
+			"membership": {
+				"title": "MITGLIEDSCHAFT",
+				"description": "Ab <strong>1. Januar {NEXT_YEAR}</strong> sind die Anmeldungen für den Club Volo Libero Montegrappa geöffnet. <br></br>Um dich anzumelden, musst du <link1>ein Konto erstellen</link1> (kostenlos und unverbindlich) und mit der Zahlung des Mitgliedsbeitrags fortfahren. Bereits registrierte Benutzer können sich direkt <link2>in ihr Konto einloggen</link2> und ihre Mitgliedschaft verlängern."
+			},
+			"flycard": {
+				"title": "FLYCARD",
+				"description": "Um im Monte Grappa-Gebiet unter Nutzung der vom Tourismuskonsortium <i>Vivere il Grappa</i> verwalteten Einrichtungen (Startplätze und Landeplätze) zu fliegen, benötigst du die <strong>Flycard</strong>, die gemäß den auf der offiziellen Website des Konsortiums angegebenen Modalitäten und Kosten erworben werden kann: <link1>https://flycard.vivereilgrappa.it</link1>"
+			},
+			"news": {
+				"title": "NEUIGKEITEN FÜR {NEXT_YEAR}",
+				"description": "Dank einer exklusiven Kooperationsvereinbarung, die Mitgliedern des Club Volo Libero Montegrappa vorbehalten ist, gibt es eine Aktion zum Kauf der <strong>Jahres-Flycard zum ermäßigten Preis von 10€</strong>. Die Flycard ist <strong>nicht</strong> im Mitgliedsbeitrag enthalten.<br></br><br></br> <span>So funktioniert es:</span> <br></br> Vom <strong>1. Januar bis 1. März</strong> erhältst du nach Abschluss deiner Vereinsanmeldung einen <strong>Aktionscode</strong> zum Kauf der Flycard zum für Mitglieder reservierten Aktionspreis. <br></br> Der Code ist persönlich und einzigartig, kann nur einmal verwendet werden und ist nicht an Dritte übertragbar. Der Code wird dir per E-Mail nach Abschluss der Zahlung zugesandt und bleibt immer in deinem reservierten Bereich auf der Website verfügbar."
+			},
+			"important": {
+				"title": "ACHTUNG!",
+				"description": "Die Mitgliedschaft im Club Volo Libero Montegrappa gewährt nicht automatisch das sofortige Recht zur Nutzung der Aktion. Es wird daher empfohlen, die Flycard mehrere Tage vor dem erwarteten Nutzungsdatum zu erwerben.<br></br> Für Kaufbedingungen und Vorschriften siehe die Website des Konsortiums Vivere il Grappa <link1>https://flycard.vivereilgrappa.it/rules</link1>.<br></br><br></br>⚠️ Für ausländische Piloten ohne italienische Steuernummer: Um die Mitgliedschaft im Club Volo Libero Montegrappa zu beantragen und die Flycard-Aktion zu nutzen, ist es erforderlich, eine Anfrage per E-Mail an <strong>info@vololiberomontegrappa.it</strong> zu senden."
+			}
+		}
+	},
+	"PurchaseButton": {
+		"submit": "JETZT BEZAHLEN",
+		"redirecting_to_checkout": "Weiterleitung zur Kasse..."
+	},
+	"MembershipsTable": {
+		"valid": "Gültig",
+		"expired": "Abgelaufen",
+		"your_memberships": "Deine Mitgliedskarten",
+		"name": "Name",
+		"status": "Status",
+		"registered_at": "Registriert am",
+		"valid_until": "Gültigkeit",
+		"invoice": "Rechnung",
+		"active": "Aktiv",
+		"from": "von",
+		"to": "bis"
+	},
+	"PurchaseSuccessCard": {
+		"title": "Zahlung erfolgreich!",
+		"description": "Danke, dass du dem Club Montegrappa beigetreten bist!",
+		"description_2": "Du erhältst in Kürze eine Bestätigungs-E-Mail.",
+		"view_cards_action": "Deine Mitgliedschaft ansehen"
+	},
+	"ProfilePage": {
+		"member_from": "Mitglied seit",
+		"pilot_profile": "Piloten-Details",
+		"notifications": {
+			"ok": "OK",
+			"error": "Fehler",
+			"edit": {
+				"success": "Profil erfolgreich aktualisiert!",
+				"error": "Beim Aktualisieren des Profils ist ein Fehler aufgetreten"
+			}
+		}
+	},
+	"ProfileView": {
+		"profile_details": "Persönliche Daten",
+		"edit": "Bearbeiten",
+		"save": "Speichern",
+		"cancel": "Abbrechen",
+		"member_cards": "Meine Mitgliedskarten",
+		"your_memberships": "Meine Mitgliedskarten",
+		"your_memberships_description": "Alle deine aktiven Mitgliedskarten ansehen",
+		"payments": "Zahlungen"
+	},
+	"ProfileDetails": {
+		"email": "E-Mail",
+		"first_name": "Vorname",
+		"last_name": "Nachname",
+		"fiscal_code": "Steuernummer",
+		"place_of_birth": "Geburtsort",
+		"date_of_birth": "Geburtsdatum",
+		"street_address": "Straße",
+		"city": "Stadt",
+		"zip_code": "Postleitzahl",
+		"province": "Provinz",
+		"state": "Land",
+		"phone": "Telefonnummer",
+		"size": "Kleidergröße",
+		"sport": "Sportart",
+		"paragliding": "Gleitschirm",
+		"hang_gliding": "Drachenfliegen",
+		"paramotor": "Paramotor",
+		"nothing": "Nichts",
+		"vds_number": "VDS-Lizenz Nr.",
+		"vds_release_date": "Ausgestellt am",
+		"medical_exam_valid_date": "Ärztliche Untersuchung gültig bis",
+		"fivl_number": "FIVL-Karte Nr.",
+		"xcontest_id": "XContest-ID",
+		"ogn_callsign": "OGN-Rufzeichen",
+		"ogn_hex": "OGN Hex"
+	},
+	"TelegramCard": {
+		"title": "Tritt unserer Telegram-Gruppe bei!",
+		"description": "Bleibe auf dem Laufenden über die neuesten Nachrichten und Veranstaltungen",
+		"scan_code": "Scanne den QR-Code, um zur Gruppe zu gelangen",
+		"click_below": "Oder klicke auf den Link unten",
+		"join_group_action": "Der Gruppe beitreten"
+	},
+	"AdminPage": {
+		"header_title": "Admin-Panel",
+		"header_description": "Willkommen im Admin-Bereich des Club Montegrappa!",
+		"users": "Benutzer",
+		"members": "Mitglieder",
+		"not_members": "Nicht registriert",
+		"male": "Männlich",
+		"female": "Weiblich",
+		"select_year": "Jahr",
+		"season": "Saison {year}"
+	},
+	"UsersList": {
+		"name": "Name",
+		"view_all": "Alle anzeigen",
+		"created_at": "Registriert am",
+		"members": "Mitglieder",
+		"not_members": "Nicht registriert",
+		"users_description": "Alle registrierten Benutzer des Club Montegrappa",
+		"members_description": "Alle Mitglieder des Club Montegrappa",
+		"role": "Rolle"
+	},
+	"AdminUsersPage": {
+		"header_title": "Benutzer-/Mitgliederverwaltung",
+		"header_description": "Registrierte Benutzer anzeigen und verwalten",
+		"users": "Registrierte Benutzer",
+		"members": "Mitglieder",
+		"search_placeholder": "Benutzer suchen...",
+		"search_button": "Suchen",
+		"search_results": "Suchergebnisse",
+		"no_results": "Keine Ergebnisse gefunden",
+		"view_profile": "Profil anzeigen",
+		"edit_profile": "Profil bearbeiten",
+		"delete_user": "Benutzer löschen"
+	},
+	"AdminUserView": {
+		"ADMIN": "ADMIN",
+		"MEMBER": "MITGLIED",
+		"USER": "BENUTZER",
+		"back": "Zurück",
+		"member_cards": "Mitgliedskarten",
+		"payments": "Zahlungen",
+		"edit": "Bearbeiten",
+		"cancel": "Abbrechen"
+	},
+	"PaymentsTable": {
+		"payment_date": "Zahlungsdatum",
+		"payment_method": "Zahlungsmethode",
+		"amount": "Betrag",
+		"description": "Beschreibung",
+		"id_transaction": "Transaktions-ID",
+		"invoice": "Rechnung",
+		"card": "Karte",
+		"bank_transfer": "Banküberweisung",
+		"cash": "Bargeld",
+		"note": "Notiz",
+		"creator": "Ersteller"
+	},
+	"DataTable": {
+		"select_all": "Alle auswählen",
+		"select_row": "Zeile auswählen",
+		"open_menu": "Menü öffnen",
+		"actions": "Aktionen",
+		"details": "Details",
+		"header": {
+			"name": "Name",
+			"created_at": "Registriert am"
+		},
+		"filter_by_email": "Nach E-Mail filtern",
+		"filter_by_name": "Nach Name filtern",
+		"filter_by_payment_method": "Nach Typ filtern",
+		"all": "Alle",
+		"card": "Karte",
+		"bank_transfer": "Banküberweisung",
+		"cash": "Bargeld",
+		"columns": {
+			"buttonText": "Spalten",
+			"memberId": "Mitglieds-ID",
+			"email": "E-Mail",
+			"fullName": "Name",
+			"firstName": "Vorname",
+			"name": "Name",
+			"paymentMethod": "Zahlungsmethode",
+			"amount": "Betrag",
+			"description": "Beschreibung",
+			"note": "Notiz",
+			"createdAt": "Registriert am",
+			"createdBy": "Hinzugefügt von"
+		},
+		"no_results": "Keine Ergebnisse.",
+		"previous": "Zurück",
+		"next": "Weiter",
+		"insert_member": "Zum Mitglied hochstufen",
+		"insert_payment": {
+			"title": "Zahlungsdetails eingeben",
+			"description": "Diese Aktion macht den Benutzer zum Mitglied des Clubs",
+			"submit": "Zahlung einfügen"
+		},
+		"user": "Benutzer"
+	},
+	"UsersDataTable": {
+		"select_all": "Alle auswählen",
+		"select_row": "Zeile auswählen",
+		"open_menu": "Menü öffnen",
+		"actions": "Aktionen",
+		"details": "Details",
+		"header": {
+			"name": "Name",
+			"created_at": "Anmeldedatum",
+			"role": "Rolle",
+			"first_name": "Vorname",
+			"last_name": "Nachname",
+			"phone": "Telefon",
+			"city": "Stadt",
+			"sport": "Sportart",
+			"vds_number": "VDS-Nummer",
+			"renewed_at": "Erneuerungsdatum",
+			"fiscal_code": "Steuernummer",
+			"date_of_birth": "Geburtsdatum",
+			"place_of_birth": "Geburtsort",
+			"street_address": "Adresse",
+			"zip_code": "Postleitzahl",
+			"province": "Provinz",
+			"state": "Land",
+			"gender": "Geschlecht",
+			"size": "Größe",
+			"vds_release_date": "VDS-Ausstellungsdatum",
+			"fivl_number": "FIVL-Nummer",
+			"medical_exam_valid_date": "Ärztliche Untersuchung gültig bis",
+			"xcontest_id": "XContest-ID",
+			"ogn_callsign": "OGN-Rufzeichen",
+			"ogn_hex": "OGN Hex"
+		},
+		"columns": "Spalten",
+		"columns_hint": "Anzuzeigende Felder",
+		"download_excel": "Excel herunterladen",
+		"filter_by_email": "Nach E-Mail filtern",
+		"filter_by_name": "Nach Name filtern",
+		"filter_by_role": "Nach Rolle filtern",
+		"role": {
+			"member": "Mitglied",
+			"user": "Kein Mitglied",
+			"MEMBER": "Mitglied",
+			"USER": "Kein Mitglied",
+			"all": "Zurücksetzen"
+		},
+		"no_results": "Keine Ergebnisse gefunden.",
+		"previous": "Zurück",
+		"next": "Weiter",
+		"insert_member": "Mitglied hinzufügen",
+		"insert_payment": {
+			"title": "Zahlungsdaten eingeben",
+			"description": "Diese Aktion macht den Benutzer zum Mitglied des Clubs",
+			"submit": "Zahlung einfügen"
+		},
+		"user": "Benutzer"
+	},
+	"CardsPage": {
+		"your_memberships": "Meine Mitgliedskarten",
+		"your_memberships_description": "Alle deine aktiven Mitgliedskarten ansehen"
+	},
+	"PaymentForm": {
+		"paymentMethod": "Zahlungsmethode",
+		"description": "Beschreibung",
+		"slug": "Mitgliedschaftstyp",
+		"VLM": "VLM-Mitgliedschaft",
+		"VLM-VIG": "VLM-Mitgliedschaft + FlyCard VIG",
+		"amount": "Betrag",
+		"note": "Notiz",
+		"bank_transfer": "Banküberweisung",
+		"cash": "Bargeld",
+		"submit": "Zahlung einfügen",
+		"payment_error": "Beim Einfügen der Zahlung ist ein Fehler aufgetreten",
+		"membership_already_exists": "Für diesen Benutzer existiert bereits eine Mitgliedskarte!",
+		"payment_success": "Zahlung erfolgreich eingefügt! Der Benutzer ist jetzt Mitglied des Clubs.",
+		"user": "Benutzer"
+	},
+	"PaymentsPage": {
+		"header_title": "Zahlungen",
+		"header_description": "Alle von Benutzern getätigten Zahlungen anzeigen und verwalten",
+		"select_all": "Alle auswählen",
+		"select_row": "Zeile auswählen",
+		"title": "Zahlungen",
+		"card": "Karte",
+		"bank_transfer": "Banküberweisung",
+		"cash": "Bargeld",
+		"header": {
+			"name": "Name",
+			"paymentMethod": "Zahlungsmethode",
+			"amount": "Betrag",
+			"description": "Beschreibung",
+			"note": "Notiz",
+			"createdAt": "Zahlungsdatum",
+			"createdBy": "Hinzugefügt von"
+		}
+	},
+	"SociPage": {
+		"header_title": "Mitglieder",
+		"header_description": "Liste aller Club-Mitglieder",
+		"select_all": "Alle auswählen",
+		"select_row": "Zeile auswählen",
+		"title": "Mitglieder",
+		"search_by_name": "Nach Name suchen",
+		"previous": "Zurück",
+		"next": "Weiter",
+		"header": {
+			"name": "Name",
+			"registeredAt": "Mitgliedsdatum"
+		}
+	},
+	"DocumentsPage": {
+		"title": "Dokumente",
+		"description": "Offizielle Dokumente des Club Montegrappa herunterladen",
+		"statuto": "VEREINSSATZUNG",
+		"download": "Herunterladen",
+		"ClubNotesList": {
+			"verbali": "SITZUNGSPROTOKOLLE",
+			"title": "Titel",
+			"data": "Datum",
+			"actions": "Aktionen",
+			"download": "Herunterladen"
+		}
+	},
+	"SettingsPage": {
+		"header_title": "Einstellungen",
+		"header_description": "Konto- und Website-Einstellungen verwalten.",
+		"theme": {
+			"title": "Theme",
+			"description": "Wähle dein bevorzugtes Theme.",
+			"select_theme": "Theme auswählen",
+			"light": "Helles Theme",
+			"dark": "Dunkles Theme",
+			"system": "System"
+		},
+		"changePasswordForm": {
+			"title": "Passwort ändern",
+			"description": "Aktualisiere dein Konto-Passwort.",
+			"new_password": "Neues Passwort",
+			"confirm_password": "Passwort bestätigen",
+			"submit": "Passwort ändern",
+			"password_mismatch": "Passwörter stimmen nicht überein!",
+			"success": "Passwort erfolgreich aktualisiert!"
+		},
+		"delete_account": {
+			"title": "Konto löschen",
+			"description": "Dies ist ein Gefahrenbereich - Sei vorsichtig!",
+			"are_you_sure": "Bist du sicher?",
+			"delete_account_warning": "Lösche dein Konto dauerhaft. Diese Aktion kann nicht rückgängig gemacht werden - bitte mit Vorsicht fortfahren.",
+			"delete_account_btn": "Konto löschen",
+			"modal_warning": "Warnung",
+			"modal_warning_description": "Dies wird dein Konto und deine aktive Mitgliedschaft dauerhaft löschen!",
+			"verify_text_1": "Zur Bestätigung gib",
+			"verify_text_type": "LÖSCHEN",
+			"verify_text_2": "in das Feld unten ein:",
+			"confirm_delete_account": "Konto-Löschung bestätigen",
+			"deleting_account": "Konto wird gelöscht...",
+			"deleting_success": "Konto erfolgreich gelöscht!"
+		}
+	},
+	"ChangePasswordModal": {
+		"title": "Passwort ändern",
+		"description": "Aktualisiere dein Konto-Passwort.",
+		"new_password": "Neues Passwort",
+		"confirm_password": "Passwort bestätigen",
+		"submit": "Passwort ändern",
+		"password_mismatch": "Passwörter stimmen nicht überein!",
+		"success": "Passwort erfolgreich aktualisiert!",
+		"confirm": "Bestätigen",
+		"cancel": "Abbrechen",
+		"change_password": "Passwort ändern",
+		"change_password_description": "Bestätigst du, dass du dein Passwort ändern möchtest?",
+		"loading": "Lädt...",
+		"submit_success": "Passwort erfolgreich aktualisiert!"
+	},
+	"EventsPage": {
+		"header_title": "Veranstaltungen",
+		"header_description": "Bleibe auf dem Laufenden über die neuesten Veranstaltungen des Club Montegrappa",
+		"upcoming_events": "Kommende Veranstaltungen",
+		"past_events": "Vergangene Veranstaltungen",
+		"add_event": "Neue Veranstaltung hinzufügen",
+		"no_events": "Keine Veranstaltungen gefunden"
+	},
+	"NewsPage": {
+		"header_title": "Nachrichten",
+		"header_description": "Neueste Nachrichten und Updates von Volo Libero Montegrappa",
+		"no_news": "Noch keine Nachrichten veröffentlicht",
+		"back_to_news": "Zurück zu den Nachrichten",
+		"add_news": "Nachricht hinzufügen",
+		"edit_news": "Bearbeiten",
+		"delete_news": "Löschen",
+		"delete_confirm_title": "Diese Nachricht löschen?",
+		"delete_confirm_description": "Die Nachricht wird von der Seite entfernt.",
+		"delete_success": "Nachricht gelöscht",
+		"delete_error": "Nachricht konnte nicht gelöscht werden",
+		"cancel": "Abbrechen",
+		"draft": "Entwurf",
+		"scheduled": "Geplant",
+		"draft_notice": "Diese Nachricht ist ein Entwurf: nur Admins können sie sehen.",
+		"scheduled_notice": "Diese Nachricht wird am Veröffentlichungsdatum live geschaltet: bis dahin können nur Admins sie sehen."
+	},
+	"EventCard": {
+		"back_to_events": "Zurück zu den Veranstaltungen",
+		"edit_event": "Veranstaltung bearbeiten",
+		"free": "KOSTENLOS",
+		"ended": "Beendet",
+		"participants": "Teilnehmer",
+		"join_event": "An der Veranstaltung teilnehmen!",
+		"registered": "Nehme teil",
+		"past_event": "Vergangene Veranstaltung",
+		"event_ended": "Veranstaltung beendet",
+		"available_seats": "verfügbare Plätze",
+		"from_time": "Von",
+		"to_time": "bis",
+		"event_date": "Datum",
+		"event_location": "Ort",
+		"event_price": "Preis",
+		"event_participants": "Teilnehmer",
+		"event_information": "Zusätzliche Informationen",
+		"export_csv": "CSV exportieren"
+	},
+	"MemberOnlyModal": {
+		"title": "Achtung!",
+		"description": "Diese Veranstaltung ist exklusiv für unsere registrierten Mitglieder verfügbar. Um an der Veranstaltung teilzunehmen, musst du Mitglied des Club Montegrappa sein!",
+		"join_the_club": "Dem Club beitreten!",
+		"cancel": "Abbrechen"
+	},
+	"NewEventPage": {
+		"header_title": "Neue Veranstaltung",
+		"header_description": "Eine neue Veranstaltung erstellen",
+		"header_title_edit": "Veranstaltung bearbeiten",
+		"header_description_edit": "Eine bestehende Veranstaltung bearbeiten",
+		"event": {
+			"title": "Titel",
+			"description": "Beschreibung",
+			"information": "Zusätzliche Informationen",
+			"eventDate": "Veranstaltungsdatum",
+			"optionalDate": "Optionales Datum",
+			"startTime": "Startzeit",
+			"endTime": "Endzeit",
+			"price": "Preis",
+			"location": "Ort",
+			"locationUrl": "Orts-URL",
+			"maxAvailability": "Maximal verfügbare Plätze",
+			"isMemberOnly": "Nur für Mitglieder",
+			"announceOnTelegram": "In der Telegram-Gruppe veröffentlichen",
+			"image": "Bild"
+		},
+		"create_event": "Veranstaltung erstellen",
+		"edit_event": "Veranstaltung bearbeiten",
+		"create_success": "Veranstaltung erfolgreich erstellt!",
+		"edit_success": "Veranstaltung erfolgreich aktualisiert!",
+		"event_error": "Beim Erstellen der Veranstaltung ist ein Fehler aufgetreten!",
+		"cover_upload_error": "Der Bild-Upload ist fehlgeschlagen, bitte versuche es erneut"
+	},
+	"MeteoPage": {
+		"back": "Zurück",
+		"header_title": "Wetter",
+		"header_description": "Wettervorhersage anzeigen",
+		"dashboard_title": "Wetterinformationen",
+		"dashboard_description": "Dank der Zusammenarbeit mit ElMeteo.it",
+		"no_data": "Keine Daten",
+		"today": "Heute",
+		"tomorrow": "Morgen",
+		"after_tomorrow": "Übermorgen",
+		"maps_locked_title": "Karten sind Mitgliedern vorbehalten",
+		"maps_locked_description": "Melde dich an, um bis zu sechs Karten gleichzeitig zu vergleichen und stündlich durch die 48-Stunden-Vorhersage zu blättern.",
+		"no_run_title": "Vorhersage nicht verfügbar",
+		"no_run_description": "Die letzte Aktualisierung wurde nicht abgeschlossen. Bitte versuche es später erneut.",
+		"members_only": "Nur für Mitglieder",
+		"maps_card_title": "Karten",
+		"maps_card_description": "Stündliche Karten, durch die du blättern kannst: Thermik, Wind, Wolkenbasis und Niederschlag über dem Montegrappa-Gebiet, bis zu 48 Stunden im Voraus mit 4 Updates pro Tag.",
+		"maps_card_cta": "Karten öffnen",
+		"tables_card_title": "Startplatz-Tabellen",
+		"tables_card_description": "Stündliche Vorhersagen für die sechs Startplätze: Wind in jeder Höhe, Wolkenbasis, Thermik und Risiken, für heute und die nächsten zwei Tage.",
+		"tables_card_cta": "Tabellen öffnen",
+		"Maps": {
+			"back": "Zurück zum Wetter",
+			"login": "Anmelden",
+			"last_update": "Letzte Aktualisierung:",
+			"no_update": "Keine Aktualisierung verfügbar",
+			"update_ok": "Letzte Aktualisierung erfolgreich",
+			"update_failed": "Letzte Aktualisierung fehlgeschlagen",
+			"refresh": "Wetterdaten neu laden",
+			"upload_failed": "{count, plural, =1 {Der letzte Upload ist fehlgeschlagen} other {Die letzten # Uploads sind fehlgeschlagen}} (<time>{date}</time>): Die angezeigten Karten sind die der vorherigen Aktualisierung.",
+			"model_run": "Modelllauf um {time}, stündliche Vorhersage bis zu 48 Stunden im Voraus.",
+			"history": "Die vorherigen {hours} Stunden können auch durchsucht werden ({weeks, plural, =1 {# Woche} other {# Wochen}}).",
+			"update_schedule": "Es gibt 4 Aktualisierungen pro Tag. Jede Karte ist ungefähr fertig aktualisiert um: {times}.",
+			"previous_day": "Vorheriger Tag",
+			"next_day": "Nächster Tag",
+			"forecast_hour": "Vorhersagestunde",
+			"reset_maps": "Standardkarten wiederherstellen",
+			"zoom": "{map} vergrößern",
+			"change_map": "Karte im {map}-Panel ändern",
+			"add_map": "Karte hinzufügen",
+			"remove_map": "{map}-Panel entfernen",
+			"open_fullscreen": "Vollbild öffnen",
+			"open_fullscreen_title": "Karte im Vollbild in einem neuen Tab öffnen",
+			"picker_title": "Karte auswählen",
+			"add_picker_title": "Karte hinzufügen",
+			"picker_description": "Die Auswahl wird auf diesem Gerät gespeichert.",
+			"already_used": "Wird bereits in einem anderen Panel angezeigt",
+			"cancel": "Abbrechen"
+		},
+		"Tables": {
+			"header_title": "Startplatz-Tabellen",
+			"header_description": "Stündliche Vorhersagen für die sechs Startplätze, heute und die nächsten zwei Tage",
+			"back": "Zurück zum Wetter",
+			"scraped_at": "Gesammelt am {date} von ElMeteo.it",
+			"locked_title": "Die Tabellen sind Mitgliedern vorbehalten",
+			"locked_description": "Melde dich an, um die stündlichen Vorhersagen für jeden Montegrappa-Startplatz einzusehen.",
+			"login": "Anmelden",
+			"empty_title": "Vorhersage nicht verfügbar",
+			"empty_description": "Die Tabellen werden nach jedem ElMeteo.it-Lauf aktualisiert. Bitte versuche es später erneut.",
+			"site_unavailable": " — nicht verfügbar",
+			"altitude": "{altitude} m ü. M.",
+			"max_cloud_base": "max. Wolkenbasis {altitude} m",
+			"no_table_title": "Tabelle nicht verfügbar",
+			"no_table_description": "Es gibt keine Vorhersage für diesen Startplatz an diesem Tag. Versuche es nach der nächsten Aktualisierung erneut."
+		},
+		"ForecastTable": {
+			"hour": "Stunde",
+			"clouds": "Wolken",
+			"clouds_hint": "Wolkendecke auf den drei Ebenen: Hoch - Mittel - Tief",
+			"clouds_maps_hint": "Tippe auf eine Zeile, um die Wolken- und Regenkarte für diese Stunde zu sehen.",
+			"clouds_high": "Hoch",
+			"clouds_medium": "Mittel",
+			"clouds_low": "Tief",
+			"clouds_map_open": "Wolkenkarte für {hour} öffnen",
+			"map_link": "Karte ansehen",
+			"map_subtitle": "{site} - {day} um {hour}",
+			"map_fullscreen": "Vollbild öffnen",
+			"map_fullscreen_title": "Karte im Vollbild in einem neuen Tab öffnen",
+			"temperature": "Temp",
+			"precipitation": "Niederschlag",
+			"max_flight": "Max. Flughöhe",
+			"max_flight_hint": "Höchste vom Startplatz aus mit Aufwinden erreichbare Höhe",
+			"cloud_base": "Wolkenbasis",
+			"cloud_base_description": "Die Basis der mittleren und tiefen Wolken liegt zwischen dem MIN- und dem MAX-Wert.",
+			"cloud_base_below_take_off": "Die Wolkenbasis liegt auf Startplatzhöhe oder tiefer",
+			"take_off": "Startplatz",
+			"thermals": "Thermik",
+			"thermals_hint": "Höchster vom Startplatz aus erreichbarer Aufwind",
+			"thermals_description": "Markiert die Höhen, in denen sich aufsteigende warme Blasen bilden können. Beachte, dass dies nichts über ihre Stärke aussagt, die durchaus unter 1 m/s liegen kann.",
+			"thermals_maps_hint": "Lohnt sich, mit den Thermikkarten abzugleichen.",
+			"thermals_maps_link": "Zu den Karten",
+			"thermals_dialog_title": "Aufwinde um {hour}",
+			"thermals_map_open": "Thermikkarte für {hour} öffnen",
+			"thermals_reachable": "Vom Startplatz aus erreichbar",
+			"thermals_unreachable": "Über der Inversion, unerreichbar",
+			"thermals_in_inversion": "Innerhalb einer stabilen Schicht",
+			"stable_layer": "Inversion",
+			"stable_layer_hint": "Stabile Schicht: Ein thermischer Aufstieg endet an ihrer Basis",
+			"stable_layer_description": "Markiert stabile Schichten und Temperaturinversionen, wo die Luft stagniert oder sinkt.",
+			"stable_layer_dialog_title": "Stabile Schichten um {hour}",
+			"stable_layer_band": "Von {from} bis {to} m",
+			"risks": "Risiken",
+			"risk_low": "Geringes Risiko",
+			"risk_medium": "Mittleres Risiko",
+			"risk_high": "Hohes Risiko",
+			"risk_dialog_title": "Risiko um {hour}",
+			"risk_wind_moderate": "Möglicherweise mäßiger Wind",
+			"risk_wind_strong": "Möglicherweise starker Wind",
+			"wind": "Wind",
+			"speed": "{speed} <unit>km/h</unit>",
+			"gust": "Böe {speed} <unit>km/h</unit>"
+		}
+	},
+	"TaskPage": {
+		"back": "Zurück",
+		"header_title": "Aufgabe",
+		"header_description": "Aufgabendetails",
+		"dashboard_title": "Aufgabeninformationen",
+		"turnpoints": "Wendepunkte",
+		"points": "Punkte",
+		"category": "Kategorie",
+		"distance": "Distanz",
+		"no_data": "Keine Daten",
+		"not_found": "Aufgabe nicht gefunden",
+		"no_waypoints": "Keine Wegpunkte für diese Aufgabe verfügbar.",
+		"download_task": "Aufgabe herunterladen",
+		"show_qr_code": "QR-Code anzeigen",
+		"download_xctsk": ".xctsk herunterladen",
+		"qr_dialog_title": "QR-Code der Aufgabe scannen",
+		"qr_dialog_description": "Scanne diesen Code mit deinem Fluginstrument, um die Aufgabe zu importieren.",
+		"qr_download": "QR-Code herunterladen",
+		"qr_unavailable": "QR-Code für diese Aufgabe nicht verfügbar.",
+		"qr_alt": "Aufgaben-QR-Code",
+		"download_waypoints": "Wegpunkte herunterladen",
+		"upload_route": "Deine Route hochladen",
+		"uploading": "Wird hochgeladen...",
+		"upload_success": "Route erfolgreich hochgeladen!",
+		"upload_error": "Fehler beim Hochladen der Route",
+		"enroll_prompt": "Melde dich für das XC-Zertifikat an, um deine Tracks hochzuladen."
+	},
+	"XcSubmissionHistory": {
+		"title": "Vorherige Flüge",
+		"description": "Wähle einen Flug aus, um ihn auf der Karte anzuzeigen.",
+		"edition": "Ausgabe {year}",
+		"points": "Pkt.",
+		"view": "Ansehen",
+		"viewing": "Wird angezeigt"
+	},
+	"XcMontegrappaPage": {
+		"banner": {
+			"title": "XC Montegrappa",
+			"subtitle": "XC Montegrappa Streckenflug-Zertifikat"
+		},
+		"categoryCards": {
+			"title": "Wähle deine Herausforderung",
+			"subtitle": "Erobere den Himmel und verdiene dir deine Zertifikate."
+		},
+		"hero": {
+			"title": "XC Montegrappa"
+		},
+		"intro": "Diese Initiative wird organisiert und gefördert vom <strong>Club Volo Libero Montegrappa</strong>.<br></br>Es ist kein Wettbewerb, sondern eine persönliche Herausforderung, die das Engagement und die Fähigkeit jedes Piloten anerkennt, Streckenflugziele zu erreichen.<br></br>Die Routen basieren im Monte Grappa-Fluggebiet, mit Start und Landung innerhalb der ausgewiesenen Zonen.<br></br>Jeder Pilot kann das ganze Jahr über frei wählen, wann er fliegt, beginnend ab dem <strong>1. April {year}</strong>.",
+		"objectives": {
+			"title": "ZIELE",
+			"lead": "Das XC Montegrappa-Zertifikat wurde geschaffen, um:",
+			"items": {
+				"0": "Die Praxis des Freiflugs im Gleitschirm- und Drachenfliegen durch vordefinierte Routen in den Ausläufern Venetiens mit Startplätzen am Monte Grappa zu fördern und zu verbreiten.",
+				"1": "Piloten zu ermutigen, ihre Erfahrung zu verbessern, den Wissensaustausch zu fördern und nahegelegene Fluggebiete zu erkunden.",
+				"2": "Weniger erfahrenen Piloten zu helfen, sich dem Streckenflug durch progressive Routenlevel zu nähern."
+			}
+		},
+		"howItWorks": {
+			"title": "WIE ES FUNKTIONIERT",
+			"description": "XC Montegrappa hat drei Schwierigkeitsstufen (Basic, Intermediate, Advanced), die jeweils aus vordefinierten Aufgaben mit zu passierenden Wendepunkten bestehen.<br></br>Jede Aufgabe hat eine Punktzahl, die ihre Schwierigkeit widerspiegelt. Um das Zertifikat zu erhalten, musst du die für diese Stufe erforderliche Mindestpunktzahl erreichen, indem du die Punkte aus abgeschlossenen Aufgaben addierst.<br></br>Das bedeutet, dass es für jede Stufe nicht unbedingt erforderlich ist, jede Aufgabe zu erfüllen: Du musst nur die Mindestpunktzahl erreichen.<br></br><br></br><strong>Achtung!</strong> Jede Aufgabe kann nur für eine bestimmte Zertifikatsstufe zählen. Ein einzelner Flugtrack, der mehrere Aufgaben umfasst, ist nur für eine davon gültig. Daher können unterschiedliche Aufgaben nicht alle in einer einzigen Flugsitzung erfüllt werden.",
+			"readRegulations": "Reglement lesen"
+		},
+		"levels": {
+			"title": "ZERTIFIKATSSTUFEN",
+			"lead": "Zertifikate sind in drei ansteigende Schwierigkeitsstufen unterteilt:",
+			"viewTasks": "Aufgaben ansehen",
+			"basic": {
+				"title": "BASIC-ZERTIFIKAT",
+				"description": "Kürzere und weniger anspruchsvolle Routen.",
+				"details": "Ideal für Piloten bei ihren ersten Streckenflug-Erfahrungen."
+			},
+			"intermediate": {
+				"title": "INTERMEDIATE-ZERTIFIKAT",
+				"description": "Längere, technischere Routen.",
+				"details": "Beinhaltet das Überqueren der Haupttäler rund um den Monte Grappa."
+			},
+			"advanced": {
+				"title": "ADVANCED-ZERTIFIKAT",
+				"description": "Routen für erfahrene Piloten.",
+				"details": "Routen mit höherer Schwierigkeit aufgrund von Distanz, Flugzeit und Überquerungen durch mehrere Täler und unterschiedliche Umgebungskontexte."
+			}
+		},
+		"faqTitle": "HÄUFIG GESTELLTE FRAGEN",
+		"cta": "Fliege immer mit einem Ziel,<br></br>nimm am XC Montegrappa-Zertifikat teil",
+		"enrollButton": "Für XC-Zertifikat anmelden",
+		"toast": {
+			"success": "Willkommen bei XC Montegrappa!",
+			"alreadyEnrolled": "Du bist bereits für das diesjährige XC-Zertifikat angemeldet.",
+			"genericError": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+		},
+		"dialog": {
+			"title": "Für XC Montegrappa {year} anmelden",
+			"description": "Du meldest dich für die {year} XC Montegrappa-Ausgabe an. Du kannst an allen Kategorien (Basic, Intermediate, Advanced) teilnehmen.",
+			"info": "Mit einer einzigen Anmeldung kannst du während der gesamten {year}-Saison Tracks für alle Kategorien hochladen.",
+			"cancel": "Abbrechen",
+			"confirm": "Anmeldung bestätigen",
+			"loading": "Wird angemeldet..."
+		}
+	},
+	"EnrollXcEditionModal": {
+		"toast": {
+			"success": "Willkommen bei XC Montegrappa!",
+			"alreadyEnrolled": "Du bist bereits für das diesjährige XC-Zertifikat angemeldet.",
+			"genericError": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+		},
+		"dialog": {
+			"title": "Für XC Montegrappa {year} anmelden",
+			"description": "Du meldest dich für die {year} XC Montegrappa-Ausgabe an. Du kannst an allen Kategorien (Basic, Intermediate, Advanced) teilnehmen.",
+			"cancel": "Abbrechen",
+			"confirm": "Anmeldung bestätigen",
+			"alreadyEnrolledMessage": "Du bist bereits für das XC-Zertifikat angemeldet!",
+			"acceptLiability": "Ich habe die <link>Haftungsverzichtserklärung</link> gelesen und akzeptiere sie",
+			"acceptRegolamento": "Ich habe das <link>Reglement</link> gelesen und akzeptiere es",
+			"loading": "Wird angemeldet..."
+		}
+	},
+	"XcMontegrappaFAQ": {
+		"items": {
+			"whoCan": {
+				"question": "Wer kann teilnehmen?",
+				"answer": "Alle italienischen und internationalen Piloten, die den aktuellen nationalen Freiflug-Vorschriften und lokalen Regeln entsprechen, können am XC-Zertifikat vom Grappa teilnehmen."
+			},
+			"howMany": {
+				"question": "Wie viele Zertifikate kann ich erwerben?",
+				"answer": "Es gibt keine Unterscheidung oder Begrenzung nach Fluggerätekategorie. Jeder Pilot kann sich für eine oder mehrere Stufen anmelden und diese absolvieren und kann daher alle drei Zertifikate erwerben: Basic, Intermediate und Advanced."
+			},
+			"whenFly": {
+				"question": "Wann können Flüge gemacht werden?",
+				"answer": "Flüge vom 1. Oktober bis zum 30. September des folgenden Jahres werden berücksichtigt. Du kannst an jedem Wochentag fliegen, wenn das Wetter es erlaubt."
+			},
+			"whenCollect": {
+				"question": "Wenn ich die erforderliche Punktzahl erreiche, wann kann ich mein Zertifikat abholen?",
+				"answer": "Im Oktober, beim gesellschaftlichen Abendessen des Volo Libero Montegrappa, werden die Zertifikate an Piloten verliehen, die das XC-Zertifikat vom Grappa erreicht haben."
+			},
+			"prizes": {
+				"question": "Gibt es Preise?",
+				"answer": "Das XC-Zertifikat vom Grappa ist keine Wettbewerbsveranstaltung und hat keine Rangliste für spezifische Preise. Beim gesellschaftlichen Abendessen werden jedoch Preise unter allen Piloten verlost, die das Zertifikat auf beliebiger Stufe erreicht haben. Besondere Anerkennungen werden Piloten gewährt, die mehrere Zertifikate in derselben Saison absolvieren. Verloste Preise werden nur an anwesende Piloten vergeben."
+			}
+		}
+	},
+	"XcCategoryPage": {
+		"bannerTitle": "XC Montegrappa",
+		"bannerSubtitle": "Cross Country Montegrappa Zertifikat",
+		"categories": {
+			"basic": {
+				"title": "Basis-Zertifikat",
+				"short": "Basis"
+			},
+			"intermediate": {
+				"title": "Fortgeschrittenen-Zertifikat",
+				"short": "Fortgeschritten"
+			},
+			"advanced": {
+				"title": "Experten-Zertifikat",
+				"short": "Experte"
+			}
+		},
+		"errors": {
+			"categoryNotFound": "Kategorie nicht gefunden",
+			"failedToLoad": "Aufgaben konnten nicht geladen werden. Bitte versuche es erneut."
+		},
+		"buttons": {
+			"back": "Zurück",
+			"backToXc": "Zurück zu XC Montegrappa",
+			"enrollNow": "Jetzt anmelden",
+			"leaderboard": "Bestenliste"
+		},
+		"header": {
+			"description": "Erledige Aufgaben und sammle Punkte, um das Zertifikat zu erhalten"
+		},
+		"progress": {
+			"title": "Level-Status",
+			"level": "Level",
+			"tasksLabel": "Zertifikat-Punkte",
+			"xcPoints": "XC-Punkte",
+			"tasksCompleted": "Aufgaben erledigt",
+			"currentPoints": "Aktuelle Punkte:",
+			"minPoints": "Mindestpunktzahl:",
+			"minPointsTooltip": "Mindest-XC-Punkte, die benötigt werden, um das Level zu bestehen und das Zertifikat zu erhalten",
+			"completed": "✅ Du hast dieses XC-Zertifikat abgeschlossen!"
+		},
+		"enrollPrompt": "Melde dich für das XC-Zertifikat an, um deine Flüge hochzuladen.",
+		"tasks": {
+			"title": "Verfügbare Aufgaben",
+			"empty": "Für diese Kategorie sind noch keine Aufgaben verfügbar."
+		},
+		"celebration": {
+			"basic": {
+				"title": "XC Montegrappa - Gheppio del Grappa",
+				"subtitle": "Basis-Zertifikat abgeschlossen!",
+				"description": "Glückwunsch! Du hast alle Aufgaben des Basis-Zertifikats abgeschlossen! 🎉"
+			},
+			"intermediate": {
+				"title": "XC Montegrappa - Falco del Grappa",
+				"subtitle": "Fortgeschrittenen-Zertifikat abgeschlossen!",
+				"description": "Glückwunsch! Du hast alle Aufgaben des Fortgeschrittenen-Zertifikats abgeschlossen! 🎉"
+			},
+			"advanced": {
+				"title": "XC Montegrappa - Aquila del Grappa",
+				"subtitle": "Experten-Zertifikat abgeschlossen!",
+				"description": "Du hast Spitzenleistung und expertenhafte Navigation bewiesen und die anspruchsvollsten Strecken gemeistert. Glückwunsch zum Erreichen der höchsten Stufe! 🎉🏅💪"
+			},
+			"stats": {
+				"totalDistance": "Gesamtstrecke",
+				"flightTime": "Flugzeit",
+				"maxAlt": "Max. Höhe"
+			}
+		}
+	},
+	"XcLeaderboardPage": {
+		"title": "Bestenliste",
+		"empty": "Noch keine Teilnehmer.",
+		"noMore": "Keine weiteren Teilnehmer.",
+		"selectEdition": "Ausgabe",
+		"errors": {
+			"failedToLoad": "Bestenliste konnte nicht geladen werden. Bitte versuche es erneut."
+		}
+	},
+	"XcPilotProfilePage": {
+		"subtitle": "Pilotenprofil",
+		"backToLeaderboard": "Bestenliste",
+		"selectEdition": "Ausgabe",
+		"noData": "Dieser Pilot hat noch keine XC Montegrappa Daten.",
+		"totals": {
+			"levelsCompleted": "{count, plural, =1 {# Zertifikat erworben} other {# Zertifikate erworben}}",
+			"flights": "Flüge",
+			"distance": "Strecke",
+			"flightTime": "Flugzeit",
+			"maxAlt": "Max. Höhe"
+		},
+		"categories": {
+			"rank": "Rang",
+			"completed": "Zertifikat abgeschlossen",
+			"noData": "Keine Daten für diese Kategorie"
+		},
+		"flights": {
+			"title": "Flüge",
+			"all": "Alle",
+			"empty": "Keine genehmigten Flüge für diese Ausgabe.",
+			"points": "Pkt.",
+			"view": "Ansehen",
+			"trackUnavailable": "Track nicht verfügbar."
+		},
+		"errors": {
+			"failedToLoad": "Profil konnte nicht geladen werden. Bitte versuche es erneut."
+		}
+	},
+	"XcFlightPage": {
+		"back": "Pilotenprofil",
+		"pilot": "Pilot",
+		"viewTask": "Aufgabe ansehen"
+	},
+	"XcTaskCard": {
+		"distance": "Strecke",
+		"difficulty": "Schwierigkeit",
+		"difficultyLevel": {
+			"basic": "Basis",
+			"intermediate": "Fortgeschritten",
+			"advanced": "Experte"
+		},
+		"points": "Punkte",
+		"downloadTask": "Aufgabe herunterladen",
+		"showQrCode": "QR-Code anzeigen",
+		"downloadXctsk": ".xctsk herunterladen",
+		"qrDialogTitle": "Aufgaben-QR-Code scannen",
+		"qrDialogDescription": "Scanne diesen Code mit deinem Fluggerät, um die Aufgabe zu importieren.",
+		"qrDownload": "QR-Code herunterladen",
+		"qrUnavailable": "QR-Code für diese Aufgabe nicht verfügbar.",
+		"qrAlt": "Aufgaben-QR-Code",
+		"viewTrack": "Track ansehen",
+		"noImage": "Kein Bild",
+		"badge": {
+			"completed": "Abgeschlossen",
+			"pending": "Ausstehend",
+			"rejected": "Ungültig",
+			"todo": "Zu erledigen"
+		},
+		"uploadTrack": "Deinen Track hochladen",
+		"uploading": "Wird hochgeladen...",
+		"uploadComingSoon": "Upload-Funktion kommt bald!",
+		"cta": {
+			"title": "Bereit zum Abheben?",
+			"description": "Lade die Aufgabe auf dein Fluggerät oder lade deinen Track (.igc) hoch, um diese Strecke zu absolvieren und XC-Punkte zu sammeln!"
+		},
+		"toast": {
+			"uploadSuccess": "Datei erfolgreich hochgeladen!",
+			"uploadError": "Fehler beim Hochladen der Datei.",
+			"validationSuccess": "Track erfolgreich validiert! Alle Wendepunkte erreicht.",
+			"validationFailed": "Track-Validierung fehlgeschlagen. Einige Wendepunkte wurden nicht erreicht.",
+			"deleteSuccess": "Track erfolgreich entfernt.",
+			"deleteError": "Fehler beim Entfernen des Tracks."
+		},
+		"modal": {
+			"title": "Anmeldung erforderlich",
+			"description": "Um deinen Track hochzuladen, musst du dich zuerst bei XC Montegrappa {year} anmelden.",
+			"info": "Nach der Anmeldung kannst du das ganze Jahr über GPX- und IGC-Tracks für alle Kategorien (Basis, Fortgeschritten, Experte) hochladen.",
+			"cancel": "Abbrechen",
+			"enrollNow": "Jetzt anmelden"
+		}
+	},
+	"XcBasicoPage": {
+		"bannerTitle": "BASIS-ZERTIFIKAT",
+		"bannerSubtitle": "XC Montegrappa Streckenflug-Zertifikat",
+		"title": "XC Montegrappa",
+		"subtitle": "BASIS-ZERTIFIKAT"
+	},
+	"XcSubmissionStatus": {
+		"pending": {
+			"title": "Track eingereicht",
+			"description": "Dein Track wartet auf Validierung.",
+			"badge": "In Prüfung",
+			"validateNow": "Jetzt validieren",
+			"validating": "Wird validiert..."
+		},
+		"approved": {
+			"title": "Track abgeschlossen!",
+			"badge": "Abgeschlossen",
+			"pointsAwarded": "Du hast {points} XC-Punkte verdient!",
+			"deleteTrack": "Track entfernen",
+			"deleting": "Wird entfernt...",
+			"confirmDelete": {
+				"title": "Track entfernen?",
+				"description": "Bist du sicher, dass du diesen Track entfernen möchtest? Alle Punkte und Fortschritte aus dieser Einreichung gehen verloren.",
+				"cancel": "Abbrechen",
+				"confirm": "Track entfernen"
+			}
+		},
+		"rejected": {
+			"title": "Track ungültig",
+			"description": "Die hochgeladene IGC-Datei erfüllt nicht die Anforderungen für diese Aufgabe.",
+			"badge": "Abgelehnt",
+			"missedWaypoints": "{count, plural, one {# Wendepunkt} other {# Wendepunkte}} verfehlt:",
+			"waypointDistance": "(nächste Annäherung: {distance}m, Radius: {radius}m)"
+		}
+	},
+	"XcTrackSubmission": {
+		"title": "Flugdaten",
+		"description": "Aus dem hochgeladenen IGC-Track geparst.",
+		"duration": "Dauer",
+		"distance": "Strecke",
+		"maxAltitude": "Max. Höhe",
+		"minAltitude": "Min. Höhe",
+		"altGain": "Höhengewinn",
+		"fixes": "GPS-Fixes",
+		"flightDetails": "Flugdetails",
+		"date": "Datum",
+		"pilot": "Pilot",
+		"glider": "Gleitschirm",
+		"site": "Startplatz",
+		"startTime": "Start",
+		"endTime": "Ende"
+	},
+	"XcFlightChart": {
+		"title": "Flugprofil",
+		"description": "Fahre über das Diagramm, um die Position auf der Karte zu sehen.",
+		"altitude": "Höhe",
+		"vario": "Vario",
+		"speed": "Geschwindigkeit"
+	},
+	"XcTaskInteractivePanel": {
+		"turnpoints": "Wendepunkte"
+	},
+	"MembershipCard": {
+		"tessera_socio": "Mitgliedskarte",
+		"la_mia_tessera": "Meine Karte",
+		"tessere_precedenti": "Frühere Karten",
+		"socio_dal": "Mitglied seit",
+		"numero": "Nr.",
+		"attiva": "Aktiv",
+		"scaduta": "Abgelaufen",
+		"nessuna_tessera": "Du hast noch keine Mitgliedskarte für {year}.",
+		"iscriviti_cta": "Jetzt beitreten",
+		"apri_tessera": "Karte im Vollbild öffnen",
+		"stampa": "Karte drucken",
+		"verifica": "Überprüfen"
+	},
+	"MembershipVerify": {
+		"title": "Mitgliedschaftsüberprüfung",
+		"subtitle": "Club Volo Libero Montegrappa",
+		"socio_dal": "Mitglied seit",
+		"numero": "Mitgliedsnr.",
+		"tessera_attiva": "{year} Karte: Aktiv",
+		"tessera_non_attiva": "{year} Karte: Nicht aktiv",
+		"non_trovata": "Karte nicht gefunden",
+		"non_trovata_desc": "Kein Mitglied entspricht diesem Code.",
+		"anni_iscrizione": "Mitgliedsjahre"
+	},
+	"NewNewsPage": {
+		"header_title": "Neue Nachricht",
+		"header_description": "Eine neue Nachricht schreiben",
+		"header_title_edit": "Nachricht bearbeiten",
+		"header_description_edit": "Eine bestehende Nachricht bearbeiten",
+		"create_news": "Nachricht veröffentlichen",
+		"edit_news": "Änderungen speichern",
+		"create_success": "Nachricht erstellt",
+		"edit_success": "Nachricht aktualisiert",
+		"news_error": "Nachricht konnte nicht gespeichert werden",
+		"image_upload_error": "Bild-Upload fehlgeschlagen",
+		"news": {
+			"cover": "Titelbild",
+			"remove_cover": "Bild entfernen",
+			"title": "Titel",
+			"excerpt": "Zusammenfassung",
+			"excerpt_placeholder": "Ein oder zwei Sätze, die in der Nachrichtenliste angezeigt werden",
+			"content": "Inhalt",
+			"content_hint": "Tippe / um Überschriften, Listen, Bilder und Tabellen einzufügen. Ziehe ein Bild hierher, um es hochzuladen.",
+			"publishedAt": "Veröffentlichungsdatum",
+			"publishedAt_hint": "Mit einem zukünftigen Datum bleibt die Nachricht bis zu diesem Tag verborgen.",
+			"draft": "Entwurf",
+			"draft_hint": "Entwürfe sind nur für Admins sichtbar.",
+			"announceOnTelegram": "In der Telegram-Gruppe posten",
+			"announceOnTelegram_hint": "Einmalig, im Nachrichten-Thema. Nicht für Entwürfe oder zukünftig datierte Nachrichten: aktiviere dies, wenn du sie als veröffentlicht speicherst."
+		}
+	}
+}

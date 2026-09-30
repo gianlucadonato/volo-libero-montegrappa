@@ -12,7 +12,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import type { Locale } from "@/i18n/config";
+import { type Locale, localeFlags, locales } from "@/i18n/config";
 import { setUserLocale } from "@/i18n/locale";
 import { Button } from "../ui/button";
 
@@ -41,8 +41,11 @@ export function LanguageSettings() {
 						</SelectTrigger>
 						<SelectContent>
 							<SelectGroup>
-								<SelectItem value="it">{t("it")}</SelectItem>
-								<SelectItem value="en">{t("en")}</SelectItem>
+								{locales.map((value) => (
+									<SelectItem key={value} value={value}>
+										{t(value)}
+									</SelectItem>
+								))}
 							</SelectGroup>
 						</SelectContent>
 					</Select>
@@ -50,8 +53,8 @@ export function LanguageSettings() {
 				<div>
 					<Button variant="outline">
 						<Flag
-							code={locale.toUpperCase()}
-							size="L"
+							code={localeFlags[locale as Locale]}
+							size="l"
 							hasBorder={false}
 							className="mt-1 size-4"
 						/>

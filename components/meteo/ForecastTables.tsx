@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
-import { enUS, it as itLocale } from "date-fns/locale";
+import { de, enUS, it as itLocale } from "date-fns/locale";
 import { Mountain } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
@@ -50,7 +50,7 @@ export function ForecastTables({ forecasts, runs }: ForecastTablesProps) {
 	// language rather than being pinned to Italian.
 	const tDays = useTranslations("MeteoPage");
 	const locale = useLocale();
-	const dateLocale = locale === "en" ? enUS : itLocale;
+	const dateLocale = { en: enUS, de }[locale] ?? itLocale;
 
 	// Defaults to the first take-off that actually has data, so a failed scrape
 	// on Tappeti does not open the page on an empty table.

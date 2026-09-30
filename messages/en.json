@@ -2,6 +2,7 @@
 	"LocaleSwitcher": {
 		"it": "Italian",
 		"en": "English",
+		"de": "German",
 		"label": "Language",
 		"select_language": "Select language",
 		"settings": {
