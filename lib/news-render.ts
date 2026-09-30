@@ -107,9 +107,3 @@ export async function renderNewsHtml(
 	const html = await editor.blocksToHTMLLossy(blocks);
 	return sanitizeHtml(html.replace(OBJECT_REPLACEMENT, ""), SANITIZE_OPTIONS);
 }
-
-/** Parses Markdown into news blocks, for importing the legacy .mdoc posts. */
-export async function markdownToNewsBlocks(markdown: string) {
-	editor ??= createEditor();
-	return editor.tryParseMarkdownToBlocks(markdown);
-}
