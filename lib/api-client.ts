@@ -44,3 +44,13 @@ export const uploadEventCoverApi = async (file: File) => {
 		bodySerializer: (body) => body,
 	});
 };
+
+export const uploadNewsImageApi = async (file: File) => {
+	const formData = new FormData();
+	formData.append("file", file);
+
+	return api.POST("/news/images", {
+		body: formData,
+		bodySerializer: (body) => body,
+	});
+};

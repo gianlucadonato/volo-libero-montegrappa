@@ -9,10 +9,9 @@ import { z } from "zod";
  * /<slug> from content/pages/*.mdx.
  *
  * These are legal and institutional documents: they change once a year at
- * most, and are edited as files rather than through Keystatic, so they are
- * read straight off disk instead of going through the CMS reader. The
- * directory ships in the image (see the `COPY … /app/content` in the
- * Dockerfile).
+ * most, and are edited as files rather than in the app, so they are read
+ * straight off disk. The directory ships in the image (see the
+ * `COPY … /app/content` in the Dockerfile).
  *
  * The bodies are plain markdown despite the .mdx extension — a legacy of the
  * previous site, which ran them through Contentlayer. Nothing imports or

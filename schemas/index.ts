@@ -1,5 +1,8 @@
 import * as z from "zod";
-import { EVENT_COVERS_BASE_URL } from "@/config/constants";
+import {
+	EVENT_COVERS_BASE_URL,
+	NEWS_IMAGES_BASE_URL,
+} from "@/config/constants";
 
 export const LoginSchema = z.object({
 	email: z
@@ -174,6 +177,24 @@ export const EventSchema = z.object({
 	locationUrl: z.string().optional(),
 	maxAvailability: z.coerce.number().optional(),
 	isMemberOnly: z.boolean(),
+});
+
+export const NewsSchema = z.object({
+	title: z.string().trim().min(3).max(160),
+	excerpt: z.string().trim().max(280).optional(),
+	// A cover uploaded through /api/news/images.
+	coverUrl: z
+		.string()
+		.refine(
+			(value) => value.startsWith(NEWS_IMAGES_BASE_URL),
+			"Invalid cover image URL",
+		)
+		.optional(),
+	// BlockNote's block JSON. Its shape is the editor's to enforce; the server
+	// only checks it is a list, and renders it through the news schema.
+	content: z.array(z.record(z.string(), z.unknown())),
+	publishedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+	draft: z.boolean(),
 });
 
 export const PaymentSchema = z.object({

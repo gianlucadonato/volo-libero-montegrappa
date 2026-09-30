@@ -36,6 +36,18 @@
 				},
 				"required": ["url"]
 			},
+			"NewsImageUploadBodySchema": {
+				"description": "News image (JPEG, PNG or WebP, up to 5 MB)"
+			},
+			"NewsImageUploadResponseSchema": {
+				"type": "object",
+				"properties": {
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": ["url"]
+			},
 			"UsersSchema": {
 				"type": "object",
 				"properties": {
@@ -1580,6 +1592,47 @@
 				}
 			}
 		},
+		"/news/images": {
+			"post": {
+				"operationId": "post-news-images",
+				"summary": "/news/images",
+				"description": "Upload a news image (cover or body) to the public bucket and return its URL",
+				"tags": ["News"],
+				"parameters": [],
+				"security": [
+					{
+						"@openapi": []
+					}
+				],
+				"requestBody": {
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"$ref": "#/components/schemas/NewsImageUploadBodySchema"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/NewsImageUploadResponseSchema"
+								}
+							}
+						}
+					},
+					"400": {
+						"$ref": "#/components/responses/400"
+					},
+					"500": {
+						"$ref": "#/components/responses/500"
+					}
+				}
+			}
+		},
 		"/users": {
 			"get": {
 				"operationId": "get-users",
@@ -2177,6 +2230,9 @@
 		},
 		{
 			"name": "Events"
+		},
+		{
+			"name": "News"
 		},
 		{
 			"name": "Users"

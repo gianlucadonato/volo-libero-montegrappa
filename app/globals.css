@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@source "../node_modules/@blocknote/shadcn";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
@@ -248,4 +249,47 @@
 	.no-print {
 		display: none;
 	}
+}
+
+/*
+ * BlockNote's HTML for check and toggle list items, on the news page. The
+ * editor puts them in the same <ul> as bullet items, so they are styled per
+ * item: no bullet, the box or the toggle arrow sits on the text's line.
+ */
+.news-content details > summary {
+	cursor: pointer;
+}
+
+.news-content details > summary > p {
+	display: inline;
+	margin: 0;
+}
+
+.news-content details > :not(summary) {
+	margin-inline-start: 1.25em;
+}
+
+.news-content li:has(> details) {
+	list-style: none;
+	margin-inline-start: -1.25em;
+}
+
+.news-content li > input[type="checkbox"] {
+	flex-shrink: 0;
+	width: 1em;
+	height: 1em;
+	margin-top: 0.4em;
+	accent-color: var(--primary);
+}
+
+.news-content li:has(> input[type="checkbox"]) {
+	list-style: none;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5em;
+	margin-inline-start: -1.25em;
+}
+
+.news-content li:has(> input[type="checkbox"]) > p {
+	margin: 0;
 }

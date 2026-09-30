@@ -146,7 +146,7 @@ export const sidebarLinks = {
 				{
 					title: "news",
 					icon: Newspaper,
-					url: "/keystatic",
+					url: "/news",
 				},
 			],
 		},

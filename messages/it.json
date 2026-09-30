@@ -702,7 +702,19 @@
 		"header_title": "News",
 		"header_description": "Aggiornamenti e novità dal Volo Libero Montegrappa",
 		"no_news": "Nessuna news pubblicata",
-		"back_to_news": "Torna alle news"
+		"back_to_news": "Torna alle news",
+		"add_news": "Aggiungi news",
+		"edit_news": "Modifica",
+		"delete_news": "Elimina",
+		"delete_confirm_title": "Eliminare questa news?",
+		"delete_confirm_description": "La news sparirà dal sito.",
+		"delete_success": "News eliminata",
+		"delete_error": "Impossibile eliminare la news",
+		"cancel": "Annulla",
+		"draft": "Bozza",
+		"scheduled": "Programmata",
+		"draft_notice": "Questa news è una bozza: la vedono solo gli admin.",
+		"scheduled_notice": "Questa news sarà pubblicata alla data indicata: fino ad allora la vedono solo gli admin."
 	},
 	"EventCard": {
 		"back_to_events": "Indietro",
@@ -1257,5 +1269,30 @@
 		"non_trovata": "Tessera non trovata",
 		"non_trovata_desc": "Nessun socio corrisponde a questo codice.",
 		"anni_iscrizione": "Anni di iscrizione"
+	},
+	"NewNewsPage": {
+		"header_title": "Nuova News",
+		"header_description": "Scrivi una nuova news",
+		"header_title_edit": "Modifica News",
+		"header_description_edit": "Modifica una news esistente",
+		"create_news": "Pubblica news",
+		"edit_news": "Salva modifiche",
+		"create_success": "News creata",
+		"edit_success": "News aggiornata",
+		"news_error": "Impossibile salvare la news",
+		"image_upload_error": "Caricamento dell'immagine non riuscito",
+		"news": {
+			"cover": "Immagine di copertina",
+			"remove_cover": "Rimuovi immagine",
+			"title": "Titolo",
+			"excerpt": "Sommario",
+			"excerpt_placeholder": "Una o due frasi mostrate nell'elenco delle news",
+			"content": "Testo",
+			"content_hint": "Digita / per inserire titoli, elenchi, immagini e tabelle. Trascina un'immagine per caricarla.",
+			"publishedAt": "Data di pubblicazione",
+			"publishedAt_hint": "Con una data futura, la news resta nascosta fino a quel giorno.",
+			"draft": "Bozza",
+			"draft_hint": "Le bozze sono visibili solo agli admin."
+		}
 	}
 }

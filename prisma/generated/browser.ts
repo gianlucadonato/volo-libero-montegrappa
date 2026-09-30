@@ -58,6 +58,13 @@ export type Payment = Prisma.PaymentModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model News
+ * A news post, written in the admin editor (BlockNote). `content` is the
+ * editor's block JSON, the source of truth; `contentHtml` is rendered from it
+ * on save so public pages never need the editor.
+ */
+export type News = Prisma.NewsModel
+/**
  * Model EventRegistration
  * 
  */

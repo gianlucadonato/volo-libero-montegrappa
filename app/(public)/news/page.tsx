@@ -1,10 +1,13 @@
-import { format } from "date-fns";
-import { enUS, it as itLocale } from "date-fns/locale";
-import Image from "next/image";
-import Link from "next/link";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
+import CreateNewsCard from "@/components/news/CreateNewsCard";
+import NewsCard from "@/components/news/NewsCard";
 import { constructMetadata, siteConfig } from "@/config/site";
-import { listNews, type NewsLocale } from "@/lib/news";
+import { getSessionUser } from "@/lib/session";
+import {
+	listAllNews,
+	listPublishedNews,
+	type NewsListItem,
+} from "@/store/news";
 
 export const metadata = constructMetadata({
 	title: `News - ${siteConfig.name}`,
@@ -15,9 +18,17 @@ export const dynamic = "force-dynamic";
 
 export default async function NewsPage() {
 	const t = await getTranslations("NewsPage");
-	const locale = ((await getLocale()) as NewsLocale) ?? "it";
-	const dateLocale = locale === "en" ? enUS : itLocale;
-	const news = await listNews(locale);
+	const user = await getSessionUser();
+	const isAdmin = user?.role === "ADMIN";
+	// Admins also see drafts and scheduled news, flagged on the card.
+	const news = isAdmin ? await listAllNews() : await listPublishedNews();
+
+	const badgeFor = (item: NewsListItem) => {
+		if (!isAdmin) return undefined;
+		if (item.draft) return t("draft");
+		if (item.publishedAt > new Date()) return t("scheduled");
+		return undefined;
+	};
 
 	return (
 		<div>
@@ -38,47 +49,20 @@ export default async function NewsPage() {
 			</div>
 
 			<div className="container mx-auto px-4 pt-10 pb-16">
-				{news.length === 0 ? (
+				{news.length === 0 && !isAdmin ? (
 					<div className="flex h-64 flex-col items-center justify-center">
 						<p className="text-lg text-gray-500">{t("no_news")}</p>
 					</div>
 				) : (
 					<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+						{isAdmin && <CreateNewsCard />}
 						{news.map((item) => (
-							<Link
-								key={item.slug}
-								href={`/news/${item.slug}`}
-								className="group flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm transition hover:shadow-md"
-							>
-								{item.coverImage ? (
-									<div className="relative aspect-video w-full overflow-hidden bg-slate-100">
-										<Image
-											src={item.coverImage}
-											alt={item.title}
-											fill
-											sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-											className="object-cover transition group-hover:scale-105"
-										/>
-									</div>
-								) : (
-									<div className="aspect-video w-full bg-linear-to-br from-slate-100 to-slate-200" />
-								)}
-								<div className="flex flex-1 flex-col gap-2 p-4">
-									<time className="text-xs uppercase text-gray-500">
-										{format(new Date(item.publishedAt), "d MMMM yyyy", {
-											locale: dateLocale,
-										})}
-									</time>
-									<h2 className="font-heading text-lg leading-snug">
-										{item.title}
-									</h2>
-									{item.excerpt && (
-										<p className="line-clamp-3 text-sm text-gray-600">
-											{item.excerpt}
-										</p>
-									)}
-								</div>
-							</Link>
+							<NewsCard
+								key={item.id}
+								news={item}
+								badge={badgeFor(item)}
+								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+							/>
 						))}
 					</div>
 				)}

@@ -1,30 +1,16 @@
-import { format } from "date-fns";
-import { enUS, it as itLocale } from "date-fns/locale";
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { getLocale, getTranslations } from "next-intl/server";
-import { listNews, type NewsLocale } from "@/lib/news";
+import { getTranslations } from "next-intl/server";
+import NewsCard from "@/components/news/NewsCard";
 import { cn } from "@/lib/utils";
+import { listPublishedNews } from "@/store/news";
 
 const MAX_ITEMS = 4;
 const MOBILE_VISIBLE = 3;
 
 export default async function LatestNews() {
 	const t = await getTranslations("Homepage.latest_news");
-	const locale = ((await getLocale()) as NewsLocale) ?? "it";
-	const dateLocale = locale === "en" ? enUS : itLocale;
-	const news = (await listNews(locale))
-		.slice()
-		.sort((a, b) => {
-			const diff =
-				new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
-			if (diff !== 0) return diff;
-			// Stable tiebreaker so the leftmost card is always deterministic
-			// when multiple entries share the same publish date.
-			return b.slug.localeCompare(a.slug);
-		})
-		.slice(0, MAX_ITEMS);
+	const news = await listPublishedNews(MAX_ITEMS);
 
 	if (news.length === 0) return null;
 
@@ -45,44 +31,14 @@ export default async function LatestNews() {
 
 			<div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
 				{news.map((item, index) => (
-					<Link
-						key={item.slug}
-						href={`/news/${item.slug}`}
-						className={cn(
-							"group flex flex-col overflow-hidden rounded-lg border bg-white shadow-sm transition hover:shadow-md",
-							// Show first 3 on every screen; reveal items 4 only on lg+.
-							index >= MOBILE_VISIBLE && "hidden lg:flex",
-						)}
-					>
-						{item.coverImage ? (
-							<div className="relative aspect-video w-full overflow-hidden bg-slate-100">
-								<Image
-									src={item.coverImage}
-									alt={item.title}
-									fill
-									sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw"
-									className="object-cover transition group-hover:scale-105"
-								/>
-							</div>
-						) : (
-							<div className="aspect-video w-full bg-linear-to-br from-slate-100 to-slate-200" />
-						)}
-						<div className="flex flex-1 flex-col gap-2 p-4">
-							<time className="text-xs uppercase text-gray-500">
-								{format(new Date(item.publishedAt), "d MMMM yyyy", {
-									locale: dateLocale,
-								})}
-							</time>
-							<h3 className="font-heading text-base leading-snug line-clamp-2">
-								{item.title}
-							</h3>
-							{item.excerpt && (
-								<p className="line-clamp-2 text-sm text-gray-600">
-									{item.excerpt}
-								</p>
-							)}
-						</div>
-					</Link>
+					<NewsCard
+						key={item.id}
+						news={item}
+						headingLevel="h3"
+						sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw"
+						// Show the first 3 on every screen; reveal the 4th only on lg+.
+						className={cn(index >= MOBILE_VISIBLE && "hidden lg:flex")}
+					/>
 				))}
 			</div>
 		</section>

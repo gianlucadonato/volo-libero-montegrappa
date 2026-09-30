@@ -230,6 +230,7 @@ export default function EventFileUpload({
 			<Upload className="mx-auto size-8 text-muted-foreground sm:size-12" />
 			<div className="mt-4">
 				<Button
+					type="button"
 					variant="secondary"
 					onClick={() => fileInputRef.current?.click()}
 					className="mx-auto text-xs sm:text-sm"
@@ -289,6 +290,7 @@ export default function EventFileUpload({
 							{Math.round(progress)}%
 						</div>
 						<Button
+							type="button"
 							variant="ghost"
 							size="icon"
 							onClick={handleCancel}
@@ -352,6 +354,7 @@ export default function EventFileUpload({
 												</p>
 											</div>
 											<Button
+												type="button"
 												variant="ghost"
 												size="icon"
 												onClick={() => handleDeleteFile(file.id)}
