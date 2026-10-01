@@ -107,7 +107,11 @@
 		"users": "Utenti",
 		"payments": "Pagamenti",
 		"documentation": "Documentazione",
-		"settings": "Impostazioni"
+		"settings": "Impostazioni",
+		"live_map": {
+			"title": "Live",
+			"description": "Mappa live dei piloti in volo"
+		}
 	},
 	"NavAuth": {
 		"access": "Accesso",
@@ -1382,5 +1386,45 @@
 		"made_by": "Sito web realizzato da",
 		"terms": "Termini e Condizioni",
 		"privacy": "Privacy Policy"
+	},
+	"LiveMapPage": {
+		"title": "Live",
+		"subtitle": "Piloti in volo sul Grappa dalla rete OGN",
+		"scope_all": "Tutti",
+		"scope_members": "Soci",
+		"flying_count": "{count} in volo",
+		"playback_note": "Le posizioni sono mostrate con un minuto di ritardo, per muovere i piloti in modo fluido tra un segnale e l'altro.",
+		"tab_flying": "In volo",
+		"tab_flying_members": "Soci in volo",
+		"tab_offline": "Fuori segnale",
+		"search_placeholder": "Cerca nome o callsign…",
+		"no_results": "Nessun risultato per \"{query}\"",
+		"no_flying": "Nessun pilota in volo",
+		"no_offline": "Nessun pilota fuori segnale",
+		"source_footer": "Dati OGN ed EXTK da <link>EasyXCScore</link>",
+		"loading": "Raccolta dati in corso…",
+		"loading_hint": "I piloti appariranno entro un minuto",
+		"feed_error": "Dati live non disponibili, nuovo tentativo in corso…",
+		"layers": "Mappa",
+		"base_layer": "Sfondo",
+		"base_satellite": "Satellite",
+		"base_osm": "OpenStreetMap",
+		"base_topo": "OpenTopoMap",
+		"base_none": "Nessuno",
+		"overlays": "Livelli",
+		"overlay_hillshade": "Rilievo",
+		"overlay_topo": "Topografica",
+		"overlay_thermals": "Termiche (KK7)",
+		"recenter": "Ricentra",
+		"show_trail": "Mostra traccia",
+		"ago": "{time} fa",
+		"points": "{count, plural, one {# punto} other {# punti}} registrati",
+		"open_maps": "Maps",
+		"share": "Condividi",
+		"share_title": "Posizione di {name}",
+		"altitude_line": "Quota: {alt} m",
+		"copied": "Posizione copiata negli appunti",
+		"sos_label": "SOS",
+		"sos_title": "SOS — SOCCORSO"
 	}
 }

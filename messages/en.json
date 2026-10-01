@@ -73,7 +73,11 @@
 		"users": "Users",
 		"payments": "Payments",
 		"documentation": "Documentation",
-		"settings": "Settings"
+		"settings": "Settings",
+		"live_map": {
+			"title": "Live",
+			"description": "Live map of the pilots in the air"
+		}
 	},
 	"NavAuth": {
 		"access": "Access",
@@ -1337,5 +1341,45 @@
 		"made_by": "Website made by",
 		"terms": "Terms and Conditions",
 		"privacy": "Privacy Policy"
+	},
+	"LiveMapPage": {
+		"title": "Live",
+		"subtitle": "Pilots flying over Monte Grappa, from the OGN network",
+		"scope_all": "All",
+		"scope_members": "Members",
+		"flying_count": "{count} flying",
+		"playback_note": "Positions are shown one minute behind, so pilots move smoothly between one signal and the next.",
+		"tab_flying": "Flying",
+		"tab_flying_members": "Members flying",
+		"tab_offline": "Out of signal",
+		"search_placeholder": "Search name or callsign…",
+		"no_results": "No results for \"{query}\"",
+		"no_flying": "No pilots flying",
+		"no_offline": "No pilots out of signal",
+		"source_footer": "OGN and EXTK data from <link>EasyXCScore</link>",
+		"loading": "Collecting data…",
+		"loading_hint": "Pilots will show up within a minute",
+		"feed_error": "Live data unavailable, retrying…",
+		"layers": "Map",
+		"base_layer": "Background",
+		"base_satellite": "Satellite",
+		"base_osm": "OpenStreetMap",
+		"base_topo": "OpenTopoMap",
+		"base_none": "None",
+		"overlays": "Layers",
+		"overlay_hillshade": "Hillshade",
+		"overlay_topo": "Topographic",
+		"overlay_thermals": "Thermals (KK7)",
+		"recenter": "Recenter",
+		"show_trail": "Show track",
+		"ago": "{time} ago",
+		"points": "{count, plural, one {# point} other {# points}} recorded",
+		"open_maps": "Maps",
+		"share": "Share",
+		"share_title": "{name}'s position",
+		"altitude_line": "Altitude: {alt} m",
+		"copied": "Position copied to the clipboard",
+		"sos_label": "SOS",
+		"sos_title": "SOS — RESCUE"
 	}
 }

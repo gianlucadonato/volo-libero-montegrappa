@@ -60,6 +60,86 @@ export interface paths {
 		patch?: never;
 		trace?: never;
 	};
+	"/live-map/members": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /live-map/members
+		 * @description Tracks recorded in the last 8 hours for every club member with an OGN device, including those out of signal (data from EasyXCScore)
+		 */
+		get: operations["get-live-map-members"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/live-map/positions": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /live-map/positions
+		 * @description Live OGN positions over the Monte Grappa flying area, with club members flagged (data from EasyXCScore)
+		 */
+		get: operations["get-live-map-positions"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/live-map/sos": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /live-map/sos
+		 * @description Open free-flight SOS alerts raised from the EXTK tracker app (data from EasyXCScore)
+		 */
+		get: operations["get-live-map-sos"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	"/live-map/track": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		/**
+		 * /live-map/track
+		 * @description Track recorded in the last 8 hours for one OGN callsign (data from EasyXCScore)
+		 */
+		get: operations["get-live-map-track"];
+		put?: never;
+		post?: never;
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
 	"/news/images": {
 		parameters: {
 			query?: never;
@@ -356,6 +436,22 @@ export interface components {
 		EventCoverUploadBodySchema: unknown;
 		EventCoverUploadResponseSchema: {
 			url: string;
+		};
+		LiveMemberTracksResponseSchema: {
+			members: components["schemas"]["LiveMemberTrackSchema"][];
+		};
+		LivePositionsResponseSchema: {
+			aircraft: components["schemas"]["LiveAircraftSchema"][];
+		};
+		LiveSosResponseSchema: {
+			sos: components["schemas"]["LiveSosSchema"][];
+		};
+		LiveTrackQuerySchema: {
+			/** @description Callsign the track is recorded under */
+			key: string;
+		};
+		LiveTrackResponseSchema: {
+			points: components["schemas"]["LiveTrackPointSchema"][];
 		};
 		/** @description News image (JPEG, PNG or WebP, up to 5 MB) */
 		NewsImageUploadBodySchema: unknown;
@@ -708,6 +804,16 @@ export interface components {
 			maxAvailability?: number;
 			isMemberOnly: boolean;
 		};
+		NewsSchema: {
+			title: string;
+			excerpt?: string;
+			coverUrl?: string;
+			content: {
+				[key: string]: string;
+			}[];
+			publishedAt: string;
+			draft: boolean;
+		};
 		PaymentSchema: {
 			userId?: string;
 			paymentMethod: string;
@@ -715,6 +821,57 @@ export interface components {
 			amount: number;
 			slug: string;
 			note?: string;
+		};
+		LiveTrackPointSchema: {
+			/** @description Epoch milliseconds */
+			ts: number;
+			lat: number;
+			lon: number;
+			/** @description Altitude in metres */
+			alt: number;
+			/** @description Ground speed in km/h */
+			spd: number;
+			/** @description Heading in degrees */
+			hdg: number;
+			/** @description Vertical speed in m/s */
+			vz: number;
+		};
+		LiveMemberTrackSchema: {
+			id: string;
+			historyKey: string;
+			name: string;
+			label: string;
+			points: components["schemas"]["LiveTrackPointSchema"][];
+		};
+		LiveSosSchema: {
+			id: string;
+			name: string | null;
+			keys: string[];
+			lat: number;
+			lon: number;
+			alt: number | null;
+			ts: number | null;
+			trail: number[][];
+		};
+		LiveAircraftSchema: {
+			/** @description Epoch milliseconds */
+			ts: number;
+			lat: number;
+			lon: number;
+			/** @description Altitude in metres */
+			alt: number;
+			/** @description Ground speed in km/h */
+			spd: number;
+			/** @description Heading in degrees */
+			hdg: number;
+			/** @description Vertical speed in m/s */
+			vz: number;
+			id: string;
+			historyKey: string;
+			label: string;
+			name: string | null;
+			member: boolean;
+			source: string;
 		};
 		XcEnrollSchema: Record<string, never>;
 		XcCreateUploadUrlSchema: {
@@ -892,6 +1049,97 @@ export interface operations {
 				};
 				content: {
 					"application/json": components["schemas"]["EventCoverUploadResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-live-map-members": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["LiveMemberTracksResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-live-map-positions": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["LivePositionsResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-live-map-sos": {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["LiveSosResponseSchema"];
+				};
+			};
+			400: components["responses"]["400"];
+			500: components["responses"]["500"];
+		};
+	};
+	"get-live-map-track": {
+		parameters: {
+			query: {
+				/** @description Callsign the track is recorded under */
+				key: string;
+			};
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description Successful response */
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					"application/json": components["schemas"]["LiveTrackResponseSchema"];
 				};
 			};
 			400: components["responses"]["400"];
