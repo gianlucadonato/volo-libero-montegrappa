@@ -3,6 +3,7 @@
 import { Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import CustomIcons from "@/components/custom-icons";
 import {
 	Dialog,
@@ -13,10 +14,13 @@ import {
 	DialogTrigger,
 } from "@/components/ui/dialog";
 
+// Titles and link names are keys under Footer in messages/*.json; the social
+// network names are brands and stay as they are.
 type Section = {
 	title: string;
 	links: {
 		name: string;
+		translate?: boolean;
 		icon?: React.ElementType;
 		href: string;
 		target?: string;
@@ -25,31 +29,31 @@ type Section = {
 
 const sections: Section[] = [
 	{
-		title: "Informazioni",
+		title: "info",
 		links: [
-			{ name: "Area di Volo", href: "/area-volo" },
-			{ name: "Decolli", href: "/decolli" },
-			{ name: "Atterraggi", href: "/atterraggi" },
-			{ name: "Come Arrivare", href: "/directions" },
+			{ name: "flying_area", translate: true, href: "/area-volo" },
+			{ name: "takeoffs", translate: true, href: "/decolli" },
+			{ name: "landings", translate: true, href: "/atterraggi" },
+			{ name: "directions", translate: true, href: "/directions" },
 		],
 	},
 	{
-		title: "Sito",
+		title: "site",
 		links: [
-			{ name: "Il Club", href: "/club" },
-			{ name: "Meteo", href: "/meteo" },
-			{ name: "Eventi", href: "/events" },
+			{ name: "club", translate: true, href: "/club" },
+			{ name: "weather", translate: true, href: "/meteo" },
+			{ name: "events", translate: true, href: "/events" },
 		],
 	},
 	{
-		title: "Accedi",
+		title: "access",
 		links: [
-			{ name: "Iscrizioni", href: "/membership" },
-			{ name: "Area Riservata", href: "/login" },
+			{ name: "membership", translate: true, href: "/membership" },
+			{ name: "reserved_area", translate: true, href: "/login" },
 		],
 	},
 	{
-		title: "Social",
+		title: "social",
 		links: [
 			{
 				name: "Facebook",
@@ -63,12 +67,14 @@ const sections: Section[] = [
 				href: "https://www.instagram.com/vololiberomontegrappa/",
 				target: "_blank",
 			},
-			{ name: "Contatti", icon: Mail, href: "/contatti" },
+			{ name: "contacts", translate: true, icon: Mail, href: "/contatti" },
 		],
 	},
 ];
 
 export default function Footer() {
+	const t = useTranslations("Footer");
+
 	return (
 		<section className="border">
 			<footer>
@@ -86,7 +92,7 @@ export default function Footer() {
 					</div>
 					{sections.map((section, sectionIdx) => (
 						<div key={sectionIdx}>
-							<h3 className="mb-4 font-bold">{section.title}</h3>
+							<h3 className="mb-4 font-bold">{t(section.title)}</h3>
 							<ul className="space-y-4 text-muted-foreground">
 								{section.links.map((link, linkIdx) => {
 									return (
@@ -100,7 +106,7 @@ export default function Footer() {
 												className="flex items-center"
 											>
 												{link.icon && <link.icon className="mr-2 size-5" />}
-												{link.name}
+												{link.translate ? t(link.name) : link.name}
 											</Link>
 										</li>
 									);
@@ -110,20 +116,20 @@ export default function Footer() {
 					))}
 				</div>
 				<div className="mt-10 flex flex-col justify-between gap-4 border-t p-10 pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
-					<p>© {new Date().getFullYear()} Copyright. All rights reserved.</p>
+					<p>{t("copyright", { year: new Date().getFullYear() })}</p>
 					<ul className="flex gap-4">
 						<li className="underline hover:text-primary">
 							<Dialog>
 								<DialogTrigger asChild>
-									<div className="cursor-pointer">Credits</div>
+									<div className="cursor-pointer">{t("credits")}</div>
 								</DialogTrigger>
 								<DialogContent className="sm:max-w-[425px]">
 									<DialogHeader>
-										<DialogTitle>Crediti</DialogTitle>
+										<DialogTitle>{t("credits_title")}</DialogTitle>
 										<DialogDescription>
 											<div>
 												<div className="mb-2">
-													Sito web realizzato da{" "}
+													{t("made_by")}{" "}
 													<a
 														href="https://www.facebook.com/giandnt"
 														target="_blank"
@@ -162,10 +168,10 @@ export default function Footer() {
 							</Dialog>
 						</li>
 						<li className="underline hover:text-primary">
-							<Link href="/terms-conditions">Terms and Conditions</Link>
+							<Link href="/terms-conditions">{t("terms")}</Link>
 						</li>
 						<li className="underline hover:text-primary">
-							<Link href="/privacy-policy">Privacy Policy</Link>
+							<Link href="/privacy-policy">{t("privacy")}</Link>
 						</li>
 					</ul>
 				</div>

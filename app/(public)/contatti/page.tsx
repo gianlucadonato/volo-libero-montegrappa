@@ -1,5 +1,6 @@
 import { Globe, Mail, MailIcon, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { FaFacebook, FaInstagram, FaTelegram } from "react-icons/fa";
 
 export default function ContattiPage() {
@@ -21,25 +22,25 @@ export default function ContattiPage() {
 }
 
 const Contact = () => {
+	const t = useTranslations("ContactsPage");
+
 	return (
 		<section className="px-4">
 			<div className="container mx-auto">
 				<div className="mb-8">
 					<h1 className="highlight mb-3 mt-1 text-balance font-heading text-3xl font-semibold uppercase md:text-4xl">
-						Contatti
+						{t("title")}
 					</h1>
-					<p className="text-lg text-muted-foreground">
-						Contattaci per qualsiasi domanda
-					</p>
+					<p className="text-lg text-muted-foreground">{t("subtitle")}</p>
 				</div>
 				<div className="grid gap-10 md:grid-cols-3">
 					<div>
 						<span className="mb-3 flex size-12 flex-col items-center justify-center rounded-full bg-accent">
 							<Mail className="h-6 w-auto" />
 						</span>
-						<p className="mb-2 text-lg font-semibold">Email</p>
+						<p className="mb-2 text-lg font-semibold">{t("email")}</p>
 						<p className="mb-3 text-muted-foreground">
-							Scrivici per email all&apos;indirizzo
+							{t("email_description")}
 						</p>
 						<a
 							href="mailto:presidente@vololiberomontegrappa.it"
@@ -58,9 +59,9 @@ const Contact = () => {
 						<span className="mb-3 flex size-12 flex-col items-center justify-center rounded-full bg-accent">
 							<MapPin className="h-6 w-auto" />
 						</span>
-						<p className="mb-2 text-lg font-semibold">Indirizzo</p>
+						<p className="mb-2 text-lg font-semibold">{t("address")}</p>
 						<div className="mb-3">
-							<p className="text-muted-foreground">Sede Ufficiale</p>
+							<p className="text-muted-foreground">{t("registered_office")}</p>
 							<a
 								href="https://maps.app.goo.gl/iFBn8gVfAhSD1kJ49"
 								target="_blank"
@@ -71,14 +72,14 @@ const Contact = () => {
 							</a>
 						</div>
 						<div className="mb-3">
-							<p className="text-muted-foreground">Sede Operativa</p>
+							<p className="text-muted-foreground">{t("operational_office")}</p>
 							<a
 								href="https://maps.app.goo.gl/mhgq6irVcyurLzqA8"
 								target="_blank"
 								className="font-semibold hover:underline"
 								rel="noopener"
 							>
-								“Casetta del club” presso Atterraggio Garden Relais
+								{t("club_house")}
 							</a>
 						</div>
 					</div>
@@ -87,7 +88,7 @@ const Contact = () => {
 							<Globe className="h-6 w-auto" />
 						</span>
 						<div className="mb-3">
-							<h3 className="mb-4 font-semibold uppercase">Social</h3>
+							<h3 className="mb-4 font-semibold uppercase">{t("social")}</h3>
 							<div className="mb-3 text-muted-foreground">
 								<Link
 									href="https://t.me/+ij425GY_rVg0NjY0"
@@ -96,12 +97,12 @@ const Contact = () => {
 									rel="noopener noreferrer"
 								>
 									<FaTelegram className="mr-2 size-6" />
-									<span>Gruppo Telegram</span>
+									<span>{t("telegram_group")}</span>
 								</Link>
 							</div>
 							<div className="mb-3 text-muted-foreground">
 								<Link
-									href="https://www.mantaonline.it"
+									href="https://www.facebook.com/vololiberomontegrappa/"
 									target="_blank"
 									className="flex items-center font-semibold hover:underline"
 									rel="noopener noreferrer"
@@ -112,7 +113,7 @@ const Contact = () => {
 							</div>
 							<div className="mb-3 text-muted-foreground">
 								<Link
-									href="https://www.mantaonline.it"
+									href="https://www.instagram.com/vololiberomontegrappa/"
 									target="_blank"
 									className="flex items-center font-semibold hover:underline"
 									rel="noopener noreferrer"
@@ -129,14 +130,14 @@ const Contact = () => {
 				<div className="mb-6">
 					{/* <span className="text-sm font-semibold">Contatti</span> */}
 					<h1 className="mb-3 mt-1 text-balance font-heading text-2xl md:text-3xl">
-						<span>Altri</span>
-						<span className="highlight ml-2">Riferimenti Utili</span>
+						<span>{t("other_title")}</span>
+						<span className="highlight ml-2">{t("other_title_highlight")}</span>
 					</h1>
 				</div>
 				<div className="grid gap-10 md:grid-cols-3">
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold italic underline">
-							NAVETTE
+							{t("shuttles")}
 						</h2>
 						<div className="mb-3">
 							<h3 className="font-semibold uppercase">FAUSTO BOSA SERVICE</h3>
@@ -164,7 +165,7 @@ const Contact = () => {
 					</div>
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold italic underline">
-							FLYCARD
+							{t("flycard")}
 						</h2>
 						<div className="mb-3">
 							<h3 className="mb-2 font-semibold uppercase">
@@ -192,7 +193,7 @@ const Contact = () => {
 					</div>
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold uppercase italic underline">
-							Recupero Vele
+							{t("glider_retrieval")}
 						</h2>
 						<div className="mb-3">
 							<h3 className="mb-2 font-semibold uppercase">GIANLUCA BELLIN</h3>
@@ -204,7 +205,7 @@ const Contact = () => {
 					</div>
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold uppercase italic underline">
-							SCUOLA VOLO
+							{t("flying_school")}
 						</h2>
 						<div className="mb-3">
 							<h3 className="mb-2 font-semibold uppercase">
@@ -232,7 +233,7 @@ const Contact = () => {
 					</div>
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold uppercase italic underline">
-							Para biposto
+							{t("tandem_paragliding")}
 						</h2>
 						<div className="mb-6">
 							<h3 className="font-semibold uppercase">
@@ -292,7 +293,7 @@ const Contact = () => {
 					</div>
 					<div>
 						<h2 className="mb-2 font-montserrat text-xl font-semibold uppercase italic underline">
-							DELTA BIPOSTO
+							{t("tandem_hang_gliding")}
 						</h2>
 						<div className="mb-3">
 							<h3 className="mb-2 font-semibold uppercase">JESUS</h3>
