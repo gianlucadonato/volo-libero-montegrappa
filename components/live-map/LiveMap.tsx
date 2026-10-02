@@ -164,11 +164,12 @@ export default function LiveMap() {
 	const t = useTranslations("LiveMapPage");
 	const locale = useLocale();
 
-	// `?scope=all` opens the page on all traffic, e.g. from a shared link.
+	// `?scope=members` opens the page on club members only, e.g. from a shared
+	// link.
 	const [scope, setScope] = useState<LiveMapScope>(() =>
-		new URLSearchParams(window.location.search).get("scope") === "all"
-			? "all"
-			: "members",
+		new URLSearchParams(window.location.search).get("scope") === "members"
+			? "members"
+			: "all",
 	);
 	const [tab, setTab] = useState<"flying" | "offline">("flying");
 	const [query, setQuery] = useState("");
