@@ -31,12 +31,18 @@ export function constructMetadata({
 	image = siteConfig.ogImage,
 	icons = "/favicon.ico",
 	noIndex = false,
+	path,
+	type = "website",
 }: {
 	title?: string;
 	description?: string;
 	image?: string;
 	icons?: string;
 	noIndex?: boolean;
+	// The page's own path. Shared-link previews treat og:url as the page's
+	// canonical address, so it must never default to the homepage.
+	path?: string;
+	type?: "website" | "article";
 } = {}): Metadata {
 	return {
 		title,
@@ -48,13 +54,16 @@ export function constructMetadata({
 			},
 		],
 		creator: "Gianluca Donato",
+		// WhatsApp, Facebook and Telegram build the link preview from these
+		// tags; og:image is the picture they show.
 		openGraph: {
-			type: "website",
-			locale: "en_US",
-			url: siteConfig.url,
+			type,
+			locale: "it_IT",
+			...(path && { url: new URL(path, siteConfig.url).toString() }),
 			title,
 			description,
-			siteName: title,
+			siteName: siteConfig.name,
+			images: [image],
 		},
 		twitter: {
 			card: "summary_large_image",

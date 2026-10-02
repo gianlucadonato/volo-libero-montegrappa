@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: { params: Params }) {
 		title: `${entry.title} - ${siteConfig.name}`,
 		description: entry.excerpt || undefined,
 		image: entry.coverUrl || undefined,
+		path: `/news/${entry.slug}`,
+		type: "article",
 	});
 }
 
