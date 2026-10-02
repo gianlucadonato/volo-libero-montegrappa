@@ -1,0 +1,139 @@
+@keyframes live-map-pulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.18);
+	}
+}
+
+.live-map-sos-badge {
+	position: absolute;
+	left: 50%;
+	top: -2px;
+	translate: -50% -100%;
+	background: #dc2626;
+	color: #fff;
+	font: 900 9px / 1 system-ui;
+	letter-spacing: 0.5px;
+	padding: 2px 5px;
+	border-radius: 4px;
+	border: 2px solid #fff;
+	box-shadow: 0 1px 5px rgb(0 0 0 / 0.55);
+	white-space: nowrap;
+	animation: live-map-pulse 1.2s ease-in-out infinite;
+	pointer-events: none;
+}
+
+.live-map-sos-pill {
+	flex-shrink: 0;
+	background: #dc2626;
+	color: #fff;
+	font: 900 9px / 1 system-ui;
+	letter-spacing: 0.5px;
+	padding: 2px 5px;
+	border-radius: 4px;
+	animation: live-map-pulse 1.2s ease-in-out infinite;
+}
+
+.live-map-sos-marker {
+	width: 30px;
+	height: 30px;
+	background: #dc2626;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 0.55);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #fff;
+	font: 900 11px / 1 system-ui;
+	animation: live-map-pulse 1.3s ease-in-out infinite;
+}
+
+.live-map-popup {
+	font-family: system-ui, sans-serif;
+	font-size: 11px;
+	line-height: 1.5;
+	min-width: 140px;
+	color: #0f172a;
+}
+
+.live-map-popup table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.live-map-popup-title {
+	font-weight: 900;
+	font-size: 13px;
+	margin-bottom: 3px;
+}
+
+.live-map-popup-key {
+	color: #888;
+	white-space: nowrap;
+}
+
+.live-map-popup-value {
+	font-weight: 700;
+	text-align: right;
+	padding-left: 8px;
+}
+
+.live-map-popup-meta {
+	color: #64748b;
+	font-size: 10px;
+	margin-top: 2px;
+}
+
+.live-map-popup-coords {
+	margin-top: 6px;
+	padding-top: 5px;
+	border-top: 1px dashed #cbd5e1;
+}
+
+.live-map-popup-dms {
+	font-family: ui-monospace, monospace;
+	letter-spacing: 0.3px;
+}
+
+.live-map-popup-actions {
+	display: flex;
+	gap: 4px;
+	margin-top: 4px;
+}
+
+.live-map-popup-actions button {
+	flex: 1;
+	color: #fff;
+	border: 0;
+	cursor: pointer;
+	padding: 4px 6px;
+	border-radius: 4px;
+	font-weight: 700;
+	font-size: 11px;
+	background: #1d4ed8;
+}
+
+.live-map-popup-actions button[data-live-action="share"] {
+	background: #0369a1;
+}
+
+.live-map-sos-popup {
+	text-align: center;
+	min-width: 170px;
+}
+
+.live-map-sos-title {
+	display: inline-block;
+	background: #dc2626;
+	color: #fff;
+	font-weight: 900;
+	font-size: 13px;
+	letter-spacing: 1.5px;
+	padding: 6px 14px;
+	border-radius: 6px;
+	margin-bottom: 8px;
+}

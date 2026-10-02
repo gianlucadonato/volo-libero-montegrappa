@@ -107,7 +107,11 @@
 		"users": "Benutzer",
 		"payments": "Zahlungen",
 		"documentation": "Dokumentation",
-		"settings": "Einstellungen"
+		"settings": "Einstellungen",
+		"live_map": {
+			"title": "Live",
+			"description": "Live-Karte der Piloten in der Luft"
+		}
 	},
 	"NavAuth": {
 		"access": "Zugang",
@@ -1386,5 +1390,45 @@
 		"made_by": "Website erstellt von",
 		"terms": "AGB",
 		"privacy": "Datenschutz"
+	},
+	"LiveMapPage": {
+		"title": "Live",
+		"subtitle": "Piloten in der Luft über dem Monte Grappa, aus dem OGN-Netz",
+		"scope_all": "Alle",
+		"scope_members": "Mitglieder",
+		"flying_count": "{count} in der Luft",
+		"playback_note": "Die Positionen werden eine Minute verzögert angezeigt, damit sich die Piloten zwischen zwei Signalen flüssig bewegen.",
+		"tab_flying": "In der Luft",
+		"tab_flying_members": "Mitglieder in der Luft",
+		"tab_offline": "Kein Signal",
+		"search_placeholder": "Name oder Callsign suchen…",
+		"no_results": "Keine Ergebnisse für „{query}“",
+		"no_flying": "Keine Piloten in der Luft",
+		"no_offline": "Keine Piloten ohne Signal",
+		"source_footer": "OGN- und EXTK-Daten von <link>EasyXCScore</link>",
+		"loading": "Daten werden gesammelt…",
+		"loading_hint": "Die Piloten erscheinen innerhalb einer Minute",
+		"feed_error": "Live-Daten nicht verfügbar, neuer Versuch…",
+		"layers": "Karte",
+		"base_layer": "Hintergrund",
+		"base_satellite": "Satellit",
+		"base_osm": "OpenStreetMap",
+		"base_topo": "OpenTopoMap",
+		"base_none": "Keiner",
+		"overlays": "Ebenen",
+		"overlay_hillshade": "Relief",
+		"overlay_topo": "Topografisch",
+		"overlay_thermals": "Thermik (KK7)",
+		"recenter": "Zentrieren",
+		"show_trail": "Spur anzeigen",
+		"ago": "vor {time}",
+		"points": "{count, plural, one {# Punkt} other {# Punkte}} aufgezeichnet",
+		"open_maps": "Maps",
+		"share": "Teilen",
+		"share_title": "Position von {name}",
+		"altitude_line": "Höhe: {alt} m",
+		"copied": "Position in die Zwischenablage kopiert",
+		"sos_label": "SOS",
+		"sos_title": "SOS — RETTUNG"
 	}
 }
