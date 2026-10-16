@@ -3,7 +3,7 @@
 # Why not build on the server: the Dokploy host has 4 cores and 7.5GB shared
 # with Postgres and the app itself. A `next build` there drove the load average
 # to 77 and took the site offline. Building here keeps production untouched;
-# Dokploy only pulls the finished ~350MB image.
+# Dokploy only pulls the finished ~350MB image, and the last step tells it to.
 name: Build and push image
 
 on:
@@ -56,3 +56,13 @@ jobs:
             NEXT_PUBLIC_POSTHOG_HOST=${{ vars.NEXT_PUBLIC_POSTHOG_HOST }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Redeploy on Dokploy as soon as the image is pushed. Dokploy's own
+      # auto-deploy only reacts to git pushes, not to a new image in a registry,
+      # so without this the deploy had to be started by hand. The secret holds
+      # the application's deploy webhook (Dokploy → application → Deployments).
+      - name: Trigger Dokploy deploy
+        env:
+          DOKPLOY_WEBHOOK_URL: ${{ secrets.DOKPLOY_WEBHOOK_URL }}
+        if: env.DOKPLOY_WEBHOOK_URL != ''
+        run: curl -fsS -X POST "$DOKPLOY_WEBHOOK_URL"
