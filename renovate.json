@@ -1,0 +1,76 @@
+{
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["config:recommended", ":semanticCommits"],
+	"timezone": "Europe/Rome",
+	"schedule": ["before 6am on monday"],
+	"labels": ["dependencies"],
+	"prConcurrentLimit": 5,
+	"minimumReleaseAge": "3 days",
+	"lockFileMaintenance": {
+		"enabled": true,
+		"schedule": ["before 6am on the first day of the month"]
+	},
+	"customManagers": [
+		{
+			"description": "Node version of the Docker image, set through ARG NODE_VERSION",
+			"customType": "regex",
+			"managerFilePatterns": ["/(^|/)Dockerfile$/"],
+			"matchStrings": ["ARG NODE_VERSION=(?<currentValue>\\S+)"],
+			"depNameTemplate": "node",
+			"datasourceTemplate": "node-version",
+			"versioningTemplate": "node"
+		}
+	],
+	"packageRules": [
+		{
+			"description": "Bundle minor and patch updates of dev tooling into a single PR",
+			"groupName": "dev dependencies (non-major)",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch"]
+		},
+		{
+			"description": "Keep @types/node on the Node major the Docker image runs",
+			"matchPackageNames": ["@types/node"],
+			"allowedVersions": "<25"
+		},
+		{
+			"groupName": "Prisma",
+			"matchPackageNames": ["prisma", "@prisma/**"],
+			"prBodyNotes": [
+				"The Prisma client is committed under `prisma/generated`: run `pnpm db:generate` against a local database and commit the result before merging."
+			]
+		},
+		{
+			"groupName": "Next.js",
+			"matchPackageNames": ["next", "@next/**"]
+		},
+		{
+			"groupName": "BlockNote",
+			"matchPackageNames": ["@blocknote/**"]
+		},
+		{
+			"groupName": "Lexical",
+			"matchPackageNames": ["lexical", "@lexical/**"]
+		},
+		{
+			"groupName": "OpenTelemetry",
+			"matchPackageNames": ["@opentelemetry/**", "@vercel/otel"]
+		},
+		{
+			"groupName": "AWS SDK",
+			"matchPackageNames": ["@aws-sdk/**"]
+		},
+		{
+			"groupName": "Radix UI",
+			"matchPackageNames": ["radix-ui", "@radix-ui/**"]
+		},
+		{
+			"groupName": "Tailwind CSS",
+			"matchPackageNames": ["tailwindcss", "@tailwindcss/**"]
+		},
+		{
+			"groupName": "GitHub Actions",
+			"matchManagers": ["github-actions"]
+		}
+	]
+}
