@@ -281,7 +281,7 @@
 	},
 	"PurchaseMembershipCard": {
 		"membership": "Membership",
-		"membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR} (30€)",
+		"membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR}",
 		"or": "or",
 		"pay_with_bank_transfer": "Pay with bank transfer",
 		"membership_club": "Club Membership {NEXT_YEAR}",
@@ -296,7 +296,7 @@
 		"info": {
 			"membership": {
 				"title": "MEMBERSHIP",
-				"description": "From <strong>January 1st {NEXT_YEAR}</strong>, registrations for Club Volo Libero Montegrappa are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
+				"description": "From <strong>December 15</strong>, registrations for Club Volo Libero Montegrappa for {NEXT_YEAR} are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
 			},
 			"flycard": {
 				"title": "FLYCARD",

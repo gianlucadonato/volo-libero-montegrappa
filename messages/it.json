@@ -314,7 +314,7 @@
 	},
 	"PurchaseMembershipCard": {
 		"membership": "Tessera Socio",
-		"membership_description": "Tesseramento al Club per il {NEXT_YEAR} (30€)",
+		"membership_description": "Tesseramento al Club per il {NEXT_YEAR}",
 		"or": "oppure",
 		"pay_with_bank_transfer": "Paga con bonifico bancario",
 		"membership_club": "Iscrizione al Club {NEXT_YEAR}",
@@ -329,7 +329,7 @@
 		"info": {
 			"membership": {
 				"title": "TESSERAMENTO",
-				"description": "Dal <strong>01 gennaio {NEXT_YEAR}</strong> sono aperte le iscrizioni al Club Volo Libero Montegrappa. <br></br>Per iscriverti è necessario <link1>creare un account</link1> (gratuito e senza vincoli) e procedere al pagamento della quota associativa. Gli utenti già registrati possono <link2>accedere</link2> direttamente al proprio account e rinnovare l'iscrizione."
+				"description": "Dal <strong>15 dicembre</strong> sono aperte le iscrizioni al Club Volo Libero Montegrappa per il {NEXT_YEAR}. <br></br>Per iscriverti è necessario <link1>creare un account</link1> (gratuito e senza vincoli) e procedere al pagamento della quota associativa. Gli utenti già registrati possono <link2>accedere</link2> direttamente al proprio account e rinnovare l'iscrizione."
 			},
 			"flycard": {
 				"title": "FLYCARD",
