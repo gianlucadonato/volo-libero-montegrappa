@@ -1,12 +1,12 @@
 "use server";
 
-import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
+import { xcSeasonYear } from "@/lib/xc-season";
 
 export default async function getXcSubmissionByTask(
 	userId: string,
 	taskId: string,
-	year = NEXT_YEAR,
+	year = xcSeasonYear(),
 ) {
 	return prisma.xcTrackSubmission.findFirst({
 		where: {

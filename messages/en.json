@@ -281,7 +281,7 @@
 	},
 	"PurchaseMembershipCard": {
 		"membership": "Membership",
-		"membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR} (30€)",
+		"membership_description": "Membership to the Club Montegrappa for the year {NEXT_YEAR}",
 		"or": "or",
 		"pay_with_bank_transfer": "Pay with bank transfer",
 		"membership_club": "Club Membership {NEXT_YEAR}",
@@ -296,7 +296,7 @@
 		"info": {
 			"membership": {
 				"title": "MEMBERSHIP",
-				"description": "From <strong>January 1st {NEXT_YEAR}</strong>, registrations for Club Volo Libero Montegrappa are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
+				"description": "From <strong>December 15</strong>, registrations for Club Volo Libero Montegrappa for {NEXT_YEAR} are open. <br></br>To register, you need to <link1>create an account</link1> (free and without obligations) and proceed with payment of the membership fee. Already registered users can <link2>log in</link2> directly to their account and renew their membership."
 			},
 			"flycard": {
 				"title": "FLYCARD",
@@ -893,7 +893,7 @@
 		"hero": {
 			"title": "XC Montegrappa"
 		},
-		"intro": "This initiative is organized and promoted by the <strong>Club Volo Libero Montegrappa</strong>.<br></br>It is not a competition, but a personal challenge that recognizes each pilot's commitment and ability to reach cross-country flying goals.<br></br>The routes are based in the Monte Grappa flying area, with takeoff and landing within the designated zones.<br></br>Each pilot can freely choose when to fly throughout the year, starting from <strong>April 1, {year}</strong>.",
+		"intro": "This initiative is organized and promoted by the <strong>Club Volo Libero Montegrappa</strong>.<br></br>It is not a competition, but a personal challenge that recognizes each pilot's commitment and ability to reach cross-country flying goals.<br></br>The routes are based in the Monte Grappa flying area, with takeoff and landing within the designated zones.<br></br>Each pilot can freely choose when to fly throughout the season: each season starts on <strong>October 1</strong> and ends on <strong>September 30</strong> of the following year.",
 		"objectives": {
 			"title": "OBJECTIVES",
 			"lead": "The XC Montegrappa certificate was created to:",
@@ -939,7 +939,7 @@
 		"dialog": {
 			"title": "Enroll in XC Montegrappa {year}",
 			"description": "You are enrolling in the {year} XC Montegrappa edition. You can participate in all categories (Basic, Intermediate, Advanced).",
-			"info": "With a single enrollment you can upload tracks for all categories during the entire {year} season.",
+			"info": "With a single enrollment you can upload tracks for all categories during the entire {year} season, from October 1 to September 30.",
 			"cancel": "Cancel",
 			"confirm": "Confirm enrollment",
 			"loading": "Enrolling..."

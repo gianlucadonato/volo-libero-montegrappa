@@ -1,36 +1,30 @@
 import { createHash } from "node:crypto";
 import Boom from "@hapi/boom";
-import { format, isValid, isWithinInterval, parseISO, subDays } from "date-fns";
+import { format, isValid, isWithinInterval, parseISO } from "date-fns";
 import { it } from "date-fns/locale";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import getXcTaskById from "@/actions/xc/getXcTaskById";
 import { auth } from "@/auth";
-import { NEXT_YEAR } from "@/config/constants";
 import { env } from "@/env";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { parseIGC } from "@/lib/igc-parser";
 import { prisma } from "@/lib/prisma";
 import { buildObjectKey, deleteObject, uploadObject } from "@/lib/r2";
+import { xcSeasonBounds, xcSeasonYear } from "@/lib/xc-season";
 import { Prisma } from "@/prisma/generated/client";
 
 const isProduction = env.VLM_ENV === "production";
 
-// Valid IGC flight date window: from 1 Oct (NEXT_YEAR-1) to 30 Sep (NEXT_YEAR), inclusive.
-const EDITION_WINDOW_START = new Date(Date.UTC(NEXT_YEAR - 1, 9, 1, 0, 0, 0)); // Oct 1
-const EDITION_WINDOW_END_INCLUSIVE = subDays(
-	new Date(Date.UTC(NEXT_YEAR, 9, 1, 0, 0, 0)),
-	1,
-); // Sep 30 of NEXT_YEAR
-
-function isFlightDateValid(igcDateIso: string | null): boolean {
+// A flight counts only if it was flown within the season being uploaded to.
+function isFlightDateValid(
+	igcDateIso: string | null,
+	season: { start: Date; end: Date },
+): boolean {
 	if (!igcDateIso) return false;
 	const flightDate = parseISO(`${igcDateIso}T00:00:00Z`);
 	if (!isValid(flightDate)) return false;
-	return isWithinInterval(flightDate, {
-		start: EDITION_WINDOW_START,
-		end: EDITION_WINDOW_END_INCLUSIVE,
-	});
+	return isWithinInterval(flightDate, season);
 }
 
 function formatDay(date: Date): string {
@@ -59,11 +53,14 @@ export async function POST(
 			return APIErrorResponse(Boom.unauthorized());
 		}
 
+		const seasonYear = xcSeasonYear();
+		const season = xcSeasonBounds(seasonYear);
+
 		const enrollment = await prisma.xcEnrollment.findUnique({
 			where: {
 				userId_editionId: {
 					userId: session.user.id,
-					editionId: NEXT_YEAR,
+					editionId: seasonYear,
 				},
 			},
 		});
@@ -102,10 +99,10 @@ export async function POST(
 			} catch {
 				parsed = null;
 			}
-			if (!parsed || !isFlightDateValid(parsed.header.date)) {
+			if (!parsed || !isFlightDateValid(parsed.header.date, season)) {
 				return APIErrorResponse(
 					Boom.badRequest(
-						`Data del volo non valida. La traccia IGC deve essere compresa tra il ${formatDay(EDITION_WINDOW_START)} e il ${formatDay(EDITION_WINDOW_END_INCLUSIVE)}.`,
+						`Data del volo non valida. La traccia IGC deve essere compresa tra il ${formatDay(season.start)} e il ${formatDay(season.end)}.`,
 					),
 				);
 			}
@@ -137,7 +134,7 @@ export async function POST(
 		}
 
 		const objectKey = buildObjectKey({
-			year: NEXT_YEAR,
+			year: seasonYear,
 			userId: session.user.id,
 			taskId: `${task.category}-${task.slug}-${task.id}`,
 			fileName: file.name,
@@ -154,7 +151,7 @@ export async function POST(
 			where: {
 				userId: session.user.id,
 				taskId: task.id,
-				editionId: NEXT_YEAR,
+				editionId: seasonYear,
 			},
 		});
 
@@ -186,7 +183,7 @@ export async function POST(
 			submission = await prisma.xcTrackSubmission.create({
 				data: {
 					userId: session.user.id,
-					editionId: NEXT_YEAR,
+					editionId: seasonYear,
 					taskId: task.id,
 					fileName: objectKey,
 					checksum,

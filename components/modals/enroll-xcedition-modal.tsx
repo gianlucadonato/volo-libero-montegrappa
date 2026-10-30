@@ -18,10 +18,10 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
-import { NEXT_YEAR } from "@/config/constants";
 import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import { createXcEnrollmentApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
+import { xcSeasonYear } from "@/lib/xc-season";
 
 function EnrollXcEditionModal({
 	showModal,
@@ -38,6 +38,7 @@ function EnrollXcEditionModal({
 	const { data: session } = authClient.useSession();
 	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
 	const isAlreadyEnrolled = !!enrollment;
+	const seasonYear = xcSeasonYear();
 
 	const handleConfirmEnrollment = async () => {
 		setIsLoading(true);
@@ -47,7 +48,7 @@ function EnrollXcEditionModal({
 				queryKey: ["get", "/xc/enroll"],
 			});
 			posthog.capture("xc_enrollment_created", {
-				edition_year: NEXT_YEAR,
+				edition_year: seasonYear,
 			});
 			toast.success(t("toast.success"));
 			setShowModal(false);
@@ -70,10 +71,10 @@ function EnrollXcEditionModal({
 			<div className="w-full px-4 py-5">
 				<DialogHeader>
 					<DialogTitle className="pr-4 py-2">
-						{t("dialog.title", { year: NEXT_YEAR })}
+						{t("dialog.title", { year: seasonYear })}
 					</DialogTitle>
 					<DialogDescription className="py-2">
-						{t("dialog.description", { year: NEXT_YEAR })}
+						{t("dialog.description", { year: seasonYear })}
 					</DialogDescription>
 				</DialogHeader>
 				<div className="mt-4 flex flex-col gap-3">

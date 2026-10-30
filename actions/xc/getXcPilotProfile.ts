@@ -1,8 +1,8 @@
 "use server";
 
-import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
 import { PILOT_FLIGHT_TASK_SELECT, toPilotFlight } from "@/lib/xc-flight";
+import { xcSeasonYear } from "@/lib/xc-season";
 import { XcCategoryLevel } from "@/prisma/generated/enums";
 import { getXcLeaderboardRank } from "./getXcLeaderboard";
 
@@ -57,7 +57,7 @@ export async function getXcPilotProfile(userId: string, editionId?: number) {
 	const selectedEditionId =
 		editionId && editions.some((e) => e.id === editionId)
 			? editionId
-			: (editions[0]?.id ?? NEXT_YEAR);
+			: (editions[0]?.id ?? xcSeasonYear());
 
 	const [edition, progresses, editionTasks, flights, totals, flightCount] =
 		await Promise.all([

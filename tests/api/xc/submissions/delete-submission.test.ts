@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DELETE } from "@/app/api/xc/submissions/[id]/route";
 
 // ── Mocks ────────────────────────────────────────────────
@@ -144,7 +144,15 @@ const baseEdition = {
 // ── Tests ────────────────────────────────────────────────
 
 beforeEach(() => {
+	// Pin "now" inside season 2026 (1 Oct 2025 – 30 Sep 2026), which the
+	// fixtures below are built around.
+	vi.useFakeTimers({ toFake: ["Date"] });
+	vi.setSystemTime(new Date("2026-06-15T12:00:00Z"));
 	vi.resetAllMocks();
+});
+
+afterEach(() => {
+	vi.useRealTimers();
 });
 
 describe("DELETE /xc/submissions/[id]", () => {

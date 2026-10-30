@@ -1,11 +1,11 @@
 import Boom from "@hapi/boom";
 import { headers } from "next/headers";
 import { auth } from "@/auth";
-import { NEXT_YEAR } from "@/config/constants";
 import APIErrorResponse from "@/helpers/APIErrorResponse";
 import { parseIGC } from "@/lib/igc-parser";
 import { prisma } from "@/lib/prisma";
 import { deleteObject, downloadObject } from "@/lib/r2";
+import { xcSeasonYear } from "@/lib/xc-season";
 
 /**
  * /xc/submissions/[id]
@@ -103,7 +103,7 @@ export async function DELETE(
 			return APIErrorResponse(Boom.forbidden());
 		}
 
-		if (submission.editionId !== NEXT_YEAR) {
+		if (submission.editionId !== xcSeasonYear()) {
 			return APIErrorResponse(
 				Boom.forbidden("Cannot delete submissions from previous editions"),
 			);

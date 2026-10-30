@@ -1,9 +1,10 @@
 import copyXcEdition from "@/actions/xc/copyXcEdition";
 import { prisma } from "@/lib/prisma";
 
-// Crea una nuova edizione XC per il prossimo anno
+// Create the XC edition for a season (1 Oct – 30 Sep, named after the year it
+// ends in), copying the tasks of the previous one. Deactivates older editions.
 async function main() {
-	const EDITION_YEAR = 2026;
+	const EDITION_YEAR = 2027;
 	await copyXcEdition(EDITION_YEAR - 1, EDITION_YEAR);
 }
 

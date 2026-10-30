@@ -24,7 +24,7 @@ pnpm db:migrate <name> # prisma migrate dev --name <name>
 pnpm db:generate       # prisma generate (regenerate the client)
 pnpm db:deploy         # apply migrations (prod)
 pnpm db:studio
-pnpm db:seed           # seed XC tasks; db:seed:xc-progress for progress
+pnpm db:seed:xc-tasks  # seed XC tasks; db:seed:xc-progress for progress
 
 # OpenAPI / typed API client
 pnpm openapi           # generate public/openapi.json from route JSDoc annotations

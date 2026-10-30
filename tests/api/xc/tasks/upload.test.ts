@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 // ── Mocks ────────────────────────────────────────────────
 
@@ -152,7 +152,15 @@ function setupHappyPath() {
 // ── Tests ────────────────────────────────────────────────
 
 beforeEach(() => {
+	// Pin "now" inside season 2026 (1 Oct 2025 – 30 Sep 2026), which the
+	// fixtures below are built around.
+	vi.useFakeTimers({ toFake: ["Date"] });
+	vi.setSystemTime(new Date("2026-06-15T12:00:00Z"));
 	vi.resetAllMocks();
+});
+
+afterEach(() => {
+	vi.useRealTimers();
 });
 
 describe("POST /xc/tasks/[id]/upload (production)", () => {
@@ -292,7 +300,7 @@ describe("POST /xc/tasks/[id]/upload (production)", () => {
 		expect(mockUploadObject).not.toHaveBeenCalled();
 	});
 
-	it("accepts flight date at the start boundary (Oct 1, NEXT_YEAR-1)", async () => {
+	it("accepts flight date at the start boundary (Oct 1 of the previous year)", async () => {
 		setupHappyPath();
 		mockParseIGC.mockReturnValue({
 			...validParsed,
@@ -306,7 +314,7 @@ describe("POST /xc/tasks/[id]/upload (production)", () => {
 		expect(mockUploadObject).toHaveBeenCalledOnce();
 	});
 
-	it("accepts flight date at the end boundary (Sep 30, NEXT_YEAR)", async () => {
+	it("accepts flight date at the end boundary (Sep 30 of the season year)", async () => {
 		setupHappyPath();
 		mockParseIGC.mockReturnValue({
 			...validParsed,
