@@ -1,0 +1,38 @@
+# Runs the same quality gates as the Husky hooks (lint, typecheck, tests) on
+# every pull request, so Renovate PRs and contributions are checked before they
+# reach main — merging to main deploys straight to production.
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # The pnpm version comes from the "packageManager" field in package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      # HUSKY=0 skips the "prepare" git-hook install, which CI does not need.
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
