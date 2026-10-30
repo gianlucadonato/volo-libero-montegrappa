@@ -7,7 +7,7 @@ import { IoIosMedal } from "react-icons/io";
 import { Button, buttonVariants } from "@/components/ui/button";
 import EnrollXcEditionButton from "@/components/xc/EnrollXcEditionButton";
 import XcCategoryCards from "@/components/xc/XcCategoryCards";
-import { NEXT_YEAR } from "@/config/constants";
+import { xcSeasonYear } from "@/lib/xc-season";
 import FAQ from "./FAQ";
 
 export default function XcMontegrappaPage() {
@@ -45,7 +45,7 @@ export default function XcMontegrappaPage() {
 								{t.rich("intro", {
 									strong: (chunks) => <strong>{chunks}</strong>,
 									br: () => <br />,
-									year: NEXT_YEAR,
+									year: xcSeasonYear(),
 								})}
 							</p>
 						</div>

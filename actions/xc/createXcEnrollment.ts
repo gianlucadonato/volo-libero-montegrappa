@@ -1,13 +1,13 @@
 "use server";
 
 import Boom from "@hapi/boom";
-import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
+import { xcSeasonYear } from "@/lib/xc-season";
 import { getXcEdition } from "@/store/xc";
 
 export default async function createXcEnrollment({
 	userId,
-	year = NEXT_YEAR,
+	year = xcSeasonYear(),
 }: {
 	userId: string;
 	year?: number;

@@ -17,7 +17,6 @@ import {
 	WAYPOINT_TYPE_COLOR,
 	WAYPOINT_TYPE_ICON,
 } from "@/components/xc/xc-waypoint-styles";
-import { NEXT_YEAR } from "@/config/constants";
 import {
 	useGetXcEnrollment,
 	useGetXcSubmissionTrack,
@@ -25,6 +24,7 @@ import {
 } from "@/hooks/use-query-api";
 import { useXcTaskWaypoints } from "@/hooks/use-xc-task-waypoints";
 import { authClient } from "@/lib/auth-client";
+import { xcSeasonYear } from "@/lib/xc-season";
 
 interface XcTaskDetailsPageProps {
 	taskId: string;
@@ -38,13 +38,14 @@ export default function XcTaskDetailsPage({ taskId }: XcTaskDetailsPageProps) {
 	const { data: task, isLoading } = useGetXcTask(taskId);
 	const { data: enrollment } = useGetXcEnrollment(isLoggedIn);
 	const isEnrolled = Boolean(enrollment);
+	const seasonYear = xcSeasonYear();
 
 	const submissions = task?.submissions ?? [];
 	const currentSubmission = useMemo(
-		() => submissions.find((s) => s.editionId === NEXT_YEAR) ?? null,
-		[submissions],
+		() => submissions.find((s) => s.editionId === seasonYear) ?? null,
+		[submissions, seasonYear],
 	);
-	const hasHistory = submissions.some((s) => s.editionId !== NEXT_YEAR);
+	const hasHistory = submissions.some((s) => s.editionId !== seasonYear);
 
 	// Which submission's track is currently displayed on the map/chart.
 	// Defaults to the current edition submission once known.

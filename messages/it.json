@@ -935,7 +935,7 @@
 		"hero": {
 			"title": "XC Montegrappa"
 		},
-		"intro": "L'iniziativa è organizzata e promossa dal <strong>Club Volo Libero Montegrappa</strong>.<br></br>Non è una competizione, ma una sfida personale che riconosce l'impegno e la capacità del pilota nel raggiungere obiettivi di volo cross-country.<br></br>I percorsi hanno come riferimento l'area di volo del Monte Grappa, con decollo e atterraggio all'interno delle zone stabilite.<br></br>Ogni pilota potrà decidere liberamente i giorni in cui volare durante tutto l'anno solare a partire dal <strong>01 maggio {year}</strong>.",
+		"intro": "L'iniziativa è organizzata e promossa dal <strong>Club Volo Libero Montegrappa</strong>.<br></br>Non è una competizione, ma una sfida personale che riconosce l'impegno e la capacità del pilota nel raggiungere obiettivi di volo cross-country.<br></br>I percorsi hanno come riferimento l'area di volo del Monte Grappa, con decollo e atterraggio all'interno delle zone stabilite.<br></br>Ogni pilota potrà decidere liberamente i giorni in cui volare durante tutta la stagione: ogni stagione inizia il <strong>1° ottobre</strong> e termina il <strong>30 settembre</strong> dell'anno successivo.",
 		"objectives": {
 			"title": "OBIETTIVI",
 			"lead": "Il Brevetto di Cross Country Montegrappa nasce con l'intento di:",
@@ -981,7 +981,7 @@
 		"dialog": {
 			"title": "Vuoi iscriverti al Brevetto XC Montegrappa {year}?",
 			"description": "Iscriviti all'edizione {year} del Brevetto XC Montegrappa. Potrai partecipare a tutte le categorie (Basico, Intermedio, Avanzato).",
-			"info": "Con un'unica iscrizione potrai caricare le tracce per tutte le categorie durante tutto l'anno solare {year}.",
+			"info": "Con un'unica iscrizione potrai caricare le tracce per tutte le categorie durante tutta la stagione {year}, dal 1° ottobre al 30 settembre.",
 			"cancel": "Annulla",
 			"confirm": "Conferma Iscrizione",
 			"loading": "Iscrizione in corso..."

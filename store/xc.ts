@@ -1,5 +1,5 @@
-import { NEXT_YEAR } from "@/config/constants";
 import { prisma } from "@/lib/prisma";
+import { xcSeasonYear } from "@/lib/xc-season";
 
 export async function getActiveXcEdition() {
 	const now = new Date();
@@ -22,7 +22,7 @@ export async function getXcEdition(year: number) {
 
 export async function getXcEnrollment({
 	userId,
-	year = NEXT_YEAR,
+	year = xcSeasonYear(),
 }: {
 	userId: string;
 	year?: number;
