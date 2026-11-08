@@ -85,9 +85,12 @@ pnpm exec vitest run tests/lib/xc-season.test.ts   # a single file
 pnpm db:migrate <name> # create a migration (prisma migrate dev)
 pnpm db:deploy         # apply migrations
 pnpm db:studio         # Prisma Studio, handy for editing rows by hand
+pnpm db:execute <file.sql>   # run a SQL file (reports success, does not print rows)
+pnpm db:sync           # copy a database into another (e.g. production → local)
 
 pnpm gen:api-client    # regenerate public/openapi.json and types/api-client.d.ts
 pnpm tsx scripts/<file>.ts   # run a one-off script with .env loaded
+pnpm prod <script> [args]    # run any of the above against production (see below)
 ```
 
 Git hooks (Husky): **pre-commit** runs Biome on staged files, **pre-push** runs
@@ -130,11 +133,44 @@ content (`messages/it.json`, `content/pages/`, Italian route segments).
    on the server**: that once took production down.
 
 **Migrations are not applied automatically.** When a release contains a new
-migration, run `pnpm db:deploy` against the production database (with the
-production `DATABASE_URL`) before or right after the deploy.
+migration, run `pnpm prod db:deploy` before or right after the deploy.
 
 **Rollback**: point the Dokploy service at the `sha-<commit>` tag of the last
 good build instead of `latest`.
+
+### Running scripts against production
+
+The production database is not exposed to the internet: it is reachable only
+inside the Dokploy network. `pnpm prod <script> [args]` runs any package script
+against it from your machine through an SSH tunnel (`scripts/tunnel.ts`): a
+throwaway socat container on the server's `dokploy-network`, published on the
+server's localhost only, plus an SSH port forward. The tunnel is closed when the
+script ends, fails or is stopped with Ctrl+C.
+
+```bash
+pnpm prod tsx scripts/newXcEdition.ts
+pnpm prod db:deploy
+pnpm prod db:studio                 # browse/edit production rows; Ctrl+C closes the tunnel
+pnpm prod db:execute coupons.sql
+```
+
+It asks for confirmation first (`--yes` skips it). It refuses `dev`, `build`,
+`start`, `db:sync` and `db:migrate`, since `prisma migrate dev` can offer to
+reset the database. The script gets `DATABASE_URL` pointed at the tunnel; your
+local `DATABASE_URL` is untouched.
+
+Setup, once:
+- key-based SSH access as `root` to the Dokploy server (`ssh root@168.119.245.243`
+  must work without a password prompt);
+- in `.env`, the production URL in `ssh:` form. `<db-host>` is the
+  **Internal Host** on the database's page in Dokploy:
+
+  ```bash
+  PROD_DATABASE_URL="postgresql://postgres:<pwd>@ssh:root@168.119.245.243/<db-host>:5432/vlm-db"
+  ```
+
+`pnpm db:sync` accepts the same `ssh:` form in `DB_SYNC_FROM` / `DB_SYNC_TO`,
+e.g. to copy production into your local database.
 
 If a deploy silently does nothing after the pull, check
 `docker service ps --no-trunc <service>` on the server: the Dokploy UI does not
@@ -196,7 +232,7 @@ shows no tasks and enrollment fails with 404.**
    to the new season and run it against production:
 
    ```bash
-   pnpm tsx scripts/newXcEdition.ts
+   pnpm prod tsx scripts/newXcEdition.ts
    ```
 
    It copies the previous edition's tasks, marks the new edition active and
@@ -227,8 +263,8 @@ preparation **first** and bump last. Example for 2027:
    sees the product name at checkout. Note the `prod_…` and `price_…` ids.
    Check live vs. test mode: the ids must come from the same mode as
    `STRIPE_API_KEY` in production.
-2. **`membership` row**. Add one row for the new year (`pnpm db:studio`
-   against production fills in the `id`). Checkout and manual payments look it
+2. **`membership` row**. Add one row for the new year with
+   `pnpm prod db:studio` (Prisma Studio fills in the `id`). Checkout and manual payments look it
    up by `year`, and fail without it.
 
    | Column | Value |
@@ -239,11 +275,12 @@ preparation **first** and bump last. Example for 2027:
    | `stripe_product_id` / `stripe_price_id` | from step 1 |
    | `valid_from` / `valid_until` | e.g. `2026-12-15` / `2027-12-31 23:59:59`; copied onto members added by an admin |
 
-3. **Flycard coupons**. Every new member is assigned a free Flycard coupon
-   code (`coupon` table, `year = 2027`, `type = 'socio'`, `user_id` empty),
+3. **Flycard coupons**. Every new member is assigned a coupon code for the
+   discounted Flycard (`coupon` table, `year = 2027`, `type = 'socio'`, `user_id` empty),
    which is sent in the confirmation email. Load the codes received from the
    Consorzio Vivere il Grappa, **enough for the whole year** (2026: ~300
-   members):
+   members). Put the statement in a file and run
+   `pnpm prod db:execute coupons.sql`:
 
    ```sql
    INSERT INTO coupon (id, code, year, type)
@@ -254,8 +291,8 @@ preparation **first** and bump last. Example for 2027:
    If the coupons run out, an online payment still succeeds, but **no
    confirmation email is sent**. A payment added by an admin fails with
    "Coupon not found!" **after** the payment and membership rows have already
-   been written. Watch the remaining count:
-   `SELECT count(*) FROM coupon WHERE year = 2027 AND user_id IS NULL;`
+   been written. Keep an eye on how many are left (unassigned 2027 rows in
+   `pnpm prod db:studio`, filtering `coupon` by `year` and empty `user_id`).
 4. **Code** (one PR, merged on the opening day):
    - `config/constants.ts`: `NEXT_YEAR = 2027`. Also update
      `MEMBERSHIP_PRICE` if the fee changes. It is the price **shown** on the

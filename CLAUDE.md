@@ -31,6 +31,7 @@ pnpm openapi           # generate public/openapi.json from route JSDoc annotatio
 pnpm gen:api-client    # openapi + regenerate types/api-client.d.ts
 
 pnpm tsx scripts/foo.ts  # run a one-off script with .env loaded
+pnpm prod <script> [args]  # run a package script against prod through an SSH tunnel (PROD_DATABASE_URL, see README)
 ```
 
 Husky enforces quality gates: **pre-commit** runs lint-staged (Biome), **pre-push** runs `typecheck` + `test`.
