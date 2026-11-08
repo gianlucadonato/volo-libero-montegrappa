@@ -117,6 +117,11 @@ export async function openTarget(raw: string, label: string): Promise<Target> {
 		await close();
 		throw error;
 	}
+	// Whatever runs next only sees the local end, so name it: logs printing
+	// 127.0.0.1 from here on are talking to the remote database.
+	console.log(
+		`  ↳ ${label}: tunnel open, 127.0.0.1:${localPort} → ${dbHost}:${dbPort}`,
+	);
 	return {
 		url: `${auth}127.0.0.1:${localPort}${rest}`,
 		label,
