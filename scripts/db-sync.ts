@@ -6,6 +6,10 @@
  *   - DB_SYNC_FROM  source database (libpq URL, e.g. postgresql://user:pwd@host:5432/db)
  *   - DB_SYNC_TO    target database (libpq URL)
  *
+ * A URL whose host is `ssh:<user@server>/<db-host>` is reached through an SSH
+ * tunnel (scripts/tunnel.ts), so the database never has to be exposed:
+ *   DB_SYNC_FROM=postgresql://postgres:<pwd>@ssh:root@168.119.245.243/<db-host>:5432/vlm-db
+ *
  * Run via `pnpm db:sync` (append flags after it).
  *
  * Flags:
@@ -29,6 +33,7 @@
  */
 import { confirm } from "@inquirer/prompts";
 import { dumpDatabase, restoreDatabase, syncDatabase } from "@/actions/db-sync";
+import { openTarget, redact, type Target } from "./tunnel";
 
 /** Reads the value of a `--flag <value>` / `--flag=<value>` argument. */
 function getFlagValue(name: string): string | undefined {
@@ -60,7 +65,7 @@ async function confirmDeployedEnv(): Promise<void> {
 		process.exit(1);
 	}
 	console.warn(
-		`\n⚠️  WARNING\nDB_SYNC_FROM is "${DB_SYNC_FROM}"\nDB_SYNC_TO is "${DB_SYNC_TO}"\n\nThis script will run against these remote databases.`,
+		`\n⚠️  WARNING\nDB_SYNC_FROM is "${redact(DB_SYNC_FROM)}"\nDB_SYNC_TO is "${redact(DB_SYNC_TO)}"\n\nThis script will run against these remote databases.`,
 	);
 	const proceed = await confirm({
 		message: "Continue?",
@@ -77,7 +82,7 @@ async function confirmDumpEnv(): Promise<void> {
 		console.error(`\n❌  ERROR: DB_SYNC_FROM is not set — nothing to dump.`);
 		process.exit(1);
 	}
-	console.log(`\nDumping from "${DB_SYNC_FROM}"`);
+	console.log(`\nDumping from "${redact(DB_SYNC_FROM)}"`);
 	const proceed = await confirm({
 		message: "Continue?",
 		default: true,
@@ -94,7 +99,7 @@ async function confirmRestoreEnv(dumpFilePath: string): Promise<void> {
 		process.exit(1);
 	}
 	console.warn(
-		`\n⚠️  WARNING\nRestoring dump file "${dumpFilePath}"\ninto DB_SYNC_TO "${DB_SYNC_TO}"\n\nThis script will overwrite the target remote database.`,
+		`\n⚠️  WARNING\nRestoring dump file "${dumpFilePath}"\ninto DB_SYNC_TO "${redact(DB_SYNC_TO)}"\n\nThis script will overwrite the target remote database.`,
 	);
 	const proceed = await confirm({
 		message: "Continue?",
@@ -113,33 +118,52 @@ function reportResult(result: {
 }): void {
 	if (!result.success) {
 		console.error(`\n❌  ${result.message}`);
-		process.exit(1);
+		// Not process.exit(): the tunnels still have to be closed by main().
+		process.exitCode = 1;
+		return;
 	}
 	console.log(`\n✅  ${result.data}`);
 }
 
-async function main() {
+// Tunnels opened for `ssh:` URLs, closed once the run is over.
+const opened: Target[] = [];
+
+async function resolveUrl(raw: string, label: string): Promise<string> {
+	const target = await openTarget(raw, label);
+	opened.push(target);
+	return target.url;
+}
+
+async function run() {
 	if (ONLY_DUMP) {
 		await confirmDumpEnv();
 		// confirmDumpEnv exits when DB_SYNC_FROM is missing, so it's defined here.
-		reportResult(await dumpDatabase(DB_SYNC_FROM as string));
+		const from = await resolveUrl(DB_SYNC_FROM as string, "source");
+		reportResult(await dumpDatabase(from));
 		return;
 	}
 
 	if (FROM_DUMP_FILE) {
 		await confirmRestoreEnv(FROM_DUMP_FILE);
 		// confirmRestoreEnv exits when DB_SYNC_TO is missing, so it's defined here.
-		reportResult(await restoreDatabase(DB_SYNC_TO as string, FROM_DUMP_FILE));
+		const to = await resolveUrl(DB_SYNC_TO as string, "target");
+		reportResult(await restoreDatabase(to, FROM_DUMP_FILE));
 		return;
 	}
 
 	await confirmDeployedEnv();
 	// confirmDeployedEnv exits when either is missing, so both are defined here.
-	reportResult(
-		await syncDatabase(DB_SYNC_FROM as string, DB_SYNC_TO as string, {
-			saveDump: SAVE_DUMP,
-		}),
-	);
+	const from = await resolveUrl(DB_SYNC_FROM as string, "source");
+	const to = await resolveUrl(DB_SYNC_TO as string, "target");
+	reportResult(await syncDatabase(from, to, { saveDump: SAVE_DUMP }));
+}
+
+async function main() {
+	try {
+		await run();
+	} finally {
+		for (const target of opened) await target.close();
+	}
 }
 
 main().catch((error) => {
