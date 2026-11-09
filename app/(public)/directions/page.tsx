@@ -14,7 +14,7 @@ import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
 // Language-neutral data; the texts are in messages/*.json under DirectionsPage.
 const HEADQUARTERS = {
-	image: `${PUBLIC_MEDIA_BASE_URL}/locations/sede.png`,
+	image: `${PUBLIC_MEDIA_BASE_URL}/locations/sede.jpg`,
 	mapsUrl: "https://maps.app.goo.gl/mhgq6irVcyurLzqA8",
 	address: "Via Caose 22, 31030 Borso del Grappa (TV)",
 	gps: "45.8065529, 11.7846036",
