@@ -593,7 +593,9 @@ export default function LiveMap() {
 						}).addTo(map);
 						if (entry.trailIndex !== entry.track.length) {
 							entry.trailIndex = entry.track.length;
-							entry.trail.setLatLngs(entry.track.map((p) => [p.lat, p.lon]));
+							entry.trail.setLatLngs(
+								entry.track.map((p): L.LatLngTuple => [p.lat, p.lon]),
+							);
 						}
 					} else if (entry.trail) {
 						entry.trail.remove();
@@ -657,7 +659,9 @@ export default function LiveMap() {
 					if (entry.trailIndex !== state.index) {
 						entry.trailIndex = state.index;
 						entry.trail.setLatLngs(
-							entry.track.slice(0, state.index + 1).map((p) => [p.lat, p.lon]),
+							entry.track
+								.slice(0, state.index + 1)
+								.map((p): L.LatLngTuple => [p.lat, p.lon]),
 						);
 					}
 				} else if (entry.trail) {
