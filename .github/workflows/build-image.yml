@@ -25,6 +25,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # The runner starts with ~14 GB free, and exporting the build cache filled
+      # it ("no space left on device" after the image was already pushed). Drop
+      # preinstalled toolchains this build never uses, which frees 20+ GB.
+      - name: Free disk space
+        run: |
+          df -h /
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc \
+            /usr/local/.ghcup /opt/hostedtoolcache/CodeQL
+          df -h /
+
       - uses: docker/setup-buildx-action@v3
 
       - uses: docker/login-action@v3
@@ -62,7 +72,9 @@ jobs:
           secrets: |
             posthog_personal_api_key=${{ secrets.POSTHOG_PERSONAL_API_KEY }}
           cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # The cache only speeds up the next build: failing to write it must not
+          # fail this one, or the deploy step below never runs.
+          cache-to: type=gha,mode=max,ignore-error=true
 
       # Redeploy on Dokploy as soon as the image is pushed. Dokploy's own
       # auto-deploy only reacts to git pushes, not to a new image in a registry,
