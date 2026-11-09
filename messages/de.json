@@ -1535,5 +1535,110 @@
 				"description": "Der Landeplatz Paradiso liegt in Semonzo, in der Via Casale Nuovo, an der Kreuzung mit der Via Giovanni da Semonzo.<br></br>Er ist ausschließlich für Gleitschirme. Besondere Vorsicht bei den Strom- und Telefonleitungen südlich des Platzes sowie bei den Weinbergen und Bäumen rundherum. Die Landeflächen sind auf dem Foto mit A und B markiert.<br></br>Bitte respektiere Privatgrund und verlasse bei einer Außenlandung das Gelände, ohne Schaden anzurichten.<br></br>Der Landeplatz hat einen großen Parkplatz, Toiletten sowie Einkehrmöglichkeiten wenige hundert Meter entfernt, zu Fuß erreichbar."
 			}
 		}
+	},
+	"FlyingAreaPage": {
+		"banner": {
+			"title": "Fluggebiet",
+			"subtitle": "Praktische Infos zum Fliegen am Grappa"
+		},
+		"essentials": {
+			"title": "Das Wichtigste, um",
+			"highlight": "den Flug zu planen"
+		},
+		"takeoffs": {
+			"title": "Startplätze",
+			"text": "Unser Fluggebiet hat viele Startplätze, sodass du bei jedem Wind fliegen kannst, außer bei Nordwind.",
+			"link": "Startplätze ansehen"
+		},
+		"landings": {
+			"title": "Landeplätze",
+			"text": "Im Gebiet gibt es zwei offizielle Landeplätze. Unter dem Link findest du alles zu ihrer Ausrichtung und den Landevolten.",
+			"link": "Landeplätze entdecken"
+		},
+		"airspaces": {
+			"title": "Lufträume",
+			"text": "Lade die 3D-KMZ-Dateien der Sperr- und Beschränkungsgebiete im Triveneto herunter.",
+			"link": ".zip-Datei herunterladen"
+		},
+		"weather": {
+			"title": "Wetter",
+			"text": "Besuche den Wetterbereich mit Prognosen für das freie Fliegen, Meteogrammen und weiteren nützlichen Quellen.",
+			"link": "Zum Wetter"
+		},
+		"more": {
+			"title": "Weitere",
+			"highlight": "nützliche Infos"
+		},
+		"flycard": {
+			"title": "Flycard",
+			"text": "Die FlyCard ist Pflicht, um alle Start- und Landeplätze des Fluggebiets Monte Grappa zu nutzen, die vom Consorzio Turistico Vivere il Grappa betrieben werden.",
+			"link": "Zur Website"
+		},
+		"shuttles": {
+			"title": "Shuttles",
+			"text": "Die Startplätze rund um Borso del Grappa sind bequem mit dem Shuttle erreichbar. Die Fahrt zu den wichtigsten Startplätzen „Stella“ und „Puppolo-Tappeti“ dauert etwa 20 Minuten. Die zugelassenen Fahrer findest du auf der Kontaktseite.",
+			"link": "Zu den Kontakten"
+		},
+		"radio": {
+			"title": "Funk",
+			"text": "Wir erinnern alle Piloten im Gebiet an den Notfallkanal 8-16 der Rete Radio Montana, eines Funknetzes für mehr Sicherheit.",
+			"link": "Zur Website"
+		},
+		"fly": {
+			"title": "Willst du",
+			"highlight": "fliegen?",
+			"intro": "Du möchtest diesen unglaublichen Sport kennenlernen, bist aber (noch) kein Pilot?<br></br><strong>Ein Tandemflug mit Gleitschirm oder Drachen ist der einfachste Weg</strong>: Er erfordert keine besonderen Fähigkeiten, nur gut geschnürte Schuhe, eine Windjacke, eine Sonnenbrille und Lust, den Himmel zu entdecken!<br></br>Und wenn du dann <strong>selbst Pilot werden möchtest</strong>, nimm an einem der Schnuppertage des ASD Manta teil und beginne einen Gleitschirmkurs!",
+			"tandem": {
+				"alt": "Tandemflüge",
+				"text": "Mach dich bereit für ein einzigartiges Erlebnis. Im Gebiet fliegen mehrere Tandem-Teams, die sich um alles kümmern: Start, Landung und auf Wunsch Fotos und Videos."
+			},
+			"school": {
+				"alt": "Flugschulkurse",
+				"text": "Der ASD Manta bietet das ganze Jahr über Gleitschirmkurse für Einsteiger und Fortgeschrittene an. Komm zu einem Schnuppertag, probiere die Ausrüstung aus und lerne die Freunde und Piloten kennen, die dich auf diesem Weg begleiten."
+			}
+		}
+	},
+	"DirectionsPage": {
+		"banner": {
+			"title": "Anfahrt",
+			"subtitle": "So kommst du zu unserem Vereinshaus"
+		},
+		"headquarters": {
+			"kicker": "Lage",
+			"title": "Unser Vereinshaus",
+			"description": "Unser Vereinshaus ist das kleine Haus am Landeplatz Garden Relais.",
+			"place": "„Vereinshäuschen“ am Landeplatz Garden Relais"
+		},
+		"table": {
+			"where": "Wo",
+			"address": "Adresse",
+			"gps": "GPS-Koordinaten",
+			"parking": "Parkplatz",
+			"yes": "Ja"
+		},
+		"links": {
+			"contacts": "Kontakte",
+			"flyingArea": "Fluggebiet"
+		},
+		"howTo": {
+			"title": "Anfahrt",
+			"train": {
+				"title": "Mit dem Zug",
+				"text": "Der nächste Bahnhof ist Bassano del Grappa, erreichbar von Padua, Venedig (Santa Lucia) und Trient. Weitere Informationen auf der Website von <link>Trenitalia</link>."
+			},
+			"plane": {
+				"title": "Mit dem Flugzeug",
+				"intro": "Die nächsten Flughäfen sind:",
+				"venice": "Venedig - <link>Flughafen Marco Polo</link>, 70 km entfernt",
+				"treviso": "Treviso - <link>Flughafen A. Canova</link>, 50 km entfernt"
+			},
+			"car": {
+				"title": "Mit dem Auto",
+				"vicenza": "<strong>Aus Vicenza</strong> der Beschilderung nach Bassano del Grappa – Trento folgen. Auf der SS47 Gasparona in der Nähe der Berge die Ausfahrt ROMANO D’EZZELINO CENTRO – CIMA GRAPPA – ZONA INDUSTRIALE NORD nehmen. Im ersten Kreisverkehr die erste Ausfahrt nehmen und im zweiten Kreisverkehr erneut die erste Ausfahrt Richtung SAN GIACOMO. Das Centro Operativo liegt kurz danach rechts in der Via Benedetto Marcello.",
+				"trento": "<strong>Aus Trient</strong> der Beschilderung nach Padua folgen. Nach den Orten Solagna und Pove del Grappa der Beschilderung ROMANO D’EZZELINO CENTRO – CIMA GRAPPA - ZONA INDUSTRIALE NORD folgen. Im ersten Kreisverkehr die erste Ausfahrt nehmen und im zweiten Kreisverkehr erneut die erste Ausfahrt Richtung SAN GIACOMO. Das Centro Operativo liegt kurz danach rechts in der Via Benedetto Marcello.",
+				"padova": "<strong>Aus Padua</strong> der Beschilderung nach CITTADELLA – BASSANO DEL GRAPPA folgen. Nach der Ampel in Rosà der Beschilderung nach Trento folgen und auf der Schnellstraße die Ausfahrt ROMANO D’EZZELINO CENTRO – CIMA GRAPPA - ZONA INDUSTRIALE NORD nehmen. Im ersten Kreisverkehr die erste Ausfahrt nehmen und im zweiten Kreisverkehr erneut die erste Ausfahrt Richtung SAN GIACOMO. Das Centro Operativo liegt kurz danach rechts in der Via Benedetto Marcello.",
+				"treviso": "<strong>Aus Treviso</strong> der Beschilderung nach CASTELFRANCO VENETO und dann nach ASOLO folgen. In Asolo der Beschilderung nach BASSANO DEL GRAPPA folgen. An der Ampel in SPIN rechts Richtung SAN GIACOMO abbiegen. Etwa 1 km weiterfahren, dann links in die Via Benedetto Marcello abbiegen. Das Centro Operativo befindet sich bei den Sportanlagen."
+			}
+		}
 	}
 }

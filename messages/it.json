@@ -1531,5 +1531,110 @@
 				"description": "L'atterraggio Paradiso è situato nella frazione di Semonzo, in via Casale Nuovo, all'incrocio con via Giovanni da Semonzo.<br></br>È adatto solo ed esclusivamente per gli atterraggi in parapendio. Si raccomanda di prestare particolare attenzione alla rete elettrica e telefonica situata a sud del campo, così come ai vigneti e alberi che lo circondano. Nella foto, sono indicate le aree atterrabili contrassegnate con le lettere A e B.<br></br>Si invita a rispettare le aree private e, in caso di atterraggio fuori campo, uscire senza arrecare danni.<br></br>L'atterraggio dispone di un ampio parcheggio, di servizi igienici e di aree di ristoro a poche centinaia di metri di distanza, raggiungibili a piedi."
 			}
 		}
+	},
+	"FlyingAreaPage": {
+		"banner": {
+			"title": "Area di Volo",
+			"subtitle": "Informazioni pratiche per volare sul Grappa"
+		},
+		"essentials": {
+			"title": "L'essenziale per",
+			"highlight": "pianificare il volo"
+		},
+		"takeoffs": {
+			"title": "Decolli",
+			"text": "La nostra zona di volo è ricca di decolli che permettono di volare con ogni tipo di vento, escluso il Nord.",
+			"link": "Vedi i Decolli"
+		},
+		"landings": {
+			"title": "Atterraggi",
+			"text": "Due sono gli atterraggi ufficiali dell'area. Al link trovi tutte le informazioni sull'orientamento e i circuiti di atterraggio.",
+			"link": "Scopri gli Atterraggi"
+		},
+		"airspaces": {
+			"title": "Spazi aerei",
+			"text": "Scarica i file tridimensionali KMZ degli spazi aerei vietati e regolamentati del triveneto.",
+			"link": "Scarica il file .zip"
+		},
+		"weather": {
+			"title": "Meteo",
+			"text": "Visita l'area dedicata alla meteo con le previsioni specifiche per il volo libero, i meteogrammi e altre risorse utili.",
+			"link": "Consulta la meteo"
+		},
+		"more": {
+			"title": "Altre",
+			"highlight": "informazioni utili"
+		},
+		"flycard": {
+			"title": "Flycard",
+			"text": "La FlyCard è un documento obbligatorio per utilizzare tutti i terreni di decollo e atterraggio della zona di volo del Monte Grappa, gestiti dal Consorzio Turistico Vivere il Grappa.",
+			"link": "Vai al sito"
+		},
+		"shuttles": {
+			"title": "Navette",
+			"text": "I decolli dell'area di Borso del Grappa sono comodamente raggiungibili in navetta. Il tempo di risalita verso i principali decolli “Stella” e “Puppolo-Tappeti” è di circa 20 minuti. Nell'area contatti trovi i riferimenti degli autisti autorizzati.",
+			"link": "Vai ai contatti"
+		},
+		"radio": {
+			"title": "Radio",
+			"text": "Ricordiamo a tutti i piloti che volano nell'area il canale di Emergenza 8-16 Rete Radio Montana un'infrastruttura per radiocomunicazioni allo scopo di aumentare la sicurezza.",
+			"link": "Vai al sito"
+		},
+		"fly": {
+			"title": "Vuoi",
+			"highlight": "volare?",
+			"intro": "Vuoi scoprire questa incredibile attività sportiva ma non sei (ancora) un pilota?<br></br><strong>Volare in parapendio e deltaplano tandem è il modo più semplice</strong>, non richiede alcuna particolare abilità, solo un paio di scarponcini ben allacciati, una giacca a vento, un paio di occhiali da sole e voglia di scoprire il cielo!<br></br>E se poi <strong>hai voglia di diventare un pilota</strong>, partecipa ad una delle giornate di avvicinamento al volo organizzate dall'ASD Manta e inizia un corso di parapendio!",
+			"tandem": {
+				"alt": "Volare in biposto",
+				"text": "Preparati ad un'esperienza unica. Nell'area operano diversi team di piloti biposto che ti accompagneranno in volo pensando a tutto: decollo atterraggio ed eventuali foto / video."
+			},
+			"school": {
+				"alt": "Corsi scuola",
+				"text": "L'ASD Manta organizza durante l'anno diversi corsi di parapendio base e avanzati. Partecipa alle giornate di avvicinamento, tocca con mano i materiali, conosci il gruppo di amici e i piloti che ti accompagneranno in questo percorso."
+			}
+		}
+	},
+	"DirectionsPage": {
+		"banner": {
+			"title": "Come Arrivare",
+			"subtitle": "Visualizza le indicazioni per arrivare alla nostra sede"
+		},
+		"headquarters": {
+			"kicker": "Posizione",
+			"title": "La nostra sede",
+			"description": "La nostra sede si trova presso la casetta dell'Atterraggio Garden Relais.",
+			"place": "“Casetta del club” presso Atterraggio Garden Relais"
+		},
+		"table": {
+			"where": "Dove",
+			"address": "Indirizzo",
+			"gps": "Coordinate GPS",
+			"parking": "Parcheggio",
+			"yes": "Sì"
+		},
+		"links": {
+			"contacts": "Contatti",
+			"flyingArea": "Area di volo"
+		},
+		"howTo": {
+			"title": "Come Arrivare",
+			"train": {
+				"title": "In Treno",
+				"text": "La stazione più vicina è quella di Bassano del Grappa, raggiungibile da Padova, Venezia (Santa Lucia) e Trento. Per maggiori informazioni visitare il sito <link>Trenitalia</link>"
+			},
+			"plane": {
+				"title": "In Aereo",
+				"intro": "Gli aeroporti più vicini sono:",
+				"venice": "Venezia - <link>Aeroporto Marco Polo</link> a km 70",
+				"treviso": "Treviso - <link>Aeroporto A. Canova</link> a km 50"
+			},
+			"car": {
+				"title": "In Auto",
+				"vicenza": "<strong>Da Vicenza</strong> seguire le indicazioni per Bassano del Grappa – Trento. Presa la statale 47 Gasparona in prossimità delle montagne prendere l’uscita con le indicazioni per ROMANO D’EZZELINO CENTRO – CIMA GRAPPA – ZONA INDUSTRIALE NORD. Una volta usciti, alla prima rotonda prendere la prima uscita e alla seconda rotonda prendere nuovamente la prima uscita in direzione SAN GIACOMO. Il Centro Operativo si trova poco dopo sulla destra in Via Benedetto Marcello.",
+				"trento": "<strong>Da Trento</strong> seguire le indicazioni per Padova. Superati i paesi di Solagna e Pove del Grappa seguire le indicazioni per ROMANO D’EZZELINO CENTRO – CIMA GRAPPA -ZONA INDUSTRIALE NORD. Una volta usciti, alla prima rotonda prendere la prima uscita e alla seconda rotonda prendere nuovamente la prima uscita in direzione SAN GIACOMO. Il Centro Operativo si trova poco dopo sulla destra in Via Benedetto Marcello.",
+				"padova": "<strong>Da Padova</strong> seguire le indicazioni per CITTADELLA – BASSANO DEL GRAPPA. Superato il semaforo di Rosà seguire le indicazioni per Trento, entrati in superstrada prendere l’uscita con le indicazioni ROMANO D’EZZELINO CENTRO – CIMA GRAPPA -ZONA INDUSTRIALE NORD. Una volta usciti, alla prima rotonda prendere la prima uscita e alla seconda rotonda prendere nuovamente la prima uscita in direzione SAN GIACOMO. Il Centro Operativo si trova poco dopo sulla destra in Via Benedetto Marcello.",
+				"treviso": "<strong>Da Treviso</strong> seguire le indicazioni per CASTELFRANCO VENETO e poi per ASOLO. Arrivati ad Asolo seguire per BASSANO DEL GRAPPA. Arrivati al semaforo di SPIN svoltare a destra in direzione SAN GIACOMO. Proseguire per circa 1 km, quindi svoltare a sinistra in Via Benedetto Marcello. Il Centro Operativo si trova presso gli impianti sportivi."
+			}
+		}
 	}
 }

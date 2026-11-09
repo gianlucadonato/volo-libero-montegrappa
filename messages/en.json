@@ -1486,5 +1486,110 @@
 				"description": "The Paradiso landing is in Semonzo, in via Casale Nuovo, at the junction with via Giovanni da Semonzo.<br></br>It is for paragliders only. Take particular care with the power and telephone lines south of the field, and with the vineyards and trees around it. The landing areas are marked A and B in the photo.<br></br>Please respect private property and, if you land outside the field, leave without causing damage.<br></br>The landing has a large car park, toilets, and places to eat and drink a few hundred metres away, within walking distance."
 			}
 		}
+	},
+	"FlyingAreaPage": {
+		"banner": {
+			"title": "Flying Area",
+			"subtitle": "Practical information for flying on the Grappa"
+		},
+		"essentials": {
+			"title": "The essentials to",
+			"highlight": "plan your flight"
+		},
+		"takeoffs": {
+			"title": "Take-offs",
+			"text": "Our flying area has plenty of take-offs, so you can fly with any wind except from the north.",
+			"link": "See the take-offs"
+		},
+		"landings": {
+			"title": "Landings",
+			"text": "The area has two official landing fields. Follow the link for everything about their orientation and landing patterns.",
+			"link": "Discover the landings"
+		},
+		"airspaces": {
+			"title": "Airspaces",
+			"text": "Download the 3D KMZ files of the prohibited and restricted airspaces of the Triveneto region.",
+			"link": "Download the .zip file"
+		},
+		"weather": {
+			"title": "Weather",
+			"text": "Visit the weather section, with forecasts for free flying, meteograms and other useful resources.",
+			"link": "Check the weather"
+		},
+		"more": {
+			"title": "More",
+			"highlight": "useful information"
+		},
+		"flycard": {
+			"title": "Flycard",
+			"text": "The FlyCard is required to use all the take-off and landing fields of the Monte Grappa flying area, which are run by the Consorzio Turistico Vivere il Grappa.",
+			"link": "Go to the website"
+		},
+		"shuttles": {
+			"title": "Shuttles",
+			"text": "The take-offs around Borso del Grappa are easy to reach by shuttle. The ride up to the main take-offs, “Stella” and “Puppolo-Tappeti”, takes about 20 minutes. You'll find the authorised drivers on the contacts page.",
+			"link": "Go to contacts"
+		},
+		"radio": {
+			"title": "Radio",
+			"text": "A reminder to all pilots flying in the area: the emergency channel is 8-16 of Rete Radio Montana, a radio network set up to improve safety.",
+			"link": "Go to the website"
+		},
+		"fly": {
+			"title": "Want to",
+			"highlight": "fly?",
+			"intro": "Want to discover this incredible sport but you're not a pilot (yet)?<br></br><strong>A tandem flight by paraglider or hang glider is the easiest way</strong>: it takes no special skills, just a pair of well-laced boots, a windproof jacket, sunglasses and the wish to discover the sky!<br></br>And if you then <strong>want to become a pilot</strong>, join one of the introductory days organised by ASD Manta and start a paragliding course!",
+			"tandem": {
+				"alt": "Tandem flights",
+				"text": "Get ready for a unique experience. Several tandem teams fly in the area and take care of everything: take-off, landing and any photos or videos."
+			},
+			"school": {
+				"alt": "Flying school courses",
+				"text": "Throughout the year ASD Manta runs beginner and advanced paragliding courses. Join an introductory day, try the equipment and meet the friends and pilots who will guide you along the way."
+			}
+		}
+	},
+	"DirectionsPage": {
+		"banner": {
+			"title": "Getting Here",
+			"subtitle": "Directions to our clubhouse"
+		},
+		"headquarters": {
+			"kicker": "Location",
+			"title": "Our clubhouse",
+			"description": "Our clubhouse is the small house at the Garden Relais landing field.",
+			"place": "The “club house” at the Garden Relais landing"
+		},
+		"table": {
+			"where": "Where",
+			"address": "Address",
+			"gps": "GPS coordinates",
+			"parking": "Parking",
+			"yes": "Yes"
+		},
+		"links": {
+			"contacts": "Contacts",
+			"flyingArea": "Flying area"
+		},
+		"howTo": {
+			"title": "Getting Here",
+			"train": {
+				"title": "By train",
+				"text": "The nearest station is Bassano del Grappa, reachable from Padua, Venice (Santa Lucia) and Trento. For more information, visit the <link>Trenitalia</link> website."
+			},
+			"plane": {
+				"title": "By plane",
+				"intro": "The nearest airports are:",
+				"venice": "Venice - <link>Marco Polo Airport</link>, 70 km away",
+				"treviso": "Treviso - <link>A. Canova Airport</link>, 50 km away"
+			},
+			"car": {
+				"title": "By car",
+				"vicenza": "<strong>From Vicenza</strong>, follow the signs for Bassano del Grappa – Trento. Once on the SS47 Gasparona, near the mountains, take the exit signposted ROMANO D’EZZELINO CENTRO – CIMA GRAPPA – ZONA INDUSTRIALE NORD. At the first roundabout take the first exit, and at the second roundabout take the first exit again, towards SAN GIACOMO. The Centro Operativo is shortly after on the right, in Via Benedetto Marcello.",
+				"trento": "<strong>From Trento</strong>, follow the signs for Padua. Past the villages of Solagna and Pove del Grappa, follow the signs for ROMANO D’EZZELINO CENTRO – CIMA GRAPPA - ZONA INDUSTRIALE NORD. At the first roundabout take the first exit, and at the second roundabout take the first exit again, towards SAN GIACOMO. The Centro Operativo is shortly after on the right, in Via Benedetto Marcello.",
+				"padova": "<strong>From Padua</strong>, follow the signs for CITTADELLA – BASSANO DEL GRAPPA. Past the traffic lights in Rosà, follow the signs for Trento; once on the expressway, take the exit signposted ROMANO D’EZZELINO CENTRO – CIMA GRAPPA - ZONA INDUSTRIALE NORD. At the first roundabout take the first exit, and at the second roundabout take the first exit again, towards SAN GIACOMO. The Centro Operativo is shortly after on the right, in Via Benedetto Marcello.",
+				"treviso": "<strong>From Treviso</strong>, follow the signs for CASTELFRANCO VENETO and then for ASOLO. In Asolo, follow the signs for BASSANO DEL GRAPPA. At the SPIN traffic lights, turn right towards SAN GIACOMO. Continue for about 1 km, then turn left into Via Benedetto Marcello. The Centro Operativo is at the sports facilities."
+			}
+		}
 	}
 }
