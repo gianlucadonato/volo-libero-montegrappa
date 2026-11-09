@@ -1,6 +1,9 @@
 # Runs the same quality gates as the Husky hooks (lint, typecheck, tests) on
 # every pull request, so Renovate PRs and contributions are checked before they
-# reach main — merging to main deploys straight to production.
+# reach main — merging to main deploys straight to production. A second job
+# runs the production build, which catches what the gates cannot (bundler
+# import errors, runtime/toolchain breakage): the image is only built after
+# merging, by build-image.yml.
 name: CI
 
 on:
@@ -36,3 +39,52 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 26
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+        env:
+          HUSKY: 0
+
+      # Next's incremental build cache: keyed on the lockfile and sources, with
+      # a lockfile-only fallback so most runs start warm.
+      - uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('**/*.ts', '**/*.tsx', '!node_modules/**') }}
+          restore-keys: |
+            next-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+
+      # The same build as the Dockerfile — webpack, not the `pnpm build`
+      # default (Turbopack's standalone output is broken, see the Dockerfile)
+      # — with the same placeholders for the server env that env.ts validates.
+      # Keep both in sync.
+      - run: pnpm exec next build --webpack
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+          NODE_OPTIONS: --max-old-space-size=4096
+          VLM_ENV: production
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          BETTER_AUTH_SECRET: build-placeholder
+          GOOGLE_CLIENT_ID: build-placeholder
+          GOOGLE_CLIENT_SECRET: build-placeholder
+          DATABASE_URL: postgresql://build:build@localhost:5432/build
+          EMAIL_FROM: build@example.com
+          RESEND_API_KEY: build-placeholder
+          STRIPE_API_KEY: build-placeholder
+          STRIPE_API_SECRET: build-placeholder
+          STRIPE_WEBHOOK_SECRET: build-placeholder
+          ELMETEO_API_TOKEN: build-placeholder
