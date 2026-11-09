@@ -1,11 +1,13 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader, StarIcon } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import posthog from "posthog-js";
 import { forwardRef, useContext, useEffect, useState } from "react";
 import { registerToEvent } from "@/actions/registerToEvent";
 import { Button, type ButtonProps } from "@/components/extendui/button";
 import { ModalContext } from "@/components/modals/providers";
+import { onboardingErrorRedirect } from "@/helpers/onboarding";
 import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import type { EventWithRegistrations } from "@/types";
@@ -42,6 +44,8 @@ export const SubscribeButton = forwardRef<
 		const { data: session } = authClient.useSession();
 		const { setShowSignInModal } = useContext(ModalContext);
 		const { setShowMemberOnlyModal } = useContext(ModalContext);
+		const router = useRouter();
+		const pathname = usePathname();
 
 		useEffect(() => {
 			if (event && session) {
@@ -70,6 +74,12 @@ export const SubscribeButton = forwardRef<
 				setIsLoading(false);
 				if (res.code === 409) {
 					setShowMemberOnlyModal(true);
+				}
+				const onboardingHref =
+					res.code === 403 && onboardingErrorRedirect(res.message, pathname);
+				if (onboardingHref) {
+					router.push(onboardingHref);
+					return;
 				}
 				console.error(res.message);
 				return;

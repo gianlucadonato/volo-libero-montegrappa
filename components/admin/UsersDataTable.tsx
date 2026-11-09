@@ -16,6 +16,7 @@ import {
 	Download,
 	Mail,
 	Settings2,
+	ShieldCheck,
 	Smile,
 	User as UserIcon,
 } from "lucide-react";
@@ -69,6 +70,9 @@ export default function UsersDataTable({
 	data: UserWithMemberships[];
 }) {
 	const [sorting, setSorting] = useState<SortingState>([]);
+	// No status filter by default: accounts from before email verification was
+	// required are all unverified until their owners log in again, members
+	// included, so hiding them would empty the table and the Excel export.
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
 		DEFAULT_FIELD_VISIBILITY,
@@ -168,7 +172,7 @@ export default function UsersDataTable({
 					</DialogContent>
 				</Dialog>
 
-				<div className="grid w-full grid-cols-1 gap-4 md:grid-cols-5">
+				<div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3 xl:grid-cols-6">
 					<div className="col-span-1">
 						<Input
 							placeholder={t("filter_by_name")}
@@ -234,6 +238,36 @@ export default function UsersDataTable({
 								>
 									{t("role.all")}
 								</Button>
+							</SelectContent>
+						</Select>
+					</div>
+					<div className="col-span-1">
+						<Select
+							value={
+								(table.getColumn("status")?.getFilterValue() as string) ?? "all"
+							}
+							onValueChange={(value) =>
+								table
+									.getColumn("status")
+									?.setFilterValue(value === "all" ? undefined : value)
+							}
+						>
+							<SelectTrigger
+								className="w-full"
+								icon={<ShieldCheck size={16} strokeWidth={2} />}
+								aria-label={t("filter_by_status")}
+							>
+								<SelectValue placeholder={t("filter_by_status")} />
+							</SelectTrigger>
+							<SelectContent>
+								<SelectItem value="complete">{t("status.complete")}</SelectItem>
+								<SelectItem value="incomplete">
+									{t("status.incomplete")}
+								</SelectItem>
+								<SelectItem value="unverified">
+									{t("status.unverified")}
+								</SelectItem>
+								<SelectItem value="all">{t("status.all")}</SelectItem>
 							</SelectContent>
 						</Select>
 					</div>

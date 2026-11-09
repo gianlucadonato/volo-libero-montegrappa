@@ -2,6 +2,8 @@
 
 import { revalidatePath } from "next/cache";
 import { isSocio } from "@/helpers/isSocio";
+import { ONBOARDING_ERRORS } from "@/helpers/onboarding";
+import { getOnboardingStatus } from "@/lib/onboarding";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser } from "@/lib/session";
 import { EventRegistrationStatus } from "@/prisma/generated/client";
@@ -14,6 +16,19 @@ export async function registerToEvent(
 		const user = await getSessionUser();
 		if (!user) {
 			return { status: "error", message: "Unauthorized", code: 401 };
+		}
+		// Signing up needs a verified email and a complete profile; cancelling
+		// does not, so nobody is stuck on an event they can no longer attend.
+		const onboarding =
+			status === EventRegistrationStatus.REGISTERED
+				? await getOnboardingStatus(user.id)
+				: "complete";
+		if (onboarding !== "complete") {
+			return {
+				status: "error",
+				message: ONBOARDING_ERRORS[onboarding ?? "unverified"],
+				code: 403,
+			};
 		}
 		const event = await prisma.event.findUnique({
 			where: { id: eventId },

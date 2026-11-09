@@ -17,8 +17,18 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { isSocio } from "@/helpers/isSocio";
+import { type OnboardingStatus, onboardingStatus } from "@/helpers/onboarding";
 import type { UserWithMemberships } from "@/types";
 import { USER_FIELDS } from "./user-table-fields";
+
+const STATUS_BADGE: Record<
+	OnboardingStatus,
+	"default" | "secondary" | "destructive" | "outline"
+> = {
+	complete: "outline",
+	incomplete: "secondary",
+	unverified: "destructive",
+};
 
 export default function UsersDataTableColumns({
 	setOpen,
@@ -110,6 +120,26 @@ export default function UsersDataTableColumns({
 			cell: ({ row }) => (
 				<div className="lowercase">{row.getValue("email")}</div>
 			),
+		},
+		{
+			// Where the user stands in the signup flow: an account only counts once
+			// the email is verified and the profile complete.
+			id: "status",
+			accessorFn: (row) => onboardingStatus(row),
+			filterFn: "equalsString",
+			meta: {
+				exportLabel: t("header.status"),
+				exportValue: (user) => t(`status.${onboardingStatus(user)}`),
+			},
+			header: () => <div>{t("header.status")}</div>,
+			cell: ({ row }) => {
+				const status = onboardingStatus(row.original);
+				return (
+					<Badge variant={STATUS_BADGE[status]} className="whitespace-nowrap">
+						{t(`status.${status}`)}
+					</Badge>
+				);
+			},
 		},
 		{
 			// Accessed through `isSocio` rather than off `user.role`, so the filter,

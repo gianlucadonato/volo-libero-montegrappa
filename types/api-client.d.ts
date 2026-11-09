@@ -235,7 +235,7 @@ export interface paths {
 		put?: never;
 		/**
 		 * /xc/enroll
-		 * @description Enroll the current user in the current XC edition
+		 * @description Enroll the current user in the current XC edition. Requires a verified email and a complete profile.
 		 */
 		post: operations["post-xc-enroll"];
 		delete?: never;

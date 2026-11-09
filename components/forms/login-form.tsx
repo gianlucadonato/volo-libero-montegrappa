@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, Mail } from "lucide-react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import * as React from "react";
 import { type FieldError, useForm } from "react-hook-form";
@@ -39,27 +39,43 @@ export function LoginForm({
 	const t = useTranslations("LoginForm");
 	const emsg = useTranslations("FormMessageI18N");
 	const router = useRouter();
+	const pathname = usePathname();
 
 	async function onSubmit(data: FormData) {
+		// Validated, never trusted as-is: the value comes from the query string,
+		// so an off-site URL would make this an open redirect.
+		const fromQuery = searchParams.get("callbackUrl");
+		// In the sign-in modal the user stays on the page they are reading, so
+		// that is also where an emailed verification link should bring them back.
+		const fallback =
+			onClick && isSafeCallbackUrl(pathname) ? pathname : "/profile";
+		const target =
+			fromQuery && isSafeCallbackUrl(fromQuery) ? fromQuery : fallback;
+
 		setIsLoading(true);
 		await authClient.signIn.email(
 			{
 				...data,
 				rememberMe: true,
+				// Only used when the email is not verified yet: better-auth then
+				// mails a fresh link, which comes back through the verify page.
+				callbackURL: withCallbackUrl("/verify-email", target),
 			},
 			{
 				onSuccess: () => {
 					if (onClick) return onClick();
-					// Validated, never trusted as-is: the value comes from the query
-					// string, so an off-site URL would make this an open redirect.
-					const callbackURL = searchParams.get("callbackUrl");
-					router.push(
-						callbackURL && isSafeCallbackUrl(callbackURL)
-							? callbackURL
-							: "/profile",
-					);
+					router.push(target);
 				},
 				onError: (ctx) => {
+					if (ctx.error.code === "EMAIL_NOT_VERIFIED") {
+						onClick?.();
+						const query = new URLSearchParams({
+							email: data.email.trim(),
+							callbackUrl: target,
+						});
+						router.push(`/verify-email?${query}`);
+						return;
+					}
 					toast.error(t("errors.message"), {
 						description:
 							ctx.error.message ||

@@ -381,7 +381,9 @@
 				"success": "Profil erfolgreich aktualisiert!",
 				"error": "Beim Aktualisieren des Profils ist ein Fehler aufgetreten"
 			}
-		}
+		},
+		"complete_profile_title": "Vervollständige dein Profil",
+		"complete_profile_description": "Um deine Vereinsregistrierung abzuschließen, fülle alle Pflichtfelder aus und speichere."
 	},
 	"ProfileView": {
 		"profile_details": "Persönliche Daten",
@@ -557,7 +559,8 @@
 			"medical_exam_valid_date": "Ärztliche Untersuchung gültig bis",
 			"xcontest_id": "XContest-ID",
 			"ogn_callsign": "OGN-Rufzeichen",
-			"ogn_hex": "OGN Hex"
+			"ogn_hex": "OGN Hex",
+			"status": "Status"
 		},
 		"columns": "Spalten",
 		"columns_hint": "Anzuzeigende Felder",
@@ -581,7 +584,14 @@
 			"description": "Diese Aktion macht den Benutzer zum Mitglied des Clubs",
 			"submit": "Zahlung einfügen"
 		},
-		"user": "Benutzer"
+		"user": "Benutzer",
+		"filter_by_status": "Nach Status filtern",
+		"status": {
+			"complete": "Vollständig",
+			"incomplete": "Profil unvollständig",
+			"unverified": "E-Mail nicht bestätigt",
+			"all": "Alle Status"
+		}
 	},
 	"CardsPage": {
 		"your_memberships": "Meine Mitgliedskarten",
@@ -997,7 +1007,8 @@
 		"toast": {
 			"success": "Willkommen bei XC Montegrappa!",
 			"alreadyEnrolled": "Du bist bereits für das diesjährige XC-Zertifikat angemeldet.",
-			"genericError": "Anmeldung fehlgeschlagen. Bitte versuche es erneut."
+			"genericError": "Anmeldung fehlgeschlagen. Bitte versuche es erneut.",
+			"completeProfile": "Bitte schließe deine Registrierung ab, bevor du dich anmeldest."
 		},
 		"dialog": {
 			"title": "Für XC Montegrappa {year} anmelden",
@@ -1640,5 +1651,20 @@
 				"treviso": "<strong>Aus Treviso</strong> der Beschilderung nach CASTELFRANCO VENETO und dann nach ASOLO folgen. In Asolo der Beschilderung nach BASSANO DEL GRAPPA folgen. An der Ampel in SPIN rechts Richtung SAN GIACOMO abbiegen. Etwa 1 km weiterfahren, dann links in die Via Benedetto Marcello abbiegen. Das Centro Operativo befindet sich bei den Sportanlagen."
 			}
 		}
+	},
+	"VerifyEmailPage": {
+		"title": "Prüfe deine E-Mails",
+		"description": "Wir haben dir einen Link zur Bestätigung deiner E-Mail-Adresse geschickt.",
+		"description_with_email": "Wir haben einen Bestätigungslink an <strong>{email}</strong> geschickt.",
+		"next_step": "Nach der Bestätigung bitten wir dich, dein Pilotenprofil zu vervollständigen: erst dann ist deine Registrierung abgeschlossen.",
+		"error_title": "Ungültiger oder abgelaufener Link",
+		"error_description": "Der Bestätigungslink ist nicht mehr gültig. Fordere unten einen neuen an.",
+		"resend": "Neuen Link senden",
+		"resend_wait": "Du kannst in {seconds}s einen weiteren anfordern",
+		"resend_success": "Wir haben dir einen neuen Bestätigungslink geschickt.",
+		"resend_error": "Der Link konnte nicht gesendet werden. Bitte versuche es gleich noch einmal.",
+		"spam_hint": "E-Mail nicht gefunden? Schau auch im Spam-Ordner nach.",
+		"already_verified": "Schon bestätigt? Anmelden",
+		"use_another_account": "Abmelden und ein anderes Konto verwenden"
 	}
 }

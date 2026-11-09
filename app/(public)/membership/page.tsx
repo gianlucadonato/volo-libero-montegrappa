@@ -3,6 +3,7 @@ import getUserMembership from "@/actions/getUserMembership";
 import PurchaseMembershipCard from "@/components/PurchaseMembershipCard";
 import { NEXT_YEAR } from "@/config/constants";
 import { constructMetadata, siteConfig } from "@/config/site";
+import { requireOnboardedUser } from "@/lib/onboarding";
 import { getSessionUser } from "@/lib/session";
 
 export const metadata = constructMetadata({
@@ -13,6 +14,10 @@ export const metadata = constructMetadata({
 export default async function MembershipPage() {
 	const t = await getTranslations("MembershipPage");
 	const user = await getSessionUser();
+	// Visitors still see the offer and are asked to sign up. A logged-in user
+	// can only buy with a verified email and a complete profile, so finish
+	// those first and come back here.
+	if (user) await requireOnboardedUser("/membership");
 	const membership = await getUserMembership({
 		userId: user?.id,
 		year: NEXT_YEAR,

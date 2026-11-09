@@ -346,7 +346,9 @@
 				"success": "Profile updated successfully!",
 				"error": "An error occurred while updating the profile"
 			}
-		}
+		},
+		"complete_profile_title": "Complete your profile",
+		"complete_profile_description": "To complete your club registration, fill in all the required fields and save."
 	},
 	"ProfileView": {
 		"profile_details": "Personal details",
@@ -444,7 +446,8 @@
 			"medical_exam_valid_date": "Medical Exam Expiry",
 			"xcontest_id": "XContest Id",
 			"ogn_callsign": "OGN Callsign",
-			"ogn_hex": "OGN Hex"
+			"ogn_hex": "OGN Hex",
+			"status": "Status"
 		},
 		"columns": "Columns",
 		"columns_hint": "Fields to show",
@@ -468,7 +471,14 @@
 			"description": "Questa operazione renderà l'utente socio del club",
 			"submit": "Inserisci Pagamento"
 		},
-		"user": "Utente"
+		"user": "Utente",
+		"filter_by_status": "Filter by status",
+		"status": {
+			"complete": "Complete",
+			"incomplete": "Incomplete profile",
+			"unverified": "Email not verified",
+			"all": "All statuses"
+		}
 	},
 	"AdminUsersPage": {
 		"header_title": "User/Member Management",
@@ -951,7 +961,8 @@
 		"toast": {
 			"success": "Welcome to XC Montegrappa!",
 			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
-			"genericError": "Enrollment failed. Please try again."
+			"genericError": "Enrollment failed. Please try again.",
+			"completeProfile": "Please complete your registration before enrolling."
 		},
 		"dialog": {
 			"title": "Enroll in XC Montegrappa {year}",
@@ -1591,5 +1602,20 @@
 				"treviso": "<strong>From Treviso</strong>, follow the signs for CASTELFRANCO VENETO and then for ASOLO. In Asolo, follow the signs for BASSANO DEL GRAPPA. At the SPIN traffic lights, turn right towards SAN GIACOMO. Continue for about 1 km, then turn left into Via Benedetto Marcello. The Centro Operativo is at the sports facilities."
 			}
 		}
+	},
+	"VerifyEmailPage": {
+		"title": "Check your email",
+		"description": "We sent you a link to confirm your email address.",
+		"description_with_email": "We sent a confirmation link to <strong>{email}</strong>.",
+		"next_step": "After confirming, we will ask you to complete your pilot profile: only then is your registration complete.",
+		"error_title": "Invalid or expired link",
+		"error_description": "The confirmation link is no longer valid. Request a new one below.",
+		"resend": "Send a new link",
+		"resend_wait": "You can request another one in {seconds}s",
+		"resend_success": "We sent you a new confirmation link.",
+		"resend_error": "We could not send the link. Please try again shortly.",
+		"spam_hint": "Can't find the email? Check your spam folder too.",
+		"already_verified": "Already confirmed? Log in",
+		"use_another_account": "Log out and use another account"
 	}
 }
