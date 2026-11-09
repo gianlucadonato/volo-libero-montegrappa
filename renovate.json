@@ -2,9 +2,9 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:recommended", ":semanticCommits"],
 	"timezone": "Europe/Rome",
-	"schedule": ["before 6am on monday"],
 	"labels": ["dependencies"],
-	"prConcurrentLimit": 5,
+	"prConcurrentLimit": 10,
+	"prHourlyLimit": 0,
 	"minimumReleaseAge": "3 days",
 	"lockFileMaintenance": {
 		"enabled": true,
@@ -23,19 +23,45 @@
 	],
 	"packageRules": [
 		{
-			"description": "Bundle minor and patch updates of dev tooling into a single PR",
+			"description": "Majors need real work, so they come in once a week; minor and patch updates are opened as soon as they clear minimumReleaseAge",
+			"matchUpdateTypes": ["major"],
+			"schedule": ["before 6am on monday"]
+		},
+		{
+			"description": "Bundle minor and patch updates of dev tooling into a single PR, merged on its own once CI passes",
 			"groupName": "dev dependencies (non-major)",
 			"matchDepTypes": ["devDependencies"],
-			"matchUpdateTypes": ["minor", "patch"]
+			"matchUpdateTypes": ["minor", "patch"],
+			"automerge": true
 		},
 		{
 			"description": "Keep @types/node on the Node major the Docker image runs",
 			"matchPackageNames": ["@types/node"],
-			"allowedVersions": "<25"
+			"allowedVersions": "<27"
 		},
 		{
+			"description": "Hold the OpenTelemetry SDK on 2.x until @vercel/otel supports SDK 3: its peer ranges stop at resources/sdk-metrics/sdk-trace-base <3 and sdk-logs/api-logs <0.300, and SDK 3 needs @opentelemetry/api 1.10",
+			"matchPackageNames": [
+				"@opentelemetry/resources",
+				"@opentelemetry/sdk-metrics",
+				"@opentelemetry/sdk-trace-base"
+			],
+			"allowedVersions": "<3"
+		},
+		{
+			"description": "Same hold for the 0.x side of the OpenTelemetry SDK (see above)",
+			"matchPackageNames": [
+				"@opentelemetry/sdk-logs",
+				"@opentelemetry/api-logs",
+				"@opentelemetry/exporter-logs-otlp-http"
+			],
+			"allowedVersions": "<0.300.0"
+		},
+		{
+			"description": "Never automerged: the generated client must be regenerated and committed by hand",
 			"groupName": "Prisma",
 			"matchPackageNames": ["prisma", "@prisma/**"],
+			"automerge": false,
 			"prBodyNotes": [
 				"The Prisma client is committed under `prisma/generated`: run `pnpm db:generate` against a local database and commit the result before merging."
 			]
@@ -45,8 +71,10 @@
 			"matchPackageNames": ["next", "@next/**"]
 		},
 		{
+			"description": "Held below 0.57: ServerBlockNoteEditor 0.57 assigns window and document to globalThis on first render and never removes them, without Element & co. Code that sniffs `typeof window` then breaks server-wide (prismjs, loaded by the email templates in auth.ts, throws 'Element is not defined'). Lift once upstream stops leaking the globals.",
 			"groupName": "BlockNote",
-			"matchPackageNames": ["@blocknote/**"]
+			"matchPackageNames": ["@blocknote/**"],
+			"allowedVersions": "<0.57.0"
 		},
 		{
 			"groupName": "Lexical",
@@ -65,8 +93,10 @@
 			"matchPackageNames": ["radix-ui", "@radix-ui/**"]
 		},
 		{
+			"description": "Never automerged: CI cannot catch visual regressions",
 			"groupName": "Tailwind CSS",
-			"matchPackageNames": ["tailwindcss", "@tailwindcss/**"]
+			"matchPackageNames": ["tailwindcss", "@tailwindcss/**"],
+			"automerge": false
 		},
 		{
 			"groupName": "GitHub Actions",
