@@ -3,7 +3,7 @@ export async function exportJsonAsXlsx(
 	fileName: string,
 	sheetName = "Sheet1",
 ) {
-	const xlsx = await import("xlsx");
+	const xlsx = await import("@e965/xlsx");
 	const workbook = xlsx.utils.book_new();
 	const worksheet = xlsx.utils.json_to_sheet(rows);
 
