@@ -306,7 +306,7 @@ importers:
         version: 3.0.3
       better-auth:
         specifier: ^1.5.5
-        version: 1.5.5(@prisma/client@7.7.0(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(typescript@7.0.2))(mongodb@7.1.0)(mysql2@3.15.3)(next@16.4.3(@babel/core@7.29.0(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(pg@8.20.0)(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vitest@5.1.0(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(jsdom@29.1.1(@noble/hashes@2.0.1))(msw@2.12.10(@types/node@20.19.37)(typescript@7.0.2))(vite@8.0.10(@types/node@20.19.37)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.51.2)(tsx@4.21.0)(yaml@2.8.3)))(vue@3.5.32(typescript@7.0.2))
+        version: 1.5.5(@prisma/client@7.7.0(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(typescript@7.0.2))(mongodb@7.1.0)(mysql2@3.15.3)(next@16.4.3(@babel/core@7.29.0(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(pg@8.23.1)(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vitest@5.1.0(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(jsdom@29.1.1(@noble/hashes@2.0.1))(msw@2.12.10(@types/node@20.19.37)(typescript@7.0.2))(vite@8.0.10(@types/node@20.19.37)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.51.2)(tsx@4.21.0)(yaml@2.8.3)))(vue@3.5.32(typescript@7.0.2))
       cheerio:
         specifier: ^1.2.0
         version: 1.2.0
@@ -366,7 +366,7 @@ importers:
         version: 0.5.4(@tanstack/react-query@5.96.2(react@19.2.3))(openapi-fetch@0.17.0)
       pg:
         specifier: ^8.20.0
-        version: 8.20.0
+        version: 8.23.1
       pino:
         specifier: ^10.3.1
         version: 10.4.0
@@ -7528,11 +7528,11 @@ packages:
   perfect-debounce@1.0.0:
     resolution: {integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==}
 
-  pg-cloudflare@1.3.0:
-    resolution: {integrity: sha512-6lswVVSztmHiRtD6I8hw4qP/nDm1EJbKMRhf3HCYaqud7frGysPv7FYJ5noZQdhQtN2xJnimfMtvQq21pdbzyQ==}
+  pg-cloudflare@1.4.1:
+    resolution: {integrity: sha512-6PQbsFWZcp9EmJEwy5cGQ2La+AMWpP46lgbb8X+U/XsHIUweYDNCpeuKck5RxL2MdVFi7krbbEi5nX4Zh7JhrQ==}
 
-  pg-connection-string@2.12.0:
-    resolution: {integrity: sha512-U7qg+bpswf3Cs5xLzRqbXbQl85ng0mfSV/J0nnA31MCLgvEaAo7CIhmeyrmJpOr7o+zm0rXK+hNnT5l9RHkCkQ==}
+  pg-connection-string@2.14.1:
+    resolution: {integrity: sha512-qR3kGNPBLpCNtz0evbKA0Y/MRFXwSSdT+pTJvYp/bXTcReZbvX1kzF0IyTc1QnxqF7AZbOeBhNL8R5mYQZV/MA==}
 
   pg-dump-restore@1.0.15:
     resolution: {integrity: sha512-nc8wUHjYw/Ir+eFb37rb2NuvkLvgBK8+QsjwLvCJ/JqNxB2UDK/Ea/XuB6MGqyMIGdCRXhaf7MFrKXCTgxFxiw==}
@@ -7541,20 +7541,23 @@ packages:
     resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
     engines: {node: '>=4.0.0'}
 
-  pg-pool@3.13.0:
-    resolution: {integrity: sha512-gB+R+Xud1gLFuRD/QgOIgGOBE2KCQPaPwkzBBGC9oG69pHTkhQeIuejVIk3/cnDyX39av2AxomQiyPT13WKHQA==}
+  pg-pool@3.14.0:
+    resolution: {integrity: sha512-gKtPkFdQPU3DksooVLi9LsjZxrsBUZIpa+7aVx+LV5pNh0KzP4Zleud2po+ConrxbuXGBJ6Hfer6hdgpIBpBaw==}
     peerDependencies:
       pg: '>=8.0'
 
   pg-protocol@1.13.0:
     resolution: {integrity: sha512-zzdvXfS6v89r6v7OcFCHfHlyG/wvry1ALxZo4LqgUoy7W9xhBDMaqOuMiF3qEV45VqsN6rdlcehHrfDtlCPc8w==}
 
+  pg-protocol@1.16.1:
+    resolution: {integrity: sha512-p9VOFMiHB/ZbJATetbg+99PxssTVSQRnyuPSQ67mN1+1KBOjZaZ83ZQzltnxPhJwSsC3nwVjJ10DVJlerbFzLg==}
+
   pg-types@2.2.0:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
 
-  pg@8.20.0:
-    resolution: {integrity: sha512-ldhMxz2r8fl/6QkXnBD3CR9/xg694oT6DZQ2s6c/RI28OjtSOpxnPrUCGOBJ46RCUxcWdx3p6kw/xnDHjKvaRA==}
+  pg@8.23.1:
+    resolution: {integrity: sha512-aL96AHANtWjPLDOLqnhx+ngp9+UK7ETEU8VJrDCGvsSSi/mGLcWYsS6Herg7lmaBJe4uwrfqsa7gTEFaSizDoQ==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       pg-native: '>=3.0.1'
@@ -11550,7 +11553,7 @@ snapshots:
     dependencies:
       '@prisma/driver-adapter-utils': 7.7.0
       '@types/pg': 8.18.0
-      pg: 8.20.0
+      pg: 8.23.1
       postgres-array: 3.0.4
     transitivePeerDependencies:
       - pg-native
@@ -14191,7 +14194,7 @@ snapshots:
 
   bcryptjs@3.0.3: {}
 
-  better-auth@1.5.5(@prisma/client@7.7.0(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(typescript@7.0.2))(mongodb@7.1.0)(mysql2@3.15.3)(next@16.4.3(@babel/core@7.29.0(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(pg@8.20.0)(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vitest@5.1.0(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(jsdom@29.1.1(@noble/hashes@2.0.1))(msw@2.12.10(@types/node@20.19.37)(typescript@7.0.2))(vite@8.0.10(@types/node@20.19.37)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.51.2)(tsx@4.21.0)(yaml@2.8.3)))(vue@3.5.32(typescript@7.0.2)):
+  better-auth@1.5.5(@prisma/client@7.7.0(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(typescript@7.0.2))(mongodb@7.1.0)(mysql2@3.15.3)(next@16.4.3(@babel/core@7.29.0(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(pg@8.23.1)(prisma@7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(vitest@5.1.0(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(jsdom@29.1.1(@noble/hashes@2.0.1))(msw@2.12.10(@types/node@20.19.37)(typescript@7.0.2))(vite@8.0.10(@types/node@20.19.37)(esbuild@0.27.4)(jiti@2.6.1)(terser@5.51.2)(tsx@4.21.0)(yaml@2.8.3)))(vue@3.5.32(typescript@7.0.2)):
     dependencies:
       '@better-auth/core': 1.5.5(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@6.2.1)(kysely@0.28.12)(nanostores@1.2.0)
       '@better-auth/drizzle-adapter': 1.5.5(@better-auth/core@1.5.5(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@6.2.1)(kysely@0.28.12)(nanostores@1.2.0))(@better-auth/utils@0.3.1)
@@ -14215,7 +14218,7 @@ snapshots:
       mongodb: 7.1.0
       mysql2: 3.15.3
       next: 16.4.3(@babel/core@7.29.0(supports-color@10.2.2))(@opentelemetry/api@1.10.0)(@types/node@20.19.37)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      pg: 8.20.0
+      pg: 8.23.1
       prisma: 7.7.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(typescript@7.0.2)
       react: 19.2.3
       react-dom: 19.2.3(react@19.2.3)
@@ -16532,10 +16535,10 @@ snapshots:
 
   perfect-debounce@1.0.0: {}
 
-  pg-cloudflare@1.3.0:
+  pg-cloudflare@1.4.1:
     optional: true
 
-  pg-connection-string@2.12.0: {}
+  pg-connection-string@2.14.1: {}
 
   pg-dump-restore@1.0.15:
     dependencies:
@@ -16543,11 +16546,13 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
-  pg-pool@3.13.0(pg@8.20.0):
+  pg-pool@3.14.0(pg@8.23.1):
     dependencies:
-      pg: 8.20.0
+      pg: 8.23.1
 
   pg-protocol@1.13.0: {}
+
+  pg-protocol@1.16.1: {}
 
   pg-types@2.2.0:
     dependencies:
@@ -16557,15 +16562,15 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  pg@8.20.0:
+  pg@8.23.1:
     dependencies:
-      pg-connection-string: 2.12.0
-      pg-pool: 3.13.0(pg@8.20.0)
-      pg-protocol: 1.13.0
+      pg-connection-string: 2.14.1
+      pg-pool: 3.14.0(pg@8.23.1)
+      pg-protocol: 1.16.1
       pg-types: 2.2.0
       pgpass: 1.0.5
     optionalDependencies:
-      pg-cloudflare: 1.3.0
+      pg-cloudflare: 1.4.1
 
   pgpass@1.0.5:
     dependencies:
