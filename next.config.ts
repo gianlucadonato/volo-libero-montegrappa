@@ -10,6 +10,13 @@ const nextConfig: NextConfig = {
 	// to bundle for the server ("export *" in a client boundary). Loaded from
 	// node_modules at runtime instead, and still traced into standalone.
 	serverExternalPackages: ["@blocknote/server-util"],
+	// The Docker image build skips Next's type check: the 2-core / ~8GB runner
+	// OOMs when the checker starts while webpack still holds its heap. Types are
+	// already checked on every PR (`pnpm typecheck` and the CI build job), so
+	// nothing reaches main unchecked. Read from process.env: see below.
+	typescript: {
+		ignoreBuildErrors: process.env.SKIP_NEXT_TYPECHECK === "1",
+	},
 	images: {
 		remotePatterns: [
 			{
