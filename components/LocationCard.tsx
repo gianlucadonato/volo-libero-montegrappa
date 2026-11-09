@@ -30,7 +30,9 @@ export default function LocationCard({ location }: { location: LocationType }) {
 	return (
 		<div
 			key={location.id}
-			className="group order-last grid gap-y-6 sm:order-first sm:col-span-12 sm:grid-cols-10 sm:gap-x-5 sm:gap-y-0 md:items-center md:gap-x-8 lg:col-span-10 lg:col-start-2 lg:gap-x-12"
+			// Target of the map's "details" links (/decolli#tappeti).
+			id={location.id}
+			className="group order-last scroll-mt-8 grid gap-y-6 sm:order-first sm:col-span-12 sm:grid-cols-10 sm:gap-x-5 sm:gap-y-0 md:items-center md:gap-x-8 lg:col-span-10 lg:col-start-2 lg:gap-x-12"
 		>
 			<div className="sm:col-span-5">
 				<div className="mb-4 md:mb-6">
