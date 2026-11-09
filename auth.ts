@@ -5,7 +5,9 @@ import { APIError, createAuthMiddleware } from "better-auth/api";
 import { hashPassword, verifyPassword } from "better-auth/crypto";
 import { bearer } from "better-auth/plugins";
 import { sendResetPasswordEmail } from "@/emails/sendResetPasswordEmail";
+import { sendVerifyEmail, verifyEmailLanguage } from "@/emails/sendVerifyEmail";
 import { env } from "@/env";
+import { logger } from "@/lib/logger";
 import { prisma } from "@/lib/prisma";
 import type { UserRole } from "@/prisma/generated/enums";
 import getUserById from "./actions/getUserById";
@@ -56,7 +58,11 @@ export const auth = betterAuth({
 	}),
 	emailAndPassword: {
 		enabled: true,
-		autoSignIn: true,
+		// No session until the email is verified: signing up no longer logs the
+		// user in, and signing in with an unverified email is refused (and resends
+		// the link, see `emailVerification.sendOnSignIn`). Accounts created before
+		// this was turned on are unverified too, so they verify at their next login.
+		requireEmailVerification: true,
 		password: {
 			hash: async (password) => {
 				return hashPassword(password);
@@ -81,6 +87,38 @@ export const auth = betterAuth({
 				user: dbUser,
 				token,
 			});
+		},
+		// The reset link was delivered to the inbox, which proves the address as
+		// well as the verification link would have.
+		onPasswordReset: async ({ user }) => {
+			if (user.emailVerified) return;
+			await prisma.user.update({
+				where: { id: user.id },
+				data: { emailVerified: true },
+			});
+		},
+	},
+	emailVerification: {
+		sendOnSignUp: true,
+		sendOnSignIn: true,
+		autoSignInAfterVerification: true,
+		expiresIn: 60 * 60 * 24,
+		sendVerificationEmail: async ({ user, url }, request) => {
+			// Never fail the sign-up or sign-in over a mail hiccup: the account is
+			// already there, and the verify page lets the user ask for a new link.
+			try {
+				await sendVerifyEmail({
+					email: user.email,
+					firstName: (user as { firstName?: string }).firstName || user.name,
+					url,
+					language: verifyEmailLanguage(request),
+				});
+			} catch (error) {
+				logger.error(
+					{ error, userId: user.id },
+					"failed to send the verification email",
+				);
+			}
 		},
 	},
 	user: {

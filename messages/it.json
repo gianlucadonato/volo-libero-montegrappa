@@ -379,7 +379,9 @@
 				"success": "Profilo aggiornato con successo!",
 				"error": "Si è verificato un errore durante l'aggiornamento del profilo"
 			}
-		}
+		},
+		"complete_profile_title": "Completa il tuo profilo",
+		"complete_profile_description": "Per completare l'iscrizione al club compila tutti i campi obbligatori e salva."
 	},
 	"ProfileView": {
 		"profile_details": "Dati personali",
@@ -554,7 +556,8 @@
 			"medical_exam_valid_date": "Scadenza Visita Medica",
 			"xcontest_id": "XContest ID",
 			"ogn_callsign": "OGN Callsign",
-			"ogn_hex": "OGN Hex"
+			"ogn_hex": "OGN Hex",
+			"status": "Stato"
 		},
 		"columns": "Colonne",
 		"columns_hint": "Campi da mostrare",
@@ -578,7 +581,14 @@
 			"description": "Questa operazione renderà l'utente socio del club",
 			"submit": "Inserisci Pagamento"
 		},
-		"user": "Utente"
+		"user": "Utente",
+		"filter_by_status": "Filtra per stato",
+		"status": {
+			"complete": "Completo",
+			"incomplete": "Profilo incompleto",
+			"unverified": "Email non verificata",
+			"all": "Tutti gli stati"
+		}
 	},
 	"CardsPage": {
 		"your_memberships": "Le mie tessere",
@@ -993,7 +1003,8 @@
 		"toast": {
 			"success": "Benvenuto nel Brevetto XC Montegrappa!",
 			"alreadyEnrolled": "Sei già iscritto al brevetto XC per quest'anno.",
-			"genericError": "Errore nell'iscrizione. Riprova."
+			"genericError": "Errore nell'iscrizione. Riprova.",
+			"completeProfile": "Prima di iscriverti completa la registrazione."
 		},
 		"dialog": {
 			"title": "Vuoi iscriverti al Brevetto XC Montegrappa {year}?",
@@ -1636,5 +1647,20 @@
 				"treviso": "<strong>Da Treviso</strong> seguire le indicazioni per CASTELFRANCO VENETO e poi per ASOLO. Arrivati ad Asolo seguire per BASSANO DEL GRAPPA. Arrivati al semaforo di SPIN svoltare a destra in direzione SAN GIACOMO. Proseguire per circa 1 km, quindi svoltare a sinistra in Via Benedetto Marcello. Il Centro Operativo si trova presso gli impianti sportivi."
 			}
 		}
+	},
+	"VerifyEmailPage": {
+		"title": "Controlla la tua email",
+		"description": "Ti abbiamo inviato un link per confermare il tuo indirizzo email.",
+		"description_with_email": "Ti abbiamo inviato un link di conferma a <strong>{email}</strong>.",
+		"next_step": "Dopo la conferma ti chiederemo di completare il profilo pilota: solo allora l'iscrizione sarà completa.",
+		"error_title": "Link non valido o scaduto",
+		"error_description": "Il link di conferma non è più valido. Richiedine uno nuovo qui sotto.",
+		"resend": "Invia un nuovo link",
+		"resend_wait": "Puoi richiederne un altro tra {seconds}s",
+		"resend_success": "Ti abbiamo inviato un nuovo link di conferma.",
+		"resend_error": "Non siamo riusciti a inviare il link. Riprova tra poco.",
+		"spam_hint": "Non trovi l'email? Controlla anche nella cartella spam.",
+		"already_verified": "Hai già confermato? Accedi",
+		"use_another_account": "Esci e usa un altro account"
 	}
 }

@@ -4,8 +4,10 @@ import type Stripe from "stripe";
 import { auth } from "@/auth";
 import { NEXT_YEAR } from "@/config/constants";
 import { env } from "@/env";
+import { ONBOARDING_ERRORS } from "@/helpers/onboarding";
 import { logger } from "@/lib/logger";
 import { metrics } from "@/lib/metrics";
+import { getOnboardingStatus } from "@/lib/onboarding";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 
@@ -28,6 +30,22 @@ export const POST = async (req: Request) => {
 			status: "401",
 		});
 		return new Response("Not authenticated", { status: 401 });
+	}
+
+	// The member register needs the full profile (fiscal code, address...), so
+	// nobody pays before verifying the email and completing it.
+	const onboarding = await getOnboardingStatus(session.user.id);
+	if (onboarding !== "complete") {
+		endTimer();
+		metrics.httpRequests.inc({
+			method: "POST",
+			route: "/api/stripe/checkout",
+			status: "403",
+		});
+		return Response.json(
+			{ error: ONBOARDING_ERRORS[onboarding ?? "unverified"] },
+			{ status: 403 },
+		);
 	}
 
 	try {

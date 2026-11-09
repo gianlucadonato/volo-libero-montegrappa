@@ -18,7 +18,7 @@ import {
 	FormItem,
 	FormLabel,
 } from "@/components/ui/form";
-import { isSafeCallbackUrl } from "@/helpers/authRedirect";
+import { isSafeCallbackUrl, withCallbackUrl } from "@/helpers/authRedirect";
 import { authClient } from "@/lib/auth-client";
 import { SignupSchema } from "@/schemas";
 
@@ -55,6 +55,12 @@ export function SignupForm({ callbackUrl }: { callbackUrl?: string }) {
 		form.clearErrors("password");
 		form.clearErrors("confirmPassword");
 
+		// Where the user wanted to go. The query value is validated before use;
+		// the prop is ours, so it is trusted as-is.
+		const fromQuery = searchParams.get("callbackUrl");
+		const target =
+			fromQuery && isSafeCallbackUrl(fromQuery) ? fromQuery : callbackUrl;
+
 		setIsLoading(true);
 		await authClient.signUp.email(
 			{
@@ -63,15 +69,17 @@ export function SignupForm({ callbackUrl }: { callbackUrl?: string }) {
 				name: capitalize(data.firstName.trim().toLowerCase()),
 				firstName: capitalize(data.firstName.trim().toLowerCase()),
 				lastName: capitalize(data.lastName.trim().toLowerCase()),
+				// The link in the verification email lands on the verify page, which
+				// forwards the (by then logged-in) user to `target`.
+				callbackURL: withCallbackUrl("/verify-email", target),
 			},
 			{
 				onSuccess: () => {
-					// The query value is validated before use; the prop is ours, so it
-					// is trusted as-is.
-					const fromQuery = searchParams.get("callbackUrl");
-					const callbackURL =
-						fromQuery && isSafeCallbackUrl(fromQuery) ? fromQuery : callbackUrl;
-					callbackURL && router.push(callbackURL);
+					// No session yet: the account only becomes usable once the email
+					// is verified, so the next stop is "check your inbox".
+					const query = new URLSearchParams({ email: data.email.trim() });
+					if (target) query.set("callbackUrl", target);
+					router.push(`/verify-email?${query}`);
 				},
 				onError: (ctx) => {
 					toast.error(t("errors.message"), {

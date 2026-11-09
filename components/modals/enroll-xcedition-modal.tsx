@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import posthog from "posthog-js";
 import {
@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Modal } from "@/components/ui/modal";
+import { onboardingErrorRedirect } from "@/helpers/onboarding";
 import { useGetXcEnrollment } from "@/hooks/use-query-api";
 import { createXcEnrollmentApi } from "@/lib/api-client";
 import { authClient } from "@/lib/auth-client";
@@ -37,6 +38,7 @@ function EnrollXcEditionModal({
 	const [acceptedRegolamento, setAcceptedRegolamento] = useState(false);
 	const queryClient = useQueryClient();
 	const router = useRouter();
+	const pathname = usePathname();
 	const { data: session } = authClient.useSession();
 	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
 	const isAlreadyEnrolled = !!enrollment;
@@ -44,7 +46,7 @@ function EnrollXcEditionModal({
 
 	const handleConfirmEnrollment = async () => {
 		setIsLoading(true);
-		const { response } = await createXcEnrollmentApi();
+		const { response, error } = await createXcEnrollmentApi();
 		if (response.ok) {
 			await queryClient.invalidateQueries({
 				queryKey: ["get", "/xc/enroll"],
@@ -61,7 +63,19 @@ function EnrollXcEditionModal({
 			// Land on the pilot's own XC profile, where their progress will show up.
 			if (session?.user) router.push(`/xc/users/${session.user.id}`);
 		} else {
-			if (response.status === 409) {
+			// A verified email and a complete profile come first: send the user
+			// to finish them, then back to this page to enroll.
+			const onboardingHref =
+				response.status === 403 &&
+				onboardingErrorRedirect(
+					(error as { error?: unknown } | undefined)?.error,
+					pathname,
+				);
+			if (onboardingHref) {
+				toast.info(t("toast.completeProfile"));
+				setShowModal(false);
+				router.push(onboardingHref);
+			} else if (response.status === 409) {
 				toast.error(t("toast.alreadyEnrolled"));
 			} else {
 				toast.error(t("toast.genericError"));
