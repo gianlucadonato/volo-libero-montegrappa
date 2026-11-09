@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import type { IconType } from "react-icons";
 import { BsPersonVcard } from "react-icons/bs";
 import { FaBusSimple } from "react-icons/fa6";
 import { GiWindsock } from "react-icons/gi";
@@ -11,11 +13,128 @@ import { MdFlight } from "react-icons/md";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 
+const LINK_CLASS = "text-sm font-bold uppercase italic underline";
+
+/** One block of the page; texts in FlyingAreaPage.<key> (title, text, link). */
+type InfoBlock = {
+	key: string;
+	Icon: IconType;
+	iconSize: string;
+	href: string;
+	external?: boolean;
+	/** Downloads this waypoint archive instead of following `href`. */
+	download?: string;
+	className?: string;
+};
+
+const ESSENTIALS: InfoBlock[] = [
+	{
+		key: "takeoffs",
+		Icon: GiWindsock,
+		iconSize: "sm:text-[75px]",
+		href: "/decolli",
+	},
+	{
+		key: "landings",
+		Icon: GrTarget,
+		iconSize: "sm:text-[65px]",
+		href: "/atterraggi",
+	},
+	{
+		key: "airspaces",
+		Icon: MdFlight,
+		iconSize: "sm:text-[70px]",
+		href: "#",
+		download: "spazi-aerei",
+	},
+	{
+		key: "weather",
+		Icon: TiWeatherPartlySunny,
+		iconSize: "sm:text-[75px]",
+		href: "/meteo",
+	},
+];
+
+const MORE_INFO: InfoBlock[] = [
+	{
+		key: "flycard",
+		Icon: BsPersonVcard,
+		iconSize: "sm:text-[65px]",
+		href: "https://flycard.vivereilgrappa.it",
+		external: true,
+		className: "lg:col-start-2",
+	},
+	{
+		key: "shuttles",
+		Icon: FaBusSimple,
+		iconSize: "sm:text-[65px]",
+		href: "/contatti",
+		className: "lg:col-start-3",
+	},
+	{
+		key: "radio",
+		Icon: LuRadioTower,
+		iconSize: "sm:text-[65px]",
+		href: "https://www.reteradiomontana.it",
+		external: true,
+		className: "lg:col-start-4",
+	},
+];
+
+function downloadWaypoints(file: string) {
+	window.open(`${PUBLIC_MEDIA_BASE_URL}/waypoints/${file}.zip`, "_blank");
+}
+
+function InfoBlockCard({ block }: { block: InfoBlock }) {
+	const t = useTranslations("FlyingAreaPage");
+	const { key, Icon, iconSize, href, external, download, className } = block;
+	return (
+		<div className={`col-span-1 px-6 ${className ?? ""}`}>
+			<div className="flex items-center justify-start sm:flex-col sm:items-start">
+				<div className="mb-4 sm:min-h-[75px]">
+					<Icon className={`text-lime mr-4 text-5xl ${iconSize}`} />
+				</div>
+				<h2 className="font-heading text-xl uppercase sm:text-2xl">
+					{t(`${key}.title`)}
+				</h2>
+			</div>
+			<p className="pb-2 pt-4">{t(`${key}.text`)}</p>
+			<Link
+				href={href}
+				target={external ? "_blank" : undefined}
+				onClick={
+					download
+						? (e) => {
+								e.preventDefault();
+								downloadWaypoints(download);
+							}
+						: undefined
+				}
+				className={LINK_CLASS}
+			>
+				{t(`${key}.link`)}
+			</Link>
+		</div>
+	);
+}
+
+function SectionTitle({
+	title,
+	highlight,
+}: {
+	title: string;
+	highlight: string;
+}) {
+	return (
+		<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
+			<span className="block">{title}</span>
+			<span className="highlight block">{highlight}</span>
+		</h1>
+	);
+}
+
 export default function AreadiVolo() {
-	const downloadFile = (file: string) => {
-		const url = `${PUBLIC_MEDIA_BASE_URL}/waypoints/${file}.zip`;
-		window.open(url, "_blank");
-	};
+	const t = useTranslations("FlyingAreaPage");
 
 	return (
 		<div className="mb-12">
@@ -26,10 +145,10 @@ export default function AreadiVolo() {
 						className="flex h-full flex-col items-center justify-center px-2"
 					>
 						<h1 className="font-heading text-3xl uppercase text-white">
-							Area di Volo
+							{t("banner.title")}
 						</h1>
 						<h3 className="pt-2 text-center text-sm text-white">
-							Informazioni pratiche per volare sul Grappa
+							{t("banner.subtitle")}
 						</h3>
 					</div>
 				</div>
@@ -37,101 +156,14 @@ export default function AreadiVolo() {
 			<section className="px-4 pb-10 pt-20">
 				<div className="container mx-auto flex min-h-[310px] flex-col items-center gap-16">
 					<div>
-						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
-							<span className="block">L&apos;ESSENZIALE PER</span>
-							<span className="highlight block">PIANIFICARE IL VOLO</span>
-						</h1>
-
+						<SectionTitle
+							title={t("essentials.title")}
+							highlight={t("essentials.highlight")}
+						/>
 						<div className="grid grid-cols-1 gap-y-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
-							<div className="col-span-1 px-6">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<GiWindsock className="text-lime mr-4 text-5xl sm:text-[75px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										DECOLLI
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									La nostra zona di volo è ricca di decolli che permettono di
-									volare con ogni tipo di vento, escluso il Nord.
-								</p>
-								<Link
-									href="/decolli"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									Vedi i Decolli
-								</Link>
-							</div>
-
-							<div className="col-span-1 px-6">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<GrTarget className="text-lime mr-4 text-5xl sm:text-[65px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										ATTERRAGGI
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									Due sono gli atterraggi ufficiali dell&apos;area. Al link
-									trovi tutte le informazioni sull&apos;orientamento e i
-									circuiti di atterraggio.
-								</p>
-								<Link
-									href="/atterraggi"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									Scopri gli Atterraggi
-								</Link>
-							</div>
-
-							<div className="col-span-1 px-6">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<MdFlight className="text-lime mr-4 text-5xl sm:text-[70px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										SPAZI AEREI
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									Scarica i file tridimensionali KMZ degli spazi aerei vietati e
-									regolamentati del triveneto.
-								</p>
-								<Link
-									href="#"
-									onClick={(e) => {
-										e.preventDefault();
-										downloadFile("spazi-aerei");
-									}}
-									className="text-sm font-bold uppercase italic underline"
-								>
-									SCARICA IL FILE .ZIP
-								</Link>
-							</div>
-
-							<div className="col-span-1 px-6">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<TiWeatherPartlySunny className="text-lime mr-4 text-5xl sm:text-[75px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										Meteo
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									Visita l&apos;area dedicata alla meteo con le previsioni
-									specifiche per il volo libero, i meteogrammi e altre risorse
-									utili.
-								</p>
-								<Link
-									href="/meteo"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									CONSULTA LA METEO
-								</Link>
-							</div>
+							{ESSENTIALS.map((block) => (
+								<InfoBlockCard key={block.key} block={block} />
+							))}
 						</div>
 					</div>
 				</div>
@@ -140,82 +172,14 @@ export default function AreadiVolo() {
 			<section className="px-4 py-10">
 				<div className="container mx-auto flex min-h-[320px] flex-col items-center gap-16">
 					<div>
-						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
-							<span className="block">ALTRE</span>
-							<span className="highlight block">INFORMAZIONI UTILI</span>
-						</h1>
-
+						<SectionTitle
+							title={t("more.title")}
+							highlight={t("more.highlight")}
+						/>
 						<div className="grid grid-cols-1 gap-y-10 py-14 sm:grid-cols-3 lg:grid-cols-5">
-							<div className="col-span-1 px-6 lg:col-start-2">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<BsPersonVcard className="text-lime mr-4 text-5xl sm:text-[65px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										FLYCARD
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									La FlyCard è un documento obbligatorio per utilizzare tutti i
-									terreni di decollo e atterraggio della zona di volo del Monte
-									Grappa, gestiti dal Consorzio Turistico Vivere il Grappa.
-								</p>
-								<Link
-									href="https://flycard.vivereilgrappa.it"
-									target="_blank"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									Vai al sito
-								</Link>
-							</div>
-
-							<div className="col-span-1 px-6 lg:col-start-3">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<FaBusSimple className="text-lime mr-4 text-5xl sm:text-[65px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										NAVETTE
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									I decolli dell&apos;area di Borso del Grappa sono comodamente
-									raggiungibili in navetta. Il tempo di risalita verso i
-									principali decolli “Stella” e “Puppolo-Tappeti” è di circa 20
-									minuti. Nell&apos;area contatti trovi i riferimenti degli
-									autisti autorizzati.
-								</p>
-								<Link
-									href="/contatti"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									Vai ai contatti
-								</Link>
-							</div>
-
-							<div className="col-span-1 px-6 lg:col-start-4">
-								<div className="flex items-center justify-start sm:flex-col sm:items-start">
-									<div className="mb-4 sm:min-h-[75px]">
-										<LuRadioTower className="text-lime mr-4 text-5xl sm:text-[65px]" />
-									</div>
-									<h2 className="font-heading text-xl uppercase sm:text-2xl">
-										RADIO
-									</h2>
-								</div>
-								<p className="pb-2 pt-4">
-									Ricordiamo a tutti i piloti che volano nell&apos;area il
-									canale di Emergenza 8-16 Rete Radio Montana
-									un&apos;infrastruttura per radiocomunicazioni allo scopo di
-									aumentare la sicurezza.
-								</p>
-								<Link
-									href="https://www.reteradiomontana.it"
-									target="_blank"
-									className="text-sm font-bold uppercase italic underline"
-								>
-									Vai al sito
-								</Link>
-							</div>
+							{MORE_INFO.map((block) => (
+								<InfoBlockCard key={block.key} block={block} />
+							))}
 						</div>
 					</div>
 				</div>
@@ -225,24 +189,16 @@ export default function AreadiVolo() {
 				<div className="container mx-auto flex min-h-[320px] flex-col items-center gap-16">
 					<div>
 						<h1 className="text-center font-heading text-2xl uppercase sm:text-3xl">
-							<span>VUOI</span>
-							<span className="highlight ml-2">VOLARE?</span>
+							<span>{t("fly.title")}</span>
+							<span className="highlight ml-2">{t("fly.highlight")}</span>
 						</h1>
 
 						<div className="py-10">
 							<p className="mx-auto max-w-3xl text-center">
-								Vuoi scoprire questa incredibile attività sportiva ma non sei
-								(ancora) un pilota? <br />
-								<strong>
-									Volare in parapendio e deltaplano tandem è il modo più
-									semplice
-								</strong>
-								, non richiede alcuna particolare abilità, solo un paio di
-								scarponcini ben allacciati, una giacca a vento, un paio di
-								occhiali da sole e voglia di scoprire il cielo! <br />E se poi{" "}
-								<strong>hai voglia di diventare un pilota</strong>, partecipa ad
-								una delle giornate di avvicinamento al volo organizzate
-								dall&apos;ASD Manta e inizia un corso di parapendio!
+								{t.rich("fly.intro", {
+									br: () => <br />,
+									strong: (chunks) => <strong>{chunks}</strong>,
+								})}
 							</p>
 						</div>
 
@@ -250,28 +206,23 @@ export default function AreadiVolo() {
 							<div className="mx-auto mb-6 max-w-[400px] rounded-lg border-2 p-6">
 								<Image
 									src="/volare-in-biposto.png"
-									alt="Volare in biposto"
+									alt={t("fly.tandem.alt")}
 									width={350}
 									height={350}
 								/>
-								<div className="p-4">
-									Preparati ad un&apos;esperienza unica. Nell&apos;area operano
-									diversi team di piloti biposto che ti accompagneranno in volo
-									pensando a tutto: decollo atterraggio ed eventuali foto /
-									video.
-								</div>
+								<div className="p-4">{t("fly.tandem.text")}</div>
 								<div className="gap-2 p-4">
 									<Link
 										href="https://www.montegrappatandemteam.it"
 										target="_blank"
-										className="mb-4 block text-sm font-bold uppercase italic underline"
+										className={`mb-4 block ${LINK_CLASS}`}
 									>
 										MONTEGRAPPA TANDEM TEAM
 									</Link>
 									<Link
 										href="https://www.airsportsmontegrappa.it"
 										target="_blank"
-										className="block text-sm font-bold uppercase italic underline"
+										className={`block ${LINK_CLASS}`}
 									>
 										AIRSPORTS MONTEGRAPPA
 									</Link>
@@ -281,21 +232,16 @@ export default function AreadiVolo() {
 							<div className="mx-auto mb-6 max-w-[400px] rounded-lg border-2 p-6 sm:ml-6">
 								<Image
 									src="/corsi-scuola.png"
-									alt="Corsi scuola"
+									alt={t("fly.school.alt")}
 									width={350}
 									height={350}
 								/>
-								<div className="p-4">
-									L&apos;ASD Manta organizza durante l&apos;anno diversi corsi
-									di parapendio base e avanzati. Partecipa alle giornate di
-									avvicinamento, tocca con mano i materiali, conosci il gruppo
-									di amici e i piloti che ti accompagneranno in questo percorso.
-								</div>
+								<div className="p-4">{t("fly.school.text")}</div>
 								<div className="gap-2 p-4">
 									<Link
 										href="https://www.mantaonline.it"
 										target="_blank"
-										className="block text-sm font-bold uppercase italic underline"
+										className={`block ${LINK_CLASS}`}
 									>
 										ASD MANTA
 									</Link>

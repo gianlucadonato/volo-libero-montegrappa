@@ -1,0 +1,14 @@
+/* Leaflet styles popup links and paragraphs itself; let Tailwind classes win. */
+.locations-map .leaflet-popup-content {
+	margin: 12px 14px;
+}
+
+.locations-map .leaflet-popup-content a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.locations-map .location-pin {
+	background: none;
+	border: none;
+}
