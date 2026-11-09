@@ -1665,6 +1665,7 @@
 		"resend_error": "Der Link konnte nicht gesendet werden. Bitte versuche es gleich noch einmal.",
 		"spam_hint": "E-Mail nicht gefunden? Schau auch im Spam-Ordner nach.",
 		"already_verified": "Schon bestätigt? Anmelden",
-		"use_another_account": "Abmelden und ein anderes Konto verwenden"
+		"use_another_account": "Abmelden und ein anderes Konto verwenden",
+		"wrong_email": "Falsche E-Mail? Registriere dich erneut"
 	}
 }
