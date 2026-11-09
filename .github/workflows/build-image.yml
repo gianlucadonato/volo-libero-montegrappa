@@ -11,6 +11,14 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# One image build at a time, and a newer push cancels the build in progress:
+# every run deploys when it finishes, so parallel runs could finish out of
+# order and put an older commit back into production. The newest commit on
+# main contains everything the cancelled ones did.
+concurrency:
+  group: build-image
+  cancel-in-progress: true
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
