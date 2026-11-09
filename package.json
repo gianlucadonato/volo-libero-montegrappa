@@ -44,7 +44,7 @@
 		"@dicebear/collection": "^9.4.2",
 		"@dicebear/core": "^9.4.2",
 		"@hapi/boom": "^10.0.1",
-		"@hookform/resolvers": "^5.2.2",
+		"@hookform/resolvers": "^7.0.0",
 		"@lexical/html": "^0.41.0",
 		"@lexical/list": "^0.41.0",
 		"@lexical/react": "^0.41.0",
