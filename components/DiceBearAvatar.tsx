@@ -1,9 +1,12 @@
 "use client";
 
-import { botttsNeutral } from "@dicebear/collection";
-import { createAvatar } from "@dicebear/core";
+import { Avatar, Style } from "@dicebear/core";
+import botttsNeutral from "@dicebear/styles/bottts-neutral.json";
 import { useMemo } from "react";
 import { cn } from "@/lib/utils";
+
+// Parsed once: every avatar on the page shares the same style.
+const style = new Style(botttsNeutral);
 
 interface DiceBearAvatarProps {
 	seed: string;
@@ -12,10 +15,7 @@ interface DiceBearAvatarProps {
 }
 
 export function DiceBearAvatar({ seed, className, alt }: DiceBearAvatarProps) {
-	const svg = useMemo(
-		() => createAvatar(botttsNeutral, { seed }).toString(),
-		[seed],
-	);
+	const svg = useMemo(() => new Avatar(style, { seed }).toString(), [seed]);
 
 	return (
 		<span
