@@ -3,14 +3,10 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ArrowUpDown, Download, User } from "lucide-react";
@@ -28,6 +24,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { type DataTableFeatures, dataTableFeatures } from "@/lib/data-table";
 import { exportJsonAsXlsx } from "@/lib/export-xlsx";
 import type { UserSchema } from "@/schemas";
 import type { SessionUser } from "@/types";
@@ -43,22 +40,20 @@ export default function SociList({
 }) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [columnVisibility, setColumnVisibility] =
+		useState<ColumnVisibilityState>({});
 	const [rowSelection, setRowSelection] = useState({});
 	const [isDownloading, setIsDownloading] = useState(false);
 	const t = useTranslations("SociPage");
 
 	const columns = SociDataTableColumns();
 
-	const table = useReactTable({
+	const table = useTable({
+		features: dataTableFeatures,
 		data,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: setRowSelection,
 		state: {
@@ -69,6 +64,7 @@ export default function SociList({
 		},
 		initialState: {
 			pagination: {
+				pageIndex: 0,
 				pageSize: 50, //custom default page size
 			},
 		},
@@ -236,7 +232,7 @@ export default function SociList({
 function SociDataTableColumns() {
 	const t = useTranslations("SociPage");
 
-	const columns: ColumnDef<SocioType>[] = [
+	const columns: ColumnDef<DataTableFeatures, SocioType>[] = [
 		{
 			accessorKey: "fullName",
 			header: t("header.name"),

@@ -2,14 +2,10 @@
 
 import {
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { Download, HandCoins, User } from "lucide-react";
@@ -32,6 +28,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { dataTableFeatures } from "@/lib/data-table";
 import { exportJsonAsXlsx } from "@/lib/export-xlsx";
 import type { PaymentWithUser } from "@/types";
 
@@ -44,22 +41,20 @@ export default function PaymentsDataTable({
 }) {
 	const [sorting, setSorting] = useState<SortingState>([]);
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+	const [columnVisibility, setColumnVisibility] =
+		useState<ColumnVisibilityState>({});
 	const [rowSelection, setRowSelection] = useState({});
 	const [isDownloading, setIsDownloading] = useState(false);
 	const t = useTranslations("DataTable");
 
 	const columns = PaymentsDataTableColumns();
 
-	const table = useReactTable({
+	const table = useTable({
+		features: dataTableFeatures,
 		data,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: setRowSelection,
 		state: {
@@ -70,6 +65,7 @@ export default function PaymentsDataTable({
 		},
 		initialState: {
 			pagination: {
+				pageIndex: 0,
 				pageSize: 50, //custom default page size
 			},
 		},
