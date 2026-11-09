@@ -81,9 +81,17 @@ export function PaymentMethodsPieChart({
 							}}
 							nameKey="method"
 						/>
+						{/* Recharts 3's Legend no longer forwards className to its content, so
+						    the classes go on the content itself, which applies them; and it
+						    sorts items alphabetically by default, so keep the data order. */}
 						<ChartLegend
-							content={<ChartLegendContent nameKey="method" />}
-							className="mt-6 -translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+							itemSorter={null}
+							content={
+								<ChartLegendContent
+									nameKey="method"
+									className="mt-6 -translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+								/>
+							}
 						/>
 					</PieChart>
 				</ChartContainer>
