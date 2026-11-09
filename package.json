@@ -128,7 +128,7 @@
 		"zod": "^3.25.6"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.7",
+		"@biomejs/biome": "2.6.5",
 		"@inquirer/prompts": "^8.6.0",
 		"@posthog/nextjs-config": "^1.12.1",
 		"@tailwindcss/postcss": "^4",
