@@ -27,11 +27,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 					name="viewport"
 					content="width=device-width, initial-scale=1, maximum-scale=1"
 				/>
-				{/* <Script
-          src="https://analytics.vololiberomontegrappa.it/script.js"
-          strategy="afterInteractive"
-          data-website-id="f7321e50-a1c5-42ae-ac34-4349667e85b1"
-        /> */}
 			</head>
 			<body
 				className={cn(
