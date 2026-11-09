@@ -360,7 +360,7 @@ importers:
         version: 20.4.1(@types/node@20.19.37)
       tailwind-merge:
         specifier: ^3.5.0
-        version: 3.5.0
+        version: 3.7.0
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -8063,8 +8063,8 @@ packages:
   tailwind-merge@3.4.0:
     resolution: {integrity: sha512-uSaO4gnW+b3Y2aWoWfFpX62vn2sR3skfhbjsEnaBI81WD1wBLlHZe5sWf0AqjksNdYTbGBEd0UasQMT3SNV15g==}
 
-  tailwind-merge@3.5.0:
-    resolution: {integrity: sha512-I8K9wewnVDkL1NTGoqWmVEIlUcB9gFriAEkXkfCjX5ib8ezGxtR3xD7iZIxrfArjEsH7F1CHD4RFUtxefdqV/A==}
+  tailwind-merge@3.7.0:
+    resolution: {integrity: sha512-XPPUyAc+cvspz3lHTcR/QgPfW2A0lv/xQNIjX3HGhLR+Nq2lHaLq5MtTesHn8GUr3W3DguT2KT5x3NVgRtYwmA==}
 
   tailwindcss@4.1.18:
     resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
@@ -13450,7 +13450,7 @@ snapshots:
       '@vue/shared': 3.5.32
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      postcss: 8.5.12
+      postcss: 8.5.23
       source-map-js: 1.2.1
 
   '@vue/compiler-ssr@3.5.32':
@@ -16918,7 +16918,7 @@ snapshots:
       prompts: 2.4.2
       recast: 0.23.11
       stringify-object: 5.0.0
-      tailwind-merge: 3.5.0
+      tailwind-merge: 3.7.0
       ts-morph: 26.0.0
       tsconfig-paths: 4.2.0
       validate-npm-package-name: 7.0.2
@@ -17210,7 +17210,7 @@ snapshots:
 
   tailwind-merge@3.4.0: {}
 
-  tailwind-merge@3.5.0: {}
+  tailwind-merge@3.7.0: {}
 
   tailwindcss@4.1.18: {}
 
