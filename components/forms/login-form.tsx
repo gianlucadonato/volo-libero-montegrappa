@@ -71,6 +71,7 @@ export function LoginForm({
 						onClick?.();
 						const query = new URLSearchParams({
 							email: data.email.trim(),
+							sent: "login",
 							callbackUrl: target,
 						});
 						router.push(`/verify-email?${query}`);

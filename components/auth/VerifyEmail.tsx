@@ -14,15 +14,25 @@ import { authClient } from "@/lib/auth-client";
 /** Seconds before another link may be requested, to spare the inbox. */
 const RESEND_COOLDOWN = 60;
 
+/**
+ * Why the user is here, which decides what the page may claim:
+ * - `signup`: a new account, and better-auth has just mailed the link;
+ * - `login`: an existing account refused at login, and the link was mailed;
+ * - `request`: nothing was sent — a session from before verification became
+ *   mandatory, or a direct visit — so the user has to ask for the link;
+ * - `error`: back from an invalid or expired link.
+ */
+export type VerifyEmailVariant = "signup" | "login" | "request" | "error";
+
 export default function VerifyEmail({
 	email: initialEmail,
+	variant,
 	isLoggedIn,
-	error,
 	callbackUrl,
 }: {
 	email?: string;
+	variant: VerifyEmailVariant;
 	isLoggedIn: boolean;
-	error?: string;
 	callbackUrl?: string;
 }) {
 	const t = useTranslations("VerifyEmailPage");
@@ -30,6 +40,10 @@ export default function VerifyEmail({
 	const [email, setEmail] = useState(initialEmail ?? "");
 	const [isSending, setIsSending] = useState(false);
 	const [cooldown, setCooldown] = useState(0);
+	// Only say a link is on its way once one actually is.
+	const [hasSent, setHasSent] = useState(
+		variant === "signup" || variant === "login",
+	);
 
 	useEffect(() => {
 		if (cooldown <= 0) return;
@@ -51,6 +65,7 @@ export default function VerifyEmail({
 			return;
 		}
 		toast.success(t("resend_success"));
+		setHasSent(true);
 		setCooldown(RESEND_COOLDOWN);
 	}
 
@@ -60,8 +75,29 @@ export default function VerifyEmail({
 		router.refresh();
 	}
 
-	const hasError = Boolean(error);
+	const hasError = variant === "error";
 	const Icon = hasError ? MailWarning : MailCheck;
+	const strong = (chunks: React.ReactNode) => (
+		<strong className="text-foreground">{chunks}</strong>
+	);
+
+	let title: string;
+	let description: React.ReactNode;
+	if (hasError) {
+		title = t("error_title");
+		description = t("error_description");
+	} else if (variant === "login") {
+		title = t("title_confirm");
+		description = t.rich("login_description", { email, strong });
+	} else if (hasSent) {
+		title = t("title_check_inbox");
+		description = t.rich("sent_description", { email, strong });
+	} else {
+		title = t("title_confirm");
+		description = email
+			? t.rich("request_description", { email, strong })
+			: t("request_description_no_email");
+	}
 
 	return (
 		<div className="mx-auto flex w-full max-w-md flex-col space-y-6 text-center">
@@ -72,28 +108,21 @@ export default function VerifyEmail({
 				/>
 			</div>
 			<div className="space-y-2">
-				<h1 className="text-2xl font-semibold tracking-tight">
-					{hasError ? t("error_title") : t("title")}
-				</h1>
-				<p className="text-sm text-muted-foreground">
-					{hasError
-						? t("error_description")
-						: initialEmail
-							? t.rich("description_with_email", {
-									email: initialEmail,
-									strong: (chunks) => (
-										<strong className="text-foreground">{chunks}</strong>
-									),
-								})
-							: t("description")}
-				</p>
-				{!hasError && (
-					<p className="text-sm text-muted-foreground">{t("next_step")}</p>
+				<h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
+				<p className="text-sm text-muted-foreground">{description}</p>
+				{/* Only a new account still has the profile ahead of it. */}
+				{variant === "signup" && (
+					<p className="text-sm text-muted-foreground">
+						{t("signup_next_step")}
+					</p>
 				)}
 			</div>
 
 			<div className="grid gap-2 text-left">
-				{!isLoggedIn && (
+				{/* Only asked for when the page does not know it, i.e. back from an
+				    invalid link. Otherwise the address is the one just signed up
+				    with, and editing it would not change the account anyway. */}
+				{!initialEmail && (
 					<Input
 						type="email"
 						autoCapitalize="none"
@@ -107,11 +136,17 @@ export default function VerifyEmail({
 				)}
 				<Button onClick={resend} disabled={!email || isSending || cooldown > 0}>
 					{isSending && <Loader2 className="mr-2 size-4 animate-spin" />}
-					{cooldown > 0 ? t("resend_wait", { seconds: cooldown }) : t("resend")}
+					{cooldown > 0
+						? t("resend_wait", { seconds: cooldown })
+						: hasSent || hasError
+							? t("resend")
+							: t("send")}
 				</Button>
-				<p className="text-center text-xs text-muted-foreground">
-					{t("spam_hint")}
-				</p>
+				{hasSent && (
+					<p className="text-center text-xs text-muted-foreground">
+						{t("spam_hint")}
+					</p>
+				)}
 			</div>
 
 			<p className="text-sm text-muted-foreground">
@@ -124,12 +159,22 @@ export default function VerifyEmail({
 						{t("use_another_account")}
 					</button>
 				) : (
-					<Link
-						href={withCallbackUrl("/login", callbackUrl)}
-						className="hover:text-brand underline underline-offset-4"
-					>
-						{t("already_verified")}
-					</Link>
+					<span className="flex flex-col gap-2">
+						<Link
+							href={withCallbackUrl("/login", callbackUrl)}
+							className="hover:text-brand underline underline-offset-4"
+						>
+							{t("already_verified")}
+						</Link>
+						{variant === "signup" && (
+							<Link
+								href={withCallbackUrl("/signup", callbackUrl)}
+								className="hover:text-brand underline underline-offset-4"
+							>
+								{t("wrong_email")}
+							</Link>
+						)}
+					</span>
 				)}
 			</p>
 		</div>

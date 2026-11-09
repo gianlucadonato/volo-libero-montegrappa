@@ -77,7 +77,10 @@ export function SignupForm({ callbackUrl }: { callbackUrl?: string }) {
 				onSuccess: () => {
 					// No session yet: the account only becomes usable once the email
 					// is verified, so the next stop is "check your inbox".
-					const query = new URLSearchParams({ email: data.email.trim() });
+					const query = new URLSearchParams({
+						email: data.email.trim(),
+						sent: "signup",
+					});
 					if (target) query.set("callbackUrl", target);
 					router.push(`/verify-email?${query}`);
 				},
