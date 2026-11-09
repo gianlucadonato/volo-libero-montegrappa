@@ -172,10 +172,10 @@ export const EventSchema = z.object({
 	optionalDate: z.string().optional(),
 	startTime: z.string().optional(),
 	endTime: z.string().optional(),
-	price: z.coerce.number().optional(),
+	price: z.coerce.number<number | string>().optional(),
 	location: z.string().optional(),
 	locationUrl: z.string().optional(),
-	maxAvailability: z.coerce.number().optional(),
+	maxAvailability: z.coerce.number<number | string>().optional(),
 	isMemberOnly: z.boolean(),
 });
 
