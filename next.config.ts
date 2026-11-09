@@ -1,3 +1,4 @@
+import { withPostHogConfig } from "@posthog/nextjs-config";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
@@ -60,4 +61,31 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+
+// Upload the browser source maps to PostHog so error stack traces point at the
+// original code. Only when a personal API key is set: the CI image build passes
+// one as a BuildKit secret, while local builds and builds without it stay as
+// they were. Read from process.env, not @/env: next.config runs before the app.
+const posthogPersonalApiKey = process.env.POSTHOG_PERSONAL_API_KEY;
+
+export default posthogPersonalApiKey
+	? withPostHogConfig(withNextIntl(nextConfig), {
+			personalApiKey: posthogPersonalApiKey,
+			projectId: process.env.POSTHOG_PROJECT_ID,
+			// The API host, not the ingestion one the browser sends events to:
+			// https://eu.i.posthog.com -> https://eu.posthog.com.
+			host: process.env.NEXT_PUBLIC_POSTHOG_HOST?.replace(
+				".i.posthog.com",
+				".posthog.com",
+			),
+			sourcemaps: {
+				releaseName: "volo-libero-montegrappa",
+				// No .git inside the Docker build, so CI passes the commit SHA.
+				releaseVersion: process.env.GIT_COMMIT_SHA,
+				// The maps are uploaded, then deleted: never served publicly.
+				deleteAfterUpload: true,
+				// A PostHog hiccup or a bad key must not block a deploy.
+				failOnError: false,
+			},
+		})
+	: withNextIntl(nextConfig);

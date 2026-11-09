@@ -62,6 +62,15 @@ ENV NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN=${NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN}
 ARG NEXT_PUBLIC_POSTHOG_HOST
 ENV NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST}
 
+# PostHog source map upload (see next.config.ts): which project, and the commit
+# to tag the release with, since .git is not in the build context. The personal
+# API key is a BuildKit secret mounted into the build step below, so it never
+# lands in an image layer. Without it the build skips the upload.
+ARG POSTHOG_PROJECT_ID
+ENV POSTHOG_PROJECT_ID=${POSTHOG_PROJECT_ID}
+ARG GIT_COMMIT_SHA
+ENV GIT_COMMIT_SHA=${GIT_COMMIT_SHA}
+
 # The Prisma client is committed under prisma/generated, so no `prisma generate`
 # step is needed. Regenerating here would fail anyway: the typedSql preview
 # feature introspects prisma/sql/*.sql against a live database.
@@ -73,7 +82,8 @@ ENV NEXT_PUBLIC_POSTHOG_HOST=${NEXT_PUBLIC_POSTHOG_HOST}
 # The webpack build needs more than V8's default heap on this codebase. This
 # runs on a GitHub Actions runner (4 cores / 16GB), not on the Dokploy host —
 # building there drove the load average to 77 and took the site offline.
-RUN NODE_OPTIONS="--max-old-space-size=4096" \
+RUN --mount=type=secret,id=posthog_personal_api_key,env=POSTHOG_PERSONAL_API_KEY \
+	NODE_OPTIONS="--max-old-space-size=4096" \
 	VLM_ENV=production \
 	BETTER_AUTH_SECRET=build-placeholder \
 	GOOGLE_CLIENT_ID=build-placeholder \
