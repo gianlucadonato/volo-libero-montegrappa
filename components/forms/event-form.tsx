@@ -35,7 +35,10 @@ import { uploadEventCoverApi } from "@/lib/api-client";
 import type { Event } from "@/prisma/generated/client";
 import { EventSchema } from "@/schemas";
 
-type FormData = z.infer<typeof EventSchema>;
+// The schema coerces price and maxAvailability, so its input type (what the
+// fields hold) differs from its output type (what handleSubmit receives).
+type FormInput = z.input<typeof EventSchema>;
+type FormData = z.output<typeof EventSchema>;
 
 function formatEvent(event: Event): FormData {
 	return {
@@ -64,7 +67,7 @@ export function EventForm({
 	event?: Event;
 	onSubmit?: () => void;
 }) {
-	const form = useForm<FormData>({
+	const form = useForm<FormInput, unknown, FormData>({
 		resolver: zodResolver(EventSchema),
 		values: event ? formatEvent(event) : undefined,
 		defaultValues: {
