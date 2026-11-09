@@ -1649,10 +1649,6 @@
 		}
 	},
 	"VerifyEmailPage": {
-		"title": "Controlla la tua email",
-		"description": "Ti abbiamo inviato un link per confermare il tuo indirizzo email.",
-		"description_with_email": "Ti abbiamo inviato un link di conferma a <strong>{email}</strong>.",
-		"next_step": "Dopo la conferma ti chiederemo di completare il profilo pilota: solo allora l'iscrizione sarà completa.",
 		"error_title": "Link non valido o scaduto",
 		"error_description": "Il link di conferma non è più valido. Richiedine uno nuovo qui sotto.",
 		"resend": "Invia un nuovo link",
@@ -1662,6 +1658,14 @@
 		"spam_hint": "Non trovi l'email? Controlla anche nella cartella spam.",
 		"already_verified": "Hai già confermato? Accedi",
 		"use_another_account": "Esci e usa un altro account",
-		"wrong_email": "Hai sbagliato email? Registrati di nuovo"
+		"wrong_email": "Hai sbagliato email? Registrati di nuovo",
+		"title_check_inbox": "Controlla la tua email",
+		"title_confirm": "Conferma la tua email",
+		"sent_description": "Ti abbiamo inviato un link di conferma a <strong>{email}</strong>.",
+		"signup_next_step": "Dopo la conferma ti chiederemo di completare il profilo pilota per terminare l'iscrizione.",
+		"login_description": "Prima di accedere devi confermare il tuo indirizzo email: ti abbiamo appena inviato un link a <strong>{email}</strong>.",
+		"request_description": "Per continuare devi confermare il tuo indirizzo email <strong>{email}</strong>. Clicca il pulsante qui sotto e ti invieremo un link.",
+		"request_description_no_email": "Per continuare devi confermare il tuo indirizzo email. Inseriscilo qui sotto e ti invieremo un link.",
+		"send": "Invia il link di conferma"
 	}
 }

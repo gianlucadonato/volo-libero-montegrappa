@@ -1653,10 +1653,6 @@
 		}
 	},
 	"VerifyEmailPage": {
-		"title": "Prüfe deine E-Mails",
-		"description": "Wir haben dir einen Link zur Bestätigung deiner E-Mail-Adresse geschickt.",
-		"description_with_email": "Wir haben einen Bestätigungslink an <strong>{email}</strong> geschickt.",
-		"next_step": "Nach der Bestätigung bitten wir dich, dein Pilotenprofil zu vervollständigen: erst dann ist deine Registrierung abgeschlossen.",
 		"error_title": "Ungültiger oder abgelaufener Link",
 		"error_description": "Der Bestätigungslink ist nicht mehr gültig. Fordere unten einen neuen an.",
 		"resend": "Neuen Link senden",
@@ -1666,6 +1662,14 @@
 		"spam_hint": "E-Mail nicht gefunden? Schau auch im Spam-Ordner nach.",
 		"already_verified": "Schon bestätigt? Anmelden",
 		"use_another_account": "Abmelden und ein anderes Konto verwenden",
-		"wrong_email": "Falsche E-Mail? Registriere dich erneut"
+		"wrong_email": "Falsche E-Mail? Registriere dich erneut",
+		"title_check_inbox": "Prüfe deine E-Mails",
+		"title_confirm": "Bestätige deine E-Mail",
+		"sent_description": "Wir haben einen Bestätigungslink an <strong>{email}</strong> geschickt.",
+		"signup_next_step": "Nach der Bestätigung bitten wir dich, dein Pilotenprofil zu vervollständigen, um die Registrierung abzuschließen.",
+		"login_description": "Bevor du dich anmeldest, musst du deine E-Mail-Adresse bestätigen: Wir haben dir gerade einen Link an <strong>{email}</strong> geschickt.",
+		"request_description": "Um fortzufahren, bestätige bitte deine E-Mail-Adresse <strong>{email}</strong>. Klicke auf die Schaltfläche unten und wir schicken dir einen Link.",
+		"request_description_no_email": "Um fortzufahren, bestätige bitte deine E-Mail-Adresse. Gib sie unten ein und wir schicken dir einen Link.",
+		"send": "Bestätigungslink senden"
 	}
 }

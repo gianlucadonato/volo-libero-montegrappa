@@ -1604,10 +1604,6 @@
 		}
 	},
 	"VerifyEmailPage": {
-		"title": "Check your email",
-		"description": "We sent you a link to confirm your email address.",
-		"description_with_email": "We sent a confirmation link to <strong>{email}</strong>.",
-		"next_step": "After confirming, we will ask you to complete your pilot profile: only then is your registration complete.",
 		"error_title": "Invalid or expired link",
 		"error_description": "The confirmation link is no longer valid. Request a new one below.",
 		"resend": "Send a new link",
@@ -1617,6 +1613,14 @@
 		"spam_hint": "Can't find the email? Check your spam folder too.",
 		"already_verified": "Already confirmed? Log in",
 		"use_another_account": "Log out and use another account",
-		"wrong_email": "Wrong email? Sign up again"
+		"wrong_email": "Wrong email? Sign up again",
+		"title_check_inbox": "Check your email",
+		"title_confirm": "Confirm your email",
+		"sent_description": "We sent a confirmation link to <strong>{email}</strong>.",
+		"signup_next_step": "After confirming, we will ask you to complete your pilot profile to finish your registration.",
+		"login_description": "Before logging in you need to confirm your email address: we just sent a link to <strong>{email}</strong>.",
+		"request_description": "To continue, please confirm your email address <strong>{email}</strong>. Click the button below and we will send you a link.",
+		"request_description_no_email": "To continue, please confirm your email address. Enter it below and we will send you a link.",
+		"send": "Send the confirmation link"
 	}
 }
