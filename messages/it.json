@@ -1462,12 +1462,6 @@
 			"no": "No",
 			"nearby": "Sì, a {distance}"
 		},
-		"directionWords": {
-			"nord": "nord",
-			"sud": "sud",
-			"est": "est",
-			"ovest": "ovest"
-		},
 		"map": {
 			"kind": {
 				"takeoff": "Decollo",
@@ -1489,12 +1483,6 @@
 		"windRose": {
 			"label": "Venti favorevoli: {sectors}",
 			"none": "non indicati",
-			"compass": {
-				"N": "N",
-				"E": "E",
-				"S": "S",
-				"W": "O"
-			},
 			"sectors": {
 				"N": "nord",
 				"NE": "nord-est",

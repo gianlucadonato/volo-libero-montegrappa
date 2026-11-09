@@ -1466,12 +1466,6 @@
 			"no": "Nein",
 			"nearby": "Ja, in {distance}"
 		},
-		"directionWords": {
-			"nord": "Nord",
-			"sud": "Süd",
-			"est": "Ost",
-			"ovest": "West"
-		},
 		"map": {
 			"kind": {
 				"takeoff": "Startplatz",
@@ -1493,12 +1487,6 @@
 		"windRose": {
 			"label": "Geeignete Winde: {sectors}",
 			"none": "nicht angegeben",
-			"compass": {
-				"N": "N",
-				"E": "O",
-				"S": "S",
-				"W": "W"
-			},
 			"sectors": {
 				"N": "Nord",
 				"NE": "Nordost",

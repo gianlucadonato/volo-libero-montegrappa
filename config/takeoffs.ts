@@ -5,8 +5,8 @@ import { PUBLIC_MEDIA_BASE_URL } from "@/config/constants";
 // pins on the locations map. Only language-neutral data lives here: the texts
 // (title, description, warnings) are in messages/*.json under
 // Locations.takeoffs.<id>. `table.direction` ("Direzione vento") stays in
-// Italian: it feeds the wind rose (lib/wind-directions.ts) and is translated
-// word by word for display.
+// Italian ("sud - sud/est"): it feeds the wind rose and is shown as compass
+// abbreviations ("S - SE") in every language, see lib/wind-directions.ts.
 export const TAKEOFFS: LocationType[] = [
 	{
 		id: "stella",

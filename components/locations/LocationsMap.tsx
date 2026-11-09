@@ -79,7 +79,7 @@ function LocationPopup({ pin }: { pin: LocationPin }) {
 						<div className="text-[11px] uppercase tracking-wider text-slate-500">
 							{t("windDirection")}
 						</div>
-						<div className="font-medium capitalize text-slate-900">
+						<div className="font-medium text-slate-900">
 							{pin.directionLabel}
 						</div>
 					</div>

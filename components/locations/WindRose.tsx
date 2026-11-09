@@ -8,13 +8,13 @@ const LABEL_RADIUS = RADIUS + 13;
 const ACTIVE = "#16a34a";
 const INACTIVE = "#e2e8f0";
 
-// The letters come from the messages: west is "O" in Italian, east "O" in German.
+// International letters in every language, like the abbreviations next to it.
 const CARDINALS = [
-	{ sector: "N", angle: 0 },
-	{ sector: "E", angle: 90 },
-	{ sector: "S", angle: 180 },
-	{ sector: "W", angle: 270 },
-] as const;
+	{ letter: "N", angle: 0 },
+	{ letter: "E", angle: 90 },
+	{ letter: "S", angle: 180 },
+	{ letter: "W", angle: 270 },
+];
 
 /** A point on the rose, `angle` in degrees clockwise from north. */
 function point(angle: number, radius: number): [number, number] {
@@ -30,7 +30,7 @@ function slicePath(angle: number): string {
 
 /**
  * A pie of the eight compass sectors with the take-off's wind directions in
- * green, read from its "Direzione vento" text (always the Italian original).
+ * green, read from its "Direzione vento" text.
  */
 export default function WindRose({
 	direction,
@@ -65,11 +65,11 @@ export default function WindRose({
 				/>
 			))}
 			<circle cx={CENTER} cy={CENTER} r={6} fill="#fff" />
-			{CARDINALS.map(({ sector, angle }) => {
+			{CARDINALS.map(({ letter, angle }) => {
 				const [x, y] = point(angle, LABEL_RADIUS);
 				return (
 					<text
-						key={sector}
+						key={letter}
 						x={x}
 						y={y}
 						textAnchor="middle"
@@ -78,7 +78,7 @@ export default function WindRose({
 						fontWeight={700}
 						fill="#475569"
 					>
-						{t(`compass.${sector}`)}
+						{letter}
 					</text>
 				);
 			})}

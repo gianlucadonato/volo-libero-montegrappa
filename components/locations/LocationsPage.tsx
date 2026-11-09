@@ -8,7 +8,6 @@ import { allLocationPins } from "@/components/locations/location-pins";
 import { Button } from "@/components/ui/button";
 import { LANDINGS } from "@/config/landings";
 import { TAKEOFFS } from "@/config/takeoffs";
-import { translateWindDirection } from "@/lib/wind-directions";
 
 const LOCATIONS = { takeoff: TAKEOFFS, landing: LANDINGS };
 /** The page of the other kind, for the button at the bottom. */
@@ -21,11 +20,9 @@ const OTHER_PAGE: Record<LocationKind, string> = {
 export default function LocationsPage({ kind }: { kind: LocationKind }) {
 	const t = useTranslations("Locations");
 	const page = `pages.${MESSAGE_GROUPS[kind]}` as const;
-	const pins = allLocationPins({
-		title: (pinKind, name) => t(`${pinKind}Title`, { name }),
-		direction: (text) =>
-			translateWindDirection(text, (word) => t(`directionWords.${word}`)),
-	});
+	const pins = allLocationPins((pinKind, name) =>
+		t(`${pinKind}Title`, { name }),
+	);
 
 	return (
 		<div className="mb-12">

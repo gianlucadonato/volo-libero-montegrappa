@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
+	formatWindDirection,
 	parseWindDirections,
-	translateWindDirection,
 } from "@/lib/wind-directions";
 
 describe("parseWindDirections", () => {
@@ -33,21 +33,20 @@ describe("parseWindDirections", () => {
 	});
 });
 
-describe("translateWindDirection", () => {
-	const en = {
-		nord: "north",
-		sud: "south",
-		est: "east",
-		ovest: "west",
-	} as const;
+describe("formatWindDirection", () => {
+	it.each([
+		["Sud", "S"],
+		["sud - sud/est - sud/ovest", "S - SE - SW"],
+		["est - sud/est", "E - SE"],
+		["ovest - sud/ovest", "W - SW"],
+		["est - sud/est - ovest", "E - SE - W"],
+		["sud/sud est", "SSE"],
+		["nord/nord est", "NNE"],
+	])("abbreviates %j as %j", (text, expected) => {
+		expect(formatWindDirection(text)).toBe(expected);
+	});
 
-	it("swaps each word and keeps the separators", () => {
-		expect(
-			translateWindDirection("sud - sud/est - sud/ovest", (w) => en[w]),
-		).toBe("south - south/east - south/west");
-		expect(translateWindDirection("Sud", (w) => en[w])).toBe("south");
-		expect(translateWindDirection("sud/sud est", (w) => en[w])).toBe(
-			"south/south east",
-		);
+	it("keeps a part it cannot read", () => {
+		expect(formatWindDirection("sud - variabile")).toBe("S - variabile");
 	});
 });

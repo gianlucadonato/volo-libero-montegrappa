@@ -8,7 +8,7 @@ import {
 	TableHead,
 	TableRow,
 } from "@/components/ui/table";
-import { translateWindDirection } from "@/lib/wind-directions";
+import { formatWindDirection } from "@/lib/wind-directions";
 
 /** Whether a facility is there: yes, no, or the distance it's at ("100 m"). */
 export type Facility = boolean | string;
@@ -28,7 +28,10 @@ export type LocationType = {
 	table: {
 		location: string;
 		altitude?: string;
-		/** "Direzione vento", in Italian: it also feeds the map's wind rose. */
+		/**
+		 * "Direzione vento", written in Italian ("sud - sud/est"): shown as compass
+		 * abbreviations ("S - SE") and drawn on the map's wind rose.
+		 */
 		direction?: string;
 		topLanding?: boolean;
 		gps: string;
@@ -119,10 +122,7 @@ function LocationTable({ table }: { table: LocationType["table"] }) {
 		[t("table.altitude"), table.altitude],
 		[
 			t("table.direction"),
-			table.direction &&
-				translateWindDirection(table.direction, (word) =>
-					t(`directionWords.${word}`),
-				),
+			table.direction && formatWindDirection(table.direction),
 		],
 		[
 			t("table.topLanding"),
