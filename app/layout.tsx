@@ -10,6 +10,7 @@ import { constructMetadata } from "@/config/site";
 import { fontCaveat, fontJetBrainsMono, fontMontserrat } from "@/fonts";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+
 interface RootLayoutProps {
 	children: React.ReactNode;
 }

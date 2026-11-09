@@ -130,32 +130,35 @@ export default function Navbar() {
 	);
 }
 
+// Module level: defined inside NavbarMenuItem it was a new component type on
+// every render, so React remounted the submenu items each time.
+function ListItem({ item }: { item: NavMainItem }) {
+	const t = useTranslations("NavMain");
+	if (item.hidden) return null;
+	return (
+		<li>
+			<NavigationMenuLink asChild>
+				<a
+					href={item.url}
+					target={item.target ?? "_self"}
+					title={t(item.title)}
+					className="flex flex-col justify-start items-start select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+				>
+					<div className="flex items-center justify-start gap-2 text-sm font-medium leading-none">
+						{item.icon && <item.icon className="size-5 shrink-0" />}
+						{t(item.title)}
+					</div>
+					<p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+						{item.description}
+					</p>
+				</a>
+			</NavigationMenuLink>
+		</li>
+	);
+}
+
 function NavbarMenuItem({ item }: { item: NavMainItem }) {
 	const t = useTranslations("NavMain");
-
-	function ListItem({ item }: { item: NavMainItem }) {
-		if (item.hidden) return null;
-		return (
-			<li>
-				<NavigationMenuLink asChild>
-					<a
-						href={item.url}
-						target={item.target ?? "_self"}
-						title={t(item.title)}
-						className="flex flex-col justify-start items-start select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-					>
-						<div className="flex items-center justify-start gap-2 text-sm font-medium leading-none">
-							{item.icon && <item.icon className="size-5 shrink-0" />}
-							{t(item.title)}
-						</div>
-						<p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-							{item.description}
-						</p>
-					</a>
-				</NavigationMenuLink>
-			</li>
-		);
-	}
 
 	return (
 		<NavigationMenuItem>
