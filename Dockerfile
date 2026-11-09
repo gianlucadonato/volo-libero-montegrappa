@@ -11,7 +11,7 @@
 # emits hashed module directories (pino-<hash>, pg-<hash>) into .next/node_modules
 # that fail to resolve at runtime. See vercel/next.js#91654. Revisit once fixed.
 
-ARG NODE_VERSION=24.20.0
+ARG NODE_VERSION=26.13.0
 
 # ---- deps: install full dependencies against the lockfile ----
 FROM node:${NODE_VERSION}-slim AS deps
