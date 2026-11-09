@@ -7,10 +7,13 @@ import {
 	CartesianGrid,
 	ComposedChart,
 	Line,
+	type MouseHandlerDataParam,
 	ReferenceLine,
 	Tooltip,
 	XAxis,
+	type XAxisTickContentProps,
 	YAxis,
+	type YAxisTickContentProps,
 } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 import { type ChartConfig, ChartContainer } from "@/components/ui/chart";
@@ -214,15 +217,16 @@ export default function XcFlightChart({
 	}, [chartData]);
 
 	const handleMouseMove = useCallback(
-		(state: { activeTooltipIndex?: number }) => {
-			if (state.activeTooltipIndex != null) {
-				const point = chartData[state.activeTooltipIndex];
-				if (point && point.index !== lastEmittedIndex.current) {
-					lastEmittedIndex.current = point.index;
-					onHoverIndex?.(point.index);
-				}
-				setHoveredIndex(state.activeTooltipIndex);
+		(state: MouseHandlerDataParam) => {
+			// Recharts 3 may report the index as a string ("3") or null.
+			const index = Number(state.activeTooltipIndex ?? Number.NaN);
+			if (!Number.isInteger(index)) return;
+			const point = chartData[index];
+			if (point && point.index !== lastEmittedIndex.current) {
+				lastEmittedIndex.current = point.index;
+				onHoverIndex?.(point.index);
 			}
+			setHoveredIndex(index);
 		},
 		[chartData, onHoverIndex],
 	);
@@ -300,14 +304,10 @@ export default function XcFlightChart({
 							interval={0}
 							mirror
 							height={1}
-							tick={(props: {
-								x: number;
-								y: number;
-								payload: { value: string };
-							}) => (
+							tick={(props: XAxisTickContentProps) => (
 								<text
 									x={props.x}
-									y={props.y - 4}
+									y={Number(props.y) - 4}
 									textAnchor="middle"
 									fontSize={10}
 									fontWeight={600}
@@ -324,13 +324,9 @@ export default function XcFlightChart({
 							axisLine={false}
 							mirror
 							width={1}
-							tick={(props: {
-								x: number;
-								y: number;
-								payload: { value: number };
-							}) => (
+							tick={(props: YAxisTickContentProps) => (
 								<text
-									x={props.x + 2}
+									x={Number(props.x) + 2}
 									y={props.y}
 									textAnchor="start"
 									dominantBaseline="middle"
