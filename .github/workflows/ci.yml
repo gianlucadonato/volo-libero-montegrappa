@@ -28,7 +28,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 26
+          node-version-file: .nvmrc
           cache: pnpm
 
       # HUSKY=0 skips the "prepare" git-hook install, which CI does not need.
@@ -52,7 +52,7 @@ jobs:
 
       - uses: actions/setup-node@v7
         with:
-          node-version: 26
+          node-version-file: .nvmrc
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
