@@ -2,9 +2,9 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": ["config:recommended", ":semanticCommits"],
 	"timezone": "Europe/Rome",
-	"schedule": ["before 6am on monday"],
 	"labels": ["dependencies"],
-	"prConcurrentLimit": 5,
+	"prConcurrentLimit": 10,
+	"prHourlyLimit": 0,
 	"minimumReleaseAge": "3 days",
 	"lockFileMaintenance": {
 		"enabled": true,
@@ -23,10 +23,16 @@
 	],
 	"packageRules": [
 		{
-			"description": "Bundle minor and patch updates of dev tooling into a single PR",
+			"description": "Majors need real work, so they come in once a week; minor and patch updates are opened as soon as they clear minimumReleaseAge",
+			"matchUpdateTypes": ["major"],
+			"schedule": ["before 6am on monday"]
+		},
+		{
+			"description": "Bundle minor and patch updates of dev tooling into a single PR, merged on its own once CI passes",
 			"groupName": "dev dependencies (non-major)",
 			"matchDepTypes": ["devDependencies"],
-			"matchUpdateTypes": ["minor", "patch"]
+			"matchUpdateTypes": ["minor", "patch"],
+			"automerge": true
 		},
 		{
 			"description": "Keep @types/node on the Node major the Docker image runs",
@@ -34,8 +40,10 @@
 			"allowedVersions": "<25"
 		},
 		{
+			"description": "Never automerged: the generated client must be regenerated and committed by hand",
 			"groupName": "Prisma",
 			"matchPackageNames": ["prisma", "@prisma/**"],
+			"automerge": false,
 			"prBodyNotes": [
 				"The Prisma client is committed under `prisma/generated`: run `pnpm db:generate` against a local database and commit the result before merging."
 			]
@@ -65,8 +73,10 @@
 			"matchPackageNames": ["radix-ui", "@radix-ui/**"]
 		},
 		{
+			"description": "Never automerged: CI cannot catch visual regressions",
 			"groupName": "Tailwind CSS",
-			"matchPackageNames": ["tailwindcss", "@tailwindcss/**"]
+			"matchPackageNames": ["tailwindcss", "@tailwindcss/**"],
+			"automerge": false
 		},
 		{
 			"groupName": "GitHub Actions",
