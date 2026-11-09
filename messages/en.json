@@ -1616,6 +1616,7 @@
 		"resend_error": "We could not send the link. Please try again shortly.",
 		"spam_hint": "Can't find the email? Check your spam folder too.",
 		"already_verified": "Already confirmed? Log in",
-		"use_another_account": "Log out and use another account"
+		"use_another_account": "Log out and use another account",
+		"wrong_email": "Wrong email? Sign up again"
 	}
 }

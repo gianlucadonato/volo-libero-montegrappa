@@ -1661,6 +1661,7 @@
 		"resend_error": "Non siamo riusciti a inviare il link. Riprova tra poco.",
 		"spam_hint": "Non trovi l'email? Controlla anche nella cartella spam.",
 		"already_verified": "Hai già confermato? Accedi",
-		"use_another_account": "Esci e usa un altro account"
+		"use_another_account": "Esci e usa un altro account",
+		"wrong_email": "Hai sbagliato email? Registrati di nuovo"
 	}
 }

@@ -93,7 +93,10 @@ export default function VerifyEmail({
 			</div>
 
 			<div className="grid gap-2 text-left">
-				{!isLoggedIn && (
+				{/* Only asked for when the page does not know it, i.e. back from an
+				    invalid link. Otherwise the address is the one just signed up
+				    with, and editing it would not change the account anyway. */}
+				{!initialEmail && (
 					<Input
 						type="email"
 						autoCapitalize="none"
@@ -124,12 +127,22 @@ export default function VerifyEmail({
 						{t("use_another_account")}
 					</button>
 				) : (
-					<Link
-						href={withCallbackUrl("/login", callbackUrl)}
-						className="hover:text-brand underline underline-offset-4"
-					>
-						{t("already_verified")}
-					</Link>
+					<span className="flex flex-col gap-2">
+						<Link
+							href={withCallbackUrl("/login", callbackUrl)}
+							className="hover:text-brand underline underline-offset-4"
+						>
+							{t("already_verified")}
+						</Link>
+						{initialEmail && (
+							<Link
+								href={withCallbackUrl("/signup", callbackUrl)}
+								className="hover:text-brand underline underline-offset-4"
+							>
+								{t("wrong_email")}
+							</Link>
+						)}
+					</span>
 				)}
 			</p>
 		</div>
