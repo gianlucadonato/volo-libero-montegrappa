@@ -16,18 +16,6 @@ export const COMPASS_SECTORS = [
 
 export type CompassSector = (typeof COMPASS_SECTORS)[number];
 
-/** Italian labels, for text and accessibility. */
-export const SECTOR_LABELS: Record<CompassSector, string> = {
-	N: "nord",
-	NE: "nord-est",
-	E: "est",
-	SE: "sud-est",
-	S: "sud",
-	SW: "sud-ovest",
-	W: "ovest",
-	NW: "nord-ovest",
-};
-
 const POINTS_16 = [
 	"N",
 	"NNE",
@@ -47,12 +35,12 @@ const POINTS_16 = [
 	"NNW",
 ];
 
-const WORDS: Record<string, string> = {
+const WORDS = {
 	nord: "N",
 	sud: "S",
 	est: "E",
 	ovest: "W",
-};
+} as const;
 
 /**
  * Sectors of the eight-point rose named by the text, in compass order.
@@ -64,7 +52,7 @@ export function parseWindDirections(text: string): CompassSector[] {
 	const sectors = new Set<CompassSector>();
 	for (const part of text.toLowerCase().split("-")) {
 		const point = (part.match(/nord|sud|ovest|est/g) ?? [])
-			.map((word) => WORDS[word])
+			.map((word) => WORDS[word as DirectionWord])
 			.join("");
 		const index = POINTS_16.indexOf(point);
 		if (index === -1) continue;
@@ -76,4 +64,19 @@ export function parseWindDirections(text: string): CompassSector[] {
 		}
 	}
 	return COMPASS_SECTORS.filter((sector) => sectors.has(sector));
+}
+
+export type DirectionWord = keyof typeof WORDS;
+
+/**
+ * The text with each direction word swapped for its translation, keeping the
+ * separators: "sud - sud/est" reads "south - south/east" in English.
+ */
+export function translateWindDirection(
+	text: string,
+	translate: (word: DirectionWord) => string,
+): string {
+	return text.replace(/nord|sud|ovest|est/gi, (word) =>
+		translate(word.toLowerCase() as DirectionWord),
+	);
 }

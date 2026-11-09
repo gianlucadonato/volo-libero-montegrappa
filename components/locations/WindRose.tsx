@@ -1,8 +1,5 @@
-import {
-	COMPASS_SECTORS,
-	parseWindDirections,
-	SECTOR_LABELS,
-} from "@/lib/wind-directions";
+import { useTranslations } from "next-intl";
+import { COMPASS_SECTORS, parseWindDirections } from "@/lib/wind-directions";
 
 const SIZE = 140;
 const CENTER = SIZE / 2;
@@ -11,13 +8,13 @@ const LABEL_RADIUS = RADIUS + 13;
 const ACTIVE = "#16a34a";
 const INACTIVE = "#e2e8f0";
 
-// Italian compass letters: west is "O" (ovest).
+// The letters come from the messages: west is "O" in Italian, east "O" in German.
 const CARDINALS = [
-	{ label: "N", angle: 0 },
-	{ label: "E", angle: 90 },
-	{ label: "S", angle: 180 },
-	{ label: "O", angle: 270 },
-];
+	{ sector: "N", angle: 0 },
+	{ sector: "E", angle: 90 },
+	{ sector: "S", angle: 180 },
+	{ sector: "W", angle: 270 },
+] as const;
 
 /** A point on the rose, `angle` in degrees clockwise from north. */
 function point(angle: number, radius: number): [number, number] {
@@ -33,7 +30,7 @@ function slicePath(angle: number): string {
 
 /**
  * A pie of the eight compass sectors with the take-off's wind directions in
- * green, read from its "Direzione vento" text.
+ * green, read from its "Direzione vento" text (always the Italian original).
  */
 export default function WindRose({
 	direction,
@@ -42,11 +39,13 @@ export default function WindRose({
 	direction: string;
 	className?: string;
 }) {
+	const t = useTranslations("Locations.windRose");
 	const active = new Set(parseWindDirections(direction));
-	const label = `Venti favorevoli: ${
-		[...active].map((sector) => SECTOR_LABELS[sector]).join(", ") ||
-		"non indicati"
-	}`;
+	const label = t("label", {
+		sectors:
+			[...active].map((sector) => t(`sectors.${sector}`)).join(", ") ||
+			t("none"),
+	});
 
 	return (
 		<svg
@@ -66,11 +65,11 @@ export default function WindRose({
 				/>
 			))}
 			<circle cx={CENTER} cy={CENTER} r={6} fill="#fff" />
-			{CARDINALS.map(({ label: letter, angle }) => {
+			{CARDINALS.map(({ sector, angle }) => {
 				const [x, y] = point(angle, LABEL_RADIUS);
 				return (
 					<text
-						key={letter}
+						key={sector}
 						x={x}
 						y={y}
 						textAnchor="middle"
@@ -79,7 +78,7 @@ export default function WindRose({
 						fontWeight={700}
 						fill="#475569"
 					>
-						{letter}
+						{t(`compass.${sector}`)}
 					</text>
 				);
 			})}

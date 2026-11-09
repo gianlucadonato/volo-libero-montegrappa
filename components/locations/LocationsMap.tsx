@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import "@/components/locations/locations-map.css";
 import { ArrowRight, Navigation } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import {
 	LayersControl,
@@ -14,7 +15,6 @@ import {
 	TileLayer,
 } from "react-leaflet";
 import {
-	KIND_LABELS,
 	type LocationKind,
 	PIN_COLORS,
 } from "@/components/locations/location-kinds";
@@ -54,6 +54,7 @@ const ICONS = {
 const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services";
 
 function LocationPopup({ pin }: { pin: LocationPin }) {
+	const t = useTranslations("Locations.map");
 	const directions = `https://www.google.com/maps/dir/?api=1&destination=${pin.lat},${pin.lng}`;
 	return (
 		<div className="w-56 text-sm text-slate-700">
@@ -61,7 +62,7 @@ function LocationPopup({ pin }: { pin: LocationPin }) {
 				className="inline-block rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white"
 				style={{ backgroundColor: PIN_COLORS[pin.kind] }}
 			>
-				{KIND_LABELS[pin.kind]}
+				{t(`kind.${pin.kind}`)}
 			</span>
 			<div className="mt-1.5 text-base font-semibold leading-tight text-slate-900">
 				{pin.title}
@@ -76,10 +77,10 @@ function LocationPopup({ pin }: { pin: LocationPin }) {
 					<WindRose direction={pin.direction} className="size-24 shrink-0" />
 					<div>
 						<div className="text-[11px] uppercase tracking-wider text-slate-500">
-							Direzione vento
+							{t("windDirection")}
 						</div>
 						<div className="font-medium capitalize text-slate-900">
-							{pin.direction}
+							{pin.directionLabel}
 						</div>
 					</div>
 				</div>
@@ -90,7 +91,7 @@ function LocationPopup({ pin }: { pin: LocationPin }) {
 					href={pin.href}
 					className="inline-flex flex-1 items-center justify-center gap-1 rounded-md bg-slate-900 px-2 py-1.5 text-xs font-medium text-white! hover:bg-slate-700"
 				>
-					Vedi dettagli
+					{t("details")}
 					<ArrowRight className="size-3.5" />
 				</Link>
 				<a
@@ -100,7 +101,7 @@ function LocationPopup({ pin }: { pin: LocationPin }) {
 					className="inline-flex items-center justify-center gap-1 rounded-md border border-slate-300 px-2 py-1.5 text-xs font-medium hover:bg-slate-100"
 				>
 					<Navigation className="size-3.5" />
-					Indicazioni
+					{t("directions")}
 				</a>
 			</div>
 		</div>
@@ -121,6 +122,7 @@ export default function LocationsMap({
 	focus: LocationKind;
 	className?: string;
 }) {
+	const t = useTranslations("Locations.map.layers");
 	const bounds = useMemo(
 		() => L.latLngBounds(pins.map((pin) => [pin.lat, pin.lng])),
 		[pins],
@@ -140,7 +142,7 @@ export default function LocationsMap({
 			className={cn("locations-map z-0 rounded-xl", className)}
 		>
 			<LayersControl position="topright">
-				<LayersControl.BaseLayer checked name="Satellite">
+				<LayersControl.BaseLayer checked name={t("satellite")}>
 					<TileLayer
 						url={`${ESRI}/World_Imagery/MapServer/tile/{z}/{y}/{x}`}
 						attribution="&copy; Esri"
@@ -148,7 +150,7 @@ export default function LocationsMap({
 						maxZoom={18}
 					/>
 				</LayersControl.BaseLayer>
-				<LayersControl.BaseLayer name="Topografica">
+				<LayersControl.BaseLayer name={t("topo")}>
 					<TileLayer
 						url="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
 						attribution="&copy; OpenTopoMap"

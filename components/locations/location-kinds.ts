@@ -7,13 +7,3 @@ export const PIN_COLORS: Record<LocationKind, string> = {
 	takeoff: "#16a34a",
 	landing: "#2563eb",
 };
-
-export const KIND_LABELS: Record<LocationKind, string> = {
-	takeoff: "Decollo",
-	landing: "Atterraggio",
-};
-
-export const KIND_LABELS_PLURAL: Record<LocationKind, string> = {
-	takeoff: "Decolli",
-	landing: "Atterraggi",
-};

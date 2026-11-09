@@ -1433,5 +1433,115 @@
 		"copied": "Posizione copiata negli appunti",
 		"sos_label": "SOS",
 		"sos_title": "SOS — SOCCORSO"
+	},
+	"Locations": {
+		"takeoffTitle": "Decollo {name}",
+		"landingTitle": "Atterraggio {name}",
+		"pages": {
+			"takeoffs": {
+				"title": "Decolli",
+				"subtitle": "Visualizza i punti di decollo",
+				"seeOther": "Vedi Atterraggi"
+			},
+			"landings": {
+				"title": "Atterraggi",
+				"subtitle": "Visualizza i punti di atterraggio",
+				"seeOther": "Vedi Decolli"
+			}
+		},
+		"table": {
+			"location": "Località",
+			"altitude": "Altezza",
+			"direction": "Direzione vento",
+			"topLanding": "Top landing",
+			"gps": "Coordinate GPS",
+			"food": "Strutture ristoro",
+			"toilets": "Servizi igienici",
+			"parking": "Parcheggio",
+			"yes": "Sì",
+			"no": "No",
+			"nearby": "Sì, a {distance}"
+		},
+		"directionWords": {
+			"nord": "nord",
+			"sud": "sud",
+			"est": "est",
+			"ovest": "ovest"
+		},
+		"map": {
+			"kind": {
+				"takeoff": "Decollo",
+				"landing": "Atterraggio"
+			},
+			"legend": {
+				"takeoff": "Decolli",
+				"landing": "Atterraggi"
+			},
+			"hint": "Tocca un punto per i dettagli",
+			"details": "Vedi dettagli",
+			"directions": "Indicazioni",
+			"windDirection": "Direzione vento",
+			"layers": {
+				"satellite": "Satellite",
+				"topo": "Topografica"
+			}
+		},
+		"windRose": {
+			"label": "Venti favorevoli: {sectors}",
+			"none": "non indicati",
+			"compass": {
+				"N": "N",
+				"E": "E",
+				"S": "S",
+				"W": "O"
+			},
+			"sectors": {
+				"N": "nord",
+				"NE": "nord-est",
+				"E": "est",
+				"SE": "sud-est",
+				"S": "sud",
+				"SW": "sud-ovest",
+				"W": "ovest",
+				"NW": "nord-ovest"
+			}
+		},
+		"takeoffs": {
+			"stella": {
+				"description": "Decollo erboso, adatto all'uso del parapendio, situato nel comune di Borso del Grappa lungo la strada Generale Giardino SP 140, circa 200 mt dopo il 13° tornante.<br></br>Il decollo è adatto prevalentemente con vento da sud e leggeri venti da est e da ovest.<br></br>Per raggiungere questo decollo si consiglia vivamente l'uso del servizio navette, a causa della scarsa disponibilità di parcheggio."
+			},
+			"tappeti": {
+				"description": "Decollo principale della zona, con tappeto sintetico adatto all'uso con il parapendio, situato nel comune di Borso del Grappa lungo la strada Generale Giardino SP 140, circa 200 mt prima del 17° tornante dove si trova il Decollo Pedana per i deltaplani, in corrispondenza del bar trattoria Puppolo.<br></br>Il decollo è adatto prevalentemente con vento da sud e leggeri venti da est e da ovest.<br></br>Per raggiungere questo decollo si consiglia vivamente l'uso del servizio navette, a causa della scarsa disponibilità di parcheggio.<br></br>Attenzione, con vento da est si possono creare turbolenze. Preparare la vela solo dopo essersi imbragati per evitare di occupare l'area per un tempo eccessivo."
+			},
+			"pedana-delta": {
+				"description": "Decollo riservato ai deltaplani situato nel comune di Borso del Grappa lungo la strada Generale Giardino SP 140 in corrispondenza del 17° tornante.<br></br>Il decollo è costituito da una rampa di lancio in ferro e legno, con area riservata al montaggio dei mezzi nello spazio erboso all'interno del tornante.<br></br>La zona antistante il bar va lasciata libera per il passaggio dei deltaplani prima del decollo.<br></br>Si consiglia quindi vivamente di ottimizzare i trasporti o di usufruire dei servizi navetta causa scarsità di parcheggi.",
+				"warning": "È SEVERAMENTE VIETATO decollare con il parapendio dalla pedana riservata ai delta."
+			},
+			"casette": {
+				"description": "Decollo erboso adatto all'uso con il parapendio, situato nel comune di Borso del Grappa lungo la strada Generale Giardino SP 140.<br></br>Circa 300 metri dopo il 20° tornante, imboccare la stradina in salita sulla sinistra in direzione di Col Serai. Dopo 100 metri, oltrepassato un piccolo tornante sulla destra, il decollo si troverà sulla sinistra.<br></br>Il decollo è adatto con vento da ovest.<br></br>È vivamente consigliato l'uso del servizio navette a causa dell'assenza di parcheggi.<br></br>È importante infatti rispettare le aree private evitando di lasciare le macchine in sosta a bordo strada.",
+				"warning": "Divieto tassativo di decollo verso est, pericolo di morte ☠️"
+			},
+			"camol": {
+				"description": "Decollo erboso adatto al parapendio situato lungo la strada Generale Giardino SP 140.<br></br>Per raggiungerlo, seguire le indicazioni per Cima Grappa e, 800 mt dopo il 21° tornante, parcheggiare l'auto presso la Baita Camol procedendo per l'imbocco del sentiero n. 100 verso Cima Grappa. Dopo 400 mt dall'imboccatura del sentiero, l'ampio prato del decollo sarà riconoscibile dalla manica a vento. È adatto prevalentemente con venti da sud - sudovest."
+			},
+			"panettone": {
+				"description": "Suggestivo decollo erboso situato sotto Cima Grappa.<br></br>Raggiungibile percorrendo la strada Generale Giardino SP 140: circa 500 mt dopo il 27° tornante, all'attraversamento del sentiero n. 100, c'è un piccolo parcheggio dove è possibile sostare. Sulla destra, sulla cima della collinetta svetta la manica a vento del decollo Panettone.<br></br>Questo decollo molto ampio, rivolto in direzione est - sudest, è adatto sia ai parapendio sia ai deltaplani.<br></br>Il decollo in direzione ovest è invece di dimensioni più ridotte, e adatto ai parapendio.<br></br>In particolare in questo secondo decollo, si raccomanda di fare attenzione ad alcune buche di origine bellica nascoste tra l'erba."
+			},
+			"campeggia": {
+				"description": "Percorrendo la strada Cadorna SP 148, seguire per Cima Grappa fino alla località Campo Solagna. 300 mt dopo aver oltrepassato il bar ristorante, imboccare la stradina sulla destra seguendo le indicazioni per Col Campeggia. Dopo il secondo tornante, arrivati ad un piccolo incrocio, si raggiunge il decollo di Col Campeggia.<br></br>È adatto con venti Sud/Sud Est e leggeri Sud/Sud Ovest.<br></br>Si consiglia di fare molta attenzione all'intensità del vento, vista la posizione del decollo all'interno di una stretta valle.<br></br>Nel pomeriggio possibilità di sottovento da sud-ovest.",
+				"notice": "Decollo destinato in particolare alle giornate di manifestazione, non rivolto ad un uso quotidiano. In caso di esigenza di utilizzo è necessario inviare richiesta d'uso con preavviso."
+			},
+			"antenne": {
+				"description": "Decollo erboso adatto ai parapendio.<br></br>Dopo il settimo tornante lungo la strada Cadorna SP 148, il decollo, conosciuto anche come Costa Lunga, si trova sulla sinistra.<br></br>Da utilizzare con venti da est.<br></br>Si consiglia vivamente di usufruire del servizio navette perché il parcheggio situato in prossimità del prato è di piccole dimensioni.<br></br>Attenzione alle zone di turbolenza evidenziate.<br></br>Nel pomeriggio possibile sottovento da sud e/o da ovest."
+			}
+		},
+		"landings": {
+			"garden": {
+				"description": "Ampio atterraggio situato nella frazione di Semonzo presso la struttura alberghiera Garden Relais, in via Casa 22, Borso del Grappa, Treviso.<br></br>È adatto per l'atterraggio di deltaplani e parapendio. Offre la possibilità di atterrare nelle quattro direzioni: nord, sud, ovest e est.<br></br>Si raccomanda di prestare particolare attenzione negli atterraggi con vento sostenuto da ovest perché in sottovento rispetto alle colline e alla struttura dell'albergo. Attenzione anche agli alberi e vigneti che circondano il campo, nonché al parcheggio auto situato lungo il lato nord. Le aree atterrabili sono contrassegnate sulla foto con le lettere A, B e C.<br></br>Nel caso di atterraggio fuori campo, si prega di spostarsi verso le aree di piegamento il più velocemente possibile."
+			},
+			"paradiso": {
+				"description": "L'atterraggio Paradiso è situato nella frazione di Semonzo, in via Casale Nuovo, all'incrocio con via Giovanni da Semonzo.<br></br>È adatto solo ed esclusivamente per gli atterraggi in parapendio. Si raccomanda di prestare particolare attenzione alla rete elettrica e telefonica situata a sud del campo, così come ai vigneti e alberi che lo circondano. Nella foto, sono indicate le aree atterrabili contrassegnate con le lettere A e B.<br></br>Si invita a rispettare le aree private e, in caso di atterraggio fuori campo, uscire senza arrecare danni.<br></br>L'atterraggio dispone di un ampio parcheggio, di servizi igienici e di aree di ristoro a poche centinaia di metri di distanza, raggiungibili a piedi."
+			}
+		}
 	}
 }

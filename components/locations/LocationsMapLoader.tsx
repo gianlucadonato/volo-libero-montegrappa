@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import {
-	KIND_LABELS_PLURAL,
 	type LocationKind,
 	PIN_COLORS,
 } from "@/components/locations/location-kinds";
@@ -32,6 +32,7 @@ export default function LocationsMapLoader({
 	pins: LocationPin[];
 	focus: LocationKind;
 }) {
+	const t = useTranslations("Locations.map");
 	return (
 		<div>
 			<LocationsMap pins={pins} focus={focus} className={MAP_HEIGHT} />
@@ -42,10 +43,10 @@ export default function LocationsMapLoader({
 							className="size-3 rounded-full"
 							style={{ backgroundColor: PIN_COLORS[kind] }}
 						/>
-						{KIND_LABELS_PLURAL[kind]}
+						{t(`legend.${kind}`)}
 					</span>
 				))}
-				<span>Tocca un punto per i dettagli</span>
+				<span>{t("hint")}</span>
 			</div>
 		</div>
 	);

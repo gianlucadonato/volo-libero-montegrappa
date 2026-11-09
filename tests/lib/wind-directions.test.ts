@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { parseWindDirections } from "@/lib/wind-directions";
+import {
+	parseWindDirections,
+	translateWindDirection,
+} from "@/lib/wind-directions";
 
 describe("parseWindDirections", () => {
 	it.each([
@@ -27,5 +30,24 @@ describe("parseWindDirections", () => {
 	it("ignores what it cannot read", () => {
 		expect(parseWindDirections("")).toEqual([]);
 		expect(parseWindDirections("variabile")).toEqual([]);
+	});
+});
+
+describe("translateWindDirection", () => {
+	const en = {
+		nord: "north",
+		sud: "south",
+		est: "east",
+		ovest: "west",
+	} as const;
+
+	it("swaps each word and keeps the separators", () => {
+		expect(
+			translateWindDirection("sud - sud/est - sud/ovest", (w) => en[w]),
+		).toBe("south - south/east - south/west");
+		expect(translateWindDirection("Sud", (w) => en[w])).toBe("south");
+		expect(translateWindDirection("sud/sud est", (w) => en[w])).toBe(
+			"south/south east",
+		);
 	});
 });

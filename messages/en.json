@@ -1388,5 +1388,115 @@
 		"copied": "Position copied to the clipboard",
 		"sos_label": "SOS",
 		"sos_title": "SOS — RESCUE"
+	},
+	"Locations": {
+		"takeoffTitle": "{name} take-off",
+		"landingTitle": "{name} landing",
+		"pages": {
+			"takeoffs": {
+				"title": "Take-offs",
+				"subtitle": "See the take-off sites",
+				"seeOther": "See landings"
+			},
+			"landings": {
+				"title": "Landings",
+				"subtitle": "See the landing fields",
+				"seeOther": "See take-offs"
+			}
+		},
+		"table": {
+			"location": "Location",
+			"altitude": "Altitude",
+			"direction": "Wind direction",
+			"topLanding": "Top landing",
+			"gps": "GPS coordinates",
+			"food": "Food and drink",
+			"toilets": "Toilets",
+			"parking": "Parking",
+			"yes": "Yes",
+			"no": "No",
+			"nearby": "Yes, {distance} away"
+		},
+		"directionWords": {
+			"nord": "north",
+			"sud": "south",
+			"est": "east",
+			"ovest": "west"
+		},
+		"map": {
+			"kind": {
+				"takeoff": "Take-off",
+				"landing": "Landing"
+			},
+			"legend": {
+				"takeoff": "Take-offs",
+				"landing": "Landings"
+			},
+			"hint": "Tap a pin for details",
+			"details": "See details",
+			"directions": "Directions",
+			"windDirection": "Wind direction",
+			"layers": {
+				"satellite": "Satellite",
+				"topo": "Topographic"
+			}
+		},
+		"windRose": {
+			"label": "Suitable winds: {sectors}",
+			"none": "not specified",
+			"compass": {
+				"N": "N",
+				"E": "E",
+				"S": "S",
+				"W": "W"
+			},
+			"sectors": {
+				"N": "north",
+				"NE": "north-east",
+				"E": "east",
+				"SE": "south-east",
+				"S": "south",
+				"SW": "south-west",
+				"W": "west",
+				"NW": "north-west"
+			}
+		},
+		"takeoffs": {
+			"stella": {
+				"description": "Grassy take-off, suitable for paragliders, in the municipality of Borso del Grappa along the Generale Giardino road (SP 140), about 200 m after the 13th hairpin bend.<br></br>It works mainly with southerly wind and light easterly and westerly winds.<br></br>Parking is scarce, so we strongly recommend using the shuttle service to get here."
+			},
+			"tappeti": {
+				"description": "The main take-off of the area, with a synthetic carpet for paragliders, in the municipality of Borso del Grappa along the Generale Giardino road (SP 140), about 200 m before the 17th hairpin bend where the hang-gliding ramp (Decollo Pedana) is, next to the Puppolo bar and trattoria.<br></br>It works mainly with southerly wind and light easterly and westerly winds.<br></br>Parking is scarce, so we strongly recommend using the shuttle service to get here.<br></br>Beware: an easterly wind can cause turbulence. Lay out your wing only once you are in your harness, so as not to occupy the area for too long."
+			},
+			"pedana-delta": {
+				"description": "Take-off reserved for hang gliders, in the municipality of Borso del Grappa along the Generale Giardino road (SP 140), at the 17th hairpin bend.<br></br>It is an iron and wood launch ramp, with an area for rigging the gliders on the grass inside the hairpin.<br></br>The area in front of the bar must be kept clear for hang gliders on their way to launch.<br></br>Parking is scarce, so we strongly recommend sharing rides or using the shuttle service.",
+				"warning": "Taking off with a paraglider from the hang-gliding ramp is STRICTLY FORBIDDEN."
+			},
+			"casette": {
+				"description": "Grassy take-off suitable for paragliders, in the municipality of Borso del Grappa along the Generale Giardino road (SP 140).<br></br>About 300 m after the 20th hairpin bend, take the narrow uphill road on the left towards Col Serai. After 100 m, past a small right-hand bend, the take-off is on the left.<br></br>It works with westerly wind.<br></br>There is no parking, so we strongly recommend using the shuttle service.<br></br>Please respect private property and do not leave cars parked along the road.",
+				"warning": "Taking off towards the east is strictly forbidden: danger of death ☠️"
+			},
+			"camol": {
+				"description": "Grassy take-off suitable for paragliders, along the Generale Giardino road (SP 140).<br></br>To get there, follow the signs for Cima Grappa and, 800 m after the 21st hairpin bend, park at Baita Camol and walk to the start of trail no. 100 towards Cima Grappa. 400 m along the trail, the wide take-off meadow is recognisable by its windsock. It works mainly with south to south-westerly winds."
+			},
+			"panettone": {
+				"description": "A striking grassy take-off just below Cima Grappa.<br></br>Along the Generale Giardino road (SP 140), about 500 m after the 27th hairpin bend, where trail no. 100 crosses the road, there is a small car park. On the right, the windsock of the Panettone take-off stands on top of the hillock.<br></br>This very large take-off, facing east to south-east, is suitable for both paragliders and hang gliders.<br></br>The west-facing take-off is smaller and suitable for paragliders.<br></br>On this second take-off in particular, watch out for some war-time holes hidden in the grass."
+			},
+			"campeggia": {
+				"description": "Along the Cadorna road (SP 148), follow the signs for Cima Grappa up to Campo Solagna. 300 m past the bar and restaurant, take the narrow road on the right following the signs for Col Campeggia. After the second hairpin bend, at a small junction, you reach the Col Campeggia take-off.<br></br>It works with south to south-easterly winds and light south to south-westerly winds.<br></br>Pay close attention to the wind strength, as the take-off lies in a narrow valley.<br></br>In the afternoon there may be lee-side turbulence from the south-west.",
+				"notice": "Take-off intended mainly for event days, not for everyday use. To use it, a request must be sent in advance."
+			},
+			"antenne": {
+				"description": "Grassy take-off suitable for paragliders.<br></br>After the seventh hairpin bend along the Cadorna road (SP 148), the take-off, also known as Costa Lunga, is on the left.<br></br>Use it with easterly winds.<br></br>The car park next to the meadow is small, so we strongly recommend using the shuttle service.<br></br>Watch out for the marked turbulence zones.<br></br>In the afternoon there may be lee-side turbulence from the south and/or west."
+			}
+		},
+		"landings": {
+			"garden": {
+				"description": "Large landing field in Semonzo, at the Garden Relais hotel, via Casa 22, Borso del Grappa, Treviso.<br></br>It is suitable for hang gliders and paragliders, and you can land in all four directions: north, south, west and east.<br></br>Take particular care when landing in a strong westerly wind, as the field is then in the lee of the hills and the hotel building. Also watch out for the trees and vineyards around the field, and for the car park along the north side. The landing areas are marked A, B and C in the photo.<br></br>If you land outside the field, please move to the packing areas as quickly as possible."
+			},
+			"paradiso": {
+				"description": "The Paradiso landing is in Semonzo, in via Casale Nuovo, at the junction with via Giovanni da Semonzo.<br></br>It is for paragliders only. Take particular care with the power and telephone lines south of the field, and with the vineyards and trees around it. The landing areas are marked A and B in the photo.<br></br>Please respect private property and, if you land outside the field, leave without causing damage.<br></br>The landing has a large car park, toilets, and places to eat and drink a few hundred metres away, within walking distance."
+			}
+		}
 	}
 }

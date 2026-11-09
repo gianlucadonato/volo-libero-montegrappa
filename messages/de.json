@@ -1437,5 +1437,115 @@
 		"copied": "Position in die Zwischenablage kopiert",
 		"sos_label": "SOS",
 		"sos_title": "SOS — RETTUNG"
+	},
+	"Locations": {
+		"takeoffTitle": "Startplatz {name}",
+		"landingTitle": "Landeplatz {name}",
+		"pages": {
+			"takeoffs": {
+				"title": "Startplätze",
+				"subtitle": "Die Startplätze im Überblick",
+				"seeOther": "Landeplätze ansehen"
+			},
+			"landings": {
+				"title": "Landeplätze",
+				"subtitle": "Die Landeplätze im Überblick",
+				"seeOther": "Startplätze ansehen"
+			}
+		},
+		"table": {
+			"location": "Ort",
+			"altitude": "Höhe",
+			"direction": "Windrichtung",
+			"topLanding": "Toplandung",
+			"gps": "GPS-Koordinaten",
+			"food": "Einkehr",
+			"toilets": "Toiletten",
+			"parking": "Parkplatz",
+			"yes": "Ja",
+			"no": "Nein",
+			"nearby": "Ja, in {distance}"
+		},
+		"directionWords": {
+			"nord": "Nord",
+			"sud": "Süd",
+			"est": "Ost",
+			"ovest": "West"
+		},
+		"map": {
+			"kind": {
+				"takeoff": "Startplatz",
+				"landing": "Landeplatz"
+			},
+			"legend": {
+				"takeoff": "Startplätze",
+				"landing": "Landeplätze"
+			},
+			"hint": "Tippe auf einen Punkt für Details",
+			"details": "Details ansehen",
+			"directions": "Route",
+			"windDirection": "Windrichtung",
+			"layers": {
+				"satellite": "Satellit",
+				"topo": "Topografisch"
+			}
+		},
+		"windRose": {
+			"label": "Geeignete Winde: {sectors}",
+			"none": "nicht angegeben",
+			"compass": {
+				"N": "N",
+				"E": "O",
+				"S": "S",
+				"W": "W"
+			},
+			"sectors": {
+				"N": "Nord",
+				"NE": "Nordost",
+				"E": "Ost",
+				"SE": "Südost",
+				"S": "Süd",
+				"SW": "Südwest",
+				"W": "West",
+				"NW": "Nordwest"
+			}
+		},
+		"takeoffs": {
+			"stella": {
+				"description": "Grasstartplatz für Gleitschirme in der Gemeinde Borso del Grappa an der Straße Generale Giardino (SP 140), etwa 200 m nach der 13. Kehre.<br></br>Der Startplatz eignet sich vor allem bei Südwind sowie bei leichtem Ost- und Westwind.<br></br>Da es kaum Parkplätze gibt, empfehlen wir dringend, den Shuttle-Service zu nutzen."
+			},
+			"tappeti": {
+				"description": "Der wichtigste Startplatz des Gebiets, mit Kunstrasenmatte für Gleitschirme, in der Gemeinde Borso del Grappa an der Straße Generale Giardino (SP 140), etwa 200 m vor der 17. Kehre, wo sich die Drachenrampe (Decollo Pedana) befindet, bei der Bar-Trattoria Puppolo.<br></br>Der Startplatz eignet sich vor allem bei Südwind sowie bei leichtem Ost- und Westwind.<br></br>Da es kaum Parkplätze gibt, empfehlen wir dringend, den Shuttle-Service zu nutzen.<br></br>Achtung: Bei Ostwind kann es turbulent werden. Lege den Schirm erst aus, wenn du bereits im Gurtzeug bist, um den Platz nicht zu lange zu belegen."
+			},
+			"pedana-delta": {
+				"description": "Startplatz nur für Hängegleiter in der Gemeinde Borso del Grappa an der Straße Generale Giardino (SP 140), an der 17. Kehre.<br></br>Der Start erfolgt von einer Rampe aus Eisen und Holz; zum Aufbauen der Geräte gibt es eine Wiese innerhalb der Kehre.<br></br>Der Bereich vor der Bar muss für die Drachenpiloten auf dem Weg zum Start frei bleiben.<br></br>Da es kaum Parkplätze gibt, empfehlen wir dringend, Fahrgemeinschaften zu bilden oder den Shuttle-Service zu nutzen.",
+				"warning": "Das Starten mit dem Gleitschirm von der Drachenrampe ist STRENG VERBOTEN."
+			},
+			"casette": {
+				"description": "Grasstartplatz für Gleitschirme in der Gemeinde Borso del Grappa an der Straße Generale Giardino (SP 140).<br></br>Etwa 300 m nach der 20. Kehre links in das ansteigende Sträßchen Richtung Col Serai abbiegen. Nach 100 m, hinter einer kleinen Rechtskurve, liegt der Startplatz auf der linken Seite.<br></br>Der Startplatz eignet sich bei Westwind.<br></br>Da es keine Parkplätze gibt, empfehlen wir dringend, den Shuttle-Service zu nutzen.<br></br>Bitte respektiere Privatgrund und parke nicht am Straßenrand.",
+				"warning": "Starten Richtung Osten ist streng verboten: Lebensgefahr ☠️"
+			},
+			"camol": {
+				"description": "Grasstartplatz für Gleitschirme an der Straße Generale Giardino (SP 140).<br></br>Folge der Beschilderung nach Cima Grappa, parke 800 m nach der 21. Kehre bei der Baita Camol und gehe zum Einstieg des Wegs Nr. 100 Richtung Cima Grappa. Nach 400 m auf dem Weg erkennst du die weite Startwiese am Windsack. Der Startplatz eignet sich vor allem bei Süd- bis Südwestwind."
+			},
+			"panettone": {
+				"description": "Eindrucksvoller Grasstartplatz unterhalb der Cima Grappa.<br></br>An der Straße Generale Giardino (SP 140), etwa 500 m nach der 27. Kehre, wo der Weg Nr. 100 die Straße kreuzt, gibt es einen kleinen Parkplatz. Rechts, auf der Kuppe des Hügels, steht der Windsack des Startplatzes Panettone.<br></br>Dieser sehr große, nach Osten bis Südosten ausgerichtete Startplatz eignet sich für Gleitschirme und Hängegleiter.<br></br>Der nach Westen ausgerichtete Startplatz ist kleiner und für Gleitschirme geeignet.<br></br>Besonders auf diesem zweiten Startplatz: Achtung auf einige im Gras versteckte Löcher aus der Kriegszeit."
+			},
+			"campeggia": {
+				"description": "Auf der Straße Cadorna (SP 148) der Beschilderung nach Cima Grappa bis Campo Solagna folgen. 300 m nach der Bar mit Restaurant rechts in das Sträßchen Richtung Col Campeggia abbiegen. Nach der zweiten Kehre, an einer kleinen Kreuzung, erreichst du den Startplatz Col Campeggia.<br></br>Er eignet sich bei Süd- bis Südostwind und bei leichtem Süd- bis Südwestwind.<br></br>Achte genau auf die Windstärke, da der Startplatz in einem engen Tal liegt.<br></br>Am Nachmittag ist Leeturbulenz aus Südwest möglich.",
+				"notice": "Startplatz vor allem für Veranstaltungstage, nicht für die tägliche Nutzung. Wer ihn nutzen möchte, muss vorab eine Anfrage senden."
+			},
+			"antenne": {
+				"description": "Grasstartplatz für Gleitschirme.<br></br>Nach der siebten Kehre an der Straße Cadorna (SP 148) liegt der Startplatz, auch Costa Lunga genannt, auf der linken Seite.<br></br>Bei Ostwind zu nutzen.<br></br>Der Parkplatz neben der Wiese ist klein, daher empfehlen wir dringend den Shuttle-Service.<br></br>Achtung auf die markierten Turbulenzzonen.<br></br>Am Nachmittag ist Leeturbulenz aus Süd und/oder West möglich."
+			}
+		},
+		"landings": {
+			"garden": {
+				"description": "Großer Landeplatz in Semonzo beim Hotel Garden Relais, Via Casa 22, Borso del Grappa, Treviso.<br></br>Er eignet sich für Hängegleiter und Gleitschirme; gelandet werden kann in alle vier Richtungen: Nord, Süd, West und Ost.<br></br>Besondere Vorsicht bei Landungen mit kräftigem Westwind, da der Platz dann im Lee der Hügel und des Hotelgebäudes liegt. Achte auch auf die Bäume und Weinberge rund um den Platz sowie auf den Parkplatz an der Nordseite. Die Landeflächen sind auf dem Foto mit A, B und C markiert.<br></br>Bei einer Außenlandung begib dich bitte so schnell wie möglich zu den Packplätzen."
+			},
+			"paradiso": {
+				"description": "Der Landeplatz Paradiso liegt in Semonzo, in der Via Casale Nuovo, an der Kreuzung mit der Via Giovanni da Semonzo.<br></br>Er ist ausschließlich für Gleitschirme. Besondere Vorsicht bei den Strom- und Telefonleitungen südlich des Platzes sowie bei den Weinbergen und Bäumen rundherum. Die Landeflächen sind auf dem Foto mit A und B markiert.<br></br>Bitte respektiere Privatgrund und verlasse bei einer Außenlandung das Gelände, ohne Schaden anzurichten.<br></br>Der Landeplatz hat einen großen Parkplatz, Toiletten sowie Einkehrmöglichkeiten wenige hundert Meter entfernt, zu Fuß erreichbar."
+			}
+		}
 	}
 }

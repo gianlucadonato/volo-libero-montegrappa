@@ -1,5 +1,6 @@
 import Image from "next/image";
-import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
+import type { LocationKind } from "@/components/locations/location-kinds";
 import {
 	Table,
 	TableBody,
@@ -7,26 +8,55 @@ import {
 	TableHead,
 	TableRow,
 } from "@/components/ui/table";
+import { translateWindDirection } from "@/lib/wind-directions";
 
+/** Whether a facility is there: yes, no, or the distance it's at ("100 m"). */
+export type Facility = boolean | string;
+
+/**
+ * A take-off or landing. Only language-neutral data: the title, description
+ * and any warning or notice are in messages/*.json, under
+ * Locations.takeoffs.<id> or Locations.landings.<id>.
+ */
 export type LocationType = {
 	id: string;
-	title: string;
-	location: string;
-	description: string | ReactNode;
+	/** Proper name, the same in every language: "Tappeti". */
+	name: string;
+	/** Shown above the title: "Borso del Grappa - TV". */
+	area: string;
 	image?: string;
 	table: {
 		location: string;
 		altitude?: string;
+		/** "Direzione vento", in Italian: it also feeds the map's wind rose. */
 		direction?: string;
-		top_landing?: string;
+		topLanding?: boolean;
 		gps: string;
-		parking?: string;
-		ristoro?: string;
-		wc?: string;
+		food?: Facility;
+		toilets?: Facility;
+		parking?: Facility;
 	};
 };
 
-export default function LocationCard({ location }: { location: LocationType }) {
+/** Where a location's texts live in the messages. */
+export const MESSAGE_GROUPS: Record<LocationKind, "takeoffs" | "landings"> = {
+	takeoff: "takeoffs",
+	landing: "landings",
+};
+
+const RICH = { br: () => <br /> };
+
+export default function LocationCard({
+	location,
+	kind,
+}: {
+	location: LocationType;
+	kind: LocationKind;
+}) {
+	const t = useTranslations("Locations");
+	const key = `${MESSAGE_GROUPS[kind]}.${location.id}`;
+	const title = t(`${kind}Title`, { name: location.name });
+
 	return (
 		<div
 			key={location.id}
@@ -37,17 +67,25 @@ export default function LocationCard({ location }: { location: LocationType }) {
 			<div className="sm:col-span-5">
 				<div className="mb-4 md:mb-6">
 					<div className="flex text-xs uppercase tracking-wider text-muted-foreground">
-						<span className="mr-3 md:mr-5 lg:mr-6">{location.location}</span>
+						<span className="mr-3 md:mr-5 lg:mr-6">{location.area}</span>
 					</div>
 				</div>
 				<h3 className="text-xl font-semibold md:text-2xl lg:text-3xl">
-					{location.title}
+					{title}
 				</h3>
-				<div className="mt-4 flex items-center space-x-2 md:mt-5">
-					<span className="md:text-base">{location.description}</span>
+				<div className="mt-4 md:mt-5 md:text-base">
+					<p>{t.rich(`${key}.description`, RICH)}</p>
+					{t.has(`${key}.warning`) && (
+						<p className="mt-4 rounded-md border border-red-500 bg-red-100 p-2 text-red-500">
+							{t(`${key}.warning`)}
+						</p>
+					)}
+					{t.has(`${key}.notice`) && (
+						<p className="mt-2 font-bold uppercase">{t(`${key}.notice`)}</p>
+					)}
 				</div>
 				<div className="mt-4 flex items-center space-x-2 md:mt-5">
-					<LocationTable location={location.table} />
+					<LocationTable table={location.table} />
 				</div>
 			</div>
 			{location.image && (
@@ -55,7 +93,7 @@ export default function LocationCard({ location }: { location: LocationType }) {
 					<div className="text-clip rounded-lg border border-border">
 						<Image
 							src={location.image}
-							alt={location.title}
+							alt={title}
 							className="size-full object-cover transition-transform group-hover:scale-105"
 							width={555}
 							height={555}
@@ -67,54 +105,55 @@ export default function LocationCard({ location }: { location: LocationType }) {
 	);
 }
 
-function LocationTable({ location }: { location: LocationType["table"] }) {
+function LocationTable({ table }: { table: LocationType["table"] }) {
+	const t = useTranslations("Locations");
+
+	const yesNo = (value: boolean) => t(value ? "table.yes" : "table.no");
+	const facility = (value: Facility) =>
+		typeof value === "string"
+			? t("table.nearby", { distance: value })
+			: yesNo(value);
+
+	const rows: [label: string, value: string | undefined][] = [
+		[t("table.location"), table.location],
+		[t("table.altitude"), table.altitude],
+		[
+			t("table.direction"),
+			table.direction &&
+				translateWindDirection(table.direction, (word) =>
+					t(`directionWords.${word}`),
+				),
+		],
+		[
+			t("table.topLanding"),
+			table.topLanding === undefined ? undefined : yesNo(table.topLanding),
+		],
+		[t("table.gps"), table.gps],
+		[
+			t("table.food"),
+			table.food === undefined ? undefined : facility(table.food),
+		],
+		[
+			t("table.toilets"),
+			table.toilets === undefined ? undefined : facility(table.toilets),
+		],
+		[
+			t("table.parking"),
+			table.parking === undefined ? undefined : facility(table.parking),
+		],
+	];
+
 	return (
 		<Table>
 			<TableBody>
-				<TableRow className="w-full">
-					<TableHead>Località Decollo</TableHead>
-					<TableCell>{location.location}</TableCell>
-				</TableRow>
-				{location.altitude && (
-					<TableRow className="w-full">
-						<TableHead>Altezza</TableHead>
-						<TableCell>{location.altitude}</TableCell>
-					</TableRow>
-				)}
-				{location.direction && (
-					<TableRow className="w-full">
-						<TableHead>Direzione vento</TableHead>
-						<TableCell>{location.direction}</TableCell>
-					</TableRow>
-				)}
-				{location.top_landing && (
-					<TableRow className="w-full">
-						<TableHead>Top landing</TableHead>
-						<TableCell>{location.top_landing}</TableCell>
-					</TableRow>
-				)}
-				<TableRow className="w-full">
-					<TableHead>Coordinate Gps</TableHead>
-					<TableCell>{location.gps}</TableCell>
-				</TableRow>
-				{location.ristoro && (
-					<TableRow className="w-full">
-						<TableHead>Strutture ristoro</TableHead>
-						<TableCell>{location.ristoro}</TableCell>
-					</TableRow>
-				)}
-				{location.wc && (
-					<TableRow className="w-full">
-						<TableHead>Servizi igienici</TableHead>
-						<TableCell>{location.wc}</TableCell>
-					</TableRow>
-				)}
-				{location.parking && (
-					<TableRow className="w-full">
-						<TableHead>Parcheggio</TableHead>
-						<TableCell>{location.parking}</TableCell>
-					</TableRow>
-				)}
+				{rows
+					.filter(([, value]) => value !== undefined)
+					.map(([label, value]) => (
+						<TableRow key={label} className="w-full">
+							<TableHead>{label}</TableHead>
+							<TableCell>{value}</TableCell>
+						</TableRow>
+					))}
 			</TableBody>
 		</Table>
 	);
