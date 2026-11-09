@@ -22,13 +22,14 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends libatomic1 ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
-# The pnpm version comes from the "packageManager" field in package.json, so it
-# is pinned in one place and cannot drift from what developers run locally.
-RUN corepack enable
-
 # pnpm-workspace.yaml is required: it carries the allowBuilds decisions, and
 # pnpm 10+ fails the install while any dependency build script is undecided.
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
+# The pnpm version comes from the "packageManager" field in package.json, so it
+# is pinned in one place and cannot drift from what developers run locally.
+# Installed with npm because Node 25+ no longer bundles corepack.
+RUN npm install -g "$(node -p 'require("./package.json").packageManager.split("+")[0]')"
 # HUSKY=0 skips the "prepare" git-hook install: there is no .git in the image.
 ENV HUSKY=0
 # --store-dir must be a flag, not `pnpm config set`: on pnpm 12 that subcommand
@@ -44,7 +45,10 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends libatomic1 ca-certificates \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN corepack enable
+# Same pnpm as the deps stage, from "packageManager" (see above). package.json
+# is copied first so this layer stays cached across code changes.
+COPY package.json ./
+RUN npm install -g "$(node -p 'require("./package.json").packageManager.split("+")[0]')"
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

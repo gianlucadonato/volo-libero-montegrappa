@@ -25,7 +25,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 26
           cache: pnpm
 
       # HUSKY=0 skips the "prepare" git-hook install, which CI does not need.

@@ -31,7 +31,25 @@
 		{
 			"description": "Keep @types/node on the Node major the Docker image runs",
 			"matchPackageNames": ["@types/node"],
-			"allowedVersions": "<25"
+			"allowedVersions": "<27"
+		},
+		{
+			"description": "Hold the OpenTelemetry SDK on 2.x until @vercel/otel supports SDK 3: its peer ranges stop at resources/sdk-metrics/sdk-trace-base <3 and sdk-logs/api-logs <0.300, and SDK 3 needs @opentelemetry/api 1.10",
+			"matchPackageNames": [
+				"@opentelemetry/resources",
+				"@opentelemetry/sdk-metrics",
+				"@opentelemetry/sdk-trace-base"
+			],
+			"allowedVersions": "<3"
+		},
+		{
+			"description": "Same hold for the 0.x side of the OpenTelemetry SDK (see above)",
+			"matchPackageNames": [
+				"@opentelemetry/sdk-logs",
+				"@opentelemetry/api-logs",
+				"@opentelemetry/exporter-logs-otlp-http"
+			],
+			"allowedVersions": "<0.300.0"
 		},
 		{
 			"groupName": "Prisma",
