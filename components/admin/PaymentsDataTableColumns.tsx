@@ -7,12 +7,13 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import type { DataTableFeatures } from "@/lib/data-table";
 import type { PaymentWithUser } from "@/types";
 
 export default function UsersDataTableColumns() {
 	const t = useTranslations("PaymentsPage");
 
-	const columns: ColumnDef<PaymentWithUser>[] = [
+	const columns: ColumnDef<DataTableFeatures, PaymentWithUser>[] = [
 		{
 			id: "select",
 			header: ({ table }) => (

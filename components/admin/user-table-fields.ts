@@ -1,4 +1,4 @@
-import type { RowData } from "@tanstack/react-table";
+import type { CellData, RowData, TableFeatures } from "@tanstack/react-table";
 import { format } from "date-fns";
 
 import { NEXT_YEAR } from "@/config/constants";
@@ -212,7 +212,11 @@ declare module "@tanstack/react-table" {
 	// Carries a column's Excel identity alongside its on-screen one, so the
 	// export can walk the visible columns instead of keeping its own list of
 	// fields — the two used to drift apart.
-	interface ColumnMeta<TData extends RowData, TValue> {
+	interface ColumnMeta<
+		TFeatures extends TableFeatures,
+		TData extends RowData,
+		TValue extends CellData = CellData,
+	> {
 		exportLabel?: string;
 		exportValue?: (user: UserWithMemberships) => string;
 	}

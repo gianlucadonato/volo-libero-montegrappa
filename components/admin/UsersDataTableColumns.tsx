@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { isSocio } from "@/helpers/isSocio";
 import { type OnboardingStatus, onboardingStatus } from "@/helpers/onboarding";
+import type { DataTableFeatures } from "@/lib/data-table";
 import type { UserWithMemberships } from "@/types";
 import { USER_FIELDS } from "./user-table-fields";
 
@@ -39,7 +40,7 @@ export default function UsersDataTableColumns({
 }) {
 	const t = useTranslations("UsersDataTable");
 
-	const columns: ColumnDef<UserWithMemberships>[] = [
+	const columns: ColumnDef<DataTableFeatures, UserWithMemberships>[] = [
 		{
 			id: "select",
 			header: ({ table }) => (
@@ -178,27 +179,29 @@ export default function UsersDataTableColumns({
 		// Everything the admin can switch on from the column menu. Generated from
 		// one registry so a field cannot appear in the table without also being
 		// filterable and exportable.
-		...USER_FIELDS.map<ColumnDef<UserWithMemberships>>((field) => ({
-			id: field.id,
-			accessorFn: field.value,
-			meta: {
-				exportLabel: t(field.label),
-				exportValue: field.value,
-			},
-			header: ({ column }) => (
-				<Button
-					variant="ghost"
-					className="m-0 p-0"
-					onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-				>
-					{t(field.label)}
-					<ArrowUpDown className="ml-2 size-4" />
-				</Button>
-			),
-			cell: ({ row }) => (
-				<div className="whitespace-nowrap">{field.value(row.original)}</div>
-			),
-		})),
+		...USER_FIELDS.map<ColumnDef<DataTableFeatures, UserWithMemberships>>(
+			(field) => ({
+				id: field.id,
+				accessorFn: field.value,
+				meta: {
+					exportLabel: t(field.label),
+					exportValue: field.value,
+				},
+				header: ({ column }) => (
+					<Button
+						variant="ghost"
+						className="m-0 p-0"
+						onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+					>
+						{t(field.label)}
+						<ArrowUpDown className="ml-2 size-4" />
+					</Button>
+				),
+				cell: ({ row }) => (
+					<div className="whitespace-nowrap">{field.value(row.original)}</div>
+				),
+			}),
+		),
 		{
 			id: "actions",
 			enableHiding: false,

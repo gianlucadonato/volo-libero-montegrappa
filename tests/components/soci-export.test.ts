@@ -1,13 +1,11 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
-	createTable,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
+	constructTable,
 } from "@tanstack/react-table";
+import { storeReactivityBindings } from "@tanstack/table-core/store-reactivity-bindings";
 import { describe, expect, it } from "vitest";
+import { type DataTableFeatures, dataTableFeatures } from "@/lib/data-table";
 
 type Socio = { firstName: string; lastName: string; email: string };
 
@@ -17,32 +15,29 @@ const socio = (firstName: string, lastName: string): Socio => ({
 	email: `${firstName}.${lastName}@example.it`.toLowerCase(),
 });
 
+// useTable supplies React reactivity; outside React the table needs its own.
+const features = {
+	...dataTableFeatures,
+	coreReactivityFeature: storeReactivityBindings(),
+};
+
 /**
  * The `/soci` table, minus React: the same columns, filter and row models the
  * page runs on, so what the assertions see is what a member would download.
  */
 function buildTable(data: Socio[], columnFilters: ColumnFiltersState = []) {
-	const columns: ColumnDef<Socio>[] = [
+	const columns: ColumnDef<DataTableFeatures, Socio>[] = [
 		{
 			accessorKey: "fullName",
 			accessorFn: (row) => `${row.lastName} ${row.firstName}`,
 		},
 	];
-	let state = { columnFilters, columnVisibility: {}, sorting: [] };
-	const table = createTable<Socio>({
+	return constructTable({
+		features,
 		data,
 		columns,
-		state,
-		onStateChange: () => {},
-		renderFallbackValue: null,
-		getCoreRowModel: getCoreRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
+		state: { columnFilters, columnVisibility: {}, sorting: [] },
 	});
-	state = { ...table.initialState, ...state };
-	table.setOptions((previous) => ({ ...previous, state }));
-	return table;
 }
 
 /** What `downloadExcel` walks to build the sheet. */

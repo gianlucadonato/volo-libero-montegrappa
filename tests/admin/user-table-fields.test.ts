@@ -1,12 +1,10 @@
 import {
 	type ColumnDef,
 	type ColumnFiltersState,
-	createTable,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getSortedRowModel,
-	type VisibilityState,
+	type ColumnVisibilityState,
+	constructTable,
 } from "@tanstack/react-table";
+import { storeReactivityBindings } from "@tanstack/table-core/store-reactivity-bindings";
 import { describe, expect, it } from "vitest";
 import {
 	DEFAULT_FIELD_VISIBILITY,
@@ -16,6 +14,7 @@ import {
 	type UserField,
 } from "@/components/admin/user-table-fields";
 import { NEXT_YEAR } from "@/config/constants";
+import { type DataTableFeatures, dataTableFeatures } from "@/lib/data-table";
 import type { UserWithMemberships } from "@/types";
 
 const user = (over: Partial<UserWithMemberships>) =>
@@ -35,6 +34,12 @@ const user = (over: Partial<UserWithMemberships>) =>
 		...over,
 	}) as UserWithMemberships;
 
+// useTable supplies React reactivity; outside React the table needs its own.
+const features = {
+	...dataTableFeatures,
+	coreReactivityFeature: storeReactivityBindings(),
+};
+
 /**
  * The real table, minus React: the same row models the page runs on, fed the
  * same registry, so what the assertions see is what an admin would download.
@@ -42,29 +47,20 @@ const user = (over: Partial<UserWithMemberships>) =>
 function buildTable(
 	data: UserWithMemberships[],
 	columnFilters: ColumnFiltersState = [],
-	columnVisibility: VisibilityState = DEFAULT_FIELD_VISIBILITY,
+	columnVisibility: ColumnVisibilityState = DEFAULT_FIELD_VISIBILITY,
 ) {
-	const columns: ColumnDef<UserWithMemberships>[] = USER_FIELDS.map(
-		(field: UserField) => ({
+	const columns: ColumnDef<DataTableFeatures, UserWithMemberships>[] =
+		USER_FIELDS.map((field: UserField) => ({
 			id: field.id,
 			accessorFn: field.value,
 			meta: { exportLabel: field.id, exportValue: field.value },
-		}),
-	);
-	let state = { columnFilters, columnVisibility, sorting: [] };
-	const table = createTable<UserWithMemberships>({
+		}));
+	return constructTable({
+		features,
 		data,
 		columns,
-		state,
-		onStateChange: () => {},
-		renderFallbackValue: null,
-		getCoreRowModel: getCoreRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
+		state: { columnFilters, columnVisibility, sorting: [] },
 	});
-	state = { ...table.initialState, ...state };
-	table.setOptions((previous) => ({ ...previous, state }));
-	return table;
 }
 
 /** What `downloadExcel` hands to the xlsx writer. */

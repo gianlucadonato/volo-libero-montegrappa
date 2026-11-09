@@ -2,14 +2,10 @@
 
 import {
 	type ColumnFiltersState,
+	type ColumnVisibilityState,
 	flexRender,
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
 	type SortingState,
-	useReactTable,
-	type VisibilityState,
+	useTable,
 } from "@tanstack/react-table";
 import { format } from "date-fns";
 import {
@@ -55,6 +51,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import { dataTableFeatures } from "@/lib/data-table";
 import { exportJsonAsXlsx } from "@/lib/export-xlsx";
 import type { UserWithMemberships } from "@/types";
 import UsersDataTableColumns from "./UsersDataTableColumns";
@@ -74,9 +71,8 @@ export default function UsersDataTable({
 	// required are all unverified until their owners log in again, members
 	// included, so hiding them would empty the table and the Excel export.
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
-		DEFAULT_FIELD_VISIBILITY,
-	);
+	const [columnVisibility, setColumnVisibility] =
+		useState<ColumnVisibilityState>(DEFAULT_FIELD_VISIBILITY);
 	const [rowSelection, setRowSelection] = useState({});
 	const t = useTranslations("UsersDataTable");
 	const [isDownloading, setIsDownloading] = useState(false);
@@ -88,15 +84,12 @@ export default function UsersDataTable({
 
 	const columns = UsersDataTableColumns({ setOpen, setDialogUser });
 
-	const table = useReactTable({
+	const table = useTable({
+		features: dataTableFeatures,
 		data,
 		columns,
 		onSortingChange: setSorting,
 		onColumnFiltersChange: setColumnFilters,
-		getCoreRowModel: getCoreRowModel(),
-		getPaginationRowModel: getPaginationRowModel(),
-		getSortedRowModel: getSortedRowModel(),
-		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
 		onRowSelectionChange: setRowSelection,
 		state: {
@@ -107,6 +100,7 @@ export default function UsersDataTable({
 		},
 		initialState: {
 			pagination: {
+				pageIndex: 0,
 				pageSize: 50, //custom default page size
 			},
 		},
