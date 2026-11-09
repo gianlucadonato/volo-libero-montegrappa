@@ -6,7 +6,7 @@ import { isSafeCallbackUrl } from "@/helpers/authRedirect";
 // An array of routes that are not accessible to the public
 export const adminRoutes = ["/admin", "/admin/*"];
 
-export const protectedRoutes = ["/profile"];
+export const protectedRoutes = ["/profile", "/xc/me"];
 
 // An array of routes that are used for authentication. `/signup` is handled by
 // the `(auth)` layout instead, which routes admins to their own landing page.

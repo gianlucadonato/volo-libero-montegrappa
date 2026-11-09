@@ -208,7 +208,10 @@ export const XcPilotFlightSchema = z.object({
 
 export const XcPilotProfileSchema = z.object({
 	user: XcPilotSummarySchema,
+	/** Every edition in the database, newest first. */
 	editions: z.array(XcPilotEditionSchema),
+	/** Whether the pilot ever enrolled, scored or had a flight approved. */
+	hasJoined: z.boolean(),
 	edition: z
 		.object({
 			id: z.number(),
@@ -218,6 +221,7 @@ export const XcPilotProfileSchema = z.object({
 			isActive: z.boolean(),
 		})
 		.nullable(),
+	/** The pilot's stats for the selected edition. */
 	totals: z.object({
 		points: z.number(),
 		flights: z.number(),

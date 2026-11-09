@@ -592,6 +592,9 @@
 							"$ref": "#/components/schemas/XcPilotEditionSchema"
 						}
 					},
+					"hasJoined": {
+						"type": "boolean"
+					},
 					"edition": {
 						"type": "object",
 						"properties": {
@@ -661,6 +664,7 @@
 				"required": [
 					"user",
 					"editions",
+					"hasJoined",
 					"edition",
 					"totals",
 					"categories",

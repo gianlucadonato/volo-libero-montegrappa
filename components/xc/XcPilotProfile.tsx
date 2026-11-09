@@ -26,10 +26,16 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import EnrollXcEditionButton from "@/components/xc/EnrollXcEditionButton";
 import XcLevelProgress from "@/components/xc/XcLevelProgress";
 import XcPilotFlightsList from "@/components/xc/XcPilotFlightsList";
-import { useGetXcPilotProfile } from "@/hooks/use-query-api";
+import {
+	useGetXcEnrollment,
+	useGetXcPilotProfile,
+} from "@/hooks/use-query-api";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
+import { xcSeasonYear } from "@/lib/xc-season";
 import type {
 	XcPilotCategoryStatsApi,
 	XcPilotFlightApi,
@@ -62,7 +68,13 @@ export default function XcPilotProfile({
 	const t = useTranslations("XcPilotProfilePage");
 	const tCat = useTranslations("XcCategoryPage");
 
+	const { data: session } = authClient.useSession();
+	const isOwnProfile = session?.user.id === userId;
+	const { data: enrollment, isLoading: isLoadingEnrollment } =
+		useGetXcEnrollment(isOwnProfile);
+
 	const editionParam = searchParams.get("edition");
+	const currentSeason = xcSeasonYear();
 	const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
 
 	const {
@@ -97,7 +109,24 @@ export default function XcPilotProfile({
 		? `${profile.user.firstName} ${profile.user.lastName}`
 		: fallbackName;
 
-	const selectedEditionId = profile?.edition?.id ?? null;
+	// On their own profile, a pilot not enrolled in the current season is
+	// invited to enroll whenever that season is in view: by default, rather than
+	// their last edition, or when picked from the selector. Past editions still
+	// show as usual. Only once the season's edition exists, or there is nothing
+	// to enroll in.
+	const viewingCurrentSeason = editionParam
+		? Number(editionParam) === currentSeason
+		: true;
+	const showEnrollPrompt =
+		isOwnProfile &&
+		!isLoadingEnrollment &&
+		!enrollment &&
+		viewingCurrentSeason &&
+		Boolean(profile?.editions.some((e) => e.id === currentSeason));
+
+	const selectedEditionId = showEnrollPrompt
+		? currentSeason
+		: (profile?.edition?.id ?? null);
 
 	return (
 		<div className="min-h-screen bg-linear-to-b from-indigo-50 to-white">
@@ -205,7 +234,24 @@ export default function XcPilotProfile({
 							</div>
 						)}
 
-						{profile.editions.length === 0 ? (
+						{showEnrollPrompt ? (
+							<div className="mt-8 rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+								<h2 className="font-heading text-xl uppercase">
+									{t("enroll.title", { year: currentSeason })}
+								</h2>
+								<p className="mt-2 text-sm text-gray-600">
+									{t("enroll.description", { year: currentSeason })}
+								</p>
+								{profile.hasJoined && (
+									<p className="mt-1 text-sm text-gray-500">
+										{t("enroll.pastEditions")}
+									</p>
+								)}
+								<div className="mt-6">
+									<EnrollXcEditionButton />
+								</div>
+							</div>
+						) : !profile.hasJoined ? (
 							<p className="mt-8 rounded-xl border border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-500">
 								{t("noData")}
 							</p>

@@ -18,7 +18,7 @@ vi.mock("next/headers", () => ({
 vi.mock("@/lib/prisma", () => ({
 	prisma: {
 		user: { findFirst: vi.fn() },
-		xcEdition: { findMany: vi.fn(), findUnique: vi.fn() },
+		xcEdition: { findMany: vi.fn(), findFirst: vi.fn(), findUnique: vi.fn() },
 		xcProgress: { findMany: vi.fn(), aggregate: vi.fn(), count: vi.fn() },
 		xcEditionTasks: { findMany: vi.fn() },
 		xcTrackSubmission: { findMany: vi.fn(), count: vi.fn() },
@@ -40,6 +40,7 @@ const mockPrisma = prisma as unknown as {
 	user: { findFirst: ReturnType<typeof vi.fn> };
 	xcEdition: {
 		findMany: ReturnType<typeof vi.fn>;
+		findFirst: ReturnType<typeof vi.fn>;
 		findUnique: ReturnType<typeof vi.fn>;
 	};
 	xcProgress: {
@@ -130,6 +131,8 @@ const approvedFlight = {
 function mockProfileData() {
 	mockPrisma.user.findFirst.mockResolvedValue(pilot);
 	mockPrisma.xcEdition.findMany.mockResolvedValue(editions);
+	// The latest edition the pilot took part in.
+	mockPrisma.xcEdition.findFirst.mockResolvedValue({ id: EDITION_ID });
 	mockPrisma.xcEdition.findUnique.mockImplementation(
 		({ where }: { where: { id: number } }) =>
 			Promise.resolve({
@@ -292,6 +295,78 @@ describe("GET /xc/users/[id]", () => {
 		expect(body.edition.id).toBe(EDITION_ID);
 	});
 
+	it("lists every edition, not only the ones the pilot joined", async () => {
+		mockProfileData();
+		const newer = { id: EDITION_ID + 1, title: "XC next", isActive: false };
+		mockPrisma.xcEdition.findMany.mockResolvedValue([newer, ...editions]);
+
+		const res = await GET(makeRequest(), makeContext());
+		const body = await res.json();
+
+		expect(mockPrisma.xcEdition.findMany).toHaveBeenCalledWith(
+			expect.not.objectContaining({ where: expect.anything() }),
+		);
+		expect(body.editions.map((e: { id: number }) => e.id)).toEqual([
+			EDITION_ID + 1,
+			EDITION_ID,
+			PREVIOUS_EDITION_ID,
+		]);
+		// A newer edition the pilot has not joined is listed, not shown.
+		expect(body.edition.id).toBe(EDITION_ID);
+		expect(body.hasJoined).toBe(true);
+	});
+
+	it("counts enrolling as taking part, for a pilot without flights", async () => {
+		mockProfileData();
+
+		await GET(makeRequest(), makeContext());
+
+		expect(mockPrisma.xcEdition.findFirst).toHaveBeenCalledWith(
+			expect.objectContaining({
+				where: {
+					OR: expect.arrayContaining([
+						{ enrollments: { some: { userId: USER_ID } } },
+					]),
+				},
+			}),
+		);
+	});
+
+	it("shows the newest edition to a pilot who never took part", async () => {
+		mockProfileData();
+		mockPrisma.xcEdition.findFirst.mockResolvedValue(null);
+
+		const res = await GET(makeRequest(), makeContext());
+		const body = await res.json();
+
+		expect(res.status).toBe(200);
+		expect(body.hasJoined).toBe(false);
+		expect(body.edition.id).toBe(EDITION_ID);
+	});
+
+	it("scopes the header stats to the selected edition", async () => {
+		mockProfileData();
+
+		const res = await GET(
+			makeRequest(`?edition=${PREVIOUS_EDITION_ID}`),
+			makeContext(),
+		);
+		const body = await res.json();
+
+		for (const query of [
+			mockPrisma.xcProgress.aggregate,
+			mockPrisma.xcProgress.count,
+		]) {
+			expect(query).toHaveBeenCalledWith(
+				expect.objectContaining({
+					where: expect.objectContaining({ editionId: PREVIOUS_EDITION_ID }),
+				}),
+			);
+		}
+		// One approved flight in the mocked edition.
+		expect(body.totals.flights).toBe(1);
+	});
+
 	it("honours the ?edition= filter", async () => {
 		mockProfileData();
 
@@ -310,7 +385,7 @@ describe("GET /xc/users/[id]", () => {
 		);
 	});
 
-	it("falls back to the latest edition when ?edition= is unknown to the pilot", async () => {
+	it("falls back to the default edition when ?edition= does not exist", async () => {
 		mockProfileData();
 
 		const res = await GET(makeRequest("?edition=1999"), makeContext());

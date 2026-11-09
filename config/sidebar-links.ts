@@ -173,6 +173,11 @@ export const navUserLinks = [
 		icon: User,
 	},
 	{
+		title: "xc_profile",
+		url: "/xc/me",
+		icon: Trophy,
+	},
+	{
 		title: "settings",
 		url: "/settings",
 		icon: Settings,

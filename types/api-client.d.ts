@@ -609,6 +609,7 @@ export interface components {
 		XcPilotProfileSchema: {
 			user: components["schemas"]["XcPilotSummarySchema"];
 			editions: components["schemas"]["XcPilotEditionSchema"][];
+			hasJoined: boolean;
 			edition: {
 				id: number;
 				title: string;

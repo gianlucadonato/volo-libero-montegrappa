@@ -92,6 +92,7 @@
 		"homepage": "Homepage",
 		"dashboard": "Dashboard",
 		"profile": "Profilo",
+		"xc_profile": "Il mio profilo XC",
 		"orders": "Ordini",
 		"weather": "Meteo",
 		"events": "Eventi",
@@ -973,6 +974,7 @@
 		"faqTitle": "DOMANDE FREQUENTI",
 		"cta": "Vola sempre con un obiettivo,<br></br>iscriviti al Brevetto XC Montegrappa",
 		"enrollButton": "Iscriviti al Brevetto XC",
+		"myProfileButton": "Il mio profilo XC",
 		"toast": {
 			"success": "Benvenuto nel Brevetto XC Montegrappa!",
 			"alreadyEnrolled": "Sei già iscritto al brevetto XC per quest'anno.",
@@ -1111,6 +1113,11 @@
 		"backToLeaderboard": "Classifica",
 		"selectEdition": "Edizione",
 		"noData": "Questo pilota non ha ancora dati XC Montegrappa.",
+		"enroll": {
+			"title": "Brevetto XC Montegrappa {year}",
+			"description": "La stagione {year} è aperta! Iscriviti per caricare le tue tracce e comparire nelle classifiche.",
+			"pastEditions": "Le edizioni passate restano consultabili dal menu qui sopra."
+		},
 		"totals": {
 			"levelsCompleted": "{count, plural, =1 {# brevetto conseguito} other {# brevetti conseguiti}}",
 			"flights": "Voli",
