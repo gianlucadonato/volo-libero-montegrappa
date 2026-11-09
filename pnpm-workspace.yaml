@@ -9,12 +9,14 @@ packages: []
 # Docker build runs the same pnpm version as local (see "packageManager" in
 # package.json), so these decisions apply there too.
 #
-# true: fetches or builds a native binary, so the script has to run.
+# true: fetches or builds a native binary, so the script has to run
+# (@posthog/cli is the uploader @posthog/nextjs-config calls for source maps).
 # false: a no-op for us — core-js only prints a funding notice, protobufjs and
 # vue-demi self-configure for a runtime we don't use, and msw would install a
 # browser service worker we don't ship.
 allowBuilds:
   '@parcel/watcher': true
+  '@posthog/cli': true
   '@prisma/engines': true
   '@swc/core': true
   core-js: false
