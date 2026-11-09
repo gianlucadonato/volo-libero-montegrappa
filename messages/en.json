@@ -59,6 +59,7 @@
 		"homepage": "Homepage",
 		"dashboard": "Dashboard",
 		"profile": "Profile",
+		"xc_profile": "My XC profile",
 		"orders": "Orders",
 		"weather": "Weather",
 		"events": "Events",
@@ -931,6 +932,7 @@
 		"faqTitle": "FREQUENTLY ASKED QUESTIONS",
 		"cta": "Always fly with a goal,<br></br>join the XC Montegrappa certificate",
 		"enrollButton": "Enroll in XC Certificate",
+		"myProfileButton": "My XC profile",
 		"toast": {
 			"success": "Welcome to XC Montegrappa!",
 			"alreadyEnrolled": "You are already enrolled in this year's XC certificate.",
@@ -1069,6 +1071,11 @@
 		"backToLeaderboard": "Leaderboard",
 		"selectEdition": "Edition",
 		"noData": "This pilot has no XC Montegrappa data yet.",
+		"enroll": {
+			"title": "XC Montegrappa Certificate {year}",
+			"description": "The {year} season is open! Enroll to upload your tracks and appear in the leaderboards.",
+			"pastEditions": "Past editions are still available from the menu above."
+		},
 		"totals": {
 			"levelsCompleted": "{count, plural, =1 {# certificate earned} other {# certificates earned}}",
 			"flights": "Flights",

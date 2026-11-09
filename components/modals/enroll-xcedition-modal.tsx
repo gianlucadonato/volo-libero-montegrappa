@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import posthog from "posthog-js";
 import {
@@ -35,6 +36,7 @@ function EnrollXcEditionModal({
 	const [acceptedLiability, setAcceptedLiability] = useState(false);
 	const [acceptedRegolamento, setAcceptedRegolamento] = useState(false);
 	const queryClient = useQueryClient();
+	const router = useRouter();
 	const { data: session } = authClient.useSession();
 	const { data: enrollment } = useGetXcEnrollment(!!session?.user);
 	const isAlreadyEnrolled = !!enrollment;
@@ -47,11 +49,17 @@ function EnrollXcEditionModal({
 			await queryClient.invalidateQueries({
 				queryKey: ["get", "/xc/enroll"],
 			});
+			// The profile lists enrolled editions: refresh it in case we're on it.
+			await queryClient.invalidateQueries({
+				queryKey: ["get", "/xc/users/{id}"],
+			});
 			posthog.capture("xc_enrollment_created", {
 				edition_year: seasonYear,
 			});
 			toast.success(t("toast.success"));
 			setShowModal(false);
+			// Land on the pilot's own XC profile, where their progress will show up.
+			if (session?.user) router.push(`/xc/users/${session.user.id}`);
 		} else {
 			if (response.status === 409) {
 				toast.error(t("toast.alreadyEnrolled"));

@@ -43,23 +43,32 @@ export async function getXcPilotProfile(userId: string, editionId?: number) {
 	const user = await getXcPilotIdentity(userId);
 	if (!user) return null;
 
+	// Every edition is selectable, so the selector can always move between them.
 	const editions = await prisma.xcEdition.findMany({
+		select: { id: true, title: true, isActive: true },
+		orderBy: { id: "desc" },
+	});
+
+	// By default, the latest edition the pilot took part in: enrolling is
+	// enough, so a pilot who has just signed up sees the current season.
+	const latestJoined = await prisma.xcEdition.findFirst({
 		where: {
 			OR: [
+				{ enrollments: { some: { userId } } },
 				{ xcProgresses: { some: { userId } } },
 				{ submissions: { some: { userId, status: "APPROVED" } } },
 			],
 		},
-		select: { id: true, title: true, isActive: true },
+		select: { id: true },
 		orderBy: { id: "desc" },
 	});
 
 	const selectedEditionId =
 		editionId && editions.some((e) => e.id === editionId)
 			? editionId
-			: (editions[0]?.id ?? xcSeasonYear());
+			: (latestJoined?.id ?? editions[0]?.id ?? xcSeasonYear());
 
-	const [edition, progresses, editionTasks, flights, totals, flightCount] =
+	const [edition, progresses, editionTasks, flights, totals, levelsCompleted] =
 		await Promise.all([
 			prisma.xcEdition.findUnique({
 				where: { id: selectedEditionId },
@@ -87,19 +96,20 @@ export async function getXcPilotProfile(userId: string, editionId?: number) {
 				include: { task: { select: PILOT_FLIGHT_TASK_SELECT } },
 				orderBy: { createdAt: "desc" },
 			}),
+			// The header stats follow the selected edition, like everything else.
 			prisma.xcProgress.aggregate({
-				where: { userId },
+				where: { userId, editionId: selectedEditionId },
 				_sum: { points: true, totalDistanceKm: true, flightTimeHrs: true },
 				_max: { maxAltM: true },
 			}),
-			prisma.xcTrackSubmission.count({
-				where: { userId, status: "APPROVED" },
+			prisma.xcProgress.count({
+				where: {
+					userId,
+					editionId: selectedEditionId,
+					completedAt: { not: null },
+				},
 			}),
 		]);
-
-	const levelsCompleted = await prisma.xcProgress.count({
-		where: { userId, completedAt: { not: null } },
-	});
 
 	const tasksTotalByCategory = new Map<XcCategoryLevel, number>();
 	for (const { task } of editionTasks) {
@@ -145,10 +155,11 @@ export async function getXcPilotProfile(userId: string, editionId?: number) {
 	return {
 		user,
 		editions,
+		hasJoined: latestJoined !== null,
 		edition,
 		totals: {
 			points: totals._sum.points ?? 0,
-			flights: flightCount,
+			flights: flights.length,
 			totalDistanceKm: totals._sum.totalDistanceKm ?? 0,
 			flightTimeHrs: totals._sum.flightTimeHrs ?? 0,
 			maxAltM: totals._max.maxAltM ?? 0,
