@@ -63,8 +63,10 @@
 			"matchPackageNames": ["next", "@next/**"]
 		},
 		{
+			"description": "Held below 0.57: ServerBlockNoteEditor 0.57 assigns window and document to globalThis on first render and never removes them, without Element & co. Code that sniffs `typeof window` then breaks server-wide (prismjs, loaded by the email templates in auth.ts, throws 'Element is not defined'). Lift once upstream stops leaking the globals.",
 			"groupName": "BlockNote",
-			"matchPackageNames": ["@blocknote/**"]
+			"matchPackageNames": ["@blocknote/**"],
+			"allowedVersions": "<0.57.0"
 		},
 		{
 			"groupName": "Lexical",
