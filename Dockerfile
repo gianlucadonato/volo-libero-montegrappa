@@ -84,8 +84,10 @@ ENV GIT_COMMIT_SHA=${GIT_COMMIT_SHA}
 # scoped to this RUN only (never persisted into an image layer); Dokploy injects
 # the real values at runtime.
 # The webpack build needs more than V8's default heap on this codebase. This
-# runs on a GitHub Actions runner (4 cores / 16GB), not on the Dokploy host —
-# building there drove the load average to 77 and took the site offline.
+# runs on a GitHub Actions runner (private repo: 2 cores / ~8GB), not on the
+# Dokploy host — building there drove the load average to 77 and took the site
+# offline. SKIP_NEXT_TYPECHECK drops Next's type-check pass, which OOM-killed
+# the build on that runner; CI type-checks every PR before it reaches main.
 RUN --mount=type=secret,id=posthog_personal_api_key,env=POSTHOG_PERSONAL_API_KEY \
 	NODE_OPTIONS="--max-old-space-size=4096" \
 	VLM_ENV=production \
@@ -99,6 +101,7 @@ RUN --mount=type=secret,id=posthog_personal_api_key,env=POSTHOG_PERSONAL_API_KEY
 	STRIPE_API_SECRET=build-placeholder \
 	STRIPE_WEBHOOK_SECRET=build-placeholder \
 	ELMETEO_API_TOKEN=build-placeholder \
+	SKIP_NEXT_TYPECHECK=1 \
 	pnpm exec next build --webpack
 
 # ---- runner: minimal runtime image ----
