@@ -25,5 +25,4 @@ export const sendResetPasswordEmail = async ({
 		text,
 		html: emailHtml,
 	});
-	console.log("✅ ResetPassword Email sent!", user.email);
 };
