@@ -35,5 +35,4 @@ export const sendPaymentConfirmationEmail = async ({
 		text,
 		html: emailHtml,
 	});
-	console.log("✅ PaymentConfirmation Email sent!", user.email);
 };
