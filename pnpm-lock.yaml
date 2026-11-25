@@ -228,7 +228,7 @@ importers:
         version: 0.21.1(react@19.3.1)
       '@markdoc/markdoc':
         specifier: ^0.5.7
-        version: 0.5.11(@types/react@19.3.0)(react@19.3.1)
+        version: 0.5.14(@types/react@19.3.0)(react@19.3.1)
       '@opentelemetry/api':
         specifier: ^1.9.0
         version: 1.10.0
@@ -1976,15 +1976,13 @@ packages:
   '@marijn/find-cluster-break@1.0.4':
     resolution: {integrity: sha512-Wy0V7+SGUjnF9/TkiM1hKVDPj7jKXduPNboMVtHTA8dySMURWqfg/JZ9E2Sq8JgSJmkl7k7Qe9FLeMSrSraWmQ==}
 
-  '@markdoc/markdoc@0.5.11':
-    resolution: {integrity: sha512-Jyoyv7Ieq2/L9fzz9lTN+ojoufpqiiWOZT3xPgssReZwGze84XFEU/xDNbM4iIua5sJ6JjhDDlBuwZoQLrqAgw==}
+  '@markdoc/markdoc@0.5.14':
+    resolution: {integrity: sha512-3t0YGkTW+ZecVcJgX/5/RLYC6ufpBOW7W/D2OG6M5ctBYbiGQeZ3VCp5dle7T3ptHdKv5QBOg0742OBZOrRUIg==}
     engines: {node: '>=14.7.0'}
     peerDependencies:
       '@types/react': '*'
       react: '*'
     peerDependenciesMeta:
-      '@types/react':
-        optional: true
       react:
         optional: true
 
@@ -9529,9 +9527,10 @@ snapshots:
 
   '@marijn/find-cluster-break@1.0.4': {}
 
-  '@markdoc/markdoc@0.5.11(@types/react@19.3.0)(react@19.3.1)':
-    optionalDependencies:
+  '@markdoc/markdoc@0.5.14(@types/react@19.3.0)(react@19.3.1)':
+    dependencies:
       '@types/react': 19.3.0
+    optionalDependencies:
       react: 19.3.1
 
   '@modelcontextprotocol/core@2.4.0':
