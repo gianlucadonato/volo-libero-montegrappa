@@ -426,7 +426,7 @@ importers:
         version: 1.4.0
       use-mask-input:
         specifier: ^3.7.4
-        version: 3.14.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vue@3.5.45(typescript@7.0.2))
+        version: 3.14.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vue@3.5.45(typescript@7.0.2))
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -7607,8 +7607,8 @@ packages:
       '@types/react':
         optional: true
 
-  use-mask-input@3.14.3:
-    resolution: {integrity: sha512-FVou5XZN1s2wYpZ6pMwzTp0ThIS6Uus4k2s2f75ufRR0gjmq4dDLkagEC0OFqUk+XDen0nrdVl2r6RVRZO2a8Q==}
+  use-mask-input@3.14.4:
+    resolution: {integrity: sha512-TwprWQ6xigXwPXk/R0+xrku+r1AqhKyic9ks+i8PbpZYJoDXdtz4KMjmBsdxPBjWZ8Isbpcz2MlRq4ZTPBqgjA==}
     engines: {node: '>=16', npm: '>=7'}
     peerDependencies:
       antd: '>=5'
@@ -15565,7 +15565,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.3.0
 
-  use-mask-input@3.14.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vue@3.5.45(typescript@7.0.2)):
+  use-mask-input@3.14.4(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(vue@3.5.45(typescript@7.0.2)):
     optionalDependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
